@@ -3,6 +3,7 @@ exports.getData = function (options, res) {
     http.get(options, function (response) {
         var stream = require('stream');
         var out = new stream.Readable();
+        var outJSON = [];
         var full = "";
         response.on('data', function (data) {
             full += data;
@@ -11,8 +12,8 @@ exports.getData = function (options, res) {
         response.on('end', function () {
             var data = JSON.parse(full);
             if(data.success == null) {
-                filter(full, out, options.param, options.limit);
-                out.push(']');
+                filter(data, outJSON, options.param, options.limit);
+                out.push(JSON.stringify(outJSON));
                 out.push(null);
             } else {
                 out.push('{"error":"Sensor is offline"}');
@@ -71,19 +72,17 @@ function filterOnline(data, out) {
 function filter(data, out, param, limit) {
     var temp = 0;
     var lasttime = 0;
-    out.push('[');
     data.forEach(function (d, index) {
         if(index == 0) {
             lasttime = d.time;
             temp = d[param];
-            out.push('[' + (d.time * 1000) + ', ' + d[param] + '],');
+            out.push(d);
        } else {
             if(Math.abs(d[param] - temp) > limit) {
                temp = d[param];
                lasttime = d.time;
-               out.push('[' + (d.time * 1000) + ', ' + d[param] + '],');
+               out.push(d);
             }
        }
     });
-    out.push('[' + (lasttime * 1000) + ',' + temp + ']');
 }
