@@ -1,25 +1,18 @@
-module.exports = function(app, passport, db, pgp) {
-    var user = require('./models/user.js');
-    var ps = pgp.PreparedStatement;
-    var headers = {
-        'Content-Type' : 'application/json',
-        'X-User-id' : '494',
-        'X-User-hash' : '0abd4356b71d9b36d741c592e66080f5'
-    };
-    // =====================================
-    // HOME PAGE (with login links) ========
-    // =====================================
+module.exports = function(app, passport) {
+    var express = require('express');
+    var path = require('path');
+
+    app.use(express.static(path.join(__dirname, '../dash')));
+    app.get('/dash', function (req, res) {
+       //res.send('Nu va mai basiti');
+        res.sendFile(path.join(__dirname, '../dash/index.html'));
+    });
     app.get('/', function(req, res) {
         res.render('index.ejs'); // load the index.ejs file
     });
 
-    // =====================================
-    // LOGIN ===============================
-    // =====================================
-    // show the login form
-    app.get('/login', function(req, res) {
 
-        // render the page and pass in any flash data if it exists
+    app.get('/login', function(req, res) {
         res.render('login.ejs', { message: req.flash('loginMessage') });
     });
 
@@ -47,11 +40,6 @@ module.exports = function(app, passport, db, pgp) {
         failureFlash: true
     }));
 
-    // =====================================
-    // PROFILE SECTION =====================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
             user : req.user // get the user out of session and pass to template
@@ -63,66 +51,36 @@ module.exports = function(app, passport, db, pgp) {
         res.redirect('/');
     });
 
-    app.get('/:device/temp/:interval', function (req, res) {
-        var httpreq = require('./requests');
-        var device = req.params.device;
-        var interval = req.params.interval;
-        var options = {
-            headers: headers,
-            host: 'data.uradmonitor.com',
-            path: '/api/v1/devices/' + device + '/temperature/' + interval,
-            method: 'GET',
-            param: 'temperature',
-            limit: 0.2
-        };
-        httpreq.getDaily(options, res);
+    /*
+    =========================
+    Endpoints for urad API
+    =========================
+     */
+    require('./uradRoutes.js')(app);
 
-    });
+    /*const http = require('http');
+    const url = require('url');
+    const server = http.createServer(app);
+    var socket = require('ws');
+    const wss = new socket.Server({server});
 
-    app.get('/:device/pressure/:interval', function (req, res) {
-        var httpreq = require('./requests');
-        var device = req.params.device;
-        var interval = req.params.interval;
-        var options = {
-            headers: headers,
-            host: 'data.uradmonitor.com',
-            path: '/api/v1/devices/' + device + '/pressure/' + interval,
-            method: 'GET',
-            param: 'pressure',
-            limit: 10
-        };
-        httpreq.getDaily(options, res);
-    });
+    wss.on('connection', function connection(ws) {
+        ws.on('message', function incoming(message) {
+            console.log(message);
+        });
 
-    app.get('/:device/humidity/:interval', function (req, res) {
-        var httpreq = require('./requests');
-        var device = req.params.device;
-        var interval = req.params.interval;
-        var options = {
-            headers: headers,
-            host: 'data.uradmonitor.com',
-            path: '/api/v1/devices/' + device + '/humidity/' + interval,
-            method: 'GET',
-            param: 'humidity',
-            limit: 2
-        };
-        httpreq.getDaily(options, res);
-    });
+        ws.send('OK');
+    });*/
 
-    app.get('/:device/voc/:interval', function (req, res) {
-        var httpreq = require('./requests');
-        var device = req.params.device;
-        var interval = req.params.interval;
-        var options = {
-            headers: headers,
-            host: 'data.uradmonitor.com',
-            path: '/api/v1/devices/' + device + '/voc/' + interval,
-            method: 'GET',
-            param: 'voc',
-            limit: 100
-        };
-        httpreq.getDaily(options, res);
-    });
+    /*
+    This is a websocket for acessing the server from the Internet
+     */
+    /*server.listen(50001, function listening() {
+        console.log('Listening socket on port ', server.address().port);
+    });*/
+
+
+
 
 };
 
