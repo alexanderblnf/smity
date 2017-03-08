@@ -116,7 +116,21 @@ router.get('/:device/ch2o/:interval', function (req, res) {
         path: '/api/v1/devices/' + device + '/ch2o/' + interval,
         method: 'GET',
         param: 'ch2o',
-        limit: 5
+        limit: 3
+    };
+    httpreq.getData(options, res);
+});
+
+router.get('/:device/pm25/:interval', function (req, res) {
+    var device = req.params.device;
+    var interval = req.params.interval;
+    var options = {
+        headers: uradHeaders,
+        host: 'data.uradmonitor.com',
+        path: '/api/v1/devices/' + device + '/pm25/' + interval,
+        method: 'GET',
+        param: 'pm25',
+        limit: 3
     };
     httpreq.getData(options, res);
 });
