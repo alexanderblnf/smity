@@ -102,7 +102,7 @@ router.get('/:device/co2/:interval', function (req, res) {
         path: '/api/v1/devices/' + device + '/co2/' + interval,
         method: 'GET',
         param: 'co2',
-        limit: 5
+        limit: 10
     };
     httpreq.getData(options, res);
 });
@@ -116,7 +116,8 @@ router.get('/:device/ch2o/:interval', function (req, res) {
         path: '/api/v1/devices/' + device + '/ch2o/' + interval,
         method: 'GET',
         param: 'ch2o',
-        limit: 5
+        limit: 10
+        // Alex, ti-am stricat codul
     };
     httpreq.getData(options, res);
 });
