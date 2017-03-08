@@ -56,8 +56,11 @@ module.exports = function(app, passport) {
     Endpoints for urad API
     =========================
      */
-    require('./uradRoutes.js')(app);
+    var urad = require('./uradRoutes.js');
+    app.use('/urad', urad);
 
+    var liveObjects = require('./liveObjectsRoutes');
+    app.use('/live', liveObjects);
     /*const http = require('http');
     const url = require('url');
     const server = http.createServer(app);
