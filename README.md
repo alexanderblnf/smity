@@ -7,6 +7,7 @@
   2. Install [postgreSQL](https://www.postgresql.org/download/) and create a new dataase. *pgAdmin* is recommended (it's included in the installation)
   3. Execute from terminal *npm install* in working directory
   4. Modify *config/database.js* and put your own database name and password
+  5. Start server using *nodemon server.js* . The server will restart every time you save a file in the project.
   
   
 # Functionalities
