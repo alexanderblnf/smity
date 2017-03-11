@@ -16,9 +16,9 @@ angular
 	// 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
 	// 	}])
 	//
-	// .config(['$httpProvider', function ($httpProvider) {
-	// 	$httpProvider.interceptors.push('SecurityInterceptor');
-	// }])
+	.config(['$httpProvider', function ($httpProvider) {
+		$httpProvider.interceptors.push('SecurityInterceptor');
+	}])
 
 	.config(['$urlRouterProvider', function navInterceptorConfig($urlRouterProvider) {
 		$urlRouterProvider
@@ -26,7 +26,7 @@ angular
 				'$state',
 				'$injector',
 				function ($state, $injector) {
-
+					var SecurityService = $injector.get('SecurityService');
 
 					// if already in login state and trying to reach again `/login`
 					// don't do a redirection because it will enter in an infinite loop
@@ -35,7 +35,9 @@ angular
 					}
 
 					// if already authenticated and trying to reach `/login`
+					if (SecurityService.isAuthenticated()) {
 
+					}
 
 					return false;
 				}
@@ -50,7 +52,7 @@ angular
 		'$stateProvider',
 		'$urlRouterProvider',
 		function ($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise('/');
+			// $urlRouterProvider.otherwise('/');
 
 			$stateProvider
 				.state('login', {
@@ -108,6 +110,9 @@ angular
 		URL: {
 			API: 'http://35.167.158.182:50001',
 			LOCALHOST: 'http://127.0.0.1:8080'
+		},
+		AUTH: {
+			TOKEN: 'Token'
 		}
 	});
 

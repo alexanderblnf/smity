@@ -2,20 +2,24 @@ module.exports = function(app, passport) {
     var express = require('express');
     var path = require('path');
     var cors = require('cors');
+    var jwt = require('jwt-simple');
 
     app.use(cors());
 
-    app.use(express.static(path.join(__dirname, '../dash')));
-    app.get('/dash', function (req, res) {
-       //res.send('Nu va mai basiti');
-        res.sendFile(path.join(__dirname, '../dash/index.html'));
-    });
+    app.use(express.static(path.join(__dirname, '../web/app')));
+    // app.get('/dash', function (req, res) {
+    //     res.sendFile(path.join(__dirname, '../dash/index.html'));
+    // });
 
     app.get('/', function(req, res) {
-        res.render('index.ejs'); // load the index.ejs file
+        // res.render('index.ejs'); // load the index.ejs file
+        console.log('AICI');
+        res.sendFile(path.join(__dirname, '../web/app/index.html'));
     });
 
     app.get('/login', function(req, res) {
+        // res.sendFile(path.join(__dirname, '../web/app/templates/login.html'));
+        // res.sendFile(filedir + '/templates/login.html');
         res.render('login.ejs', { message: req.flash('loginMessage') });
     });
 
@@ -32,11 +36,32 @@ module.exports = function(app, passport) {
        });
     });
 
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect: 'http://localhost:8080/successjson',
-        failureRedirect: 'http://localhost:8080/failjson',
-        failureFlash: true
-    }));
+    // app.post('/login', passport.authenticate('local-login', function(err, req, res) {
+    //     var jwt = require('jwt-simple');
+    //     var token = jwt.encode(req.body.email, 'secret');
+    //
+    //     console.log(req.flash['loginMessage']);
+    //     return res.json(token);
+    // })/*{
+    //     successRedirect: 'http://localhost:8080/successjson',
+    //     failureRedirect: 'http://localhost:8080/failjson',
+    //     failureFlash: true
+    // }*/);
+
+    app.post('/login', function(req, res, next ){
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) { return res.json(err) }
+            if (!user) {
+                res.send(401);
+            }
+            // return res.json( { message: info.message }) }
+            req.logIn(user, function(err) {
+                var token = jwt.encode(user.email, 'secret');
+                res.json(token);
+            });
+
+        })(req, res, next);
+    });
 
     // =====================================
     // SIGNUP ==============================
@@ -56,6 +81,7 @@ module.exports = function(app, passport) {
     }));
 
     app.get('/profile', isLoggedIn, function(req, res) {
+        console.log('AICI');
         res.render('profile.ejs', {
             user : req.user // get the user out of session and pass to template
         });
@@ -63,7 +89,7 @@ module.exports = function(app, passport) {
 
     app.get('/logout', function(req, res) {
         req.logout();
-        res.redirect('/');
+        res.redirect('/login');
     });
 
     /*
@@ -112,5 +138,5 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }

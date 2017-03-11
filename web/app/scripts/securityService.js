@@ -13,10 +13,11 @@ angular
 function SecurityService($http, LocalStorage, Constants, $state, SecurityResource) {
 	return {
 		login: login,
-		register: register
-		// logout: logout,
-		// isAuthenticated: isAuthenticated,
-		// getToken: getToken
+		register: register,
+		remove: remove,
+		isAuthenticated: isAuthenticated,
+		getToken: getToken,
+		logout: logout
 	};
 	
 	function login(credentials) {
@@ -33,15 +34,19 @@ function SecurityService($http, LocalStorage, Constants, $state, SecurityResourc
 		return SecurityResource.register(credentials).$promise;
 	}
 
-	// function logout() {
-	// 	return LocalStorage.remove(Constants.AUTH.TOKEN);
-	// }
-	//
-	// function isAuthenticated() {
-	// 	return !!LocalStorage.get(Constants.AUTH.TOKEN);
-	// }
-	//
-	// function getToken() {
-	// 	return LocalStorage.get(Constants.AUTH.TOKEN);
-	// }
+	function remove() {
+		return LocalStorage.remove(Constants.AUTH.TOKEN);
+	}
+
+	function isAuthenticated() {
+		return !!LocalStorage.get(Constants.AUTH.TOKEN);
+	}
+
+	function getToken() {
+		return LocalStorage.get(Constants.AUTH.TOKEN);
+	}
+
+	function logout() {
+		return SecurityResource.logout().$promise;
+	}
 }

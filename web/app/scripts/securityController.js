@@ -17,14 +17,19 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 	vm.registerUser = {};
 
 	vm.login = login;
+	vm.logout = logout;
 	vm.register = register;
 	vm.isState = isState;
 	vm.goTo = goTo;
 
 	function login() {
 		return SecurityService.login({email: vm.user, password: vm.pass})
-			.then(function () {
+			.then(function (response) {
+				LocalStorage.put(Constants.AUTH.TOKEN, response);
 				$state.go('home');
+			})
+			.catch(function (response) {
+				console.log(response);
 			});
 	}
 
@@ -44,5 +49,12 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 
 	function goTo(state) {
 		return $state.go(state);
+	}
+
+	function logout() {
+		return SecurityService.logout()
+			.then(function () {
+
+			});
 	}
 }

@@ -8,9 +8,10 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
+		'SecurityService',
 		EvShareController]);
 
-function EvShareController($state, EventService, $mdSidenav, $q, $timeout) {
+function EvShareController($state, EventService, $mdSidenav, $q, $timeout, SecurityService) {
 	var vm = this;
 
 	vm.go = go;
@@ -18,59 +19,11 @@ function EvShareController($state, EventService, $mdSidenav, $q, $timeout) {
 	vm.createEvent = createEvent;
 	vm.openLeftMenu = openLeftMenu;
 	vm.isInViewState = isInViewState;
+	vm.logout = logout;
 
 	// event
 	vm.selected = undefined;
 	vm.event = {};
-	vm.events = [
-		{
-			id: 1,
-			name: 'Interval 100 Cluj'
-		},
-		{
-			id: 2,
-			name: 'Interval 100'
-		},
-		{
-			id: 3,
-			name: 'Interval Natural'
-		},
-		{
-			id: 1,
-			name: 'Interval 100 Cluj'
-		},
-		{
-			id: 2,
-			name: 'Interval 100'
-		},
-		{
-			id: 3,
-			name: 'Interval Natural'
-		},
-		{
-			id: 1,
-			name: 'Interval 100 Cluj'
-		},
-		{
-			id: 2,
-			name: 'Interval 100'
-		},
-		{
-			id: 3,
-			name: 'Interval Natural'
-		},
-		{
-			id: 1,
-			name: 'Interval 100 Cluj'
-		},
-		{
-			id: 2,
-			name: 'Interval 100'
-		},
-		{
-			id: 3,
-			name: 'Interval Natural'
-		}];
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -232,5 +185,12 @@ function EvShareController($state, EventService, $mdSidenav, $q, $timeout) {
 			});
 
 		vm.fileName = undefined;
+	}
+
+	function logout() {
+		return SecurityService.logout()
+			.then(function () {
+				$state.go('login');
+			});
 	}
 }

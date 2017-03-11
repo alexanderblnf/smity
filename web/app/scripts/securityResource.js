@@ -15,6 +15,10 @@ function SecurityResource($resource, Constants) {
 		'register': {
 			method: 'POST',
 			url: Constants.URL.LOCALHOST + '/user'
+		},
+		'logout': {
+			method: 'GET',
+			url: Constants.URL.LOCALHOST + '/logout'
 		}
 	});
 }

@@ -24,19 +24,19 @@
      ng-app="Smity">
 
 	<header>
-		<md-content class="md-whiteframe-z1"
-		            layout="row"
-		            layout-align="center center">
-			<div flex="80">
-				<img src="pics/logo.png" height="100px" width="100px"/>
+		<md-content layout="column" layout-align="center center">
+			<div >
+				<img src="pics/alb-total.png"/>
 			</div>
 		</md-content>
+
+
 	</header>
 
 
 	<div flex layout="column" layout-align="center">
 		<main>
-			<md-content layout-margin layout-padding style="height: 75vh">
+			<md-content class="login" layout-margin layout-padding style="height: 75vh">
 				<div ui-view></div>
 			</md-content>
 		</main>
@@ -44,7 +44,7 @@
 
 	<footer>
 		<md-toolbar layout="row"
-		            layout-align="center center">
+		            layout-align="center center" style="background-color: transparent">
 			<h4>Smity</h4>
 		</md-toolbar>
 	</footer>
@@ -63,14 +63,14 @@
 <script src="scripts/app.js"></script>
 <script src="scripts/appController.js"></script>
 <!--<script src="scripts/createEventController.js"></script>-->
-<!--<script src="scripts/appService.js"></script>-->
-<!--<script src="scripts/appResource.js"></script>-->
+<script src="scripts/appService.js"></script>
+<script src="scripts/appResource.js"></script>
 <!--<script src="scripts/eventController.js"></script>-->
 <script src="scripts/localStorageService.js"></script>
 <script src="scripts/securityController.js"></script>
 <script src="scripts/securityService.js"></script>
 <script src="scripts/securityResource.js"></script>
-<!--<script src="scripts/securityInterceptor.js"></script>-->
+<script src="scripts/securityInterceptor.js"></script>
 <!--<script src="scripts/uploadPhoto.js"></script>-->
 
 <script src="components/version/version.js"></script>
