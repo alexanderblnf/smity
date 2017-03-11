@@ -1,0 +1,200 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "HStacked (invert x and y data points)",
+			"width": 1,
+			"row": {
+				"3": 7
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "horiz_stacked_bar",
+						"legend": false,
+						"height": 2,
+						"value": "[{label: 'one', data: [[2,0],[3,1],[5,2]] }, { label: 'two', data: [[1.3,0],[3.5,1],[4,2]] }]",
+						"max_points": 20,
+						"points": false,
+						"zoom": "",
+						"yticks": "[[0,'one'], [1, 'two'], [2, 'three']]",
+						"tooltip": true
+					}
+				}
+			]
+		},
+		{
+			"title": "Simple Pie",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "pie",
+						"legend": false,
+						"height": 2,
+						"value": "[{ label: 'one', data: 1}, { label: 'two', data: 3}]",
+						"zoom": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "Bar (with ticks)",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "bar",
+						"legend": true,
+						"height": 2,
+						"value": "[{label: 'one', data: [[0,2],[1,3],[2,5]] }, { label: 'two', data: [[0,1.3],[1,3.5],[2,4]] }]",
+						"xticks": "[[0,'one'], [1, 'two'], [2, 'three']]",
+						"zoom": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "Zoomable Line",
+			"width": 1,
+			"row": {
+				"3": 7
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "area",
+						"legend": false,
+						"height": 2,
+						"value": "[[[1,2],[2,3],[4,5]]]",
+						"zoom": "x"
+					}
+				}
+			]
+		},
+		{
+			"title": "Tooltip",
+			"width": 1,
+			"row": {
+				"3": 7
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "line",
+						"legend": true,
+						"height": 2,
+						"value": "[[[1,2],[2,3],[4,5]]]",
+						"points": true,
+						"tooltip": true,
+						"zoom": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "Stacked Area",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "stacked_area",
+						"legend": true,
+						"height": 2,
+						"value": "[{label: 'one', data: [[0,2],[1,3],[2,5]] }, { label: 'two', data: [[0,1.3],[1,3.5],[2,4]] }]",
+						"zoom": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "Complex (datasource specifies plot type, multiple y axes)",
+			"width": 1,
+			"row": {
+				"3": 13
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "bar",
+						"legend": true,
+						"height": 4,
+						"value": "[{label: 'one', data: [[0,2],[1,3],[2,5]] }, { label: 'two', data: [[0,1.3],[1,3.5],[2,4]], bars: { show: false }, lines: { show: true }, yaxis: 2 }]",
+						"zoom": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "Complex (source specifies series color)",
+			"width": 1,
+			"row": {
+				"3": 13
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "flot_extended_plugin",
+					"settings": {
+						"plot_type": "pie",
+						"legend": false,
+						"height": 4,
+						"value": "[{ label: 'one', data: 2, color: 'red'}, { label: 'two', data: 10, color: 'green' }]",
+						"zoom": ""
+					}
+				}
+			]
+		}
+	],
+	"datasources": [],
+	"columns": 3
+}

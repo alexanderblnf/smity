@@ -1,0 +1,306 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [
+		"/plugins/all"
+	],
+	"panes": [
+		{
+			"title": "Temperature",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Temperature",
+						"size": "regular",
+						"value": "datasources[\"TempLive\"][0][\"temperature\"]",
+						"sparkline": true,
+						"animate": true,
+						"units": "°C"
+					}
+				}
+			]
+		},
+		{
+			"title": "Humidity",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 2
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Humidity",
+						"size": "regular",
+						"value": "datasources[\"HumidLive\"][0][\"humidity\"]",
+						"sparkline": true,
+						"animate": true,
+						"units": "%"
+					}
+				}
+			]
+		},
+		{
+			"title": "Pressure",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1
+			},
+			"col": {
+				"3": 3,
+				"4": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Pressure",
+						"size": "regular",
+						"value": "datasources[\"PressureLive\"][0][\"pressure\"] / 1000",
+						"sparkline": true,
+						"animate": true,
+						"units": "KPa"
+					}
+				}
+			]
+		},
+		{
+			"title": "Temperature Evolution",
+			"width": 1,
+			"row": {
+				"3": 7,
+				"4": 7
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "highchartsWidget",
+					"settings": {
+						"data": "return {\n    title: {\n        text: \"Temperature\"  \n    },\n  xAxis: {\n    type: \"datetime\",\n    tickInterval: 24 * 3600 * 1000,\n    labels: {\n      enabled: true\n    },\n    plotLines: [{\n      value: Date.now(),\n      color: 'yellow',\n      dashStyle: 'shortdash',\n      width: 4,\n      label: {\n          text: 'today',\n          style: {\n            color: 'white'\n          }\n      }\n    }]\n  },\n\n  series: [{\n    name: 'Temperature',\n      color: 'orange',\n    data: datasources[\"TempChart\"]\n  }]\n}",
+						"chartHeight": 300,
+						"chartWidth": 300,
+						"height": 5
+					}
+				}
+			]
+		},
+		{
+			"title": "Humidity Evolution",
+			"width": 1,
+			"row": {
+				"3": 7,
+				"4": 7
+			},
+			"col": {
+				"3": 2,
+				"4": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "highchartsWidget",
+					"settings": {
+						"data": "return {\n    title: {\n        text: \"Humidity\"\n    },\n  xAxis: {\n    type: \"datetime\",\n    tickInterval: 24 * 3600 * 1000,\n    labels: {\n      enabled: true\n    },\n    plotLines: [{\n      value: Date.now(),\n      color: 'yellow',\n      dashStyle: 'shortdash',\n      width: 4,\n      label: {\n          text: 'today',\n          style: {\n            color: 'white'\n          }\n      }\n    }]\n  },\n\n  series: [{\n    name: 'Humidity',\n      color: 'orange',\n    data: datasources[\"HumidityChart\"]\n  }]\n}",
+						"chartHeight": 300,
+						"chartWidth": 300,
+						"height": 5
+					}
+				}
+			]
+		},
+		{
+			"title": "Pressure Evolution",
+			"width": 1,
+			"row": {
+				"3": 7,
+				"4": 7
+			},
+			"col": {
+				"3": 3,
+				"4": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "highchartsWidget",
+					"settings": {
+						"data": "return {\n    title: {\n        text: \"Pressure\"\n    },\n  xAxis: {\n    type: \"datetime\",\n    tickInterval: 24 * 3600 * 1000,\n    labels: {\n      enabled: true\n    },\n    plotLines: [{\n      value: Date.now(),\n      color: 'yellow',\n      dashStyle: 'shortdash',\n      width: 4,\n      label: {\n          text: 'today',\n          style: {\n            color: 'white'\n          }\n      }\n    }]\n  },\n\n  series: [{\n    name: 'Pressure',\n      color: 'orange',\n    data: datasources[\"PressureChart\"]\n  }]\n}",
+						"chartHeight": 300,
+						"chartWidth": 300,
+						"height": 5
+					}
+				}
+			]
+		},
+		{
+			"title": "Carbon Dioxide Evolution",
+			"width": 1,
+			"row": {
+				"3": 19
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": "3",
+			"widgets": [
+				{
+					"type": "highchartsWidget",
+					"settings": {
+						"data": "return {\n    title: {\n        text: \"Carbon Dioxide\"  \n    },\n    chart: {\n        renderTo: 'chart',\n        width: 900\n    },\n  xAxis: {\n    type: \"datetime\",\n    tickInterval: 24 * 3600 * 1000,\n    labels: {\n      enabled: true\n    },\n    plotLines: [{\n      value: Date.now(),\n      color: 'yellow',\n      dashStyle: 'shortdash',\n      width: 4,\n      label: {\n          text: 'today',\n          style: {\n            color: 'white'\n          }\n      }\n    }]\n  },\n    yAxis: {\n      title: {\n                text: 'CO2 levels'\n            },\n            plotLines: [{\n                value: 300,\n                color: 'yellow',\n                dashStyle: 'shortdash',\n                width: 2,\n                label: {\n                    text: 'Normal outdoor level limit'\n                }\n            }]  \n    },\n  series: [{\n    name: 'CO2',\n      color: 'orange',\n    data: datasources[\"CO2Chart\"]\n  }]\n}",
+						"chartHeight": 300,
+						"chartWidth": 500,
+						"height": 5
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "TempLive",
+			"type": "JSON",
+			"settings": {
+				"url": "http://data.uradmonitor.com/api/v1/devices/82000035/temperature/60",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"headers": [
+					{
+						"name": "X-User-id",
+						"value": "494"
+					},
+					{
+						"name": "X-User-hash",
+						"value": "0abd4356b71d9b36d741c592e66080f5"
+					}
+				],
+				"name": "TempLive"
+			}
+		},
+		{
+			"name": "HumidLive",
+			"type": "JSON",
+			"settings": {
+				"url": "http://data.uradmonitor.com/api/v1/devices/82000035/humidity/60",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"headers": [
+					{
+						"name": "X-User-id",
+						"value": "494"
+					},
+					{
+						"name": "X-User-hash",
+						"value": "0abd4356b71d9b36d741c592e66080f5"
+					}
+				]
+			}
+		},
+		{
+			"name": "TempChart",
+			"type": "JSON",
+			"settings": {
+				"url": "http://141.85.250.42:8080/82000035/temp/50000",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"headers": [
+					{
+						"name": "X-User-id",
+						"value": "494"
+					},
+					{
+						"name": "X-User-hash",
+						"value": "0abd4356b71d9b36d741c592e66080f5"
+					}
+				]
+			}
+		},
+		{
+			"name": "HumidityChart",
+			"type": "JSON",
+			"settings": {
+				"url": "http://141.85.250.42:8080/82000035/humidity/50000",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"headers": [
+					{
+						"name": "X-User-id",
+						"value": "494"
+					},
+					{
+						"name": "X-User-hash",
+						"value": "0abd4356b71d9b36d741c592e66080f5"
+					}
+				]
+			}
+		},
+		{
+			"name": "PressureLive",
+			"type": "JSON",
+			"settings": {
+				"url": "http://data.uradmonitor.com/api/v1/devices/82000035/pressure/60",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"headers": [
+					{
+						"name": "X-User-id",
+						"value": "494"
+					},
+					{
+						"name": "X-User-hash",
+						"value": "0abd4356b71d9b36d741c592e66080f5"
+					}
+				]
+			}
+		},
+		{
+			"name": "PressureChart",
+			"type": "JSON",
+			"settings": {
+				"url": "http://141.85.250.42:8080/82000035/pressure/50000",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "CO2Chart",
+			"type": "JSON",
+			"settings": {
+				"url": "http://141.85.250.42:8080/82000035/co2/50000",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET",
+				"name": "CO2Chart"
+			}
+		}
+	],
+	"columns": 3
+}
