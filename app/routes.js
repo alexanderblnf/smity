@@ -13,40 +13,12 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
         // res.render('index.ejs'); // load the index.ejs file
-        console.log('AICI');
         res.sendFile(path.join(__dirname, '../web/app/index.html'));
     });
 
     app.get('/login', function(req, res) {
-        // res.sendFile(path.join(__dirname, '../web/app/templates/login.html'));
-        // res.sendFile(filedir + '/templates/login.html');
         res.render('login.ejs', { message: req.flash('loginMessage') });
     });
-
-    // process the login form
-    app.get('/successjson', function(req, res) {
-       res.json( {
-           message: 'Success'
-       });
-    });
-
-    app.get('/failjson', function (req, res) {
-       res.json({
-           message: 'Fail'
-       });
-    });
-
-    // app.post('/login', passport.authenticate('local-login', function(err, req, res) {
-    //     var jwt = require('jwt-simple');
-    //     var token = jwt.encode(req.body.email, 'secret');
-    //
-    //     console.log(req.flash['loginMessage']);
-    //     return res.json(token);
-    // })/*{
-    //     successRedirect: 'http://localhost:8080/successjson',
-    //     failureRedirect: 'http://localhost:8080/failjson',
-    //     failureFlash: true
-    // }*/);
 
     app.post('/login', function(req, res, next ){
         passport.authenticate('local-login', function(err, user, info) {
@@ -81,7 +53,6 @@ module.exports = function(app, passport) {
     }));
 
     app.get('/profile', isLoggedIn, function(req, res) {
-        console.log('AICI');
         res.render('profile.ejs', {
             user : req.user // get the user out of session and pass to template
         });
@@ -132,8 +103,6 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    console.log("ISLOG: " + req.stringify);
-    console.log("ISLOG1: " + req.session);
     if (req.isAuthenticated())
         return next();
 
