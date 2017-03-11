@@ -2,12 +2,12 @@ module.exports = function(app, passport) {
     var express = require('express');
     var path = require('path');
 
-    app.use(express.static(path.join(__dirname, '../dash')));
+    /*app.use(express.static(path.join(__dirname, '../dash')));
     app.get('/dash', function (req, res) {
        //res.send('Nu va mai basiti');
         res.sendFile(path.join(__dirname, '../dash/index.html'));
-    });
-    app.get('/', function(req, res) {
+    });*/
+    app.get('/', isLoggedIn, function(req, res) {
         res.render('index.ejs'); // load the index.ejs file
     });
 
@@ -91,11 +91,9 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    console.log("ISLOG: " + req.stringify);
-    console.log("ISLOG1: " + req.session);
     if (req.isAuthenticated())
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }

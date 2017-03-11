@@ -76,13 +76,13 @@ function filter(data, out, param, limit) {
         if (index == 0) {
             tmp = d[param];
             temp.push(Number(d.time));
-            temp.push(d[param]);
+            temp.push(Number(d[param]));
             out.push(temp);
         } else {
             if (Math.abs(d[param] - tmp) > limit) {
                 tmp = d[param];
                 temp.push(Number(d.time));
-                temp.push(d[param]);
+                temp.push(Number(d[param]));
                 out.push(temp);
             }
         }
