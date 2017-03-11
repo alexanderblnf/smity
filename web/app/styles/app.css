@@ -1,0 +1,371 @@
+/* app css stylesheet */
+
+html {
+	background-color: white !important;
+}
+
+.move-down-25vh {
+	margin-top: 25vh;
+}
+
+.menu {
+	list-style: none;
+	border-bottom: 0.1em solid black;
+	margin-bottom: 2em;
+	padding: 0 0 0.5em;
+}
+
+.menu:before {
+	content: "[";
+}
+
+.menu:after {
+	content: "]";
+}
+
+.menu > li {
+	display: inline;
+}
+
+.menu > li + li:before {
+	content: "|";
+	padding-right: 0.3em;
+}
+
+/*body {*/
+/*background: url("pics/SmartHome2.jpg") no-repeat center top;*/
+/*background-size: 995px 738px;*/
+/*}*/
+
+.move-down {
+	margin-top: 100px;
+}
+
+.move-down-55 {
+	margin-top: 55px;
+}
+
+.row-height-20 {
+	height: 20px;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.padding-right-45 {
+	padding-right: 45px;
+}
+
+.padding-right-55 {
+	padding-right: 55px;
+}
+
+.padding-top-10 {
+	padding-top: 10px;
+}
+
+.padding-top-20 {
+	padding-top: 20px;
+}
+
+.padding-top-45 {
+	padding-top: 45px;
+}
+
+.padding-left-35 {
+	padding-left: 35px;
+}
+
+.padding-left-40 {
+	padding-left: 40px;
+}
+
+.padding-left-75 {
+	padding-left: 75px;
+}
+
+.btn-circle {
+	width: 70px;
+	height: 70px;
+	padding: 10px 16px;
+	font-size: 24px;
+	line-height: 1.33;
+	border-radius: 35px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.block {
+	display: block;
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: 150px auto auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+table {
+	border: 1px solid black;
+}
+
+.widget-clock.orange .digital {
+	text-align: center;
+}
+
+.widget-clock.orange .time {
+	font-size: 2em;
+	color: #ff6803;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+	width: 100%;
+}
+
+.header {
+	padding: 15px;
+}
+
+.header img {
+	display: inline-block;
+}
+
+.header h1 {
+	display: inline-block;
+}
+
+.main {
+	background-color: #f2f2f2;
+	padding: 40px 0;
+}
+
+.main h1 {
+	color: #F65A5B;
+	font-size: 64px;
+	margin: 0 0 80px 0;
+	padding: 20px 0;
+	line-height: 60px;
+	width: 50%;
+}
+
+.main h2 {
+	background-color: #DDDDDD;
+	color: #999999;
+	font-size: 20px;
+	margin: 0 0 40px 0;
+	padding: 20px 0;
+}
+
+.thumbnail {
+	border: 0px;
+	position: relative;
+	padding: 50px;
+	border-radius: 0;
+	margin-bottom: 50px;
+}
+
+.thumbnail img {
+	margin-top: 10px;
+	margin-bottom: 30px;
+	max-width: 100%;
+}
+
+.title,
+.date {
+	color: #444;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 800;
+}
+
+.date {
+	color: #a3a3a3;
+	font-size: 14px;
+	font-weight: 200;
+}
+
+.price {
+	background-color: #39D1B4;
+	color: #fff;
+	font-size: 18px;
+	border-radius: 50%;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	font-weight: 200;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	width: 80px;
+	position: absolute;
+	top: -40px;
+	right: 20px;
+}
+
+.rating {
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	margin: 30px 0 -30px 20px;
+}
+
+.likes,
+.dislikes {
+	background: #F65A5B;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 15px;
+	line-height: 40px;
+	min-width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: 0 -30px 0 40px;
+	text-align: center;
+	font-weight: 200;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	transition: background 500ms;
+}
+
+.likes:hover,
+.dislikes:hover {
+	color: #F65A5B;
+	background: rgba(246, 90, 91, 0.25);
+	transition: background 500ms;
+}
+
+.footer {
+	text-align: center;
+	margin: 80px 0 110px;
+}
+
+.footer h2 {
+	font-size: 24px;
+	margin-bottom: 25px;
+}
+
+.footer img {
+	margin: 0 10px;
+}
+
+/* navigation bar*/
+.navigation-bar {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 200px;
+	background-color: #f1f1f1;
+}
+
+li a {
+	display: block;
+	color: #000;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+/* Change the link color on hover */
+.navigation-bar:hover {
+	background-color: #555;
+	color: white;
+}
+
+.nav-pills > li.active > a, .btn-primary {
+	background-color: rgb(85, 102, 195) !important;
+	border-color: #6C6C6C !important;
+	border-radius: 25px;
+}
+
+/*invite friends*/
+body {
+	background-image: url('/pics/back.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+md-content{
+	background-color: transparent;
+}
+
+.login md-whiteframe{
+	box-shadow: none!important;
+}
+
+.contacts md-content.autocomplete {
+	min-height: 250px; }
+.contacts md-content.autocomplete input {
+	min-width: 400px; }
+
+.contacts .md-item-text.compact {
+	padding-top: 8px;
+	padding-bottom: 8px; }
+
+.contacts .contact-item {
+	box-sizing: border-box; }
+.contacts .contact-item.selected {
+	opacity: 0.5; }
+.contacts .contact-item.selected h3 {
+	opacity: 0.5; }
+.contacts .contact-item .md-list-item-text {
+	padding: 14px 0;
+	max-width: 190px; }
+.contacts .contact-item .md-list-item-text h3 {
+	margin: 0 !important;
+	padding: 0;
+	line-height: 1.2em !important; }
+.contacts .contact-item .md-list-item-text h3, .contacts .contact-item .md-list-item-text p {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden; }
+@media (min-width: 960px) {
+	.contacts .contact-item {
+		float: left;
+		width: 33%; } }
+
+.contacts md-contact-chips {
+	margin-bottom: 10px; }
+
+.contacts .md-chips {
+	padding: 5px 0 8px; }
+
+.contacts .fixedRows {
+	height: 250px;
+	overflow: hidden; }
+

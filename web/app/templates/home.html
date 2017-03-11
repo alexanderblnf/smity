@@ -1,0 +1,38 @@
+<div layout="column" layout-align="center center">
+	<md-button class="md-raised md-primary" ng-click="vm.logout()">Logout</md-button>
+</div>
+
+<div class="header">
+	<div class="container">
+		<div class="col-xs-3">
+			<ul class="nav nav-pills nav-stacked">
+				<li ng-class="{active: vm.isState('home.create')}">
+					<a href ui-sref=".create">Create event</a>
+				</li>
+
+				<li ng-class="{active: vm.isState('home.show')}">
+					<a href ui-sref=".show"> Show Events</a>
+				</li>
+
+				<li ng-class="{active: vm.isState('home.invite')}">
+					<a href ui-sref=".invite"> Invite friends </a>
+				</li>
+
+				<li ng-class="{active: vm.isState('home.upload')}">
+					<a href ui-sref=".upload"> Upload photos </a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-xs-6">
+			<div >
+				<div ui-view ng-if="vm.isState('home.create')"></div>
+				<div ui-view ng-if="vm.isState('home.show')"></div>
+				<div ui-view ng-if="vm.isState('home.invite')"></div>
+				<div ui-view ng-if="vm.isState('home.upload')"></div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

@@ -1,3 +1,3 @@
 module.exports = {
-  'url' : 'postgres://dbName:dbPassword@localhost:5432/postgres'
+  'url' : 'postgres://postgres:postgres@localhost:5432/postgres'
 };
