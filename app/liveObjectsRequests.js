@@ -24,6 +24,7 @@ function filterReq(data, out) {
        var temp = {
            streamId: d.streamId,
            location: d.location,
+           time: d.timestamp,
            value: d.value
        };
        out.push(temp);

@@ -61,7 +61,7 @@ module.exports = function(app, passport) {
 
     var liveObjects = require('./liveObjectsRoutes');
     app.use('/live', liveObjects);
-    /*const http = require('http');
+    const http = require('http');
     const url = require('url');
     const server = http.createServer(app);
     var socket = require('ws');
@@ -73,14 +73,14 @@ module.exports = function(app, passport) {
         });
 
         ws.send('OK');
-    });*/
+    });
 
     /*
     This is a websocket for acessing the server from the Internet
      */
-    /*server.listen(50001, function listening() {
+    server.listen(50001, function listening() {
         console.log('Listening socket on port ', server.address().port);
-    });*/
+    });
 
 
 
