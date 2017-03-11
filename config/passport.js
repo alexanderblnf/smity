@@ -14,11 +14,13 @@ module.exports = function (passport, db, pgp) {
 
     // used to serialize the user for the session
     passport.serializeUser(function (user, done) {
+        console.log(user);
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function (id, done) {
+        console.log(id);
         var ps = pgp.PreparedStatement;
         var options = {
             db: db,

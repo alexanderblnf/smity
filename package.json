@@ -7,15 +7,19 @@
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.0.0",
     "ejs": "~0.8.5",
-    "express": "~4.14.1",
+    "express": "~4.15.2",
     "express-session": "~1.0.0",
     "method-override": "~1.0.0",
     "morgan": "~1.0.0",
+    "nodemon" : "~1.11.0",
+    "follow-redirects" : "~1.2.3",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
-    "ws": "^2.2.0"
+    "pg-promise" : "~5.6.3",
+    "ws": "^2.2.0",
+    "cors": "2.8.1"
   }
 }

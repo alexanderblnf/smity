@@ -1,25 +1,40 @@
 module.exports = function(app, passport) {
     var express = require('express');
     var path = require('path');
+    var cors = require('cors');
+
+    app.use(cors());
 
     app.use(express.static(path.join(__dirname, '../dash')));
     app.get('/dash', function (req, res) {
        //res.send('Nu va mai basiti');
         res.sendFile(path.join(__dirname, '../dash/index.html'));
     });
+
     app.get('/', function(req, res) {
         res.render('index.ejs'); // load the index.ejs file
     });
-
 
     app.get('/login', function(req, res) {
         res.render('login.ejs', { message: req.flash('loginMessage') });
     });
 
     // process the login form
+    app.get('/successjson', function(req, res) {
+       res.json( {
+           message: 'Success'
+       });
+    });
+
+    app.get('/failjson', function (req, res) {
+       res.json({
+           message: 'Fail'
+       });
+    });
+
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/login',
+        successRedirect: 'http://localhost:8080/successjson',
+        failureRedirect: 'http://localhost:8080/failjson',
         failureFlash: true
     }));
 
