@@ -11,7 +11,7 @@ function SecurityInterceptor($injector, $q) {
 
 	function request(config) {
 		var SecurityService = $injector.get('SecurityService', 'SecurityInterceptor');
-
+		// config.withCredentials = true;
 		if (!SecurityService.isAuthenticated()) {
 			// SecurityService.logout();
 		}

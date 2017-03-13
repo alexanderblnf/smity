@@ -51,6 +51,31 @@ exports.getDevices = function (options, res) {
     });
 };
 
+exports.getAverages = function (options, res) {
+    http.get(options, function (response) {
+        var stream = require('stream');
+        var out = new stream.Readable();
+        var outJSON = [];
+        var full = "";
+
+        response.on('data', function (data) {
+            full += data;
+        });
+
+        response.on('end', function () {
+            var data = JSON.parse(full);
+            if(options.device != null) {
+                outJSON = filterDeviceAverages(options.device, data);
+            } else {
+                outJSON = filterAverages(data);
+            }
+            out.push(JSON.stringify(outJSON));
+            out.push(null);
+            out.pipe(res);
+        });
+    });
+};
+
 function filterByCity(data, out, city) {
     data.forEach(function (d) {
         if (d.city == city) {
@@ -67,6 +92,50 @@ function filterOnline(data, out) {
             out.push(d);
         }
     });
+}
+
+function filterDeviceAverages(device, data) {
+    var out = null;
+    data.forEach(function (d) {
+        if (d.id == device) {
+            out = {
+                temperature: d.avg_temperature,
+                pressure: d.avg_pressure,
+                humidity: d.avg_humidity,
+                voc: d.avg_voc,
+                min_voc: d.min_voc,
+                max_voc: d.max_voc,
+                co2: d.avg_co2,
+                ch2o: d.avg_ch2o,
+                pm25: d.avg_pm25,
+                cpm: d.avg_cpm
+            };
+        }
+    });
+
+    return out;
+}
+
+function filterAverages(data) {
+    var out = [];
+    data.forEach(function (d) {
+        var temp = {
+            id: d.id,
+            temperature: d.avg_temperature,
+            pressure: d.avg_pressure,
+            humidity: d.avg_humidity,
+            voc: d.avg_voc,
+            min_voc: d.min_voc,
+            max_voc: d.max_voc,
+            co2: d.avg_co2,
+            ch2o: d.avg_ch2o,
+            pm25: d.avg_pm25,
+            cpm: d.avg_cpm
+        };
+        out.push(temp);
+    });
+
+    return out;
 }
 
 function filter(data, out, param, limit) {

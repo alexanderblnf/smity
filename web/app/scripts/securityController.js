@@ -26,6 +26,9 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 		return SecurityService.login({email: vm.user, password: vm.pass})
 			.then(function (response) {
 				LocalStorage.put(Constants.AUTH.TOKEN, response);
+				SecurityService.loggedIn().then(function (response) {
+					console.log(response);
+                });
 				$state.go('home');
 			})
 			.catch(function (response) {

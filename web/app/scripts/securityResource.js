@@ -19,6 +19,10 @@ function SecurityResource($resource, Constants) {
 		'logout': {
 			method: 'GET',
 			url: Constants.URL.LOCALHOST + '/logout'
+		},
+		'loggedin': {
+			method: 'GET',
+			url: Constants.URL.LOCALHOST + '/isloggedin'
 		}
 	});
 }

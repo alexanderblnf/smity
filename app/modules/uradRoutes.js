@@ -22,6 +22,7 @@ router.get('/devices/:city', function (req, res) {
 
 router.get('/devices/online/:city', function (req, res) {
     var city = req.params.city;
+    console.log(city);
     var options = {
         headers: uradHeaders,
         host: 'data.uradmonitor.com',
@@ -32,6 +33,30 @@ router.get('/devices/online/:city', function (req, res) {
     };
 
     httpreq.getDevices(options, res);
+});
+
+router.get('/:device/avg', function (req, res) {
+    var device = req.params.device;
+    var options = {
+        headers: uradHeaders,
+        host: 'data.uradmonitor.com',
+        path: '/api/v1/devices',
+        method: 'GET',
+        device: device
+    };
+
+    httpreq.getAverages(options, res);
+});
+
+router.get('/averages', function (req, res) {
+    var options = {
+        headers: uradHeaders,
+        host: 'data.uradmonitor.com',
+        path: '/api/v1/devices',
+        method: 'GET'
+    };
+
+    httpreq.getAverages(options, res);
 });
 
 router.get('/:device/temp/:interval', function (req, res) {

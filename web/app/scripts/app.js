@@ -10,11 +10,11 @@ angular
 		'ngMaterial'
 	])
 
-	// .config(['$httpProvider',
-	// 	function ($httpProvider) {
-	// 		$httpProvider.defaults.headers.common.Accept = 'application/json';
-	// 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
-	// 	}])
+	.config(['$httpProvider',
+		function ($httpProvider) {
+			$httpProvider.defaults.headers.common.Accept = 'application/x-www-form-urlencoded';
+			$httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+		}])
 	//
 	.config(['$httpProvider', function ($httpProvider) {
 		$httpProvider.interceptors.push('SecurityInterceptor');
@@ -109,7 +109,7 @@ angular
 	.constant('Constants', {
 		URL: {
 			API: 'http://35.167.158.182:50001',
-			LOCALHOST: 'http://127.0.0.1:8080'
+			LOCALHOST: 'http://localhost:8080'
 		},
 		AUTH: {
 			TOKEN: 'Token'

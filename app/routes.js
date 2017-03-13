@@ -1,47 +1,50 @@
 module.exports = function(app, passport) {
     var express = require('express');
     var path = require('path');
-    var cors = require('cors');
     var jwt = require('jwt-simple');
 
-    app.use(cors());
 
-    app.use(express.static(path.join(__dirname, '../web/app')));
-    // app.get('/dash', function (req, res) {
-    //     res.sendFile(path.join(__dirname, '../dash/index.html'));
-    // });
+    app.use(function(req, res, next) {
+        res.header('Access-Control-Allow-Credentials', true);
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+        if ('OPTIONS' == req.method) {
+            res.sendStatus(204);
+        } else {
+            next();
+        }
+    });
 
     app.get('/', function(req, res) {
-        // res.render('index.ejs'); // load the index.ejs file
         res.sendFile(path.join(__dirname, '../web/app/index.html'));
     });
 
-    app.get('/login', function(req, res) {
+    app.get('/logini', function(req, res) {
         res.render('login.ejs', { message: req.flash('loginMessage') });
     });
 
     app.post('/login', function(req, res, next ){
         passport.authenticate('local-login', function(err, user, info) {
             if (err) { return res.json(err) }
+
             if (!user) {
-                res.send(401);
+                res.sendStatus(401);
             }
-            // return res.json( { message: info.message }) }
-            req.logIn(user, function(err) {
-                var token = jwt.encode(user.email, 'secret');
+
+            req.login(user, function(err) {
+
+                console.log("Se logheaza");
+                var token = jwt.encode(user.email, 'secretinismitini');
                 res.json(token);
             });
 
         })(req, res, next);
     });
-
     // =====================================
     // SIGNUP ==============================
     // =====================================
-    // show the signup form
     app.get('/signup', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
         res.render('signup.ejs', { message: req.flash('signupMessage') });
     });
 
@@ -63,17 +66,34 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     });
 
+    app.get('/isloggedIn', function (req, res) {
+       if(req.isAuthenticated()) {
+           res.json(true);
+       } else {
+           res.json(false);
+       }
+    });
+
     /*
     =========================
     Endpoints for urad API
     =========================
      */
-    var urad = require('./uradRoutes.js');
+    var urad = require('./modules/uradRoutes.js');
     app.use('/urad', urad);
 
-    var liveObjects = require('./liveObjectsRoutes');
+    /*
+    =============================
+    Endpoints for liveObjects API
+    =============================
+     */
+    var liveObjects = require('./modules/liveObjectsRoutes');
     app.use('/live', liveObjects);
-    const http = require('http');
+
+    /*
+        Websocket for accessing the platform from the internet
+     */
+    /*const http = require('http');
     const url = require('url');
     const server = http.createServer(app);
     var socket = require('ws');
@@ -87,12 +107,9 @@ module.exports = function(app, passport) {
         ws.send('OK');
     });
 
-    /*
-    This is a websocket for acessing the server from the Internet
-     */
     server.listen(50001, function listening() {
         console.log('Listening socket on port ', server.address().port);
-    });
+    });*/
 
 
 
@@ -103,9 +120,12 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
+    console.log(req._passport);
     if (req.isAuthenticated())
         return next();
-
+    else {
+        console.log('Nu e logat');
+    }
     // if they aren't redirect them to the home page
     res.redirect('/login');
 }

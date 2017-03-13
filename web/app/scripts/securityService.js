@@ -17,17 +17,22 @@ function SecurityService($http, LocalStorage, Constants, $state, SecurityResourc
 		remove: remove,
 		isAuthenticated: isAuthenticated,
 		getToken: getToken,
-		logout: logout
+		logout: logout,
+		loggedIn: loggedIn
 	};
+
+	function loggedIn() {
+		return SecurityResource.loggedin().$promise;
+    }
 	
 	function login(credentials) {
-		// return $http.post(Constants.URL.API + '/auth', credentials)
-		// 	.then(function (response) {
-		// 		LocalStorage.put(Constants.AUTH.TOKEN, response);
-		// 		$state.go('home');
-		// 	});
+		return $http.post(Constants.URL.LOCALHOST + '/login', credentials, {withCredentials:true})
+		.then(function (response) {
+			LocalStorage.put(Constants.AUTH.TOKEN, response);
+			$state.go('home');
+		});
 
-		return SecurityResource.authenticate(credentials).$promise;
+		//return SecurityResource.authenticate(credentials).$promise;
 	}
 
 	function register(credentials) {
