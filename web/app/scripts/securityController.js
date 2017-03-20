@@ -57,7 +57,8 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 	function logout() {
 		return SecurityService.logout()
 			.then(function () {
-
+				LocalStorage.remove(Constants.AUTH.TOKEN);
+				goTo("login");
 			});
 	}
 }

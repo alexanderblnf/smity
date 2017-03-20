@@ -9,8 +9,6 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
-var cors = require('cors');
-var corser = require('corser');
 var path = require('path');
 var configDB = require('./config/database.js');
 

@@ -36,7 +36,7 @@ angular
 
 					// if already authenticated and trying to reach `/login`
 					if (SecurityService.isAuthenticated()) {
-
+						return "/";
 					}
 
 					return false;
@@ -70,38 +70,12 @@ angular
 					views: {
 						'': {
 							templateUrl: '/templates/home.html',
-							controller: 'EvShareController as vm'
-						},
-						'profile@home': {
-							templateUrl: '/templates/profile.html'
+							controller: 'SmityController as vm'
+						// },
+						// 'profile@home': {
+						// 	templateUrl: '/templates/profile.html'
 						}
 					}
-				})
-				.state('home.create', {
-					url: '/event',
-					templateUrl: '/templates/createEvent.html'
-				})
-				.state('home.show', {
-					url: '/show',
-					active: true,
-					templateUrl: '/templates/showEvents.html'
-				})
-				.state('home.show.event', {
-					url: '/:id',
-					templateUrl: '/templates/event.html',
-					controller: 'EventController as vm'
-				})
-				.state('home.invite', {
-					url: '/invite',
-					templateUrl: '/templates/inviteFriends.html'
-				})
-				.state('home.upload', {
-					url: '/upload',
-					templateUrl: '/templates/showEvents.html'
-				})
-				.state('home.upload.event', {
-					url: '/:id',
-					templateUrl: '/templates/uploadPhoto.html'
 				})
 			;
 		}])
