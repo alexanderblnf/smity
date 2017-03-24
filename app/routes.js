@@ -25,14 +25,16 @@ module.exports = function(app, passport) {
     });
 
     app.post('/login', function(req, res, next ){
-        passport.authenticate('local-login', function(err, user, info) {
-            if (err) { return res.json(err) }
+        passport.authenticate('local-login', function(err, user) {
+            if (err) {
+                return res.json(err)
+            }
 
             if (!user) {
                 res.sendStatus(401);
             }
 
-            req.login(user, function(err) {
+            req.login(user, function() {
 
                 console.log("Se logheaza");
                 var token = jwt.encode(user.email, 'secretinismitini');
@@ -89,6 +91,9 @@ module.exports = function(app, passport) {
      */
     var liveObjects = require('./modules/liveObjectsRoutes');
     app.use('/live', liveObjects);
+
+    var elastic = require('./modules/elasticRoutes');
+    app.use('/elastic', elastic);
 
     /*
         Websocket for accessing the platform from the internet

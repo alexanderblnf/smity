@@ -32,11 +32,8 @@ module.exports = function (passport, db, pgp) {
         },
         function (req, email, password, done) {
 
-            // asynchronous
-            // User.findOne wont fire unless data is sent back
             var ps = pgp.PreparedStatement;
             process.nextTick(function () {
-
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
                 var options = {
@@ -55,18 +52,26 @@ module.exports = function (passport, db, pgp) {
                     if (data) {
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
-                        user.addUser(options, function (err1, result) {
-                            if(err1) {
-                                return done(err);
+                        var bcrypt = require('bcrypt');
+                        var plainPassword = options.password;
+                        bcrypt.hash(plainPassword, 10, function (err, hash) {
+                            if (err) {
+                                return done(null, false, req.flash('signupMessage', 'There was a problem hashing'));
                             }
+                            options.password = hash;
+                            user.addUser(options, function (err1, result) {
+                                if(err1) {
+                                    return done(err);
+                                }
 
-                            var newUser = {
-                                id: result.id,
-                                email: email,
-                                password: password
-                            };
+                                var newUser = {
+                                    id: result.id,
+                                    email: email,
+                                    password: password
+                                };
 
-                            return done(null, newUser)
+                                return done(null, newUser)
+                            });
                         });
                     }
                 });
