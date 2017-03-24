@@ -21,6 +21,8 @@
     "pg-promise" : "~5.6.3",
     "ws": "^2.2.0",
     "jwt-simple" : "0.5.1",
-    "cors" : "2.8.1"
+    "cors" : "2.8.1",
+    "bcrypt": "1.0.2",
+    "elasticsearch": "12.1.3"
   }
 }

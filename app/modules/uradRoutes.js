@@ -59,105 +59,35 @@ router.get('/averages', function (req, res) {
     httpreq.getAverages(options, res);
 });
 
-router.get('/:device/temp/:interval', function (req, res) {
+var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
+var limits = {
+    temperature: 0.2,
+    pressure: 10,
+    humidity: 2,
+    voc: 100,
+    co2: 5,
+    ch2o: 3,
+    pm25: 3
+};
+
+router.get('/:device/:param' + params + '/:interval', function (req, res) {
 
     var device = req.params.device;
     var interval = req.params.interval;
-    console.log(device + '\n' + interval);
+    var param = req.params.param;
+    if (interval < 0) {
+        res.send('{error: "Interval must be positive"}');
+    }
     var options = {
         headers: uradHeaders,
         host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/temperature/' + interval,
+        path: '/api/v1/devices/' + device + '/' + param + '/' + interval,
         method: 'GET',
-        param: 'temperature',
-        limit: 0.2
+        param: param,
+        limit: limits[param]
     };
     httpreq.getData(options, res);
 
-});
-
-router.get('/:device/pressure/:interval', function (req, res) {
-    var device = req.params.device;
-    var interval = req.params.interval;
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/pressure/' + interval,
-        method: 'GET',
-        param: 'pressure',
-        limit: 10
-    };
-    httpreq.getData(options, res);
-});
-
-router.get('/:device/humidity/:interval', function (req, res) {
-    var device = req.params.device;
-    var interval = req.params.interval;
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/humidity/' + interval,
-        method: 'GET',
-        param: 'humidity',
-        limit: 2
-    };
-    httpreq.getData(options, res);
-});
-
-router.get('/:device/voc/:interval', function (req, res) {
-    var device = req.params.device;
-    var interval = req.params.interval;
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/voc/' + interval,
-        method: 'GET',
-        param: 'voc',
-        limit: 100
-    };
-    httpreq.getData(options, res);
-});
-
-router.get('/:device/co2/:interval', function (req, res) {
-    var device = req.params.device;
-    var interval = req.params.interval;
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/co2/' + interval,
-        method: 'GET',
-        param: 'co2',
-        limit: 5
-    };
-    httpreq.getData(options, res);
-});
-
-router.get('/:device/ch2o/:interval', function (req, res) {
-    var device = req.params.device;
-    var interval = req.params.interval;
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/ch2o/' + interval,
-        method: 'GET',
-        param: 'ch2o',
-        limit: 3
-    };
-    httpreq.getData(options, res);
-});
-
-router.get('/:device/pm25/:interval', function (req, res) {
-    var device = req.params.device;
-    var interval = req.params.interval;
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/pm25/' + interval,
-        method: 'GET',
-        param: 'pm25',
-        limit: 3
-    };
-    httpreq.getData(options, res);
 });
 
 module.exports = router;

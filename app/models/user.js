@@ -43,11 +43,20 @@ exports.verifyPassword = function (options, callback) {
             if(data == null) {
                 callback(false);
             } else {
-                if(data.password == options.password) {
+                var bcrypt = require('bcrypt');
+                bcrypt.compare(options.password, data.password, function (err1, res) {
+                    if (err1) {
+                        console.log("Compare hash error");
+                        callback(false);
+                    } else {
+                        callback(res);
+                    }
+                });
+                /*if(data.password == options.password) {
                     callback(true);
                 } else {
                     callback(false);
-                }
+                }*/
             }
 
         });
