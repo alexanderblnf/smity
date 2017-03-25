@@ -2,6 +2,8 @@ var http = require('http');
 var func = require('./uradFunctions');
 exports.getData = function (options, res) {
     http.get(options, function (response) {
+        console.log(res.statusCode);
+
         var stream = require('stream');
         var out = new stream.Readable();
         var outJSON = [];
@@ -12,9 +14,12 @@ exports.getData = function (options, res) {
 
         response.on('end', function () {
             var data = JSON.parse(full);
-            if (data.success == null) {
+            if (data.success == null && data.error == null) {
                 func.filter(data, outJSON, options.param, options.limit);
                 out.push(JSON.stringify(outJSON));
+                out.push(null);
+            } else if(data.error != null) {
+                out.push(JSON.stringify(data));
                 out.push(null);
             } else {
                 out.push('{"error":"Sensor is offline"}');

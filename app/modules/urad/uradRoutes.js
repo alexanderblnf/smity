@@ -75,18 +75,19 @@ router.get('/:device/:param' + params + '/:interval', function (req, res) {
     var device = req.params.device;
     var interval = req.params.interval;
     var param = req.params.param;
-    if (interval < 0) {
+    if (interval <= 0) {
         res.send('{error: "Interval must be positive"}');
+    } else {
+        var options = {
+            headers: uradHeaders,
+            host: 'data.uradmonitor.com',
+            path: '/api/v1/devices/' + device + '/' + param + '/' + interval,
+            method: 'GET',
+            param: param,
+            limit: limits[param]
+        };
+        httpreq.getData(options, res);
     }
-    var options = {
-        headers: uradHeaders,
-        host: 'data.uradmonitor.com',
-        path: '/api/v1/devices/' + device + '/' + param + '/' + interval,
-        method: 'GET',
-        param: param,
-        limit: limits[param]
-    };
-    httpreq.getData(options, res);
 
 });
 
