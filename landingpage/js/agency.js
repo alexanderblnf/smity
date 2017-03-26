@@ -28,6 +28,21 @@
         offset: {
             top: 100
         }
-    })
+    });
+
+    // hide .navbar first
+    $(".navbarTest").hide();
+
+    // fade in .navbarTest
+    $(function () {
+        $(window).scroll(function () {
+            // set distance user needs to scroll before we fadeIn navbarTest
+            if ($(this).scrollTop() > 100) {
+                $('.navbarTest').fadeIn();
+            } else {
+                $('.navbarTest').fadeOut();
+            }
+        });
+    });
 
 })(jQuery); // End of use strict
