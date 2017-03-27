@@ -4,7 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="Line chart FLOT">
+    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/overviewpage/datapage.html" afterPath="$PROJECT_DIR$/overviewpage/datapage.html" />
     </list>
@@ -37,11 +37,10 @@
       <file leaf-file-name="datapage.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/overviewpage/datapage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="238" column="57" lean-forward="true" selection-start-line="238" selection-start-column="57" selection-end-line="238" selection-end-column="57" />
+            <state relative-caret-position="445">
+              <caret line="240" column="37" lean-forward="false" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
               <folding>
                 <element signature="n#style#0;n#iframe#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#1;n#iframe#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#section#0;n#div#1;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -691,7 +690,7 @@
       <workItem from="1489396390983" duration="111000" />
       <workItem from="1489396519852" duration="17566000" />
       <workItem from="1490537769766" duration="1173000" />
-      <workItem from="1490629767376" duration="8714000" />
+      <workItem from="1490629767376" duration="8782000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -756,11 +755,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490638257529</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Embedded Google Maps iframe">
+      <created>1490640469460</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1490640469460</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="164158000" />
+    <option name="totallyTimeSpent" value="164226000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -863,7 +869,8 @@
     <MESSAGE value="Added data page" />
     <MESSAGE value="Flot graph test + small changes" />
     <MESSAGE value="Line chart FLOT" />
-    <option name="LAST_COMMIT_MESSAGE" value="Line chart FLOT" />
+    <MESSAGE value="Embedded Google Maps iframe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Embedded Google Maps iframe" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1198,11 +1205,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/overviewpage/datapage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="238" column="57" lean-forward="true" selection-start-line="238" selection-start-column="57" selection-end-line="238" selection-end-column="57" />
+        <state relative-caret-position="445">
+          <caret line="240" column="37" lean-forward="false" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
           <folding>
             <element signature="n#style#0;n#iframe#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#1;n#iframe#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#section#0;n#div#1;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
