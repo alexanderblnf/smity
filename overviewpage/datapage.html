@@ -283,7 +283,36 @@
               </div>
             </div>
             <div class="box-body">
+              <div class="form-group">
+                <label>Data:</label>
 
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker">
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+              <!-- time Picker -->
+              <div class="bootstrap-timepicker">
+                <div class="form-group">
+                  <label>Ora:</label>
+
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" class="form-control timepicker">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Gaseste datele!</button>
+              </div>
             </div>
             <!-- /.box-body-->
           </div>
@@ -331,6 +360,8 @@
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- bootstrap time picker -->
+<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->
@@ -426,7 +457,7 @@
               });
               line_data1.data = array1;
               left--;
-              if (left == 0) {
+              if (left === 0) {
                   plot.setData([line_data1, line_data2]);
                   plot.setupGrid();
                   plot.draw();
@@ -440,7 +471,7 @@
               });
               line_data2.data = array2;
               left--;
-              if (left == 0) {
+              if (left === 0) {
                   plot.setData([line_data1, line_data2]);
                   plot.setupGrid();
                   plot.draw();
@@ -450,6 +481,17 @@
 
       populateData(line_data1);
     /* END LINE CHART */
+
+
+      //Date picker
+      $('#datepicker').datepicker({
+          autoclose: true
+      });
+
+      //Timepicker
+      $(".timepicker").timepicker({
+          showInputs: false
+      });
   })
 
 </script>
