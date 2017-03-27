@@ -301,10 +301,11 @@
 <script src="dist/js/app.min.js"></script>
 <!-- Flot charts -->
 <script src="plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="plugins/flot/jquery.flot.resize.min.js"></script>
 
 <script>
   $(function(){
-      var data = [], totalPoints = 100;
 
     /*
      * LINE CHART
@@ -346,7 +347,7 @@
               color: ["#3c8dbc", "#f56954"]
           },
           yaxis: {
-              show: true,
+              show: true
           },
           xaxis: {
               show: true
