@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/overviewpage/datapage.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/overviewpage/datapage.html" afterPath="$PROJECT_DIR$/overviewpage/datapage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/overviewpage/index.html" afterPath="$PROJECT_DIR$/overviewpage/index.html" />
     </list>
     <list id="fc5305d0-f772-495e-be8f-e60d949fc540" name="Rejected commit: Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,9 +26,11 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/overviewpage/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="346" column="7" lean-forward="true" selection-start-line="346" selection-start-column="7" selection-end-line="346" selection-end-column="7" />
-              <folding />
+            <state relative-caret-position="430">
+              <caret line="377" column="65" lean-forward="true" selection-start-line="377" selection-start-column="65" selection-end-line="377" selection-end-column="65" />
+              <folding>
+                <element signature="n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,8 +38,20 @@
       <file leaf-file-name="datapage.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/overviewpage/datapage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+            <state relative-caret-position="396">
+              <caret line="300" column="42" lean-forward="false" selection-start-line="300" selection-start-column="42" selection-end-line="300" selection-end-column="42" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#section#0;n#div#1;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flot.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/overviewpage/pages/charts/flot.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="561" column="24" lean-forward="true" selection-start-line="541" selection-start-column="5" selection-end-line="561" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -61,6 +76,9 @@
       <find>withCredentials</find>
       <find>login</find>
       <find>header</find>
+      <find>line chart</find>
+      <find>morris</find>
+      <find>flot</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Dev Stuff\SMity\smity2\web\app\scripts</dir>
@@ -115,6 +133,7 @@
         <option value="$PROJECT_DIR$/app/modules/uradRoutes.js" />
         <option value="$PROJECT_DIR$/app/modules/uradRequests.js" />
         <option value="$PROJECT_DIR$/overviewpage/index.html" />
+        <option value="$PROJECT_DIR$/overviewpage/datapage.html" />
       </list>
     </option>
   </component>
@@ -175,6 +194,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="overviewpage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="overviewpage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="charts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -185,7 +244,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/overviewpage/datapage.html" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -637,9 +696,13 @@
     <configuration default="false" name="run_node" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="server.js" working-dir="$PROJECT_DIR$">
       <method />
     </configuration>
-    <list size="2">
+    <configuration default="false" name="datapage" type="JavascriptDebugType" factoryName="JavaScript Debug" uri="http://localhost:63342/smity/Login Test/overviewpage/datapage.html">
+      <method />
+    </configuration>
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Node.js.run_node" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.datapage" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
     </list>
     <recent_temporary>
       <list size="1">
@@ -677,7 +740,7 @@
       <workItem from="1489396390983" duration="111000" />
       <workItem from="1489396519852" duration="17566000" />
       <workItem from="1490537769766" duration="1173000" />
-      <workItem from="1490629767376" duration="1892000" />
+      <workItem from="1490629767376" duration="5346000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -721,11 +784,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490631600579</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added data page">
+      <created>1490631681642</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1490631681642</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157336000" />
+    <option name="totallyTimeSpent" value="160790000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -825,7 +895,8 @@
     <MESSAGE value="IntelliJ test" />
     <MESSAGE value="Still testing IntelliJ" />
     <MESSAGE value="Changed widget comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed widget comments" />
+    <MESSAGE value="Added data page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added data page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -838,20 +909,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="66" lean-forward="false" selection-start-line="1" selection-start-column="66" selection-end-line="1" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/passport.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2376">
@@ -1140,19 +1197,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/overviewpage/pages/charts/chartjs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="157" column="52" lean-forward="true" selection-start-line="157" selection-start-column="52" selection-end-line="157" selection-end-column="52" />
+          <folding>
+            <marker date="1490537946804" expanded="true" signature="30927:30970" ph="..." />
+            <marker date="1490537946804" expanded="true" signature="33881:33924" ph="..." />
+            <marker date="1490537946804" expanded="true" signature="35640:35683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/overviewpage/pages/charts/flot.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="561" column="24" lean-forward="true" selection-start-line="541" selection-start-column="5" selection-end-line="561" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/overviewpage/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="346" column="7" lean-forward="true" selection-start-line="346" selection-start-column="7" selection-end-line="346" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="430">
+          <caret line="377" column="65" lean-forward="true" selection-start-line="377" selection-start-column="65" selection-end-line="377" selection-end-column="65" />
+          <folding>
+            <element signature="n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/overviewpage/datapage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="396">
+          <caret line="300" column="42" lean-forward="false" selection-start-line="300" selection-start-column="42" selection-end-line="300" selection-end-column="42" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#section#0;n#div#1;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
