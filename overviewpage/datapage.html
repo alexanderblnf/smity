@@ -251,7 +251,7 @@
       <!-- Graph row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12 col-xs-12">
+        <section class="col-lg-9 col-xs-12">
           <!-- Line chart -->
           <div class="box box-primary">
             <div class="box-header with-border">
@@ -265,6 +265,25 @@
             </div>
             <div class="box-body">
               <div id="line-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.box-body-->
+          </div>
+          <!-- /.box -->
+        </section>
+        <section class="col-lg-3 col-xs-12">
+          <!-- Line chart -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Configurare</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+
             </div>
             <!-- /.box-body-->
           </div>
@@ -347,7 +366,7 @@
           data: cos,
           color: "#00c0ef"
       };
-      $.plot("#line-chart", [line_data1, line_data2], {
+      var plot = $.plot("#line-chart", [line_data1, line_data2], {
           grid: {
               hoverable: true,
               borderColor: "#f3f3f3",
@@ -394,6 +413,42 @@
           }
 
       });
+
+      function populateData(array){
+          var left = 2;
+          array1=[];
+          array2=[];
+
+          $.get( "http://localhost:8080/elastic/82000039/temperature/1490470657/1490643468", function( data ) {
+              $.each(data, function(index, item){
+                  //alert(item.temperature);
+                  array1.push([item.time, item.temperature]);
+              });
+              line_data1.data = array1;
+              left--;
+              if (left == 0) {
+                  plot.setData([line_data1, line_data2]);
+                  plot.setupGrid();
+                  plot.draw();
+              }
+          }, "json" );
+
+          $.get( "http://localhost:8080/elastic/82000038/temperature/1490470657/1490643468", function( data ) {
+              $.each(data, function(index, item){
+                  //alert(item.temperature);
+                  array2.push([item.time, item.temperature]);
+              });
+              line_data2.data = array2;
+              left--;
+              if (left == 0) {
+                  plot.setData([line_data1, line_data2]);
+                  plot.setupGrid();
+                  plot.draw();
+              }
+          }, "json" );
+      }
+
+      populateData(line_data1);
     /* END LINE CHART */
   })
 
