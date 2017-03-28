@@ -445,10 +445,10 @@
 
       });
 
-      function populateData(array){
+      function populateData(){
           var left = 2;
-          array1=[];
-          array2=[];
+          var array1=[];
+          var array2=[];
 
           $.get( "http://localhost:8080/elastic/82000039/temperature/1490470657/1490643468", function( data ) {
               $.each(data, function(index, item){
@@ -479,7 +479,7 @@
           }, "json" );
       }
 
-      populateData(line_data1);
+      populateData();
     /* END LINE CHART */
 
 
