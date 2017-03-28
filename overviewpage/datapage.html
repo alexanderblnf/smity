@@ -284,32 +284,31 @@
             </div>
             <div class="box-body">
               <div class="form-group">
-                <label>Data:</label>
+                <label>Incepand din:</label>
 
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker">
+                  <input type="text" class="form-control pull-right" id="datepicker1">
                 </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
-              <!-- time Picker -->
-              <div class="bootstrap-timepicker">
-                <div class="form-group">
-                  <label>Ora:</label>
 
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-clock-o"></i>
-                    </div>
-                    <input type="text" class="form-control timepicker">
+              <div class="form-group">
+                <label>Pana la:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
                   </div>
-                  <!-- /.input group -->
+                  <input type="text" class="form-control pull-right" id="datepicker2">
                 </div>
-                <!-- /.form group -->
+                <!-- /.input group -->
               </div>
+              <!-- /.form group -->
+
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Gaseste datele!</button>
               </div>
@@ -450,19 +449,21 @@
           var array1=[];
           var array2=[];
 
-          $.get( "http://localhost:8080/elastic/82000039/temperature/1490470657/1490643468", function( data ) {
-              $.each(data, function(index, item){
-                  //alert(item.temperature);
-                  array1.push([item.time, item.temperature]);
-              });
-              line_data1.data = array1;
-              left--;
-              if (left === 0) {
-                  plot.setData([line_data1, line_data2]);
-                  plot.setupGrid();
-                  plot.draw();
-              }
-          }, "json" );
+          $.get({  url: "http://localhost:8080/elastic/82000039/temperature/1490470657/1490643468",
+                  success: function( data ) {
+                    $.each(data, function(index, item){
+                        //alert(item.temperature);
+                        array1.push([item.time, item.temperature]);
+                    });
+                    line_data1.data = array1;
+                    left--;
+                    if (left === 0) {
+                        plot.setData([line_data1, line_data2]);
+                        plot.setupGrid();
+                        plot.draw();
+                    }
+                  },
+                  dataType: "json" });
 
           $.get( "http://localhost:8080/elastic/82000038/temperature/1490470657/1490643468", function( data ) {
               $.each(data, function(index, item){
@@ -484,14 +485,22 @@
 
 
       //Date picker
-      $('#datepicker').datepicker({
+      $('#datepicker1').datepicker({
+          autoclose: true
+      });
+
+      $('#datepicker2').datepicker({
           autoclose: true
       });
 
       //Timepicker
-      $(".timepicker").timepicker({
+     /* $(".timepicker").timepicker({
           showInputs: false
-      });
+      });*/
+
+      //Date range picker with time picker
+     // $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY hh:mm A'});
+
   })
 
 </script>
