@@ -396,6 +396,25 @@
           data: cos,
           color: "#00c0ef"
       };
+
+
+      function timeConverter(UNIX_timestamp){
+          var a = new Date(UNIX_timestamp);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          var year = a.getFullYear();
+          var month = months[a.getMonth()];
+          var date = a.getDate();
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          var sec = a.getSeconds();
+          var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+          return time;
+      }
+
+      function xAxisLabelGenerator(x){
+          return timeConverter(x*1000);
+      }
+
       var plot = $.plot("#line-chart", [line_data1, line_data2], {
           grid: {
               hoverable: true,
@@ -420,7 +439,9 @@
               show: true
           },
           xaxis: {
-              show: true
+              show: true,
+             // transform: xAxisLabelGenerator,
+              tickFormatter: xAxisLabelGenerator
           }
       });
       //Initialize tooltip on hover
@@ -452,7 +473,7 @@
           var fromtime = 1490470657;
           var totime = 1490643468;
 
-          if (from!="" && to!=""){
+          if (from!=="" && to!==""){
               fromtime = (Date.parse(from)/1000).toFixed(0);
               totime = (Date.parse(to)/1000).toFixed(0);
           }
