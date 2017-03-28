@@ -310,7 +310,7 @@
               <!-- /.form group -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Gaseste datele!</button>
+                <button type="submit" class="btn btn-primary" id="getdatabutton">Gaseste datele!</button>
               </div>
             </div>
             <!-- /.box-body-->
@@ -444,12 +444,20 @@
 
       });
 
-      function populateData(){
+      function populateData(from, to){
           var left = 2;
           var array1=[];
           var array2=[];
 
-          $.get({  url: "http://localhost:8080/elastic/82000039/temperature/1490470657/1490643468",
+          var fromtime = 1490470657;
+          var totime = 1490643468;
+
+          if (from!="" && to!=""){
+              fromtime = (Date.parse(from)/1000).toFixed(0);
+              totime = (Date.parse(to)/1000).toFixed(0);
+          }
+
+          $.get({  url: "http://localhost:8080/elastic/82000039/temperature/"+fromtime+"/"+totime,
                   success: function( data ) {
                     $.each(data, function(index, item){
                         //alert(item.temperature);
@@ -465,7 +473,7 @@
                   },
                   dataType: "json" });
 
-          $.get( "http://localhost:8080/elastic/82000038/temperature/1490470657/1490643468", function( data ) {
+          $.get( "http://localhost:8080/elastic/82000038/temperature/"+fromtime+"/"+totime, function( data ) {
               $.each(data, function(index, item){
                   //alert(item.temperature);
                   array2.push([item.time, item.temperature]);
@@ -480,9 +488,14 @@
           }, "json" );
       }
 
-      populateData();
+      populateData("", "");
     /* END LINE CHART */
 
+    $('#getdatabutton').click(function () {
+        var from = $('#datepicker1').val();
+        var to = $('#datepicker2').val();
+        populateData(from, to);
+    });
 
       //Date picker
       $('#datepicker1').datepicker({
