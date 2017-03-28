@@ -37,6 +37,75 @@ exports.getForInterval = function (options, res) {
     })
 };
 
+exports.hourlyPrediction = function (options, res) {
+    var data = [];
+    var originalTime = options.time;
+    asyncLoop({
+        time: options.time,
+        day: 3600 * 24,
+        options: options,
+        functionToLoop: function (loop, options, time) {
+            //setTimeout(function () {
+            getDocs(options, time, data, loop);
+            //}, 500);
+        },
+        callback: function () {
+            makeRegression(originalTime, data, res);
+        }
+    })
+};
+
+exports.getIntervalSteps = function (options, res) {
+    var interval = 180;
+    var intervals = [];
+
+    console.log(options.start + ' ' + options.end + ' ' + options.step);
+    var start = Number(options.start);
+    var end = Number(options.end);
+    for (var i = start; i <= end; i += interval * options.step) {
+        if (i >= options.end) {
+            break;
+        }
+        var temp = {
+            range: {
+                time: {
+                    from: i,
+                    to: i + interval
+                }
+            }
+        };
+        intervals.push(temp);
+    }
+
+
+    client.search({
+        index: options.device,
+        type: options.param,
+        size: 50,
+
+        body: {
+            query: {
+                bool: {
+                    should: intervals
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = [];
+        resp.hits.hits.forEach(function (d) {
+            out.push(d["_source"]);
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 function getDocs(options, time, data, loop) {
     var interval = 15 * 60;
     var start = time - interval;
@@ -111,21 +180,3 @@ function makeRegression(time, data, res) {
         res.send(JSON.stringify(result));
     }
 }
-
-exports.hourlyPrediction = function (options, res) {
-    var data = [];
-    var originalTime = options.time;
-    asyncLoop({
-        time: options.time,
-        day: 3600 * 24,
-        options: options,
-        functionToLoop: function (loop, options, time) {
-            //setTimeout(function () {
-                getDocs(options, time, data, loop);
-            //}, 500);
-        },
-        callback: function () {
-            makeRegression(originalTime, data, res);
-        }
-    })
-};

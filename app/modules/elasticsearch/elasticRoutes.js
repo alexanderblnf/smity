@@ -18,6 +18,7 @@ router.get('/:device/:param' + params + '/prediction/:time', function (req, res)
 });
 
 router.get('/:device/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
+    console.log('First');
     var options = {
         device: req.params.device,
         param: req.params.param,
@@ -31,4 +32,25 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd', function (req, r
         elasticFunction.getForInterval(options, res);
     }
 });
+
+router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (req, res) {
+    var options = {
+        device: req.params.device,
+        param: req.params.param,
+        start: req.params.timeStart,
+        end: req.params.timeEnd,
+        step: req.params.step
+    };
+
+    if(options.start > options.end) {
+        res.send('{"error": "Start time must be before end time"}');
+    } else {
+        if (options.step < 0) {
+            res.send('{"error" : "Step must be positive"}');
+        }
+        elasticFunction.getIntervalSteps(options, res);
+    }
+});
+
+
 module.exports = router;
