@@ -59,7 +59,6 @@ exports.getIntervalSteps = function (options, res) {
     var interval = 180;
     var intervals = [];
 
-    console.log(options.start + ' ' + options.end + ' ' + options.step);
     var start = Number(options.start);
     var end = Number(options.end);
     for (var i = start; i <= end; i += interval * options.step) {
