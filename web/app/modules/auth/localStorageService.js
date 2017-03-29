@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('Smity')
+.module('auth')
 .service('LocalStorage', ['$window', LocalStorage]);
 
 function LocalStorage($window) {

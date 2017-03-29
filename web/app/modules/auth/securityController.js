@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('Smity')
+	.module('auth')
 	.controller('SecurityController', [
 		'SecurityService',
 		'LocalStorage',
@@ -17,7 +17,6 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 	vm.registerUser = {};
 
 	vm.login = login;
-	vm.logout = logout;
 	vm.register = register;
 	vm.isState = isState;
 	vm.goTo = goTo;
@@ -26,9 +25,7 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 		return SecurityService.login({email: vm.user, password: vm.pass})
 			.then(function (response) {
 				LocalStorage.put(Constants.AUTH.TOKEN, response);
-				SecurityService.loggedIn().then(function (response) {
-					console.log(response);
-                });
+				SecurityService.setCredentials(vm.user, vm.pass);
 				$state.go('home');
 			})
 			.catch(function (response) {
@@ -52,13 +49,5 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 
 	function goTo(state) {
 		return $state.go(state);
-	}
-
-	function logout() {
-		return SecurityService.logout()
-			.then(function () {
-				LocalStorage.remove(Constants.AUTH.TOKEN);
-				goTo("login");
-			});
 	}
 }

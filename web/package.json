@@ -34,9 +34,10 @@
   "dependencies": {
     "angular-animate": "1.5.10",
     "angular-aria": "1.5.10",
+    "angular-cookies": "^1.6.3",
     "angular-material": "^1.1.1",
     "angular-messages": "1.5.10",
-    "angular-ui-router": "^0.3.2",
-    "angular-resource": "1.5.10"
+    "angular-resource": "1.5.10",
+    "angular-ui-router": "^0.3.2"
   }
 }

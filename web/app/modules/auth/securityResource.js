@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-.module('Smity')
+.module('auth')
 .factory('SecurityResource', [
 	'$resource',
 	'Constants',
@@ -9,12 +9,12 @@ angular
 
 function SecurityResource($resource, Constants) {
 	return $resource(Constants.URL.LOCALHOST + '/login', {}, {
-		'authenticate': {
+		'login': {
 			method: 'POST'
 		},
 		'register': {
 			method: 'POST',
-			url: Constants.URL.LOCALHOST + '/user'
+			url: Constants.URL.LOCALHOST + '/signup'
 		},
 		'logout': {
 			method: 'GET',

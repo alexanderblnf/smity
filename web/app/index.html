@@ -56,14 +56,17 @@
 <script src="bower_components/angular-aria/angular-aria.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 
 <script src="scripts/app.js"></script>
 <script src="scripts/appController.js"></script>
-<script src="scripts/localStorageService.js"></script>
-<script src="scripts/securityController.js"></script>
-<script src="scripts/securityService.js"></script>
-<script src="scripts/securityResource.js"></script>
-<script src="scripts/securityInterceptor.js"></script>
+<!--<script src="scripts/securityController.js"></script>-->
+<script src="modules/auth/auth.js"></script>
+<script src="modules/auth/localStorageService.js"></script>
+<script src="modules/auth/securityService.js"></script>
+<script src="modules/auth/securityInterceptor.js"></script>
+<script src="modules/auth/securityController.js"></script>
+<script src="modules/auth/securityResource.js"></script>
 
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>

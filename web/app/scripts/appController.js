@@ -24,7 +24,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	// invite friends
 	var pendingSearch, lastSearch;
 
-	_init();
+	// _init();
 
 	function _init() {
 		if (!SecurityService.isAuthenticated()) {
@@ -53,7 +53,8 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	function logout() {
 		return SecurityService.logout()
 			.then(function () {
-				LocalStorage.remove(Constants.AUTH.TOKEN);
+				// LocalStorage.remove(Constants.AUTH.TOKEN);
+				SecurityService.clearCredentials();
 				$state.go('login');
 			});
 	}
