@@ -6,9 +6,19 @@
 body {
   overflow-x: hidden;
   font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-image: url("../img/logo-final.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-attachment: fixed;
+  max-height: 100%;
+  max-width: 100%;
+  color: #FFFFFF;
+  /*!background-color: #333333;*/
 }
+
 .text-muted {
-  color: #777777;
+  color: #FFFFFF;
 }
 .text-primary {
   color: #fed136;
@@ -50,7 +60,7 @@ h6 {
   margin: 0 auto;
 }
 .bg-light-gray {
-  background-color: #eeeeee;
+  background-color:rgba(33, 33, 33, 0.95);
 }
 .bg-darkest-gray {
   background-color: #222222;
