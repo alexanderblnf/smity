@@ -7,7 +7,8 @@ angular
 		'myApp.version',
 		'ds.clock',
 		'ui.router',
-		'ngMaterial'
+		'ngMaterial',
+		'ngCookies',
 	])
 
 	.config(['$httpProvider',
@@ -16,64 +17,80 @@ angular
 			$httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
 		}])
 	//
-	.config(['$httpProvider', function ($httpProvider) {
-		$httpProvider.interceptors.push('SecurityInterceptor');
-	}])
+	// .config(['$httpProvider', function ($httpProvider) {
+	// 	$httpProvider.interceptors.push('SecurityInterceptor');
+	// }])
 
-	.config(['$urlRouterProvider', function navInterceptorConfig($urlRouterProvider) {
-		$urlRouterProvider
-			.when('/login', [
-				'$state',
-				'$injector',
-				function ($state, $injector) {
-					var SecurityService = $injector.get('SecurityService');
-
-					// if already in login state and trying to reach again `/login`
-					// don't do a redirection because it will enter in an infinite loop
-					if ($state.$current.name === 'login') {
-						return true;
-					}
-
-					// if already authenticated and trying to reach `/login`
-					if (SecurityService.isAuthenticated()) {
-						return "/";
-					}
-
-					return false;
-				}
-			])
-			.otherwise(function () {
-				return '/login';
-			});
-	}
-	])
+	// .config(['$urlRouterProvider', function navInterceptorConfig($urlRouterProvider) {
+	// 	$urlRouterProvider
+	// 		.when('/login', [
+	// 			'$state',
+	// 			'$injector',
+	// 			function ($state, $injector) {
+	// 				var SecurityService = $injector.get('SecurityService');
+	//
+	// 				// if already in login state and trying to reach again `/login`
+	// 				// don't do a redirection because it will enter in an infinite loop
+	// 				if ($state.$current.name === 'login') {
+	// 					return true;
+	// 				}
+	//
+	// 				// if already authenticated and trying to reach `/login`
+	// 				if (SecurityService.isAuthenticated()) {
+	// 					return "/";
+	// 				}
+	//
+	// 				return false;
+	// 			}
+	// 		])
+	// 		.otherwise(function () {
+	// 			return '/login';
+	// 		});
+	// }
+	// ])
 
 	.config([
 		'$stateProvider',
 		'$urlRouterProvider',
 		function ($stateProvider, $urlRouterProvider) {
-			// $urlRouterProvider.otherwise('/');
+			$urlRouterProvider.otherwise('/home');
 
 			$stateProvider
-				.state('login', {
-					url: '/login',
-					templateUrl: '/templates/login.html',
-					controller: 'SecurityController as vm'
+			// .state('login', {
+			// 	url: '/login',
+			// 	templateUrl: '/templates/login.html',
+			// 	controller: 'SecurityController as vm'
+			// })
+			// .state('register', {
+			// 	url: '/register',
+			// 	templateUrl: '/templates/register.html',
+			// 	controller: 'SecurityController as vm'
+			// })
+				.state('app', {
+					url: '',
+					abstract: true,
+					templateUrl: '/templates/home.html'
 				})
-				.state('register', {
-					url: '/register',
-					templateUrl: '/templates/register.html',
-					controller: 'SecurityController as vm'
-				})
-				.state('home', {
-					url: '/',
+				.state('app.home', {
+					url: '/home',
+					controller: 'SmityController as vm',
 					views: {
-						'': {
-							templateUrl: '/templates/home.html',
-							controller: 'SmityController as vm'
-						// },
-						// 'profile@home': {
-						// 	templateUrl: '/templates/profile.html'
+						'home': {
+							templateUrl: '/templates/content.html'
+						}
+					}
+				})
+				.state('app.temperature', {
+					url: '/temperature',
+					views: {
+						'home': {
+							templateUrl: '/templates/temperature.html'
+						},
+						'map@app.temperature': {
+							templateUrl: '/templates/map.html'
+						},
+						'graph@app.temperature': {
+							templateUrl: '/templates/temperatureGraph.html'
 						}
 					}
 				})
