@@ -236,7 +236,7 @@ fieldset[disabled] .btn-xl.active {
   }
 }
 header {
-  background-image: url('../img/header-bg.jpg');
+  background-image: url('../img/header-bg3.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -246,46 +246,48 @@ header {
   -o-background-size: cover;
   text-align: center;
   color: white;
+  height: 100vh;
+  width: 100vw;
 }
-header .intro-text {
+/*header .intro-text {
   padding-top: 100px;
   padding-bottom: 50px;
-}
-header .intro-text .intro-lead-in {
-  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-style: italic;
-  font-size: 22px;
-  line-height: 22px;
-  margin-bottom: 25px;
-}
-header .intro-text .intro-heading {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 50px;
-  line-height: 50px;
-  margin-bottom: 25px;
-}
+}*/
+/*header .intro-text .intro-lead-in {*/
+  /*font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  /*font-style: italic;*/
+  /*font-size: 22px;*/
+  /*line-height: 22px;*/
+  /*margin-bottom: 25px;*/
+/*}*/
+/*header .intro-text .intro-heading {*/
+  /*font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  /*text-transform: uppercase;*/
+  /*font-weight: 700;*/
+  /*font-size: 50px;*/
+  /*line-height: 50px;*/
+  /*margin-bottom: 25px;*/
+/*}*/
 @media (min-width: 768px) {
-  header .intro-text {
-    padding-top: 300px;
-    padding-bottom: 200px;
-  }
-  header .intro-text .intro-lead-in {
-    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-style: italic;
-    font-size: 40px;
-    line-height: 40px;
-    margin-bottom: 25px;
-  }
-  header .intro-text .intro-heading {
-    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 75px;
-    line-height: 75px;
-    margin-bottom: 50px;
-  }
+  /*header .intro-text {*/
+    /*padding-top: 300px;*/
+    /*padding-bottom: 200px;*/
+  /*}*/
+  /*header .intro-text .intro-lead-in {*/
+    /*font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    /*font-style: italic;*/
+    /*font-size: 40px;*/
+    /*line-height: 40px;*/
+    /*margin-bottom: 25px;*/
+  /*}*/
+  /*header .intro-text .intro-heading {*/
+    /*font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    /*text-transform: uppercase;*/
+    /*font-weight: 700;*/
+    /*font-size: 75px;*/
+    /*line-height: 75px;*/
+    /*margin-bottom: 50px;*/
+  /*}*/
 }
 section {
   padding: 100px 0;
@@ -296,7 +298,7 @@ section h2.section-heading {
   margin-bottom: 15px;
 }
 section h3.section-subheading {
-  font-size: 16px;
+  font-size: 1.5em;
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: none;
   font-style: italic;
@@ -575,6 +577,8 @@ section#contact .section-heading {
 section#contact .form-group {
   margin-bottom: 25px;
 }
+
+
 section#contact .form-group input,
 section#contact .form-group textarea {
   padding: 20px;
@@ -754,3 +758,198 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #fed136;
 }
+@media screen and (min-width: 1223px) {
+  .img-member {
+    transition: 1s ease;
+    position: relative;
+  }
+
+  .image-container {
+    margin-left: 10%;
+    width: 80%;
+  }
+
+  .contact-overlay {
+    position: absolute;
+    left: 37%;
+    top: 15%;
+    font-size: 2em;
+    font-weight: 700;
+    color: #e9853a;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+  .google-overlay {
+    position: absolute;
+    left:38%;
+    top: 35%;
+    font-size: 2em;
+    font-weight: 700;
+    color: #e9853a;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+  .linked-overlay {
+    position: absolute;
+    left:55%;
+    top: 35%;
+    font-size: 2em;
+    font-weight: 700;
+    color: #e9853a;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+  .image-container .contact-overlay{
+    opacity: 0;
+    transition: opacity 0.5s linear;
+  }
+
+  .image-container .google-overlay {
+    opacity: 0;
+    transition: opacity 0.5s linear;
+  }
+
+  .image-container .linked-overlay {
+    opacity: 0;
+    transition: opacity 0.5s linear;
+  }
+
+  .image-container:hover .google-overlay {
+    opacity: 1;
+  }
+
+  .image-container:hover .linked-overlay {
+    opacity: 1;
+  }
+
+  .image-container:hover .contact-overlay {
+    opacity: 1;
+  }
+
+  .image-container:hover .img-member{
+    -webkit-filter: blur(6px);
+    filter: blur(6px);
+  }
+
+  .ul-team {
+    visibility: hidden;
+  }
+  #logo-intro {
+    margin-bottom: auto;
+    margin-top: auto;
+  }
+}
+
+
+@media screen and (max-width: 1223px) {
+  .ul-team {
+    visibility: visible;
+  }
+
+  .linked-overlay, .google-overlay, .contact-overlay {
+    visibility: hidden;
+  }
+
+  #logo-intro {
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+
+.arrow-container{
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+}
+
+.arrow-1{
+  width: 100px;
+  height: 100px;
+  background: #fae9d9;
+  opacity: 0.5;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.arrow-2{
+  width: 60px;
+  height: 60px;
+  background: #f1a863;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  display: table;
+}
+
+.arrow-2:before{
+  width: 52px;
+  height: 52px;
+  content: "";
+  border: 2px solid #e78035;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+.arrow-2 i.fa{
+  font-size: 30px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Custom Animate.css */
+
+.animated.hinge {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
+
+@-webkit-keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.4, .4, .4);
+    transform: scale3d(.4, .4, .4);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.4, .4, .4);
+    transform: scale3d(.4, .4, .4);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+

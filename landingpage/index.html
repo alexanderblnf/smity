@@ -23,6 +23,7 @@
 
     <!-- Theme CSS -->
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -83,10 +84,19 @@
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="intro-text">
+            <div class="intro-text animated fadeIn">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <img src="img/alb-total.png" id="logo-intro">
+                </div>
+                <div class="arrow-container animated fadeInDown">
+                    <div class="arrow-2">
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                    <div class="arrow-1 animated hinge infinite zoomIn"></div>
+                </div>
                 <!--<div class="intro-lead-in">Welcome!</div>
                 <div class="intro-heading">It's Nice To Meet You</div>
-                <a href="#services" class="page-scroll btn btn-xl">Tell Me More</a> -->
+                <a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>-->
             </div>
         </div>
     </header>
@@ -97,7 +107,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">What is SMity?</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">SMity integrates different types of information,
+                        such as air quality data extracted from uRadMonitor, people density in key areas and street lighting.
+                        Using these streams of data, our platform creates a complex city profile, that is accessible and convenient to everyone,
+                        regardless of their profession and interests. SMity can be very useful to people involved in politics or business,
+                        public health expert and architects, but also to residents and tourists.</h3>
                 </div>
             </div>
             <div class="row text-center">
@@ -319,28 +333,21 @@
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="team-member" ng-app="testApp" ng-controller="testCtrl">
-						<img src="img/team/andra.jpg" class="img-responsive img-circle" alt="" ng-mouseover="open = true" ng-mouseleave="open = false">
-						<ul class="list-inline social-buttons" ng-show="open" ng-mouseover="open = true">
-							<li><a href="https://www.facebook.com/andra.denis1" target="_blank"><i class="fa fa-google"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
-							</li>
-						</ul>
+                    <div class="team-member">
+                        <div class="image-container img-circle">
+                            <img src="img/team/andra.jpg" class="img-responsive img-circle img-member" alt="">
+                            <span class="contact-overlay">Contact</span>
+                            <a href="https://www.facebook.com/andra.denis1" target="_blank"><i class="fa fa-google google-overlay social-buttons"></i></a>
+                            <a href="#"><i class="fa fa-linkedin linked-overlay social-buttons"></i></a>
+                        </div>
                         <h4>Andra-Denis Ionescu</h4>
                         <p class="text-muted">CEO</p>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="team-member">
-                        <img src="img/team/alex.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Alexandru Bălan</h4>
-                        <p class="text-muted">CTO</p>
-                        <ul class="list-inline social-buttons">
-                            <li><a href="https://www.facebook.com/alexandru.balan.79" target="_blank"><i class="fa fa-google"></i></a>
+                        <ul class="list-inline social-buttons ul-team">
+                            <li>
+                                <a href="https://www.facebook.com/andra.denis1" target="_blank"><i class="fa fa-google social-buttons"></i></a>
                             </li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            <li>
+                                <a href="#"><i class="fa fa-linkedin social-buttons"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -348,13 +355,41 @@
 
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/alexandra.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Alexandra Pițuru</h4>
-                        <p class="text-muted">UX and UI desginer</p>
-                        <ul class="list-inline social-buttons">
-                            <li><a href="https://www.facebook.com/alexandra.phbbt" target="_blank"><i class="fa fa-google"></i></a>
+                        <div class="image-container img-circle">
+                            <img src="img/team/alex.jpg" class="img-responsive img-circle img-member" alt="">
+                            <span class="contact-overlay">Contact</span>
+                            <a href="https://www.facebook.com/alexandru.balan.79" target="_blank"><i class="fa fa-google google-overlay social-buttons"></i></a>
+                            <a href="#"><i class="fa fa-linkedin linked-overlay social-buttons"></i></a>
+                        </div>
+                        <h4>Alexandru Bălan</h4>
+                        <p class="text-muted">CTO</p>
+                        <ul class="list-inline social-buttons ul-team">
+                            <li>
+                                <a href="https://www.facebook.com/alexandru.balan.79" target="_blank"><i class="fa fa-google social-buttons"></i></a>
                             </li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
+							<li>
+                                <a href="#"><i class="fa fa-linkedin social-buttons"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <div class="image-container img-circle">
+                            <img src="img/team/alexandra.jpg" class="img-responsive img-circle img-member" alt="">
+                            <span class="contact-overlay">Contact</span>
+                            <a href="https://www.facebook.com/alexandra.phbbt" target="_blank"><i class="fa fa-google google-overlay social-buttons"></i></a>
+                            <a href="#"><i class="fa fa-linkedin linked-overlay social-buttons"></i></a>
+                        </div>
+                        <h4>Alexandra Pițuru</h4>
+                        <p class="text-muted">UX and UI designer</p>
+                        <ul class="list-inline social-buttons ul-team">
+                            <li>
+                                <a href="https://www.facebook.com/alexandra.phbbt" target="_blank"><i class="fa fa-google social-buttons"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-linkedin social-buttons"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -363,13 +398,20 @@
             <div class="row">
                 <div class="col-sm-offset-2 col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/alin.jpg" class="img-responsive img-circle" alt="">
+                        <div class="image-container img-circle">
+                            <img src="img/team/alin.jpg" class="img-responsive img-circle img-member" alt="">
+                            <span class="contact-overlay">Contact</span>
+                            <a href="https://www.facebook.com/alin.popa.3382" target="_blank"><i class="fa fa-google google-overlay social-buttons"></i></a>
+                            <a href="#"><i class="fa fa-linkedin linked-overlay social-buttons"></i></a>
+                        </div>
                         <h4>Alin Popa</h4>
                         <p class="text-muted">Backend developer</p>
-                        <ul class="list-inline social-buttons">
-                            <li><a href="https://www.facebook.com/alin.popa.3382" target="_blank"><i class="fa fa-google"></i></a>
+                        <ul class="list-inline social-buttons ul-team">
+                            <li>
+                                <a href="https://www.facebook.com/alin.popa.3382" target="_blank"><i class="fa fa-google social-buttons"></i></a>
                             </li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            <li>
+                                <a href="#"><i class="fa fa-linkedin social-buttons"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -377,13 +419,20 @@
 
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/mihai.jpg" class="img-responsive img-circle" alt="">
+                        <div class="image-container img-circle">
+                            <img src="img/team/mihai.jpg" class="img-responsive img-circle img-member" alt="">
+                            <span class="contact-overlay">Contact</span>
+                            <a href="https://www.facebook.com/stoicama" target="_blank"><i class="fa fa-google google-overlay social-buttons"></i></a>
+                            <a href="#"><i class="fa fa-linkedin linked-overlay social-buttons"></i></a>
+                        </div>
                         <h4>Mihai Stoica</h4>
                         <p class="text-muted">Frontend developer</p>
-                        <ul class="list-inline social-buttons">
-                            <li><a href="https://www.facebook.com/stoicama" target="_blank"><i class="fa fa-google"></i></a>
+                        <ul class="list-inline social-buttons ul-team">
+                            <li>
+                                <a href="https://www.facebook.com/stoicama" target="_blank"><i class="fa fa-google social-buttons"></i></a>
                             </li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            <li>
+                                <a href="#"><i class="fa fa-linkedin social-buttons"></i></a>
                             </li>
                         </ul>
                     </div>
