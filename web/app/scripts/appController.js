@@ -53,7 +53,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	function logout() {
 		return SecurityService.logout()
 			.then(function () {
-				// LocalStorage.remove(Constants.AUTH.TOKEN);
+				LocalStorage.remove(Constants.AUTH.TOKEN);
 				SecurityService.clearCredentials();
 				$state.go('login');
 			});

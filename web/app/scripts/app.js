@@ -9,7 +9,7 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
-		'auth'])
+		])
 
 	.config(['$httpProvider',
 		function ($httpProvider) {
@@ -69,12 +69,18 @@ angular
 				.state('home', {
 					url: '/',
 					views: {
-						'': {
-							templateUrl: '/templates/home.html',
+						'notification': {
+							templateUrl: '/templates/notification.html',
 							controller: 'SmityController as vm'
-						// },
-						// 'profile@home': {
-						// 	templateUrl: '/templates/profile.html'
+						},
+						'menu': {
+							templateUrl: '/templates/menu.html'
+						},
+						'contentHeader': {
+							templateUrl: '/templates/contentHeader.html'
+						},
+						'content': {
+							templateUrl: '/templates/content.html'
 						}
 					}
 				})

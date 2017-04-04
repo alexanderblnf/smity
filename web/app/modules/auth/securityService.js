@@ -24,7 +24,10 @@ function SecurityService(LocalStorage, Constants, SecurityResource, $rootScope, 
 	};
 
 	function loggedIn() {
-		return SecurityResource.loggedin().$promise;
+		return SecurityResource.loggedin().$promise
+			.then(function (response) {
+				return response;
+			});
     }
 
 	function login(credentials) {
