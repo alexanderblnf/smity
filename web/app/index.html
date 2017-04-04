@@ -38,7 +38,7 @@
 	<![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper" ng-app="Smity">
+<div ng-app="Smity">
 
 	<header class="main-header">
 		<!-- Logo -->
@@ -55,29 +55,18 @@
 				<span class="sr-only">Toggle navigation</span>
 			</a>
 
-			<div ui-view="notification"></div>
+			<!--<div ui-view="notification"></div>-->
 		</nav>
 	</header>
 	<!-- Left side column. contains the logo and sidebar -->
-	<div ui-view="menu"></div>
-
-	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper">
-		<!-- Content Header (Page header) -->
-		<div ui-view="contentHeader"></div>
-
-		<!-- Main content -->
-		<div ui-view="content"></div>
-
-		<!-- /.content -->
-	</div>
+	<div ui-view></div>
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<!--<div class="pull-right hidden-xs">-->
 		<!--<b>Version</b> 2.3.8-->
 		<!--</div>-->
 		<strong>Copyright &copy; 2017 <a href="https://www.facebook.com/smity.ro" target="_blank">SMity
-			Team</a>.</strong> All rights
+			</a>.</strong> All rights
 		reserved.
 	</footer>
 

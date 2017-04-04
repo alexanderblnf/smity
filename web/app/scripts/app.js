@@ -9,7 +9,7 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
-		])
+	])
 
 	.config(['$httpProvider',
 		function ($httpProvider) {
@@ -53,34 +53,44 @@ angular
 		'$stateProvider',
 		'$urlRouterProvider',
 		function ($stateProvider, $urlRouterProvider) {
-			 $urlRouterProvider.otherwise('/');
+			$urlRouterProvider.otherwise('/home');
 
 			$stateProvider
-				// .state('login', {
-				// 	url: '/login',
-				// 	templateUrl: '/templates/login.html',
-				// 	controller: 'SecurityController as vm'
-				// })
-				// .state('register', {
-				// 	url: '/register',
-				// 	templateUrl: '/templates/register.html',
-				// 	controller: 'SecurityController as vm'
-				// })
-				.state('home', {
-					url: '/',
+			// .state('login', {
+			// 	url: '/login',
+			// 	templateUrl: '/templates/login.html',
+			// 	controller: 'SecurityController as vm'
+			// })
+			// .state('register', {
+			// 	url: '/register',
+			// 	templateUrl: '/templates/register.html',
+			// 	controller: 'SecurityController as vm'
+			// })
+				.state('app', {
+					url: '',
+					abstract: true,
+					templateUrl: '/templates/home.html'
+				})
+				.state('app.home', {
+					url: '/home',
+					controller: 'SmityController as vm',
 					views: {
-						'notification': {
-							templateUrl: '/templates/notification.html',
-							controller: 'SmityController as vm'
-						},
-						'menu': {
-							templateUrl: '/templates/menu.html'
-						},
-						'contentHeader': {
-							templateUrl: '/templates/contentHeader.html'
-						},
-						'content': {
+						'home': {
 							templateUrl: '/templates/content.html'
+						}
+					}
+				})
+				.state('app.temperature', {
+					url: '/temperature',
+					views: {
+						'home': {
+							templateUrl: '/templates/temperature.html'
+						},
+						'map@app.temperature': {
+							templateUrl: '/templates/map.html'
+						},
+						'graph@app.temperature': {
+							templateUrl: '/templates/temperatureGraph.html'
 						}
 					}
 				})
