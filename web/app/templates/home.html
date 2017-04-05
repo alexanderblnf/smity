@@ -13,74 +13,101 @@
 		</div>
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
-			<li class="header">INFORMATII TERMICE</li>
-
-			<li class="">
-				<a href ui-sref=".temperature">
-					<i class="fa fa-tachometer"></i> <span>Temperatura</span>
-				</a>
-			</li>
-
-			<li class="">
+			<li class="header">URADMonitor</li>
+			<li class="treeview">
 				<a href="#">
-					<i class="fa fa-umbrella"></i> <span>Presiune</span>
+					<i class="fa fa-dashboard"></i><span>Informatii termice</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+                    </span>
 				</a>
+				<ul class="treeview-menu">
+					<li class="">
+						<a href ui-sref=".temperature">
+							<i class="fa fa-tachometer"></i> <span>Temperatura</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-umbrella"></i> <span>Presiune</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-tint"></i> <span>Umiditate</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-line-chart"></i> <span>Confort termic</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 
-			<li class="">
+			<li class="treeview">
 				<a href="#">
-					<i class="fa fa-tint"></i> <span>Umiditate</span>
+					<i class="fa fa-dashboard"></i><span>Poluare</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+                    </span>
 				</a>
+
+				<ul class="treeview-menu">
+					<li class="">
+						<a href="#">
+							<i class="fa fa-bar-chart"></i> <span>Particule de praf</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-flask"></i> <span>Compusi organici</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-warning"></i> <span>Radiatie</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 
-			<li class="">
+			<li class="header">e-AlbaIulia</li>
+			<li class="treeview">
 				<a href="#">
-					<i class="fa fa-line-chart"></i> <span>Confort termic</span>
+					<i class="fa fa-dashboard"></i><span>Beacons</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+                    </span>
 				</a>
+
+				<ul class="treeview-menu">
+					<li class="">
+						<a href="#">
+							<i class="fa fa-users"></i> <span>Flux de persoane</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-camera"></i> <span>Numar de turisti</span>
+						</a>
+					</li>
+
+					<li class="">
+						<a href="#">
+							<i class="fa fa-map"></i> <span>Harta de aglomeratie</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 
-			<li class="header">POLUARE</li>
-
-			<li class="">
-				<a href="#">
-					<i class="fa fa-bar-chart"></i> <span>Particule de praf</span>
-				</a>
-			</li>
-
-			<li class="">
-				<a href="#">
-					<i class="fa fa-flask"></i> <span>Compusi organici</span>
-				</a>
-			</li>
-
-			<li class="">
-				<a href="#">
-					<i class="fa fa-warning"></i> <span>Radiatie</span>
-				</a>
-			</li>
-
-			<li class="header">AGLOMERATIE SI PERSOANE</li>
-
-			<li class="">
-				<a href="#">
-					<i class="fa fa-users"></i> <span>Flux de persoane</span>
-				</a>
-			</li>
-
-			<li class="">
-				<a href="#">
-					<i class="fa fa-camera"></i> <span>Numar de turisti</span>
-				</a>
-			</li>
-
-			<li class="">
-				<a href="#">
-					<i class="fa fa-map"></i> <span>Harta de aglomeratie</span>
-				</a>
-			</li>
-
-			<li class="header">SERVICII PUBLICE</li>
-
+			<li class="header">IntelliLight</li>
 			<li class="">
 				<a href="#">
 					<i class="fa fa-lightbulb-o"></i> <span>Smart lighting</span>
@@ -99,10 +126,10 @@
 			Overview
 			<small>Control panel</small>
 		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-			<li class="active">Overview</li>
-		</ol>
+		<!--<ol class="breadcrumb">-->
+			<!--<li><a href="#"><i class="fa fa-home"></i> Home</a></li>-->
+			<!--<li class="active">Overview</li>-->
+		<!--</ol>-->
 	</section>
 
 	<!-- Main content -->
