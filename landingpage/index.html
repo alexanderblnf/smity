@@ -39,42 +39,22 @@
 
     <!-- Navigation -->
     <nav id="mainNav" class="navbarTest navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container">
+        <div class="container" style="height:100%;">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="page-scroll" href="#page-top"><img src="img/logo-mic.png" height="50" style="padding-left:10px;" ></a>
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
+                    <!--<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>-->
+                <!--</button>-->
+                <div class="logo-div">
+                    <a class="page-scroll" href="#page-top"><img src="img/logo-mic.png" style="height: 6vh;" id="logo-img"></a>
+                </div>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-					<!--
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#services">Services</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#team">Team</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
-					-->
-					<li>
-                        <a class="page-scroll" href="#page-top">Back to Top</a>
-                    </li>
-                </ul>
+            <div><!--class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"-->
+                <div class="back-div">
+                    <a class="page-scroll" href="#page-top">Back to Top</a>
+                </div>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -88,22 +68,19 @@
                 <div class="col-xs-12 col-md-12 col-lg-12">
                     <img src="img/alb-total.png" id="logo-intro">
                 </div>
-                <div class="arrow-container animated fadeInDown">
-                    <div class="arrow-2">
-                        <i class="fa fa-angle-down"></i>
-                    </div>
-                    <div class="arrow-1 animated hinge infinite zoomIn"></div>
-                </div>
                 <!--<div class="intro-lead-in">Welcome!</div>
                 <div class="intro-heading">It's Nice To Meet You</div>
                 <a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>-->
             </div>
         </div>
+        <div class="shiny">
+            <a class="page-scroll" href="#services"><i class="fa fa-angle-down fa-4x"></i></a>
+        </div>
     </header>
 
     <!-- Services Section -->
     <section id="services" class="bg-light-gray">
-        <div class="container">
+        <div class="container view-check">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">What is SMity?</h2>
@@ -115,29 +92,37 @@
                 </div>
             </div>
             <div class="row text-center">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        <i class="fa fa-child fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">E-Commerce</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">Easy to use</h4>
+                    <p class="text-muted">Without any technical background, the user will be able to visualise and interpret data so that he can take the best decisions for the citizens.</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-paint-brush fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Customizable</h4>
+                    <p class="text-muted">Every user will be able to customise his platform to suit his needs, so he can select which information he desires to visualise.</p>
+                </div>
+                <div class="col-md-3">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Responsive Design</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">SMity works on smartphones, tablets and personal computers so, whether you’re at the office or on the go, you’ll always get the information you need.</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                        <i class="fa fa-money fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Web Security</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">Affordable</h4>
+                    <p class="text-muted">We offer different packages to fulfill the needs of every city manager, with free features to the average citizen and premium ones for the managers</p>
                 </div>
             </div>
         </div>
@@ -243,7 +228,7 @@
 
     <!-- About Section -->
     <section id="about" class="bg-light-gray">
-        <div class="container">
+        <div class="container view-check">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">How does it work?</h2>
@@ -324,7 +309,7 @@
 
     <!-- Team Section -->
     <section id="team" class="bg-light-gray">
-        <div class="container">
+        <div class="container view-check">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Meet the team!</h2>
@@ -471,7 +456,7 @@
 
     <!-- Contact Section -->
     <section id="contact" class="bg-light-gray">
-        <div class="container">
+        <div class="container view-check">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Interested? Let's talk!</h2>
@@ -714,6 +699,7 @@
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jquery.viewportchecker.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -734,6 +720,15 @@
 			$scope.open = false; 
 		});
 	</script>
+
+    <script>
+        $(document).ready(function () {
+            $('.view-check').addClass("hideme").viewportChecker({
+                classToAdd: 'visible animated fadeIn',
+                offset: 100
+            });
+        });
+    </script>
 
 </body>
 

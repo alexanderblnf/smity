@@ -38,7 +38,9 @@ a.active {
   outline: none;
 }
 a {
-  color: #fed136;
+  color: #ff6600;
+  text-decoration: none !important;
+  font-weight: 700;
 }
 a:hover,
 a:focus,
@@ -249,65 +251,26 @@ header {
   height: 100vh;
   width: 100vw;
 }
-/*header .intro-text {
-  padding-top: 100px;
-  padding-bottom: 50px;
-}*/
-/*header .intro-text .intro-lead-in {*/
-  /*font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  /*font-style: italic;*/
-  /*font-size: 22px;*/
-  /*line-height: 22px;*/
-  /*margin-bottom: 25px;*/
-/*}*/
-/*header .intro-text .intro-heading {*/
-  /*font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  /*text-transform: uppercase;*/
-  /*font-weight: 700;*/
-  /*font-size: 50px;*/
-  /*line-height: 50px;*/
-  /*margin-bottom: 25px;*/
-/*}*/
-@media (min-width: 768px) {
-  /*header .intro-text {*/
-    /*padding-top: 300px;*/
-    /*padding-bottom: 200px;*/
-  /*}*/
-  /*header .intro-text .intro-lead-in {*/
-    /*font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    /*font-style: italic;*/
-    /*font-size: 40px;*/
-    /*line-height: 40px;*/
-    /*margin-bottom: 25px;*/
-  /*}*/
-  /*header .intro-text .intro-heading {*/
-    /*font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    /*text-transform: uppercase;*/
-    /*font-weight: 700;*/
-    /*font-size: 75px;*/
-    /*line-height: 75px;*/
-    /*margin-bottom: 50px;*/
-  /*}*/
-}
+
 section {
   padding: 100px 0;
 }
 section h2.section-heading {
+  color: #ff6600;
   font-size: 40px;
   margin-top: 0;
   margin-bottom: 15px;
 }
 section h3.section-subheading {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: none;
-  font-style: italic;
   font-weight: 400;
   margin-bottom: 75px;
 }
 @media (min-width: 768px) {
   section {
-    padding: 150px 0;
+    padding: 120px 0;
   }
 }
 .service-heading {
@@ -758,7 +721,36 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #fed136;
 }
-@media screen and (min-width: 1223px) {
+@media screen and (min-width: 768px) {
+
+  #mainNav {
+    /*display: flex !important;*/
+    display: inline-flex;
+    align-items: center;
+  }
+
+  #services {
+    background: url("../img/bg-what.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-attachment: fixed;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .logo-div {
+    left: 2vw;
+  }
+
+  .back-div {
+    right: 6vw;
+  }
+
+  .shiny{
+    margin-top: 5%;
+  }
+
   .img-member {
     transition: 1s ease;
     position: relative;
@@ -841,7 +833,28 @@ body {
 }
 
 
-@media screen and (max-width: 1223px) {
+@media screen and (max-width: 767px) {
+
+  #services {
+    background: slategray; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(#403d3b 1%, black); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#403d3b 1%, black); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#403d3b 1%, black); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#403d3b 1%, black); /* Standard syntax */
+  }
+
+  .logo-div {
+    left: 5vw;
+  }
+
+  .back-div {
+    right: 6vw;
+  }
+
+  .shiny{
+    margin-top: 90%;
+  }
+
   .ul-team {
     visibility: visible;
   }
@@ -857,7 +870,6 @@ body {
     height: 100%;
   }
 }
-
 
 
 .arrow-container{
@@ -953,3 +965,51 @@ body {
   animation-name: zoomIn;
 }
 
+.hideme{
+  opacity:0;
+}
+.visible{
+  opacity:1;
+}
+
+@keyframes shine{
+  10% {
+    opacity: 1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+  100% {
+    opacity: 0.1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+  }
+}
+
+.shiny {
+  -webkit-animation: shine 2s infinite linear alternate;
+  animation: shine 2s infinite linear alternate;
+}
+
+.logo-div {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top:0;
+}
+
+.back-div {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top:0;
+}
+
+#mainNav {
+  height: 8vh;
+}
