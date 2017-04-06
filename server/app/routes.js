@@ -78,6 +78,14 @@ module.exports = function(app, passport) {
 
     /*
     =========================
+    Email service
+    =========================
+     */
+    var email = require('./modules/email/email');
+    app.use('/email', email);
+
+    /*
+    =========================
     Endpoints for urad API
     =========================
      */
@@ -89,7 +97,7 @@ module.exports = function(app, passport) {
     Endpoints for liveObjects API
     =============================
      */
-    var liveObjects = require('./modules/liveObjectsRoutes');
+    var liveObjects = require('./modules/liveobjects/liveObjectsRoutes');
     app.use('/live', liveObjects);
 
     var elastic = require('./modules/elasticsearch/elasticRoutes');

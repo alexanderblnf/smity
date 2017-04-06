@@ -10,11 +10,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var path = require('path');
-var configDB = require('./config/database.js');
+var configDB = require('./server/config/database.js');
 
 // configuration ===============================================================
 var db = pgp(configDB.url); // connect to our database
-require('./config/passport')(passport, db, pgp); // pass passport for configuration
+require('./server/config/passport')(passport, db, pgp); // pass passport for configuration
 
 // set up our express application
 // app.use(cors({origin: '*',
@@ -27,14 +27,14 @@ app.use(bodyParser()); // get information from html forms
 // required for passport
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch',
                     resave: true,
-                    saveUninitialized: true,
+                    saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport, db, pgp); // load our routes and pass in our app and fully configured passport
+require('./server/app/routes.js')(app, passport, db, pgp); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);

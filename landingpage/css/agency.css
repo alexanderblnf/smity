@@ -262,10 +262,9 @@ section h2.section-heading {
   margin-bottom: 15px;
 }
 section h3.section-subheading {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: none;
-  font-style: italic;
   font-weight: 400;
   margin-bottom: 75px;
 }
@@ -730,12 +729,22 @@ body {
     align-items: center;
   }
 
+  #services {
+    background: url("../img/bg-what.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-attachment: fixed;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
   .logo-div {
-    left: 1vw;
+    left: 2vw;
   }
 
   .back-div {
-    right: 3vw;
+    right: 6vw;
   }
 
   .shiny{
@@ -826,12 +835,20 @@ body {
 
 @media screen and (max-width: 767px) {
 
+  #services {
+    background: slategray; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(#403d3b 1%, black); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(#403d3b 1%, black); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(#403d3b 1%, black); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(#403d3b 1%, black); /* Standard syntax */
+  }
+
   .logo-div {
     left: 5vw;
   }
 
   .back-div {
-    right: 5vw;
+    right: 6vw;
   }
 
   .shiny{
@@ -995,8 +1012,4 @@ body {
 
 #mainNav {
   height: 8vh;
-}
-
-#services {
-  background-color: black;
 }

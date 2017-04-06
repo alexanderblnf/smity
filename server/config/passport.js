@@ -1,7 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model
-var user = require('../app/models/user');
+var user = require('../app/sql_models/user');
 
 // expose this function to our app using module.exports
 module.exports = function (passport, db, pgp) {
