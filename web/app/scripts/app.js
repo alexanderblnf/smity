@@ -84,13 +84,13 @@ angular
 					url: '/temperature',
 					views: {
 						'home': {
-							templateUrl: '/templates/temperature.html'
+							templateUrl: '/templates/temperature/temperature.html'
 						},
 						'map@app.temperature': {
 							templateUrl: '/templates/map.html'
 						},
 						'graph@app.temperature': {
-							templateUrl: '/templates/temperatureGraph.html'
+							templateUrl: '/templates/temperature/temperatureGraph.html'
 						}
 					}
 				})

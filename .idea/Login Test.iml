@@ -5,8 +5,5 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="raphael" level="application" />
-    <orderEntry type="library" name="moment" level="application" />
-    <orderEntry type="library" name="jquery-ui" level="application" />
   </component>
 </module>
