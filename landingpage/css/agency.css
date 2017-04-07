@@ -267,6 +267,7 @@ section h3.section-subheading {
   text-transform: none;
   font-weight: 400;
   margin-bottom: 75px;
+  margin-top: 30px;
 }
 @media (min-width: 768px) {
   section {
@@ -477,13 +478,13 @@ section h3.section-subheading {
     padding: 0 20px 20px;
   }
   .timeline > li .timeline-image {
-    width: 150px;
-    height: 150px;
-    margin-left: -75px;
+    width: 125px;
+    height: 125px;
+    margin-left: -63px;
   }
   .timeline > li .timeline-image h4 {
     font-size: 18px;
-    margin-top: 30px;
+    margin-top: 17px;
     line-height: 26px;
   }
   .timeline > li.timeline-inverted > .timeline-panel {
@@ -498,12 +499,12 @@ section h3.section-subheading {
     padding: 0 20px 20px 100px;
   }
   .timeline > li .timeline-image {
-    width: 170px;
-    height: 170px;
-    margin-left: -85px;
+    width: 125px;
+    height: 125px;
+    margin-left: -63px;
   }
   .timeline > li .timeline-image h4 {
-    margin-top: 40px;
+    margin-top: 20px;
   }
   .timeline > li.timeline-inverted > .timeline-panel {
     padding: 0 100px 20px 20px;
@@ -722,6 +723,37 @@ body {
   webkit-tap-highlight-color: #fed136;
 }
 @media screen and (min-width: 768px) {
+  #first-container {
+    text-align: center;
+  }
+
+  .circle-timeline{
+    width: 125px;
+    height: 125px;
+  }
+
+
+  .visible-mobile {
+    display: none !important;
+  }
+
+  #separator {
+    height: 35vh;
+  }
+
+  .screen-image {
+    left: 50%;
+    width: 180px;
+    height: 180px;
+    margin-left: -90px;
+  }
+
+  .logo-image {
+    width: 25vw;
+    height: 20vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   #mainNav {
     /*display: flex !important;*/
@@ -731,16 +763,19 @@ body {
 
   #services {
     background: url("../img/bg-what.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
     background-attachment: fixed;
     max-height: 100%;
     max-width: 100%;
   }
 
   .logo-div {
-    left: 2vw;
+    left: 5vw;
   }
 
   .back-div {
@@ -767,7 +802,7 @@ body {
     top: 15%;
     font-size: 2em;
     font-weight: 700;
-    color: #e9853a;
+    color: #ff6600;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
@@ -777,7 +812,7 @@ body {
     top: 35%;
     font-size: 2em;
     font-weight: 700;
-    color: #e9853a;
+    color: #ff6600;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
@@ -787,7 +822,7 @@ body {
     top: 35%;
     font-size: 2em;
     font-weight: 700;
-    color: #e9853a;
+    color: #ff6600;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
@@ -819,8 +854,27 @@ body {
   }
 
   .image-container:hover .img-member{
-    -webkit-filter: blur(6px);
-    filter: blur(6px);
+    /*-webkit-filter: blur(6px);
+    filter: blur(6px);*/
+
+  }
+
+  .img-member {
+    z-index: -1;
+  }
+
+  .white-wall {
+    max-width: 225px;
+    max-height: 225px;
+    margin: 0 auto;
+    z-index: 1000;
+    background: transparent;
+    transition: 0.5s ease;
+  }
+
+  .white-wall:hover {
+    box-shadow: inset 0 0 0 1000px rgba(255,255,255,.5);
+    transition: 0.5s ease;
   }
 
   .ul-team {
@@ -832,15 +886,48 @@ body {
   }
 }
 
+@media screen and (min-width: 767px) and (max-width: 800px) {
+  #logo-intro {
+    width: 100%;
+  }
+
+  .shiny {
+    margin-top: 50%;
+  }
+}
 
 @media screen and (max-width: 767px) {
+  .circle-timeline {
+    width: 80px;
+    height: 80px;
+  }
+
+  .visible-laptop {
+    display: none !important;
+  }
+
+  #separator {
+    height: 15vh;
+  }
+
+  .screen-image {
+    width: 90px;
+    height: 90px;
+    left: 0;
+    margin-left: -6px;
+  }
 
   #services {
-    background: slategray; /* For browsers that do not support gradients */
-    background: -webkit-radial-gradient(#403d3b 1%, black); /* Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(#403d3b 1%, black); /* For Opera 11.6 to 12.0 */
-    background: -moz-radial-gradient(#403d3b 1%, black); /* For Firefox 3.6 to 15 */
-    background: radial-gradient(#403d3b 1%, black); /* Standard syntax */
+    background: url("../img/bg-what.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    max-height: 100%;
+    max-width: 100%;
   }
 
   .logo-div {
@@ -1012,4 +1099,66 @@ body {
 
 #mainNav {
   height: 8vh;
+}
+
+.screen-image {
+  position: absolute;
+}
+
+#about {
+  background: url("../img/bg-what.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.smity-transparent {
+  background: transparent;
+}
+
+#separator {
+  background-color: rgba(33, 33, 33, 0.95);
+}
+
+#first-container {
+  display: inline-flex;
+  width: 100%;
+  height: 20%;
+}
+
+.time-container {
+  width: 100%;
+  height: 80%;
+  display: inline;
+  white-space: nowrap;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.circle-timeline {
+  display: inline-block;
+  z-index: 100;
+  background-color: #fed136;
+  color: white;
+  border-radius: 100%;
+  border: 7px solid #f1f1f1;
+}
+
+.stay-center {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.div-line {
+  position: absolute;
+  top: 8vh;
+  width: 100%;
+  z-index: -1;
+  border-bottom: 2px solid white;
 }
