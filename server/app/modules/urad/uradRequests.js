@@ -2,7 +2,6 @@ var http = require('http');
 var func = require('./uradFunctions');
 exports.getData = function (options, res) {
     http.get(options, function (response) {
-        console.log(res.statusCode);
 
         var stream = require('stream');
         var out = new stream.Readable();
@@ -95,8 +94,6 @@ exports.getLive = function (options, res) {
             getData(loop, options, param, data);
         },
         callback: function () {
-            var stream = require('stream');
-            var out = new stream.Readable();
             res.send(JSON.stringify(data));
         }
     })
