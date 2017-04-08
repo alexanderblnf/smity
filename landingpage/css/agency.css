@@ -9,7 +9,7 @@ body {
   background-image: url("../img/logo-final.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   background-attachment: fixed;
   max-height: 100%;
   max-width: 100%;
@@ -238,7 +238,7 @@ fieldset[disabled] .btn-xl.active {
   }
 }
 header {
-  background-image: url('../img/cover_new.jpg');
+  background-image: url('../img/cover_final.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -901,7 +901,7 @@ body {
   }
   #logo-intro {
     margin-bottom: auto;
-    margin-top: auto;
+    margin-top: 30%;
   }
 }
 
@@ -997,7 +997,7 @@ body {
 
   #logo-intro {
     margin-bottom: auto;
-    margin-top: auto;
+    margin-top: 50%;
     width: 100%;
     height: 100%;
   }
@@ -1212,4 +1212,40 @@ body {
 
 .limit-line{
   border-bottom: 1px solid #FF6600;
+}
+
+.contact-button{
+  background-color: white;
+  border: none;
+  color: #FF6600;
+}
+
+.contact-button:hover{
+  background-color: lightgray;
+  color: #FF6600;
+}
+
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: slategray !important;
+}
+textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: slategray !important;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+  color: slategray !important;
+}
+textarea::-moz-placeholder { /* Firefox 19+ */
+  color: slategray !important;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+  color: slategray !important;
+}
+textarea:-ms-input-placeholder { /* IE 10+ */
+  color: slategray !important;
+}
+input:-moz-placeholder { /* Firefox 18- */
+  color: slategray !important;
+}
+textarea:-moz-placeholder { /* Firefox 18- */
+  color: slategray !important;
 }

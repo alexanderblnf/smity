@@ -27,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/landingpage/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="221" column="48" lean-forward="true" selection-start-line="221" selection-start-column="48" selection-end-line="221" selection-end-column="48" />
+            <state relative-caret-position="-3832">
+              <caret line="462" column="82" lean-forward="false" selection-start-line="462" selection-start-column="82" selection-end-line="462" selection-end-column="82" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -42,18 +42,18 @@
                 <element signature="n#style#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1491652571707" expanded="true" signature="1398:1539" ph="..." />
-                <marker date="1491652571707" expanded="true" signature="1618:1759" ph="..." />
+                <marker date="1491655763699" expanded="true" signature="1398:1539" ph="..." />
+                <marker date="1491655763699" expanded="true" signature="1618:1759" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="agency.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="agency.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="939" column="32" lean-forward="true" selection-start-line="939" selection-start-column="32" selection-end-line="939" selection-end-column="32" />
+            <state relative-caret-position="636">
+              <caret line="1251" column="0" lean-forward="true" selection-start-line="1251" selection-start-column="0" selection-end-line="1251" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,14 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>arrow</find>
-      <find>font-family</find>
-      <find>page-top</find>
-      <find>navbar-header</find>
-      <find>section-heading</find>
-      <find>container</find>
-      <find>logo</find>
-      <find>max-width</find>
       <find>logo-div</find>
       <find>menu</find>
       <find>a</find>
@@ -95,11 +87,19 @@
       <find>logo-ima</find>
       <find>@media</find>
       <find>cover</find>
-      <find>logo-intro</find>
       <find>smity-line</find>
       <find>smity-transparent</find>
       <find>smity-</find>
+      <find>footer</find>
       <find>logo-image</find>
+      <find>header</find>
+      <find>header-</find>
+      <find>section-heading</find>
+      <find>href=&quot;#</find>
+      <find>logo-intro</find>
+      <find>cover_</find>
+      <find>send messa</find>
+      <find>transit</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Dev Stuff\SMity\smity2\web\app\scripts</dir>
@@ -110,6 +110,7 @@
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="alin1popa &lt;alin1popa@gmail.com&gt;" />
+        <option value="Alin &lt;alin1popa@gmail.com&gt;" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -162,8 +163,8 @@
         <option value="$PROJECT_DIR$/landingpage/js/contact_me.js" />
         <option value="$PROJECT_DIR$/server/app/modules/email/email.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/landingpage/css/agency.css" />
         <option value="$PROJECT_DIR$/landingpage/index.html" />
+        <option value="$PROJECT_DIR$/landingpage/css/agency.css" />
       </list>
     </option>
   </component>
@@ -801,7 +802,7 @@
       <workItem from="1491389917216" duration="1215000" />
       <workItem from="1491397887663" duration="27822000" />
       <workItem from="1491549321095" duration="154000" />
-      <workItem from="1491640654565" duration="10326000" />
+      <workItem from="1491640654565" duration="15473000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -943,11 +944,25 @@
       <option name="project" value="LOCAL" />
       <updated>1491648912727</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Small changes to lines">
+      <created>1491652762255</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1491652762260</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Delimiter lines +titles">
+      <created>1491654330042</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1491654330042</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235683000" />
+    <option name="totallyTimeSpent" value="240830000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
@@ -1050,6 +1065,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;" />
     <MESSAGE value="Implement Login" />
     <MESSAGE value="IntelliJ test" />
@@ -1069,7 +1086,9 @@
     <MESSAGE value="Visual updates to landing page" />
     <MESSAGE value="Modificari landingpage buline+linie" />
     <MESSAGE value="The line doesn't cross SMity anymore pizda ma-sii" />
-    <option name="LAST_COMMIT_MESSAGE" value="The line doesn't cross SMity anymore pizda ma-sii" />
+    <MESSAGE value="Small changes to lines" />
+    <MESSAGE value="Delimiter lines +titles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delimiter lines +titles" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1367,18 +1386,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="939" column="32" lean-forward="true" selection-start-line="939" selection-start-column="32" selection-end-line="939" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/landingpage/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="221" column="48" lean-forward="true" selection-start-line="221" selection-start-column="48" selection-end-line="221" selection-end-column="48" />
+        <state relative-caret-position="-3832">
+          <caret line="462" column="82" lean-forward="false" selection-start-line="462" selection-start-column="82" selection-end-line="462" selection-end-column="82" />
           <folding>
             <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1389,9 +1400,17 @@
             <element signature="n#style#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1491652571707" expanded="true" signature="1398:1539" ph="..." />
-            <marker date="1491652571707" expanded="true" signature="1618:1759" ph="..." />
+            <marker date="1491655763699" expanded="true" signature="1398:1539" ph="..." />
+            <marker date="1491655763699" expanded="true" signature="1618:1759" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="1251" column="0" lean-forward="true" selection-start-line="1251" selection-start-column="0" selection-end-line="1251" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
