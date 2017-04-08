@@ -238,7 +238,7 @@ fieldset[disabled] .btn-xl.active {
   }
 }
 header {
-  background-image: url('../img/header-bg3.jpg');
+  background-image: url('../img/cover_new.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -535,9 +535,9 @@ section#contact {
   background-position: center;
   background-repeat: no-repeat;
 }
-section#contact .section-heading {
+/*section#contact .section-heading {
   color: white;
-}
+}*/
 section#contact .form-group {
   margin-bottom: 25px;
 }
@@ -587,8 +587,10 @@ section#contact .text-danger {
   color: #e74c3c;
 }
 footer {
-  padding: 25px 0;
+  padding: 10px 0;
   text-align: center;
+  /*height: 8vh;*/
+  background-color: #FF6600;
 }
 footer span.copyright {
   line-height: 40px;
@@ -999,6 +1001,8 @@ body {
     width: 100%;
     height: 100%;
   }
+
+
 }
 
 
@@ -1206,3 +1210,6 @@ body {
   border-bottom: 2px solid white;
 }
 
+.limit-line{
+  border-bottom: 1px solid #FF6600;
+}
