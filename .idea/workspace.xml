@@ -30,8 +30,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/landingpage/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="244" column="86" lean-forward="true" selection-start-line="244" selection-start-column="86" selection-end-line="244" selection-end-column="86" />
+            <state relative-caret-position="450">
+              <caret line="221" column="48" lean-forward="true" selection-start-line="221" selection-start-column="48" selection-end-line="221" selection-end-column="48" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -42,8 +42,8 @@
                 <element signature="n#style#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1491648665765" expanded="true" signature="1398:1539" ph="..." />
-                <marker date="1491648665765" expanded="true" signature="1618:1759" ph="..." />
+                <marker date="1491652571707" expanded="true" signature="1398:1539" ph="..." />
+                <marker date="1491652571707" expanded="true" signature="1618:1759" ph="..." />
               </folding>
             </state>
           </provider>
@@ -52,8 +52,8 @@
       <file leaf-file-name="agency.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="931" column="18" lean-forward="false" selection-start-line="931" selection-start-column="18" selection-end-line="931" selection-end-column="18" />
+            <state relative-caret-position="503">
+              <caret line="939" column="32" lean-forward="true" selection-start-line="939" selection-start-column="32" selection-end-line="939" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -70,11 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>What is SM</find>
-      <find>jquery</find>
-      <find>viewportchecker</find>
-      <find>how does it work</find>
-      <find>view-check</find>
       <find>arrow</find>
       <find>font-family</find>
       <find>page-top</find>
@@ -96,10 +91,15 @@
       <find>timeline</find>
       <find>a short sto</find>
       <find>be part</find>
-      <find>smity-transparent</find>
       <find>smity</find>
       <find>logo-ima</find>
       <find>@media</find>
+      <find>cover</find>
+      <find>logo-intro</find>
+      <find>smity-line</find>
+      <find>smity-transparent</find>
+      <find>smity-</find>
+      <find>logo-image</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Dev Stuff\SMity\smity2\web\app\scripts</dir>
@@ -801,7 +801,7 @@
       <workItem from="1491389917216" duration="1215000" />
       <workItem from="1491397887663" duration="27822000" />
       <workItem from="1491549321095" duration="154000" />
-      <workItem from="1491640654565" duration="7794000" />
+      <workItem from="1491640654565" duration="10326000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -936,11 +936,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491646772325</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="The line doesn't cross SMity anymore pizda ma-sii">
+      <created>1491648912727</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1491648912727</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="233151000" />
+    <option name="totallyTimeSpent" value="235683000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
@@ -1061,7 +1068,8 @@
     <MESSAGE value="Graph Xaxis labels" />
     <MESSAGE value="Visual updates to landing page" />
     <MESSAGE value="Modificari landingpage buline+linie" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modificari landingpage buline+linie" />
+    <MESSAGE value="The line doesn't cross SMity anymore pizda ma-sii" />
+    <option name="LAST_COMMIT_MESSAGE" value="The line doesn't cross SMity anymore pizda ma-sii" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1361,16 +1369,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="931" column="18" lean-forward="false" selection-start-line="931" selection-start-column="18" selection-end-line="931" selection-end-column="18" />
+        <state relative-caret-position="503">
+          <caret line="939" column="32" lean-forward="true" selection-start-line="939" selection-start-column="32" selection-end-line="939" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/landingpage/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="244" column="86" lean-forward="true" selection-start-line="244" selection-start-column="86" selection-end-line="244" selection-end-column="86" />
+        <state relative-caret-position="450">
+          <caret line="221" column="48" lean-forward="true" selection-start-line="221" selection-start-column="48" selection-end-line="221" selection-end-column="48" />
           <folding>
             <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1381,8 +1389,8 @@
             <element signature="n#style#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1491648665765" expanded="true" signature="1398:1539" ph="..." />
-            <marker date="1491648665765" expanded="true" signature="1618:1759" ph="..." />
+            <marker date="1491652571707" expanded="true" signature="1398:1539" ph="..." />
+            <marker date="1491652571707" expanded="true" signature="1618:1759" ph="..." />
           </folding>
         </state>
       </provider>
