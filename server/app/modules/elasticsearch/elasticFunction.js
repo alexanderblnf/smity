@@ -37,6 +37,33 @@ exports.getForInterval = function (options, res) {
     })
 };
 
+exports.getLive = function (res) {
+    client.search({
+        index: 82000035,
+        from: 0,
+        size: 8,
+        body: {
+            sort: [{
+                time: {
+                    order: 'desc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = [];
+        resp.hits.hits.forEach(function (d) {
+            var keys = Object.keys(d["_source"]);
+            var key = keys[3];
+            var aux = {};
+            aux[key] = d["_source"][key];
+            out.push(aux);
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 exports.hourlyPrediction = function (options, res) {
     var data = [];
     var originalTime = options.time;

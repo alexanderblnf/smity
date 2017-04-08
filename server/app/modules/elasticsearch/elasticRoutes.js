@@ -52,5 +52,9 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     }
 });
 
+router.get('/live', function (req, res) {
+    elasticFunction.getLive(res);
+});
+
 
 module.exports = router;
