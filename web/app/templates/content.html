@@ -1,126 +1,173 @@
 <section class="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
-		<div class="col-lg-6 col-xs-12">
+		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
 			<div class="small-box bg-aqua">
-				<div class="inner">
-					<p>Temperatura medie</p>
-					<h3>15<sup style="font-size: 20px">°C</sup></h3>
-					<p>{{vm.test}}</p>
+				<div class="box-header">
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-bag"></i>
+
+				<div class="box-body">
+					<div class="inner">
+						<p>Temperatura</p>
+						<h3>{{vm.liveData.temperature}}<sup style="font-size: 20px">°C</sup></h3>
+						<p></p>
+
+						<div class="icon">
+							<i class="ion ion-bag"></i>
+						</div>
+					</div>
 				</div>
 				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
+		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
 			<div class="small-box bg-green">
-				<div class="inner">
-					<p>Presiunea medie</p>
-					<h3>760<sup style="font-size: 20px">mmHg</sup></h3>
-					<p>Trivia fact</p>
+				<div class="box-header">
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-stats-bars"></i>
+
+				<div class="box-body">
+					<div class="inner">
+						<p>Presiunea medie</p>
+						<h3>{{vm.liveData.pressure}}<sup style="font-size: 20px">mmHg</sup></h3>
+						<p></p>
+
+						<div class="icon">
+							<i class="ion ion-stats-bars"></i>
+						</div>
+					</div>
 				</div>
 				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
+		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
 			<div class="small-box bg-yellow">
-				<div class="inner">
-					<p>Umiditate</p>
-					<h3>50<sup style="font-size: 20px">%</sup></h3>
-					<p>No comment</p>
+				<div class="box-header">
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-person-add"></i>
+
+				<div class="box-body">
+					<div class="inner">
+						<p>Umiditate</p>
+						<h3>{{vm.liveData.humidity}} <sup style="font-size: 20px">%</sup></h3>
+						<p></p>
+
+						<div class="icon">
+							<i class="ion ion-person-add"></i>
+						</div>
+					</div>
 				</div>
 				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
-			<!-- small box -->
+		<div class="col-lg-4 col-xs-6">
 			<div class="small-box bg-red">
-				<div class="inner">
-					<p>Nivel de radiatie</p>
-					<h3>Periculos</h3>
-					<p>No comment</p>
+				<div class="box-header">
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-pie-graph"></i>
+
+				<div class="box-body">
+					<div class="inner">
+						<p>CO2</p>
+						<h3 ng-if="vm.liveData.co2 > 410">Periculos</h3>
+						<h3 ng-if="vm.liveData.co2 < 410">Limite normale</h3>
+						<p>{{vm.liveData.co2}} ppm</p>
+						<div class="icon">
+							<i class="ion ion-pie-graph"></i>
+						</div>
+					</div>
 				</div>
+
 				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
-			<!-- small box -->
-			<div class="small-box bg-navy">
-				<div class="inner">
-					<p>Calitatea aerului</p>
-					<h3>Incarcat cu praf</h3>
-					<p>Trivia fact</p>
-				</div>
-				<div class="icon">
-					<i class="ion ion-gear-b"></i>
-				</div>
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
+		<!--<div class="col-lg-4 col-xs-6">-->
+		<!--&lt;!&ndash; small box &ndash;&gt;-->
+		<!--<div class="small-box bg-navy">-->
+		<!--<div class="inner">-->
+		<!--<p>Compusi organici volatili</p>-->
+		<!--<h3>Incarcat cu praf</h3>-->
+		<!--<p>{{vm.liveData.voc}}</p>-->
+		<!--</div>-->
+		<!--<div class="icon">-->
+		<!--<i class="ion ion-gear-b"></i>-->
+		<!--</div>-->
+		<!--<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>-->
+		<!--</div>-->
+		<!--</div>-->
+		<!--&lt;!&ndash; ./col &ndash;&gt;-->
+		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
 			<div class="small-box bg-purple">
-				<div class="inner">
-					<p>Nivelul de aglomeratie</p>
-					<h3>Colosal</h3>
-					<p>Trivia fact</p>
+				<div class="box-header">
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-calendar"></i>
+
+				<div class="box-body">
+					<div class="inner">
+						<p>PM2.5</p>
+						<h3 ng-if="vm.liveData.pm25 > 35">Periculos</h3>
+						<h3 ng-if="vm.liveData.pm25 < 35">Normal</h3>
+						<p>{{vm.liveData.pm25}} µg/m3</p>
+
+						<div class="icon">
+							<i class="ion ion-calendar"></i>
+						</div>
+					</div>
 				</div>
 				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
-		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
+
+		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
-			<div class="small-box bg-teal">
-				<div class="inner">
-					<p>Cel mai aglomerat loc</p>
-					<h3>Piata Unirii</h3>
-					<p>Trivia fact</p>
+			<div class="small-box bg-purple">
+				<div class="box-header">
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+						</button>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-hammer"></i>
+
+				<div class="box-body">
+					<div class="inner">
+						<p>Formaldehyde</p>
+						<h3 ng-if="vm.liveData.ch2o > 0.1">Periculos</h3>
+						<h3 ng-if="vm.liveData.ch2o < 0.1">Normal</h3>
+						<p>{{vm.liveData.ch2o}} ppm</p>
+
+						<div class="icon">
+							<i class="ion ion-calendar"></i>
+						</div>
+					</div>
 				</div>
+
 				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
-		<!-- ./col -->
-		<div class="col-lg-6 col-xs-12">
-			<!-- small box -->
-			<div class="small-box bg-maroon">
-				<div class="inner">
-					<p>Iluminatul public</p>
-					<h3>Fara date</h3>
-					<p>No comment</p>
-				</div>
-				<div class="icon">
-					<i class="ion ion-camera"></i>
-				</div>
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-		<!-- ./col -->
 	</div>
 	<!-- /.row -->
 

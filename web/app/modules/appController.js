@@ -7,7 +7,6 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'SecurityService',
 		'LocalStorage',
 		'Constants',
 		'UradService',
@@ -26,7 +25,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Const
 	// invite friends
 	var pendingSearch, lastSearch;
 
-	// _init();
+	_init();
 
 	function _init() {
 		// if (!SecurityService.isAuthenticated()) {
@@ -125,8 +124,10 @@ function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Const
 	function getAll() {
 		UradService.getAll().then(function (response) {
 			vm.liveData = response;
+			vm.liveData.pressure *= 0.00750061683;
+			vm.liveData.pressure  = Math.round(vm.liveData.pressure);
 		})
 	}
 
-	// setInterval(getAll, 61000);
+	setInterval(getAll, 61000);
 }
