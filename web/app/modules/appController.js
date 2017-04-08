@@ -7,6 +7,7 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
+		'SecurityService',
 		'LocalStorage',
 		'Constants',
 		'UradService',

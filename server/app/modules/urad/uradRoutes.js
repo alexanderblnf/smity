@@ -7,6 +7,16 @@ var uradHeaders = {
 };
 var httpreq = require('./uradRequests');
 
+router.get('/live', function (req, res) {
+    var options = {
+        headers: uradHeaders,
+        host: 'data.uradmonitor.com',
+        method: 'GET'
+    };
+
+    httpreq.getLive(options, res);
+});
+
 router.get('/devices/:city', function (req, res) {
     var city = req.params.city;
     var options = {
