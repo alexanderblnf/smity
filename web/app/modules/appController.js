@@ -21,6 +21,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Const
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
 	vm.liveData = {};
+	vm.remove = remove;
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -130,4 +131,10 @@ function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Const
 	}
 
 	setInterval(getAll, 61000);
+
+	function remove() {
+		// var articleRow = angular.element($document.querySelector('#overview'));
+		// articleRow.remove();
+		console.log("Remove");
+	}
 }

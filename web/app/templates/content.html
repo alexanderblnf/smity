@@ -1,33 +1,22 @@
 <section class="content">
 	<!-- Small boxes (Stat box) -->
 	<div class="row">
+
 		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
-			<div class="small-box bg-aqua">
-				<div class="box-header">
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-						</button>
-					</div>
-				</div>
-
-				<div class="box-body">
-					<div class="inner">
-						<p>Temperatura</p>
-						<h3>{{vm.liveData.temperature}}<sup style="font-size: 20px">°C</sup></h3>
-						<p></p>
-
-						<div class="icon">
-							<i class="ion ion-bag"></i>
-						</div>
-					</div>
-				</div>
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
+			<div data-overview data-parameter-value="{{vm.liveData.temperature}}"
+			     data-parameter-name="Temperature"
+			     data-remove-callback="vm.remove"></div>
 		</div>
+
+
 		<!-- ./col -->
 		<div class="col-lg-4 col-xs-6">
-			<!-- small box -->
+
+			<!--<div data-overview data-parameter-value="{{vm.liveData.pressure}}"-->
+			     <!--data-parameter-name="Pressure"-->
+			     <!--data-remove-callback="vm.remove"></div>-->
+
 			<div class="small-box bg-green">
 				<div class="box-header">
 					<div class="box-tools pull-right">
