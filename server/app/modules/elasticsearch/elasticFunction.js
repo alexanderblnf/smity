@@ -62,6 +62,115 @@ exports.getLive = function (res) {
     })
 };
 
+exports.getLiveMeans = function (res) {
+    client.search({
+        //index: 82000036,
+        //from: 0,
+        size: 200,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: ( Math.round((new Date()).getTime() / 1000) ) - 60*4
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'desc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var all = {};
+        resp.hits.hits.forEach(function (d) {
+            var keys = Object.keys(d["_source"]);
+            var key = keys[3];
+            var id = d["_index"];
+            var val = d["_source"][key];
+            if(!all.hasOwnProperty(id))
+                all[id]={};
+            if (!all[id].hasOwnProperty(key))
+                all[id][key]=val;
+        });
+        var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
+        var indexes = ['82000039', '82000034','82000056','82000035', '8200003f','82000038','8200003d','8200003c','8200003a','82000036','82000057','8200003e','8200003b','82000037','82000058'];
+        var means = {};
+        var count = {};
+        var dispersion = {};
+        var correctedmeans = {};
+        var correctedcount = {};
+
+        //initialization
+        params.forEach(function(param){
+            means[param] = 0;
+            count[param] = 0;
+            dispersion[param] = 0;
+            correctedcount[param] = 0;
+            correctedmeans[param] = 0;
+        });
+
+        //compute sum and count
+        indexes.forEach(function(index){
+            if (all.hasOwnProperty(index)) {
+                var sensor = all[index];
+                params.forEach(function (param) {
+                    if (sensor.hasOwnProperty(param)) {
+                        means[param] += sensor[param];
+                        count[param]++;
+                    }
+                });
+            }
+        });
+
+        //compute mean
+        params.forEach(function(param){
+            means[param] = 1.0*means[param]/count[param];
+        });
+
+        //compute dispersion sum
+        indexes.forEach(function(index){
+            if (all.hasOwnProperty(index)) {
+                var sensor = all[index];
+                params.forEach(function (param) {
+                    if (sensor.hasOwnProperty(param)) {
+                        dispersion[param] += Math.pow((sensor[param]-means[param]),2);
+                    }
+                });
+            }
+        });
+
+        //compute dispersion
+        params.forEach(function(param){
+            dispersion[param] = Math.sqrt(1.0*dispersion[param]/count[param]);
+        });
+
+        //compute corrected sums and count
+        indexes.forEach(function(index){
+            if (all.hasOwnProperty(index)) {
+                var sensor = all[index];
+                params.forEach(function (param) {
+                    if (sensor.hasOwnProperty(param)) {
+                        if (Math.abs(sensor[param]-means[param]) < dispersion[param]){
+                            correctedmeans[param] += sensor[param];
+                            correctedcount[param]++;
+                        }
+                    }
+                });
+            }
+        });
+
+        //compute corrected final mean
+        params.forEach(function(param){
+            correctedmeans[param] = Math.round( 1.0*correctedmeans[param]/correctedcount[param] * 10000) / 10000;
+        });
+
+        res.send(correctedmeans);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 exports.hourlyPrediction = function (options, res) {
     var data = [];
     var originalTime = options.time;

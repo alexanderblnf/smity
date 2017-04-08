@@ -56,6 +56,10 @@ router.get('/live', function (req, res) {
     elasticFunction.getLive(res);
 });
 
+router.get('/livemeans', function(req, res){
+   elasticFunction.getLiveMeans(res);
+});
+
 
 
 
