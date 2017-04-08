@@ -7,12 +7,12 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'SecurityService',
 		'LocalStorage',
 		'Constants',
+		'UradService',
 		EvShareController]);
 
-function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, LocalStorage, Constants) {
+function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Constants, UradService) {
 	var vm = this;
 
 	vm.go = go;
@@ -20,18 +20,20 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	vm.openLeftMenu = openLeftMenu;
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
-	vm.test = 'test';
+	vm.liveData = {};
+	vm.remove = remove;
 
 	// invite friends
 	var pendingSearch, lastSearch;
 
-	// _init();
+	_init();
 
 	function _init() {
-		if (!SecurityService.isAuthenticated()) {
-			LocalStorage.remove(Constants.AUTH.TOKEN);
-			go('login');
-		}
+		// if (!SecurityService.isAuthenticated()) {
+		// 	LocalStorage.remove(Constants.AUTH.TOKEN);
+		// 	go('login');
+		// }
+		getAll();
 
 	}
 
@@ -119,4 +121,20 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	// 		}
 	// 	})
 	// }
+
+	function getAll() {
+		UradService.getAll().then(function (response) {
+			vm.liveData = response;
+			vm.liveData.pressure *= 0.00750061683;
+			vm.liveData.pressure  = Math.round(vm.liveData.pressure);
+		})
+	}
+
+	setInterval(getAll, 61000);
+
+	function remove() {
+		// var articleRow = angular.element($document.querySelector('#overview'));
+		// articleRow.remove();
+		console.log("Remove");
+	}
 }
