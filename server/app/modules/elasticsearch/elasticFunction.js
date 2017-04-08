@@ -50,13 +50,11 @@ exports.getLive = function (res) {
             }]
         }
     }).then(function (resp) {
-        var out = [];
+        var out = {};
         resp.hits.hits.forEach(function (d) {
             var keys = Object.keys(d["_source"]);
             var key = keys[3];
-            var aux = {};
-            aux[key] = d["_source"][key];
-            out.push(aux);
+            out[key] = d["_source"][key];
         });
         res.send(out);
     }, function (err) {
@@ -117,7 +115,7 @@ exports.getLiveMeans = function (res) {
             if (all.hasOwnProperty(index)) {
                 var sensor = all[index];
                 params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param)) {
+                    if (sensor.hasOwnProperty(param) && sensor[param]!=0) {
                         means[param] += sensor[param];
                         count[param]++;
                     }
@@ -135,8 +133,8 @@ exports.getLiveMeans = function (res) {
             if (all.hasOwnProperty(index)) {
                 var sensor = all[index];
                 params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param)) {
-                        dispersion[param] += Math.pow((sensor[param]-means[param]),2);
+                    if (sensor.hasOwnProperty(param) && sensor[param]!=0) {
+                        dispersion[param] += Math.pow((sensor[param] - means[param]), 2);
                     }
                 });
             }
@@ -152,7 +150,7 @@ exports.getLiveMeans = function (res) {
             if (all.hasOwnProperty(index)) {
                 var sensor = all[index];
                 params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param)) {
+                    if (sensor.hasOwnProperty(param) && sensor[param]!=0) {
                         if (Math.abs(sensor[param]-means[param]) < dispersion[param]){
                             correctedmeans[param] += sensor[param];
                             correctedcount[param]++;
@@ -164,10 +162,11 @@ exports.getLiveMeans = function (res) {
 
         //compute corrected final mean
         params.forEach(function(param){
-            correctedmeans[param] = Math.round( 1.0*correctedmeans[param]/correctedcount[param] * 10000) / 10000;
+            correctedmeans[param] = Math.round( 1.0*correctedmeans[param]/correctedcount[param] * 1000) / 1000;
         });
 
         res.send(correctedmeans);
+        //res.send(all);
     }, function (err) {
         console.log(err.message);
     })
