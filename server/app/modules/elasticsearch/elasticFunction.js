@@ -64,6 +64,45 @@ exports.getLive = function (res) {
     })
 };
 
+exports.getLiveMeans = function (res) {
+    client.search({
+        //index: 82000036,
+        //from: 0,
+        size: 200,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: ( Math.round((new Date()).getTime() / 1000) ) - 60*4
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'desc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = {};
+        resp.hits.hits.forEach(function (d) {
+            var keys = Object.keys(d["_source"]);
+            var key = keys[3];
+            var id = d["_index"];
+            var val = d["_source"][key];
+            if(!out.hasOwnProperty(id))
+                out[id]={};
+            if (!out[id].hasOwnProperty(key))
+                out[id][key]=val;
+
+
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 exports.hourlyPrediction = function (options, res) {
     var data = [];
     var originalTime = options.time;
