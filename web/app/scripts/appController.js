@@ -20,6 +20,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	vm.openLeftMenu = openLeftMenu;
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
+	vm.test = 'test';
 
 	// invite friends
 	var pendingSearch, lastSearch;
