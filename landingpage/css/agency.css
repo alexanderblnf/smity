@@ -723,6 +723,23 @@ body {
   webkit-tap-highlight-color: #fed136;
 }
 @media screen and (min-width: 768px) {
+  .smity-line-bottom {
+    position: absolute;
+    width: 50%;
+    z-index: -1;
+    left: 25%;
+    border-bottom: 2px solid white;
+  }
+
+
+  .smity-line-top {
+    position: absolute;
+    width: 50%;
+    z-index: -1;
+    left: 25%;
+    border-top: 2px solid white;
+  }
+
   #first-container {
     text-align: center;
   }
@@ -750,7 +767,7 @@ body {
 
   .logo-image {
     width: 25vw;
-    height: 20vh;
+
     margin-left: auto;
     margin-right: auto;
   }
@@ -896,7 +913,26 @@ body {
   }
 }
 
+
+
 @media screen and (max-width: 767px) {
+  .smity-line-bottom {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    /*left: 25%;*/
+    border-bottom: 2px solid white;
+  }
+
+
+  .smity-line-top {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    /*left: 25%;*/
+    border-top: 2px solid white;
+  }
+
   .circle-timeline {
     width: 80px;
     height: 80px;
@@ -1162,3 +1198,4 @@ body {
   z-index: -1;
   border-bottom: 2px solid white;
 }
+

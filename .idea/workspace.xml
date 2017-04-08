@@ -4,8 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="Visual updates to landing page">
+    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/landingpage/css/agency.css" afterPath="$PROJECT_DIR$/landingpage/css/agency.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/landingpage/index.html" afterPath="$PROJECT_DIR$/landingpage/index.html" />
     </list>
     <list id="fc5305d0-f772-495e-be8f-e60d949fc540" name="Rejected commit: Default" comment="" />
@@ -29,16 +30,20 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/landingpage/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="230" column="25" lean-forward="true" selection-start-line="230" selection-start-column="25" selection-end-line="230" selection-end-column="25" />
+            <state relative-caret-position="419">
+              <caret line="244" column="86" lean-forward="true" selection-start-line="244" selection-start-column="86" selection-end-line="244" selection-end-column="86" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h3#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#5;n#ul#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1491646584277" expanded="true" signature="1398:1539" ph="..." />
-                <marker date="1491646584277" expanded="true" signature="1618:1759" ph="..." />
+                <element signature="n#style#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1491648665765" expanded="true" signature="1398:1539" ph="..." />
+                <marker date="1491648665765" expanded="true" signature="1618:1759" ph="..." />
               </folding>
             </state>
           </provider>
@@ -47,8 +52,8 @@
       <file leaf-file-name="agency.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="681">
-              <caret line="1164" column="0" lean-forward="false" selection-start-line="1164" selection-start-column="0" selection-end-line="1164" selection-end-column="0" />
+            <state relative-caret-position="486">
+              <caret line="931" column="18" lean-forward="false" selection-start-line="931" selection-start-column="18" selection-end-line="931" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -65,9 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>logo-intro</find>
-      <find>intro-text</find>
-      <find>team-member</find>
       <find>What is SM</find>
       <find>jquery</find>
       <find>viewportchecker</find>
@@ -95,6 +97,9 @@
       <find>a short sto</find>
       <find>be part</find>
       <find>smity-transparent</find>
+      <find>smity</find>
+      <find>logo-ima</find>
+      <find>@media</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Dev Stuff\SMity\smity2\web\app\scripts</dir>
@@ -796,7 +801,7 @@
       <workItem from="1491389917216" duration="1215000" />
       <workItem from="1491397887663" duration="27822000" />
       <workItem from="1491549321095" duration="154000" />
-      <workItem from="1491640654565" duration="5661000" />
+      <workItem from="1491640654565" duration="7794000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -924,11 +929,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491422920748</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Modificari landingpage buline+linie">
+      <created>1491646772325</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1491646772325</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231018000" />
+    <option name="totallyTimeSpent" value="233151000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
@@ -1048,7 +1060,8 @@
     <MESSAGE value="Date config functional" />
     <MESSAGE value="Graph Xaxis labels" />
     <MESSAGE value="Visual updates to landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Visual updates to landing page" />
+    <MESSAGE value="Modificari landingpage buline+linie" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modificari landingpage buline+linie" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1348,24 +1361,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/landingpage/css/agency.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="1164" column="0" lean-forward="false" selection-start-line="1164" selection-start-column="0" selection-end-line="1164" selection-end-column="0" />
+        <state relative-caret-position="486">
+          <caret line="931" column="18" lean-forward="false" selection-start-line="931" selection-start-column="18" selection-end-line="931" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/landingpage/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="230" column="25" lean-forward="true" selection-start-line="230" selection-start-column="25" selection-end-line="230" selection-end-column="25" />
+        <state relative-caret-position="419">
+          <caret line="244" column="86" lean-forward="true" selection-start-line="244" selection-start-column="86" selection-end-line="244" selection-end-column="86" />
           <folding>
             <element signature="n#style#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h3#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#5;n#ul#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1491646584277" expanded="true" signature="1398:1539" ph="..." />
-            <marker date="1491646584277" expanded="true" signature="1618:1759" ph="..." />
+            <element signature="n#style#0;n#li#2;n#ul#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#li#0;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#li#1;n#ul#1;n#div#0;n#div#1;n#div#0;n#section#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1491648665765" expanded="true" signature="1398:1539" ph="..." />
+            <marker date="1491648665765" expanded="true" signature="1618:1759" ph="..." />
           </folding>
         </state>
       </provider>
