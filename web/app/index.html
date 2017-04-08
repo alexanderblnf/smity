@@ -117,177 +117,181 @@
 <script src="bower_components/angular-material/angular-material.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 
-<script src="scripts/app.js"></script>
-<script src="scripts/appController.js"></script>
+<script src="modules/app.js"></script>
+<script src="modules/appController.js"></script>
+<script src="modules/urad/urad.js"></script>
+<script src="modules/urad/uradResource.js"></script>
+<script src="modules/urad/uradService.js"></script>
+<script src="modules/urad/uradController.js"></script>
 
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
 
-<script>
-	$(function(){
+<!--<script>-->
+	<!--$(function(){-->
 
-		/*
-		 * LINE CHART
-		 * ----------
-		 */
-		//LINE randomly generated data
+		<!--/*-->
+		 <!--* LINE CHART-->
+		 <!--* &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+		 <!--*/-->
+		<!--//LINE randomly generated data-->
 
-		var sin = [], cos = [];
-		for (var i = 0; i < 14; i += 0.5) {
-			sin.push([i, Math.sin(i)]);
-			cos.push([i, Math.cos(i)]);
-		}
-		var line_data1 = {
-			data: sin,
-			color: "#3c8dbc"
-		};
-		var line_data2 = {
-			data: cos,
-			color: "#00c0ef"
-		};
+		<!--var sin = [], cos = [];-->
+		<!--for (var i = 0; i < 14; i += 0.5) {-->
+			<!--sin.push([i, Math.sin(i)]);-->
+			<!--cos.push([i, Math.cos(i)]);-->
+		<!--}-->
+		<!--var line_data1 = {-->
+			<!--data: sin,-->
+			<!--color: "#3c8dbc"-->
+		<!--};-->
+		<!--var line_data2 = {-->
+			<!--data: cos,-->
+			<!--color: "#00c0ef"-->
+		<!--};-->
 
 
-		function timeConverter(UNIX_timestamp){
-			var a = new Date(UNIX_timestamp);
-			var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-			var year = a.getFullYear();
-			var month = months[a.getMonth()];
-			var date = a.getDate();
-			var hour = a.getHours();
-			var min = a.getMinutes();
-			var sec = a.getSeconds();
-			var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-			return time;
-		}
+		<!--function timeConverter(UNIX_timestamp){-->
+			<!--var a = new Date(UNIX_timestamp);-->
+			<!--var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];-->
+			<!--var year = a.getFullYear();-->
+			<!--var month = months[a.getMonth()];-->
+			<!--var date = a.getDate();-->
+			<!--var hour = a.getHours();-->
+			<!--var min = a.getMinutes();-->
+			<!--var sec = a.getSeconds();-->
+			<!--var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;-->
+			<!--return time;-->
+		<!--}-->
 
-		function xAxisLabelGenerator(x){
-			return timeConverter(x*1000);
-		}
+		<!--function xAxisLabelGenerator(x){-->
+			<!--return timeConverter(x*1000);-->
+		<!--}-->
 
-		var plot = $.plot("#line-chart", [line_data1, line_data2], {
-			grid: {
-				hoverable: true,
-				borderColor: "#f3f3f3",
-				borderWidth: 1,
-				tickColor: "#f3f3f3"
-			},
-			series: {
-				shadowSize: 0,
-				lines: {
-					show: true
-				},
-				points: {
-					show: true
-				}
-			},
-			lines: {
-				fill: false,
-				color: ["#3c8dbc", "#f56954"]
-			},
-			yaxis: {
-				show: true
-			},
-			xaxis: {
-				show: true,
-				// transform: xAxisLabelGenerator,
-				tickFormatter: xAxisLabelGenerator
-			}
-		});
-		//Initialize tooltip on hover
-		$('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
-			position: "absolute",
-			display: "none",
-			opacity: 0.8
-		}).appendTo("body");
-		$("#line-chart").bind("plothover", function (event, pos, item) {
+		<!--var plot = $.plot("#line-chart", [line_data1, line_data2], {-->
+			<!--grid: {-->
+				<!--hoverable: true,-->
+				<!--borderColor: "#f3f3f3",-->
+				<!--borderWidth: 1,-->
+				<!--tickColor: "#f3f3f3"-->
+			<!--},-->
+			<!--series: {-->
+				<!--shadowSize: 0,-->
+				<!--lines: {-->
+					<!--show: true-->
+				<!--},-->
+				<!--points: {-->
+					<!--show: true-->
+				<!--}-->
+			<!--},-->
+			<!--lines: {-->
+				<!--fill: false,-->
+				<!--color: ["#3c8dbc", "#f56954"]-->
+			<!--},-->
+			<!--yaxis: {-->
+				<!--show: true-->
+			<!--},-->
+			<!--xaxis: {-->
+				<!--show: true,-->
+				<!--// transform: xAxisLabelGenerator,-->
+				<!--tickFormatter: xAxisLabelGenerator-->
+			<!--}-->
+		<!--});-->
+		<!--//Initialize tooltip on hover-->
+		<!--$('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({-->
+			<!--position: "absolute",-->
+			<!--display: "none",-->
+			<!--opacity: 0.8-->
+		<!--}).appendTo("body");-->
+		<!--$("#line-chart").bind("plothover", function (event, pos, item) {-->
 
-			if (item) {
-				var x = item.datapoint[0].toFixed(2),
-						y = item.datapoint[1].toFixed(2);
+			<!--if (item) {-->
+				<!--var x = item.datapoint[0].toFixed(2),-->
+						<!--y = item.datapoint[1].toFixed(2);-->
 
-				$("#line-chart-tooltip").html(item.series.label + " of " + x + " = " + y)
-						.css({top: item.pageY + 5, left: item.pageX + 5})
-						.fadeIn(200);
-			} else {
-				$("#line-chart-tooltip").hide();
-			}
+				<!--$("#line-chart-tooltip").html(item.series.label + " of " + x + " = " + y)-->
+						<!--.css({top: item.pageY + 5, left: item.pageX + 5})-->
+						<!--.fadeIn(200);-->
+			<!--} else {-->
+				<!--$("#line-chart-tooltip").hide();-->
+			<!--}-->
 
-		});
+		<!--});-->
 
-		function populateData(from, to){
-			var left = 2;
-			var array1=[];
-			var array2=[];
+		<!--function populateData(from, to){-->
+			<!--var left = 2;-->
+			<!--var array1=[];-->
+			<!--var array2=[];-->
 
-			var fromtime = 1490470657;
-			var totime = 1490643468;
+			<!--var fromtime = 1490470657;-->
+			<!--var totime = 1490643468;-->
 
-			if (from!=="" && to!==""){
-				fromtime = (Date.parse(from)/1000).toFixed(0);
-				totime = (Date.parse(to)/1000).toFixed(0);
-			}
+			<!--if (from!=="" && to!==""){-->
+				<!--fromtime = (Date.parse(from)/1000).toFixed(0);-->
+				<!--totime = (Date.parse(to)/1000).toFixed(0);-->
+			<!--}-->
 
-			$.get({  url: "http://localhost:8080/elastic/82000039/temperature/"+fromtime+"/"+totime,
-				success: function( data ) {
-					$.each(data, function(index, item){
-						//alert(item.temperature);
-						array1.push([item.time, item.temperature]);
-					});
-					line_data1.data = array1;
-					left--;
-					if (left === 0) {
-						plot.setData([line_data1, line_data2]);
-						plot.setupGrid();
-						plot.draw();
-					}
-				},
-				dataType: "json" });
+			<!--$.get({  url: "http://localhost:8080/elastic/82000039/temperature/"+fromtime+"/"+totime,-->
+				<!--success: function( data ) {-->
+					<!--$.each(data, function(index, item){-->
+						<!--//alert(item.temperature);-->
+						<!--array1.push([item.time, item.temperature]);-->
+					<!--});-->
+					<!--line_data1.data = array1;-->
+					<!--left&#45;&#45;;-->
+					<!--if (left === 0) {-->
+						<!--plot.setData([line_data1, line_data2]);-->
+						<!--plot.setupGrid();-->
+						<!--plot.draw();-->
+					<!--}-->
+				<!--},-->
+				<!--dataType: "json" });-->
 
-			$.get( "http://localhost:8080/elastic/82000038/temperature/"+fromtime+"/"+totime, function( data ) {
-				$.each(data, function(index, item){
-					//alert(item.temperature);
-					array2.push([item.time, item.temperature]);
-				});
-				line_data2.data = array2;
-				left--;
-				if (left === 0) {
-					plot.setData([line_data1, line_data2]);
-					plot.setupGrid();
-					plot.draw();
-				}
-			}, "json" );
-		}
+			<!--$.get( "http://localhost:8080/elastic/82000038/temperature/"+fromtime+"/"+totime, function( data ) {-->
+				<!--$.each(data, function(index, item){-->
+					<!--//alert(item.temperature);-->
+					<!--array2.push([item.time, item.temperature]);-->
+				<!--});-->
+				<!--line_data2.data = array2;-->
+				<!--left&#45;&#45;;-->
+				<!--if (left === 0) {-->
+					<!--plot.setData([line_data1, line_data2]);-->
+					<!--plot.setupGrid();-->
+					<!--plot.draw();-->
+				<!--}-->
+			<!--}, "json" );-->
+		<!--}-->
 
-		populateData("", "");
-		/* END LINE CHART */
+		<!--populateData("", "");-->
+		<!--/* END LINE CHART */-->
 
-		$('#getdatabutton').click(function () {
-			var from = $('#datepicker1').val();
-			var to = $('#datepicker2').val();
-			populateData(from, to);
-		});
+		<!--$('#getdatabutton').click(function () {-->
+			<!--var from = $('#datepicker1').val();-->
+			<!--var to = $('#datepicker2').val();-->
+			<!--populateData(from, to);-->
+		<!--});-->
 
-		//Date picker
-		$('#datepicker1').datepicker({
-			autoclose: true
-		});
+		<!--//Date picker-->
+		<!--$('#datepicker1').datepicker({-->
+			<!--autoclose: true-->
+		<!--});-->
 
-		$('#datepicker2').datepicker({
-			autoclose: true
-		});
+		<!--$('#datepicker2').datepicker({-->
+			<!--autoclose: true-->
+		<!--});-->
 
-		//Timepicker
-		/* $(".timepicker").timepicker({
-		 showInputs: false
-		 });*/
+		<!--//Timepicker-->
+		<!--/* $(".timepicker").timepicker({-->
+		 <!--showInputs: false-->
+		 <!--});*/-->
 
-		//Date range picker with time picker
-		// $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY hh:mm A'});
+		<!--//Date range picker with time picker-->
+		<!--// $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY hh:mm A'});-->
 
-	})
+	<!--})-->
 
-</script>
+<!--</script>-->
 
 </body>
 </html>

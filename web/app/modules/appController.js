@@ -10,9 +10,10 @@ angular
 		'SecurityService',
 		'LocalStorage',
 		'Constants',
+		'UradService',
 		EvShareController]);
 
-function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, LocalStorage, Constants) {
+function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, LocalStorage, Constants, UradService) {
 	var vm = this;
 
 	vm.go = go;
@@ -20,6 +21,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	vm.openLeftMenu = openLeftMenu;
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
+	vm.liveData = {};
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -27,10 +29,11 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	// _init();
 
 	function _init() {
-		if (!SecurityService.isAuthenticated()) {
-			LocalStorage.remove(Constants.AUTH.TOKEN);
-			go('login');
-		}
+		// if (!SecurityService.isAuthenticated()) {
+		// 	LocalStorage.remove(Constants.AUTH.TOKEN);
+		// 	go('login');
+		// }
+		getAll();
 
 	}
 
@@ -118,4 +121,12 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 	// 		}
 	// 	})
 	// }
+
+	function getAll() {
+		UradService.getAll().then(function (response) {
+			vm.liveData = response;
+		})
+	}
+
+	// setInterval(getAll, 1000);
 }
