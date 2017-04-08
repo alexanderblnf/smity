@@ -9,6 +9,8 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
+		'auth',
+		'urad'
 	])
 
 	.config(['$httpProvider',
@@ -69,11 +71,11 @@ angular
 				.state('app', {
 					url: '',
 					abstract: true,
-					templateUrl: '/templates/home.html'
+					templateUrl: '/templates/home.html',
+					controller: 'SmityController as vm'
 				})
 				.state('app.home', {
 					url: '/home',
-					controller: 'SmityController as vm',
 					views: {
 						'home': {
 							templateUrl: '/templates/content.html'

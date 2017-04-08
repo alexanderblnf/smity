@@ -7,13 +7,12 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'SecurityService',
 		'LocalStorage',
 		'Constants',
 		'UradService',
 		EvShareController]);
 
-function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, LocalStorage, Constants, UradService) {
+function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Constants, UradService) {
 	var vm = this;
 
 	vm.go = go;
@@ -128,5 +127,5 @@ function EvShareController($state, $mdSidenav, $q, $timeout, SecurityService, Lo
 		})
 	}
 
-	// setInterval(getAll, 1000);
+	// setInterval(getAll, 61000);
 }
