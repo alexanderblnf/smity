@@ -50,13 +50,11 @@ exports.getLive = function (res) {
             }]
         }
     }).then(function (resp) {
-        var out = [];
+        var out = {};
         resp.hits.hits.forEach(function (d) {
             var keys = Object.keys(d["_source"]);
             var key = keys[3];
-            var aux = {};
-            aux[key] = d["_source"][key];
-            out.push(aux);
+            out[key] = d["_source"][key];
         });
         res.send(out);
     }, function (err) {

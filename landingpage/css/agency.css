@@ -6,14 +6,13 @@
 body {
   overflow-x: hidden;
   font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-image: url("../img/logo-final.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: auto;
   background-attachment: fixed;
   max-height: 100%;
   max-width: 100%;
-  color: #FFFFFF;
+  color: #ffffff;
   /*!background-color: #333333;*/
 }
 
@@ -210,6 +209,7 @@ fieldset[disabled] .btn-xl.active {
   background-color: #fec503;
 }
 @media (min-width: 768px) {
+
   .navbar-custom {
     background-color: transparent;
     padding: 25px 0;
@@ -397,7 +397,7 @@ section h3.section-subheading {
   height: 80px;
   position: absolute;
   z-index: 100;
-  background-color: #fed136;
+  background-color: #ff6600;
   color: white;
   border-radius: 100%;
   border: 7px solid #f1f1f1;
@@ -444,8 +444,8 @@ section h3.section-subheading {
     left: 50%;
   }
   .timeline > li {
-    margin-bottom: 100px;
-    min-height: 100px;
+    margin-bottom: 70px;
+    min-height: 70px;
   }
   .timeline > li .timeline-panel {
     width: 41%;
@@ -725,6 +725,22 @@ body {
   webkit-tap-highlight-color: #fed136;
 }
 @media screen and (min-width: 768px) {
+
+  body {
+    background-image: url("../img/logo-cropped.png");
+  }
+
+  .push-down {
+      margin-top: 10%;
+  }
+
+  #first-h {
+    max-width: 60%;
+    text-align: center;
+    margin-left: auto;
+    margin-right:auto;
+  }
+
   .smity-line-bottom {
     position: absolute;
     width: 50%;
@@ -769,13 +785,15 @@ body {
 
   .logo-image {
     width: 25vw;
-
+    margin-top: 2vh;
+    margin-bottom: 3vh;
     margin-left: auto;
     margin-right: auto;
   }
 
   #mainNav {
     /*display: flex !important;*/
+
     display: inline-flex;
     align-items: center;
   }
@@ -899,9 +917,24 @@ body {
   .ul-team {
     visibility: hidden;
   }
+
   #logo-intro {
-    margin-bottom: auto;
-    margin-top: 30%;
+    /*margin-bottom: auto;*/
+    margin-bottom: 5vh;
+  }
+
+  .header-div {
+    height: 80vh;
+  }
+
+  .intro-text {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  #problem-li {
+    height: 30vh;
   }
 }
 
@@ -918,11 +951,18 @@ body {
 
 
 @media screen and (max-width: 767px) {
+
+  body {
+    background-image: url("../img/logo-final-mobile.png");
+  }
+
   .logo-image {
     width: 60vw;
-
     margin-left: auto;
     margin-right: auto;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    height: 15vh;
   }
 
   .smity-line-bottom {
@@ -945,13 +985,6 @@ body {
   .circle-timeline {
     width: 80px;
     height: 80px;
-  }
-
-  .logo-image {
-    width: 40vw;
-    height: 15vh;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
   }
 
   .visible-laptop {
@@ -1230,6 +1263,10 @@ body {
 .contact-button:hover{
   background-color: lightgray;
   color: #FF6600;
+}
+
+#problem-li {
+  margin-bottom: 0;
 }
 
 input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
