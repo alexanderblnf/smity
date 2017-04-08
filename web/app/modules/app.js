@@ -101,7 +101,7 @@ angular
 
 	.constant('Constants', {
 		URL: {
-			API: 'http://35.167.158.182:50001',
+			ELASTIC: 'http://141.85.232.64:9200',
 			LOCALHOST: 'http://localhost:8080'
 		},
 		AUTH: {
