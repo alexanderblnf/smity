@@ -4,15 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="Visual updates to landing page. Responsive bug fixes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/d3Test.html" />
+    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="Initial d3 chart with all sensors. new Service">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app/modules/elasticsearch/elasticFunction.js" afterPath="$PROJECT_DIR$/server/app/modules/elasticsearch/elasticFunction.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app/modules/elasticsearch/elasticRoutes.js" afterPath="$PROJECT_DIR$/server/app/modules/elasticsearch/elasticRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/app/modules/urad/uradResource.js" afterPath="$PROJECT_DIR$/web/app/modules/urad/uradResource.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/app/resources/css/AdminLTE.css" afterPath="$PROJECT_DIR$/web/app/resources/css/AdminLTE.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/app/templates/content.html" afterPath="$PROJECT_DIR$/web/app/templates/content.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/app/templates/overviewTemplate.html" afterPath="$PROJECT_DIR$/web/app/templates/overviewTemplate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/d3Test.html" afterPath="$PROJECT_DIR$/d3Test.html" />
     </list>
     <list id="fc5305d0-f772-495e-be8f-e60d949fc540" name="Rejected commit: Default" comment="" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -95,8 +89,8 @@
       <file leaf-file-name="d3Test.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/d3Test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="290" column="88" lean-forward="true" selection-start-line="290" selection-start-column="88" selection-end-line="290" selection-end-column="88" />
+            <state relative-caret-position="264">
+              <caret line="255" column="37" lean-forward="true" selection-start-line="255" selection-start-column="37" selection-end-line="255" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -891,7 +885,7 @@
       <workItem from="1491550401558" duration="2509000" />
       <workItem from="1491568060873" duration="34231000" />
       <workItem from="1491718810601" duration="1455000" />
-      <workItem from="1491825386109" duration="18367000" />
+      <workItem from="1491825386109" duration="20173000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -1061,11 +1055,25 @@
       <option name="project" value="LOCAL" />
       <updated>1491688749524</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Initial d3 chart with all sensors. new Service">
+      <created>1491844417443</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1491844417443</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Initial d3 chart with all sensors. new Service">
+      <created>1491844876808</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1491844876808</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="281919000" />
+    <option name="totallyTimeSpent" value="283725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
@@ -1194,7 +1202,8 @@
     <MESSAGE value="Almost final landing page" />
     <MESSAGE value="Calculate avg" />
     <MESSAGE value="fix web bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix web bugs" />
+    <MESSAGE value="Initial d3 chart with all sensors. new Service" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial d3 chart with all sensors. new Service" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1558,8 +1567,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/d3Test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="290" column="88" lean-forward="true" selection-start-line="290" selection-start-column="88" selection-end-line="290" selection-end-column="88" />
+        <state relative-caret-position="264">
+          <caret line="255" column="37" lean-forward="true" selection-start-line="255" selection-start-column="37" selection-end-line="255" selection-end-column="37" />
           <folding />
         </state>
       </provider>
