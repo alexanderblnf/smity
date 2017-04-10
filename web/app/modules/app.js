@@ -9,7 +9,6 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
-		'auth',
 		'urad'
 	])
 

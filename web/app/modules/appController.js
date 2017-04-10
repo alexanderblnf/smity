@@ -7,12 +7,11 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'LocalStorage',
 		'Constants',
 		'UradService',
 		EvShareController]);
 
-function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Constants, UradService) {
+function EvShareController($state, $mdSidenav, $q, $timeout, Constants, UradService) {
 	var vm = this;
 
 	vm.go = go;
@@ -56,8 +55,8 @@ function EvShareController($state, $mdSidenav, $q, $timeout, LocalStorage, Const
 	function logout() {
 		return SecurityService.logout()
 			.then(function () {
-				LocalStorage.remove(Constants.AUTH.TOKEN);
-				SecurityService.clearCredentials();
+				// LocalStorage.remove(Constants.AUTH.TOKEN);
+				// SecurityService.clearCredentials();
 				$state.go('login');
 			});
 	}

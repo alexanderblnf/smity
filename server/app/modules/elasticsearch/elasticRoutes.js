@@ -3,6 +3,16 @@ var router = express.Router();
 var elasticFunction = require('./elasticFunction');
 var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
 
+router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
+    var options = {
+        param: req.params.param,
+        start: req.params.timeStart,
+        end: req.params.timeEnd
+    };
+
+    elasticFunction.getAllForInterval(options, res);
+});
+
 router.get('/:device/:param' + params + '/prediction/:time', function (req, res) {
     var options = {
         device: req.params.device,
@@ -55,6 +65,12 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
 router.get('/live', function (req, res) {
     elasticFunction.getLive(res);
 });
+
+router.get('/livemeans', function(req, res){
+   elasticFunction.getLiveMeans(res);
+});
+
+
 
 
 module.exports = router;
