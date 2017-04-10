@@ -5,6 +5,42 @@ var client = new elasticsearch.Client({
 var array = require('node-array-module');
 var regression = require('regression');
 
+exports.getAllForInterval = function (options, res) {
+    client.search({
+        type: options.param,
+        from: 0,
+        size: 12 * 50,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: options.start,
+                        to: options.end
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = {};
+        resp.hits.hits.forEach(function (d) {
+            if(out[d["_index"]] != null) {
+                out[d["_index"]].push(d["_source"]);
+            } else {
+                out[d["_index"]] = [];
+                out[d["_index"]].push(d["_source"]);
+            }
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 exports.getForInterval = function (options, res) {
     client.search({
         index: options.device,
@@ -64,14 +100,12 @@ exports.getLive = function (res) {
 
 exports.getLiveMeans = function (res) {
     client.search({
-        //index: 82000036,
-        //from: 0,
         size: 200,
         body: {
             query: {
                 range: {
                     time: {
-                        from: ( Math.round((new Date()).getTime() / 1000) ) - 60*4
+                        from: ( Math.round((new Date()).getTime() / 1000) ) - 60 * 4
                     }
                 }
             },
@@ -88,13 +122,13 @@ exports.getLiveMeans = function (res) {
             var key = keys[3];
             var id = d["_index"];
             var val = d["_source"][key];
-            if(!all.hasOwnProperty(id))
-                all[id]={};
+            if (!all.hasOwnProperty(id))
+                all[id] = {};
             if (!all[id].hasOwnProperty(key))
-                all[id][key]=val;
+                all[id][key] = val;
         });
         var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
-        var indexes = ['82000039', '82000034','82000056','82000035', '8200003f','82000038','8200003d','8200003c','8200003a','82000036','82000057','8200003e','8200003b','82000037','82000058'];
+        var indexes = ['82000039', '82000034', '82000056', '82000035', '8200003f', '82000038', '8200003d', '8200003c', '8200003a', '82000036', '82000057', '8200003e', '8200003b', '82000037', '82000058'];
         var means = {};
         var count = {};
         var dispersion = {};
@@ -102,7 +136,7 @@ exports.getLiveMeans = function (res) {
         var correctedcount = {};
 
         //initialization
-        params.forEach(function(param){
+        params.forEach(function (param) {
             means[param] = 0;
             count[param] = 0;
             dispersion[param] = 0;
@@ -111,11 +145,11 @@ exports.getLiveMeans = function (res) {
         });
 
         //compute sum and count
-        indexes.forEach(function(index){
+        indexes.forEach(function (index) {
             if (all.hasOwnProperty(index)) {
                 var sensor = all[index];
                 params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param) && sensor[param]!=0) {
+                    if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
                         means[param] += sensor[param];
                         count[param]++;
                     }
@@ -124,16 +158,16 @@ exports.getLiveMeans = function (res) {
         });
 
         //compute mean
-        params.forEach(function(param){
-            means[param] = 1.0*means[param]/count[param];
+        params.forEach(function (param) {
+            means[param] = 1.0 * means[param] / count[param];
         });
 
         //compute dispersion sum
-        indexes.forEach(function(index){
+        indexes.forEach(function (index) {
             if (all.hasOwnProperty(index)) {
                 var sensor = all[index];
                 params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param) && sensor[param]!=0) {
+                    if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
                         dispersion[param] += Math.pow((sensor[param] - means[param]), 2);
                     }
                 });
@@ -141,17 +175,17 @@ exports.getLiveMeans = function (res) {
         });
 
         //compute dispersion
-        params.forEach(function(param){
-            dispersion[param] = Math.sqrt(1.0*dispersion[param]/count[param]);
+        params.forEach(function (param) {
+            dispersion[param] = Math.sqrt(1.0 * dispersion[param] / count[param]);
         });
 
         //compute corrected sums and count
-        indexes.forEach(function(index){
+        indexes.forEach(function (index) {
             if (all.hasOwnProperty(index)) {
                 var sensor = all[index];
                 params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param) && sensor[param]!=0) {
-                        if (Math.abs(sensor[param]-means[param]) < dispersion[param]){
+                    if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                        if (Math.abs(sensor[param] - means[param]) < dispersion[param]) {
                             correctedmeans[param] += sensor[param];
                             correctedcount[param]++;
                         }
@@ -161,8 +195,8 @@ exports.getLiveMeans = function (res) {
         });
 
         //compute corrected final mean
-        params.forEach(function(param){
-            correctedmeans[param] = Math.round(1.0*correctedmeans[param]/correctedcount[param] * 1000) / 1000;
+        params.forEach(function (param) {
+            correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
         });
 
         res.send(correctedmeans);
