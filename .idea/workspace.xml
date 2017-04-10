@@ -4,7 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="Initial d3 chart with all sensors. new Service">
+    <list default="true" id="4acc47cc-a80f-479e-ab00-4f8835062713" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/d3Test.html" afterPath="$PROJECT_DIR$/d3Test.html" />
     </list>
@@ -89,8 +89,8 @@
       <file leaf-file-name="d3Test.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/d3Test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="255" column="37" lean-forward="true" selection-start-line="255" selection-start-column="37" selection-end-line="255" selection-end-column="37" />
+            <state relative-caret-position="462">
+              <caret line="166" column="71" lean-forward="true" selection-start-line="166" selection-start-column="71" selection-end-line="166" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -99,8 +99,8 @@
       <file leaf-file-name="elasticRoutes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/app/modules/elasticsearch/elasticRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+            <state relative-caret-position="264">
+              <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -109,8 +109,8 @@
       <file leaf-file-name="elasticFunction.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/app/modules/elasticsearch/elasticFunction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+            <state relative-caret-position="-1562">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -128,12 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>header</find>
-      <find>logo-intro</find>
-      <find>logo-image</find>
-      <find>.timeline &gt; li</find>
-      <find>screen-image</find>
-      <find>push-down</find>
       <find>timeline-imag</find>
       <find>The problem</find>
       <find>timeline-image</find>
@@ -156,8 +150,14 @@
       <find>temperatures</find>
       <find>close</find>
       <find>stock</find>
-      <find>console.log</find>
       <find>mouseo</find>
+      <find>data</find>
+      <find>reScale</find>
+      <find>rescale</find>
+      <find>yscale</find>
+      <find>color</find>
+      <find>id</find>
+      <find>console.log</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Dev Stuff\SMity\smity2\web\app\scripts</dir>
@@ -885,7 +885,7 @@
       <workItem from="1491550401558" duration="2509000" />
       <workItem from="1491568060873" duration="34231000" />
       <workItem from="1491718810601" duration="1455000" />
-      <workItem from="1491825386109" duration="20173000" />
+      <workItem from="1491825386109" duration="32372000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Refactored uradMonitor requests and routes. Added additional routes&quot;">
       <created>1488901589200</created>
@@ -1069,11 +1069,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491844876808</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Initial d3 chart with all sensors. new Service">
+      <created>1491846216016</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1491846216016</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="283725000" />
+    <option name="totallyTimeSpent" value="295924000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
@@ -1541,22 +1548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/app/modules/elasticsearch/elasticRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/app/modules/elasticsearch/elasticFunction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/d3.legend.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1166">
@@ -1565,10 +1556,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/d3Test.html">
+    <entry file="file://$PROJECT_DIR$/server/app/modules/elasticsearch/elasticRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
-          <caret line="255" column="37" lean-forward="true" selection-start-line="255" selection-start-column="37" selection-end-line="255" selection-end-column="37" />
+          <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app/modules/elasticsearch/elasticFunction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1562">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/d3Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="166" column="71" lean-forward="true" selection-start-line="166" selection-start-column="71" selection-end-line="166" selection-end-column="71" />
           <folding />
         </state>
       </provider>
