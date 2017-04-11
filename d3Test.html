@@ -342,6 +342,12 @@
                             delete cache[key][j];
                         }
                         delete cache[key];
+                        for(var k = 0; k < measures.length; k++) {
+                            if(measures[k]['key'] == key) {
+                                measures[k]['value'] = 0;
+                                break;
+                            }
+                        }
                         var index = keys.indexOf(key);
                         keys.splice(index, 1);
                         reScale(cache, keys);
