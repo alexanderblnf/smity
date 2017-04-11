@@ -4962,3 +4962,32 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+
+/*---------------
+        d3
+  ---------------*/
+
+.line {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.legend {
+  padding: 5px;
+  font: 12px sans-serif;
+  font-weight: 700;
+  background: yellow;
+  box-shadow: 2px 2px 1px #888;
+}
+
+.axis path {
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.tick line {
+  stroke: black;
+  stroke-width: 1px;
+}
