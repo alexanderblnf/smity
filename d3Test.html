@@ -44,8 +44,8 @@
     </style>
 </head>
 
-<body>
-<div id="maps-div" style="width: 90vw; height: 40vh; margin-left: 5vw; margin-right: 5vw;">
+<body style="overflow: hidden;">
+<div id="maps-div" style="width: 90vw; height: 40vh; margin-left: 5vw; margin-right: 5vw">
     <script>
         var markerCount = 0;
         var markers = [];
@@ -87,7 +87,7 @@
                 markers.push(marker);
                 google.maps.event.addListener(marker, 'click', (function(marker, markerCount) {
                     return function() {
-                        infowindow.setContent(key);
+                        infowindow.setContent(key + '<br>' + options[key].param);
                         infowindow.open(map, marker);
                     }
                 })(marker, markerCount));
