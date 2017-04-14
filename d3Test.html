@@ -5,6 +5,7 @@
     <title>d3 multi-line chart</title>
     <!-- // <script src="js/d3.min.js" type="text/javascript"></script> -->
     <!-- <link href="css/stylesheet.css" rel="stylesheet" /> -->
+    <link href="node_modules/pikaday-time/css/pikaday.css" rel="stylesheet">
     <style>
         .line {
             fill: none;
@@ -97,7 +98,14 @@
         }
     </script>
 </div>
-<div id="chart-div" style="width: 100vw; height: 60vh;">
+<div id="chart-container" style="width: 100vw; height: 60vh;">
+    <div id="chart-div" style="width: 80%; height: 100%; float:left;">
+    </div>
+    <div id="calendar-div" style="width: 20%; height: 100%; float:right;">
+        <input type="text" id="startDate" placeholder="Start Date">
+        <input type="text" id="endDate" placeholder="End date">
+        <button id="apply-date">Apply</button>
+    </div>
 </div>
 
 </body>
@@ -106,46 +114,62 @@
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALxvh2WnBEFmzoR8naBaZULmitfDIiqyU&callback=initMap">
 </script>
+<script src="node_modules/pikaday-time/pikaday.js"></script>
+<script>
+    var start = new Pikaday({
+        field: document.getElementById('startDate')
+    });
+    var end = new Pikaday({
+        field: document.getElementById('endDate')
+    });
+
+    var apply = document.getElementById('apply-date');
+    apply.addEventListener("click", function () {
+        var startDate = new Date(start.getDate());
+        var endDate = new Date(end.getDate());
+        var unixStart = Math.floor(startDate.getTime()/1000);
+        var unixEnd = Math.floor(endDate.getTime()/1000);
+        document.getElementById('chart-div').innerHTML = "";
+        initD3();
+        generateD3(unixStart, unixEnd);
+    });
+</script>
 
 <script>
-    // basic SVG setup
-    //    var viewportHeight = window.innerHeight;
-    //    var viewportWidth = window.innerWidth;
     var viewportHeight = document.getElementById('chart-div').clientHeight;
     var viewportWidth = document.getElementById('chart-div').clientWidth;
-    var margin = {top: 0.1 * viewportHeight, right: 0.05 * viewportWidth, bottom: 40, left: 0.15 * viewportWidth};
+    var margin = {top: 0.1 * viewportHeight, right: 0.01 * viewportWidth, bottom: 40, left: 0.15 * viewportWidth};
     var height = (0.9 * viewportHeight) - margin.top - margin.bottom;
-    var width = (0.9 * viewportWidth) - margin.left - margin.right;
-
+    var width = viewportWidth - margin.left - margin.right;
     var xScale = d3.scaleTime().range([0, width - 0.2 * viewportWidth]);
     var yScale = d3.scaleLinear().range([height, 0]);
     var color = d3.scaleOrdinal(d3.schemeCategory10);
+    var svg, bisectDate, line, focus, first;
 
-    // setup the axes
-    //    var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    function initD3() {
+        svg = d3.select("#chart-div").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var svg = d3.select("#chart-div").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        bisectDate = d3.bisector(function (d) {
+            return d.time;
+        }).left;
 
-    var bisectDate = d3.bisector(function (d) {
-        return d.time;
-    }).left;
+        // set the line attributes
+        line = d3.line()
+            .curve(d3.curveBasis)
+            .x(function (d) {
+                return xScale(d.date);
+            })
+            .y(function (d) {
+                return yScale(d.temperature);
+            });
 
-    // set the line attributes
-    var line = d3.line()
-        .curve(d3.curveBasis)
-        .x(function (d) {
-            return xScale(d.date);
-        })
-        .y(function (d) {
-            return yScale(d.temperature);
-        });
-
-    var focus = svg.append("g").style("display", "none");
-    var first = 0;
+        focus = svg.append("g").style("display", "none");
+        first = 0;
+    }
 
     function reScale(cache, keys) {
         var temperatures = keys.map(function (name) {
@@ -245,8 +269,8 @@
     }
 
     // import data and create chart
-    function generateD3() {
-        d3.json("http://localhost:8080/elastic/all/temperature/1491986881/1491996881",
+    function generateD3(startDate, endDate) {
+        d3.json("http://localhost:8080/elastic/all/temperature/" + startDate + "/" + endDate,
             function (data) {
                 var keys = Object.keys(data);
                 var length = keys.length;
@@ -573,7 +597,11 @@
             });
     }
 
-    generateD3();
+    var now = new Date();
+    var initStart = Math.floor(now.getTime()/1000 - 10000);
+    var initEnd = Math.floor(now.getTime()/1000);
+    initD3();
+    generateD3(initStart, initEnd);
 
 </script>
 </html>
