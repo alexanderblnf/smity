@@ -9,8 +9,13 @@ router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) 
         start: req.params.timeStart,
         end: req.params.timeEnd
     };
-
-    elasticFunction.getAllForInterval(options, res);
+    var diff = options.end - options.start;
+    if(diff <= 24000){
+        elasticFunction.getAllForInterval(options, res);
+    } else {
+        options.step = Math.ceil(diff / 24000);
+        elasticFunction.getIntervalStepsAll(options, res);
+    }
 });
 
 router.get('/:device/:param' + params + '/prediction/:time', function (req, res) {
@@ -28,7 +33,6 @@ router.get('/:device/:param' + params + '/prediction/:time', function (req, res)
 });
 
 router.get('/:device/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
-    console.log('First');
     var options = {
         device: req.params.device,
         param: req.params.param,
@@ -39,7 +43,14 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd', function (req, r
     if(options.start > options.end) {
         res.send('{"error": "Start time must be before end time"}');
     } else {
-        elasticFunction.getForInterval(options, res);
+        var diff = options.end - options.start;
+        if(diff <= 90000){
+            elasticFunction.getForInterval(options, res);
+        } else {
+            options.step = Math.ceil(diff / 90000);
+            elasticFunction.getIntervalSteps(options, res);
+        }
+
     }
 });
 

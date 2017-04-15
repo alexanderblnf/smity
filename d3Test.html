@@ -581,14 +581,16 @@
                     keys.forEach(function (key) {
                         var j = bisectDate(cache[key], x0, 1);
                         var d0 = cache[key][j], d1 = cache[key][j - 1];
-                        var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
-                        var aux = {
-                            lat: d.lat,
-                            long: d.long,
-                            color: color(key),
-                            param: d.temperature
-                        };
-                        options[key] = aux;
+                        if(d0 && d1){
+                            var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+                            var aux = {
+                                lat: d.lat,
+                                long: d.long,
+                                color: color(key),
+                                param: d.temperature
+                            };
+                            options[key] = aux;
+                        }
                     });
 
                     addMarkerToMap(options);
@@ -600,6 +602,8 @@
     var now = new Date();
     var initStart = Math.floor(now.getTime()/1000 - 10000);
     var initEnd = Math.floor(now.getTime()/1000);
+    console.log(initStart);
+    console.log(initEnd);
     initD3();
     generateD3(initStart, initEnd);
 
