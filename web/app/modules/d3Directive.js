@@ -38,9 +38,7 @@ function ChartAndMap() {
 		'<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
 		'<button id="apply-date" ng-click="apply()">Apply</button></div>',
 		scope: {
-			jsonPath: '@',
-			parameterValue: '@',
-			removeCallback: '&'
+			jsonPath: '@'
 		},
 		restrict: 'E',
 		link: link
