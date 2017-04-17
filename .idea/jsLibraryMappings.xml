@@ -3,7 +3,6 @@
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{Node.js Core}" />
     <file url="file://$PROJECT_DIR$/landingpage" libraries="{smity/landingpage/node_modules}" />
-    <file url="file://$PROJECT_DIR$/overviewpage" libraries="{smity/overviewpage/node_modules}" />
     <file url="file://$PROJECT_DIR$/web" libraries="{smity/web/node_modules}" />
   </component>
 </project>
