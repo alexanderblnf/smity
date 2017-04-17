@@ -100,8 +100,23 @@ module.exports = function(app, passport) {
     var liveObjects = require('./modules/liveobjects/liveObjectsRoutes');
     app.use('/live', liveObjects);
 
+
+    /*
+    ============================
+    Elastic search endpoints
+    ============================
+     */
     var elastic = require('./modules/elasticsearch/elasticRoutes');
     app.use('/elastic', elastic);
+
+
+    /*
+    ============================
+    Intelilight API
+    ============================
+     */
+    var intelilight = require('./modules/intelilight/intelilightRoutes');
+    app.use('/intelilight', intelilight);
 
     /*
         Websocket for accessing the platform from the internet
