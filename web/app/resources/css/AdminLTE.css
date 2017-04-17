@@ -4991,3 +4991,9 @@ table.text-center th {
   stroke: black;
   stroke-width: 1px;
 }
+
+.chart-init {
+  width: 80vh;
+  height: 100vh;
+  float: left;
+}

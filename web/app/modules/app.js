@@ -85,13 +85,16 @@ angular
 					url: '/temperature',
 					views: {
 						'home': {
-							templateUrl: '/templates/temperature/temperature.html'
+							templateUrl: '/templates/temperature/temperature.html',
+							controller: 'D3Controller as vm'
 						},
 						'map@app.temperature': {
-							templateUrl: '/templates/map.html'
+							templateUrl: '/templates/map.html',
+							controller: 'D3Controller as vm'
 						},
 						'graph@app.temperature': {
-							templateUrl: '/templates/temperature/temperatureGraph.html'
+							templateUrl: '/templates/temperature/temperatureGraph.html',
+							controller: 'D3Controller as vm'
 						}
 					}
 				})
