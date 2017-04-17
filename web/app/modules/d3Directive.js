@@ -1,29 +1,57 @@
 'use strict';
 
 angular.module('Smity')
-.directive('lineChart', [LineChart]);
+	.config(['momentPickerProvider', function (momentPickerProvider) {
+		momentPickerProvider.options({
+			/* Picker properties */
+			locale:        'ro',
+			format:        'L LTS',
+			minView:       'decade',
+			maxView:       'minute',
+			startView:     'year',
+			autoclose:     true,
+			today:         false,
+			keyboard:      false,
 
-function LineChart() {
+			/* Extra: Views properties */
+			leftArrow:     '&larr;',
+			rightArrow:    '&rarr;',
+			yearsFormat:   'YYYY',
+			monthsFormat:  'MMM',
+			daysFormat:    'D',
+			hoursFormat:   'HH',
+			minutesFormat: 'mm',
+			secondsFormat: 'ss',
+			minutesStep:   1,
+			secondsStep:   1
+		});
+	}])
+	.directive('chartAndMap', [ChartAndMap]);
+
+function ChartAndMap() {
 	return {
 		template: '<div id="maps-div" style="width: 90vw; height: 40vh; margin-left: 5vw; margin-right: 5vw"></div>' +
-			'<div id="chart-container" style="width: 100vw; height: 60vh;">' +
-			'<div id="chart-div" class="chart-init"></div></div>' +
-			'<div id="calendar-div" style="width: 20%; height: 100%; float:right;">' +
-		'<input type="text" id="startDate" placeholder="Start Date">' +
-		'<input type="text" id="endDate" placeholder="End date">' +
-		'<button id="apply-date">Apply</button></div>',
-		// scope: {
-		// 	parameterName: '@',
-		// 	parameterValue: '@',
-		// 	removeCallback: '&'
-		// },
+		// '<div id="chart-container" style="width: 100vw; height: 60vh;">' +
+		'<div id="chart-div" class="chart-init"></div>' +
+		'<div id="calendar-div" style="width: 20%; height: 100%; float:right;">' +
+		'<input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
+		'<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
+		'<button id="apply-date" ng-click="apply()">Apply</button></div>',
+		scope: {
+			jsonPath: '@',
+			parameterValue: '@',
+			removeCallback: '&'
+		},
 		restrict: 'E',
 		link: link
 	};
 
 	function link($scope, $el, $attrs) {
-		var viewportHeight = $el[0].children[1].children[0].clientHeight;
-		var viewportWidth = $el[0].children[1].children[0].clientWidth;
+		console.log($scope.$parent.vm.startDate);
+		console.log($scope.$parent.vm.endDate);
+
+		var viewportHeight = document.getElementById('chart-div').clientHeight;
+		var viewportWidth = document.getElementById('chart-div').clientWidth;
 		var margin = {top: 0.1 * viewportHeight, right: 0.01 * viewportWidth, bottom: 40, left: 0.15 * viewportWidth};
 		var height = (0.9 * viewportHeight) - margin.top - margin.bottom;
 		var width = viewportWidth - margin.left - margin.right;
@@ -83,7 +111,7 @@ function LineChart() {
 		}
 
 		function initD3() {
-			svg = d3.select($el[0].children[1].children[0]).append("svg")
+			svg = d3.select(document.getElementById('chart-div')).append("svg")
 				.attr("width", width + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 				.append("g")
@@ -206,18 +234,18 @@ function LineChart() {
 
 		// import data and create chart
 		function generateD3(startDate, endDate) {
-			d3.json("http://localhost:8080/elastic/all/temperature/" + startDate + "/" + endDate,
+			d3.json($scope.jsonPath + startDate + "/" + endDate,
 				function (data) {
 					var keys = Object.keys(data);
 					var length = keys.length;
 					var measures = [];
 
-					for (var i = 0; i < keys.length; i++) {
+					for (i = 0; i < keys.length; i++) {
 						var aux = {
 							key: keys[i],
 							value: 0,
 							time: 0
-						}
+						};
 						measures.push(aux);
 						for (var j = 0; j < data[keys[i]].length; j++) {
 							data[keys[i]][j].time = data[keys[i]][j].time * 1000;
@@ -399,7 +427,7 @@ function LineChart() {
 								d3.select("#rect_id" + d.name).style("fill", color(key));
 								cache[key] = [];
 								keys.push(key);
-								for (var j = 0; j < data[key].length; j++) {
+								for (j = 0; j < data[key].length; j++) {
 									cache[key].push(data[key][j]);
 								}
 								reScale(cache, keys);
@@ -507,8 +535,6 @@ function LineChart() {
 								.attr("transform", "translate(0,"
 									+ (yScale(d.temperature)) + ")");
 						}
-
-
 					}
 
 					function showmap() {
@@ -517,9 +543,9 @@ function LineChart() {
 						keys.forEach(function (key) {
 							var j = bisectDate(cache[key], x0, 1);
 							var d0 = cache[key][j], d1 = cache[key][j - 1];
-							if(d0 && d1){
+							if (d0 && d1) {
 								var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
-								var aux = {
+								aux = {
 									lat: d.lat,
 									long: d.long,
 									color: color(key),
@@ -542,20 +568,20 @@ function LineChart() {
 		// 	field: document.getElementById('endDate')
 		// });
 		//
-		// var apply = document.getElementById('apply-date');
-		// apply.addEventListener("click", function () {
-		// 	var startDate = new Date(start.getDate());
-		// 	var endDate = new Date(end.getDate());
-		// 	var unixStart = Math.floor(startDate.getTime()/1000);
-		// 	var unixEnd = Math.floor(endDate.getTime()/1000);
-		// 	document.getElementById('chart-div').innerHTML = "";
-		// 	initD3();
-		// 	generateD3(unixStart, unixEnd);
-		// });
+		//
+		$scope.apply = function () {
+			var startDate = new Date($scope.vm.startDate);
+			var endDate = new Date($scope.vm.endDate);
+			var unixStart = Math.floor(startDate.getTime()/1000);
+			var unixEnd = Math.floor(endDate.getTime()/1000);
+			document.getElementById('chart-div').innerHTML = "";
+			initD3();
+			generateD3(unixStart, unixEnd);
+		};
 
 		var now = new Date();
-		var initStart = Math.floor(now.getTime()/1000 - 10000);
-		var initEnd = Math.floor(now.getTime()/1000);
+		var initStart = Math.floor(now.getTime() / 1000 - 10000);
+		var initEnd = Math.floor(now.getTime() / 1000);
 		console.log(initStart);
 		console.log(initEnd);
 		initMap();

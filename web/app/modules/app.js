@@ -9,7 +9,8 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
-		'urad'
+		'urad',
+		'moment-picker'
 	])
 
 	.config(['$httpProvider',

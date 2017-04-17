@@ -8,4 +8,6 @@ function D3Controller() {
 	var vm = this;
 
 	vm.message = 'Hello world!';
+	vm.startDate = undefined;
+	vm.endDate = undefined;
 }

@@ -4992,8 +4992,26 @@ table.text-center th {
   stroke-width: 1px;
 }
 
+/*D3 STYLES*/
+
 .chart-init {
-  width: 80vh;
+  width: 100vh;
   height: 100vh;
   float: left;
+}
+
+.axis path {
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.tick line {
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.y .tick text {
+  font-size: 1.5em;
 }
