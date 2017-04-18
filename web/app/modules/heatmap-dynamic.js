@@ -48,30 +48,26 @@ setTimeout(function(){
     // heatmap layer
     heatmap = new HeatmapOverlay(map,
         {
-            "backgroundColor" : "#ff0000",
-            // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+            // "minOpacity": 0,
+            "minOpacity": 0.5,
+            "backgroundColor" : "rgba(255,0,0, 0.1)",
             "radius": 0.0008,
-            "maxOpacity": 1,
-            // scales the radius based on map zoom
+            "maxOpacity": 0.8,
             "scaleRadius": true,
-            // if set to false the heatmap uses the global maximum for colorization
-            // if activated: uses the data maximum within the current map boundaries
-            //   (there will always be a red spot with useLocalExtremas true)
             "useLocalExtrema": false,
-            // which field name in your data represents the latitude - default "lat"
             latField: 'lat',
-            // which field name in your data represents the longitude - default "lng"
             lngField: 'lng',
-            // which field name in your data represents the data value - default "value"
             valueField: 'count'
         }
     );
 
     var testData = {
-        max: 8,
-        data: [{lat: CITY_LAT, lng:CITY_LNG, count: 3}, {lat: CITY_LAT, lng:CITY_LNG, count: 3}, {lat: CITY_LAT, lng:CITY_LNG, count: 3}]
+        max: 10,
+        // min: -10,
+        data: [{lat: CITY_LAT, lng:CITY_LNG, count: 5}, {lat: CITY_LAT+0.005, lng:CITY_LNG, count: 8}, {lat: CITY_LAT, lng:CITY_LNG+0.005, count: 3}]
     };
 
-    heatmap.setData(testData);
+    heatmap = heatmap.setData(testData);
+
 
 }, 3000);
