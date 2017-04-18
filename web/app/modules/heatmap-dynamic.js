@@ -40,7 +40,7 @@ setTimeout(function(){
     var myLatlng = new google.maps.LatLng(CITY_LAT, CITY_LNG);
     // map options,
     var myOptions = {
-        zoom: 13,
+        zoom: 15,
         center: myLatlng
     };
     // standard map
@@ -48,6 +48,7 @@ setTimeout(function(){
     // heatmap layer
     heatmap = new HeatmapOverlay(map,
         {
+            "backgroundColor" : "#ff0000",
             // radius should be small ONLY if scaleRadius is true (or small radius is intended)
             "radius": 0.0008,
             "maxOpacity": 1,
@@ -68,8 +69,7 @@ setTimeout(function(){
 
     var testData = {
         max: 8,
-        data: [{lat: CITY_LAT, lng:CITY_LNG, count: 3},{lat: 50.75, lng:11.55, count: 5}]
-
+        data: [{lat: CITY_LAT, lng:CITY_LNG, count: 3}, {lat: CITY_LAT, lng:CITY_LNG, count: 3}, {lat: CITY_LAT, lng:CITY_LNG, count: 3}]
     };
 
     heatmap.setData(testData);
