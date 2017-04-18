@@ -37,8 +37,8 @@ module.exports = function(app, passport) {
             req.login(user, function() {
 
                 console.log("Se logheaza");
-                var token = jwt.encode(user.email, 'secretinismitini');
-                res.json(token);
+               // var token = jwt.encode(user.email, 'secretinismitini');
+               // res.json(token);
             });
 
         })(req, res, next);
@@ -80,18 +80,19 @@ module.exports = function(app, passport) {
     =========================
     Email service
     =========================
-     */
+     *//*
     var email = require('./modules/email/email');
     app.use('/email', email);
-
+*/
     /*
     =========================
     Endpoints for urad API
     =========================
      */
+    /*
     var urad = require('./modules/urad/uradRoutes.js');
     app.use('/urad', urad);
-
+*/
     /*
     =============================
     Endpoints for liveObjects API
