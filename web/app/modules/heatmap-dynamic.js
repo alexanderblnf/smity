@@ -56,18 +56,33 @@ setTimeout(function(){
             "scaleRadius": true,
             "useLocalExtrema": false,
             latField: 'lat',
-            lngField: 'lng',
-            valueField: 'count'
+            lngField: 'long',
+            valueField: 'temperature'
         }
     );
 
+    /*
     var testData = {
         max: 10,
         // min: -10,
         data: [{lat: CITY_LAT, lng:CITY_LNG, count: 5}, {lat: CITY_LAT+0.005, lng:CITY_LNG, count: 8}, {lat: CITY_LAT, lng:CITY_LNG+0.005, count: 3}]
-    };
+    };*/
 
-    heatmap = heatmap.setData(testData);
+    var fromtime = 1480687145;
+    var totime = 1492551145;
+    $.get({  url: "http://localhost:8080/elastic/82000039/temperature/"+fromtime+"/"+totime,
+        success: function( data ) {
+            console.log(data);
+            var testData = {
+                min: 15,
+                max: 20,
+                data: data
+            };
+            heatmap.setData(testData);
+        },
+        dataType: "json" });
+
+   // heatmap = heatmap.setData(testData);
 
 
 }, 3000);
