@@ -5,7 +5,7 @@ angular.module('Smity')
 		momentPickerProvider.options({
 			/* Picker properties */
 			locale:        'ro',
-			format:        'L LTS',
+			format:        'L LT',
 			minView:       'decade',
 			maxView:       'minute',
 			startView:     'year',
@@ -21,24 +21,23 @@ angular.module('Smity')
 			daysFormat:    'D',
 			hoursFormat:   'HH',
 			minutesFormat: 'mm',
-			secondsFormat: 'ss',
-			minutesStep:   1,
-			secondsStep:   1
+			minutesStep:   1
 		});
 	}])
 	.directive('chartAndMap', [ChartAndMap]);
 
 function ChartAndMap() {
 	return {
-		template: '<div id="maps-div" style="width: 80vw; height: 40vh; margin-right: 5vw; margin-left: 1vw;" ></div>' +
-		// '<div id="chart-container" style="width: 100vw; height: 60vh;">' +
-		'<div id="chart-div" class="chart-init"></div>' +
+		template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
+		'<div id="maps-div" style="width: 80%; height: 100%; float: left;" ></div>' +
 		'<div id="calendar-div" style="width: 20%; height: 100%; float:right;">' +
-		'<input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
+		'<div><input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
 		'<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
-		'<button id="apply-date" ng-click="apply()">Apply</button></div>',
+		'<button id="apply-date" ng-click="apply()">Apply</button></div></div></div>' +
+		'<div id="chart-div" class="chart-init"></div>',
 		scope: {
-			jsonPath: '@'
+			param: '@',
+			yAxis: '@'
 		},
 		restrict: 'E',
 		link: link
@@ -121,19 +120,19 @@ function ChartAndMap() {
 					return xScale(d.date);
 				})
 				.y(function (d) {
-					return yScale(d.temperature);
+					return yScale(d.param);
 				});
 
 			focus = svg.append("g").style("display", "none");
 			first = 0;
 		}
 
-		function reScale(cache, keys) {
-			var temperatures = keys.map(function (name) {
+		function reScale(cache, keys, param) {
+			var params = keys.map(function (name) {
 				return {
 					name: name,
 					values: cache[name].map(function (d) {
-						return {date: d.time, temperature: d.temperature};
+						return {date: d.time, param: d[param]};
 					})
 				};
 			});
@@ -141,12 +140,12 @@ function ChartAndMap() {
 
 			// add domain ranges to the x and y scales
 			xScale.domain([
-				d3.min(temperatures, function (c) {
+				d3.min(params, function (c) {
 					return d3.min(c.values, function (v) {
 						return v.date;
 					});
 				}),
-				d3.max(temperatures, function (c) {
+				d3.max(params, function (c) {
 					return d3.max(c.values, function (v) {
 						return v.date;
 					});
@@ -154,14 +153,14 @@ function ChartAndMap() {
 			]);
 
 			yScale.domain([
-				d3.min(temperatures, function (c) {
+				d3.min(params, function (c) {
 					return d3.min(c.values, function (v) {
-						return v.temperature;
+						return v.param;
 					});
 				}),
-				d3.max(temperatures, function (c) {
+				d3.max(params, function (c) {
 					return d3.max(c.values, function (v) {
-						return v.temperature;
+						return v.param;
 					});
 				})
 			]);
@@ -173,7 +172,7 @@ function ChartAndMap() {
 					.call(d3.axisBottom(xScale));
 				d3.selectAll("path.line").remove();
 				var path = svg.selectAll(".stockXYZ")
-					.data(temperatures);
+					.data(params);
 				path.append("path")
 					.attr("class", "line")
 					.attr("id", function (d, i) {
@@ -189,7 +188,7 @@ function ChartAndMap() {
 				first = 1;
 			}
 
-			return temperatures;
+			return params;
 		}
 
 		function measure(measures, keys) {
@@ -226,12 +225,12 @@ function ChartAndMap() {
 		}
 
 		// import data and create chart
-		function generateD3(startDate, endDate) {
-			d3.json($scope.jsonPath + startDate + "/" + endDate,
-				function (data) {
-					var keys = Object.keys(data);
-					var length = keys.length;
-					var measures = [];
+		 function generateD3(startDate, endDate, param) {
+        d3.json("http://localhost:8080/elastic/all/" + param + "/" + startDate + "/" + endDate,
+            function (data) {
+                var keys = Object.keys(data);
+                var length = keys.length;
+                var measures = [];
 
 					for (i = 0; i < keys.length; i++) {
 						var aux = {
@@ -250,17 +249,17 @@ function ChartAndMap() {
 						lookup[measures[i]['key']] = i;
 					}
 
-					var cache = JSON.parse(JSON.stringify(data));
-					color.domain(keys);
-					// color domain
-					// create stocks array with object for each company containing all data
-					var temperatures = reScale(cache, keys);
-					// add the x axis
-					svg.append("g")
-						.attr("class", "x axis")
-						.attr("transform", "translate(0," + height + ")")
-						.style("font", "1em times")
-						.call(d3.axisBottom(xScale));
+                var cache = JSON.parse(JSON.stringify(data));
+                color.domain(keys);
+                // color domain
+                // create stocks array with object for each company containing all data
+                var params = reScale(cache, keys, param);
+                // add the x axis
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .style("font", "1em times")
+                    .call(d3.axisBottom(xScale));
 
 					// add the y axis
 					svg.append("g")
@@ -274,7 +273,7 @@ function ChartAndMap() {
 						.attr("dy", ".71em")
 						.style("text-anchor", "middle")
 						.attr("fill", '#000000')
-						.text("Temperature (Celsius)");
+						.text($scope.yAxis);
 
 					// add circle at intersection
 					focus.append("circle")
@@ -319,7 +318,7 @@ function ChartAndMap() {
 
 					// add the line groups
 					var stock = svg.selectAll(".stockXYZ")
-						.data(temperatures)
+						.data(params)
 						.enter().append("g")
 						.attr("class", "stockXYZ");
 
@@ -343,7 +342,7 @@ function ChartAndMap() {
 							return {name: d.name, value: d.values[maxLen - 1]};
 						})
 						.attr("transform", function (d) {
-							return "translate(" + xScale(d.value.date) + "," + yScale(d.value.temperature) + ")";
+							return "translate(" + xScale(d.value.date) + "," + yScale(d.value.param) + ")";
 						})
 						.attr("id", function (d, i) {
 							return "text_id" + i;
@@ -361,74 +360,74 @@ function ChartAndMap() {
 
 					slice = (height - 0.25 * viewportHeight) / length;
 
-					legend.selectAll('rect')
-						.data(temperatures)
-						.enter()
-						.append("rect")
-						.attr("id", function (d, i) {
-							return "rect_id" + d.name;
-						})
-						.attr("x", width - 65)
-						.attr("y", function (d, i) {
-							return i * 1.5 * slice;
-						})
-						.attr("width", slice)
-						.attr("height", slice)
-						.style("fill", function (d) {
-							return color(d.name);
-						})
-						.style("stroke-width", 2)
-						.style("stroke", function (d) {
-							return color(d.name);
-						})
-						.on("mouseover", function (d, i) {
-							var key = d.name;
-							keys.forEach(function (dt) {
-								if (key != dt) {
-									d3.select("#id" + dt).style("opacity", 0.1);
-								} else {
-									d3.select("#id" + dt).style('stroke-width', 3);
-								}
-							});
-						})
-						.on("mouseout", function (d, i) {
-							keys.forEach(function (dt) {
-								d3.select("#id" + dt).style("opacity", 1);
-								d3.select("#id" + dt).style('stroke-width', 1);
-							});
-						})
-						.on('click', function (d, i) {
-							var key = d.name;
-							if (keys.indexOf(key) != -1) {
-								d3.select("#id" + d.name).style("display", "none");
-								d3.select("#rect_id" + d.name).style("fill", "white");
-								for (var j = 0; j < cache[key].length; j++) {
-									delete cache[key][j];
-								}
-								delete cache[key];
-								for (var k = 0; k < measures.length; k++) {
-									if (measures[k]['key'] == key) {
-										measures[k]['value'] = 0;
-										break;
-									}
-								}
-								var index = keys.indexOf(key);
-								keys.splice(index, 1);
-								reScale(cache, keys);
-							} else {
-								d3.select("#id" + d.name).style("display", "");
-								d3.select("#rect_id" + d.name).style("fill", color(key));
-								cache[key] = [];
-								keys.push(key);
-								for (j = 0; j < data[key].length; j++) {
-									cache[key].push(data[key][j]);
-								}
-								reScale(cache, keys);
-							}
-						});
+                legend.selectAll('rect')
+                    .data(params)
+                    .enter()
+                    .append("rect")
+                    .attr("id", function (d, i) {
+                        return "rect_id" + d.name;
+                    })
+                    .attr("x", width - 65)
+                    .attr("y", function (d, i) {
+                        return i * 1.5 * slice;
+                    })
+                    .attr("width", slice)
+                    .attr("height", slice)
+                    .style("fill", function (d) {
+                        return color(d.name);
+                    })
+                    .style("stroke-width", 2)
+                    .style("stroke", function (d) {
+                        return color(d.name);
+                    })
+                    .on("mouseover", function (d, i) {
+                        var key = d.name;
+                        keys.forEach(function (dt) {
+                            if (key != dt) {
+                                d3.select("#id" + dt).style("opacity", 0.1);
+                            } else {
+                                d3.select("#id" + dt).style('stroke-width', 3);
+                            }
+                        });
+                    })
+                    .on("mouseout", function (d, i) {
+                        keys.forEach(function (dt) {
+                            d3.select("#id" + dt).style("opacity", 1);
+                            d3.select("#id" + dt).style('stroke-width', 1);
+                        });
+                    })
+                    .on('click', function (d, i) {
+                        var key = d.name;
+                        if (keys.indexOf(key) != -1) {
+                            d3.select("#id" + d.name).style("display", "none");
+                            d3.select("#rect_id" + d.name).style("fill", "white");
+                            for (j = 0; j < cache[key].length; j++) {
+                                delete cache[key][j];
+                            }
+                            delete cache[key];
+                            for (var k = 0; k < measures.length; k++) {
+                                if (measures[k]['key'] == key) {
+                                    measures[k]['value'] = 0;
+                                    break;
+                                }
+                            }
+                            var index = keys.indexOf(key);
+                            keys.splice(index, 1);
+                            reScale(cache, keys, param);
+                        } else {
+                            d3.select("#id" + d.name).style("display", "");
+                            d3.select("#rect_id" + d.name).style("fill", color(key));
+                            cache[key] = [];
+                            keys.push(key);
+                            for (var j = 0; j < data[key].length; j++) {
+                                cache[key].push(data[key][j]);
+                            }
+                            reScale(cache, keys, param);
+                        }
+                    });
 
 					legend.selectAll('text')
-						.data(temperatures)
+						.data(params)
 						.enter()
 						.append("text")
 						.attr("x", width - 30)
@@ -465,50 +464,50 @@ function ChartAndMap() {
 						.attr("width", 100)
 						.attr('transform', 'translate(-' + 0.07 * viewportWidth + ',0)');
 
-					results.selectAll('text')
-						.data(measures)
-						.enter()
-						.append("text")
-						.attr("x", width - 5)
-						.attr("y", function (d, i) {
-							return i * 1.5 * slice + 0.026 * viewportHeight;
-						})
-						.text(function (d) {
-							return d.value;
-						})
-						.on("mouseover", function (d, i) {
-							var key = d.name;
-							keys.forEach(function (dt) {
-								if (key != dt) {
-									d3.select("#id" + dt).style("opacity", 0.1);
-								} else {
-									d3.select("#id" + dt).style('stroke-width', 3);
-								}
-							});
-						})
-						.on("mouseout", function (d, i) {
-							keys.forEach(function (dt) {
-								d3.select("#id" + dt).style("opacity", 1);
-								d3.select("#id" + dt).style('stroke-width', 1);
-							});
-						});
-					// mousemove function
-					function mousemove() {
-						var x0 = xScale.invert(d3.mouse(this)[0]);
-						var maxVal = -100;
-						var maxI = 0;
-						var key = null;
-						keys.forEach(function (keyVal) {
-							var j = bisectDate(cache[keyVal], x0, 1);
-							if (cache[keyVal][j] != null) {
-								measures[lookup[keyVal]]['value'] = cache[keyVal][j].temperature;
-								if (cache[keyVal][j].temperature > maxVal) {
-									maxVal = cache[keyVal][j].temperature;
-									maxI = j;
-									key = keyVal;
-								}
-							}
-						});
+                results.selectAll('text')
+                    .data(measures)
+                    .enter()
+                    .append("text")
+                    .attr("x", width - 5)
+                    .attr("y", function (d, i) {
+                        return i * 1.5 * slice + 0.026 * viewportHeight;
+                    })
+                    .text(function (d) {
+                        return d.value;
+                    })
+                    .on("mouseover", function (d, i) {
+                        var key = d.name;
+                        keys.forEach(function (dt) {
+                            if (key != dt) {
+                                d3.select("#id" + dt).style("opacity", 0.1);
+                            } else {
+                                d3.select("#id" + dt).style('stroke-width', 3);
+                            }
+                        });
+                    })
+                    .on("mouseout", function (d, i) {
+                        keys.forEach(function (dt) {
+                            d3.select("#id" + dt).style("opacity", 1);
+                            d3.select("#id" + dt).style('stroke-width', 1);
+                        });
+                    });
+                // mousemove function
+                function mousemove() {
+                    var x0 = xScale.invert(d3.mouse(this)[0]);
+                    var maxVal = -100;
+                    var maxI = 0;
+                    var key = null;
+                    keys.forEach(function (keyVal) {
+                        var j = bisectDate(cache[keyVal], x0, 1);
+                        if (cache[keyVal][j] != null) {
+                            measures[lookup[keyVal]]['value'] = cache[keyVal][j][param];
+                            if (cache[keyVal][j][param] > maxVal) {
+                                maxVal = cache[keyVal][j][param];
+                                maxI = j;
+                                key = keyVal;
+                            }
+                        }
+                    });
 
 						if (key != null) {
 							measure(measures, keys);
@@ -516,37 +515,39 @@ function ChartAndMap() {
 							var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
 
 							focus.select("circle.y")
-								.attr("transform", "translate(" + xScale(d.time) + "," + yScale(d.temperature) + ")");
+								.attr("transform", "translate(" + xScale(d.time) + "," + yScale(d[param]) + ")");
 
-							focus.select("line.y")
-								.attr("y2", height - yScale(d.temperature))
-								.attr("transform", "translate(" + xScale(d.time) + ","
-									+ yScale(d.temperature) + ")");
+                        focus.select("line.y")
+                            .attr("y2", height - yScale(d[param]))
+                            .attr("transform", "translate(" + xScale(d.time) + ","
+                                + yScale(d[param]) + ")");
 
-							focus.select("line.x")
-								.attr("x2", xScale(d.time))
-								.attr("transform", "translate(0,"
-									+ (yScale(d.temperature)) + ")");
-						}
-					}
+                        focus.select("line.x")
+                            .attr("x2", xScale(d.time))
+                            .attr("transform", "translate(0,"
+                                + (yScale(d[param])) + ")");
+                    }
 
-					function showmap() {
-						var x0 = xScale.invert(d3.mouse(this)[0]);
-						var options = {};
-						keys.forEach(function (key) {
-							var j = bisectDate(cache[key], x0, 1);
-							var d0 = cache[key][j], d1 = cache[key][j - 1];
-							if (d0 && d1) {
-								var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
-								aux = {
-									lat: d.lat,
-									long: d.long,
-									color: color(key),
-									param: d.temperature
-								};
-								options[key] = aux;
-							}
-						});
+
+                }
+
+                function showmap() {
+                    var x0 = xScale.invert(d3.mouse(this)[0]);
+                    var options = {};
+                    keys.forEach(function (key) {
+                        var j = bisectDate(cache[key], x0, 1);
+                        var d0 = cache[key][j], d1 = cache[key][j - 1];
+                        if(d0 && d1){
+                            var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+                            aux = {
+                                lat: d.lat,
+                                long: d.long,
+                                color: color(key),
+                                param: d[param]
+                            };
+                            options[key] = aux;
+                        }
+                    });
 
 						addMarkerToMap(options);
 					}
@@ -560,8 +561,8 @@ function ChartAndMap() {
 			var unixStart = Math.floor(startDate.getTime()/1000);
 			var unixEnd = Math.floor(endDate.getTime()/1000);
 			document.getElementById('chart-div').innerHTML = "";
-			initD3();
-			generateD3(unixStart, unixEnd);
+			initD3($scope.param);
+			generateD3(unixStart, unixEnd, $scope.param);
 		};
 
 		var now = new Date();
@@ -569,7 +570,7 @@ function ChartAndMap() {
 		var initEnd = Math.floor(now.getTime() / 1000);
 
 		initMap();
-		initD3();
-		generateD3(initStart, initEnd);
+		initD3($scope.param);
+		generateD3(initStart, initEnd, $scope.param);
 	}
 }
