@@ -130,8 +130,8 @@
         var unixStart = Math.floor(startDate.getTime()/1000);
         var unixEnd = Math.floor(endDate.getTime()/1000);
         document.getElementById('chart-div').innerHTML = "";
-        initD3();
-        generateD3(unixStart, unixEnd);
+        initD3("co2");
+        generateD3(unixStart, unixEnd, "co2");
     });
 </script>
 
@@ -146,7 +146,7 @@
     var color = d3.scaleOrdinal(d3.schemeCategory10);
     var svg, bisectDate, line, focus, first;
 
-    function initD3() {
+    function initD3(param) {
         svg = d3.select("#chart-div").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -164,19 +164,19 @@
                 return xScale(d.date);
             })
             .y(function (d) {
-                return yScale(d.temperature);
+                return yScale(d.param);
             });
 
         focus = svg.append("g").style("display", "none");
         first = 0;
     }
 
-    function reScale(cache, keys) {
-        var temperatures = keys.map(function (name) {
+    function reScale(cache, keys, param) {
+        var params = keys.map(function (name) {
             return {
                 name: name,
                 values: cache[name].map(function (d) {
-                    return {date: d.time, temperature: d.temperature};
+                    return {date: d.time, param: d[param]};
                 })
             };
         });
@@ -184,12 +184,12 @@
 
         // add domain ranges to the x and y scales
         xScale.domain([
-            d3.min(temperatures, function (c) {
+            d3.min(params, function (c) {
                 return d3.min(c.values, function (v) {
                     return v.date;
                 });
             }),
-            d3.max(temperatures, function (c) {
+            d3.max(params, function (c) {
                 return d3.max(c.values, function (v) {
                     return v.date;
                 });
@@ -197,14 +197,14 @@
         ]);
 
         yScale.domain([
-            d3.min(temperatures, function (c) {
+            d3.min(params, function (c) {
                 return d3.min(c.values, function (v) {
-                    return v.temperature;
+                    return v.param;
                 });
             }),
-            d3.max(temperatures, function (c) {
+            d3.max(params, function (c) {
                 return d3.max(c.values, function (v) {
-                    return v.temperature;
+                    return v.param;
                 });
             })
         ]);
@@ -216,7 +216,8 @@
                 .call(d3.axisBottom(xScale));
             d3.selectAll("path.line").remove();
             var path = svg.selectAll(".stockXYZ")
-                .data(temperatures);
+                .data(params);
+
             path.append("path")
                 .attr("class", "line")
                 .attr("id", function (d, i) {
@@ -232,7 +233,7 @@
             first = 1;
         }
 
-        return temperatures;
+        return params;
     }
 
     function measure(measures, keys) {
@@ -269,8 +270,8 @@
     }
 
     // import data and create chart
-    function generateD3(startDate, endDate) {
-        d3.json("http://localhost:8080/elastic/all/temperature/" + startDate + "/" + endDate,
+    function generateD3(startDate, endDate, param) {
+        d3.json("http://localhost:8080/elastic/all/" + param + "/" + startDate + "/" + endDate,
             function (data) {
                 var keys = Object.keys(data);
                 var length = keys.length;
@@ -297,7 +298,7 @@
                 color.domain(keys);
                 // color domain
                 // create stocks array with object for each company containing all data
-                var temperatures = reScale(cache, keys);
+                var params = reScale(cache, keys, param);
                 // add the x axis
                 svg.append("g")
                     .attr("class", "x axis")
@@ -362,7 +363,7 @@
 
                 // add the line groups
                 var stock = svg.selectAll(".stockXYZ")
-                    .data(temperatures)
+                    .data(params)
                     .enter().append("g")
                     .attr("class", "stockXYZ");
 
@@ -386,7 +387,7 @@
                         return {name: d.name, value: d.values[maxLen - 1]};
                     })
                     .attr("transform", function (d) {
-                        return "translate(" + xScale(d.value.date) + "," + yScale(d.value.temperature) + ")";
+                        return "translate(" + xScale(d.value.date) + "," + yScale(d.value.param) + ")";
                     })
                     .attr("id", function (d, i) {
                         return "text_id" + i;
@@ -405,7 +406,7 @@
                 slice = (height - 0.25 * viewportHeight) / length;
 
                 legend.selectAll('rect')
-                    .data(temperatures)
+                    .data(params)
                     .enter()
                     .append("rect")
                     .attr("id", function (d, i) {
@@ -457,7 +458,7 @@
                             }
                             var index = keys.indexOf(key);
                             keys.splice(index, 1);
-                            reScale(cache, keys);
+                            reScale(cache, keys, param);
                         } else {
                             d3.select("#id" + d.name).style("display", "");
                             d3.select("#rect_id" + d.name).style("fill", color(key));
@@ -466,12 +467,12 @@
                             for (var j = 0; j < data[key].length; j++) {
                                 cache[key].push(data[key][j]);
                             }
-                            reScale(cache, keys);
+                            reScale(cache, keys, param);
                         }
                     });
 
                 legend.selectAll('text')
-                    .data(temperatures)
+                    .data(params)
                     .enter()
                     .append("text")
                     .attr("x", width - 30)
@@ -544,9 +545,9 @@
                     keys.forEach(function (keyVal) {
                         var j = bisectDate(cache[keyVal], x0, 1);
                         if (cache[keyVal][j] != null) {
-                            measures[lookup[keyVal]]['value'] = cache[keyVal][j].temperature;
-                            if (cache[keyVal][j].temperature > maxVal) {
-                                maxVal = cache[keyVal][j].temperature;
+                            measures[lookup[keyVal]]['value'] = cache[keyVal][j][param];
+                            if (cache[keyVal][j][param] > maxVal) {
+                                maxVal = cache[keyVal][j][param];
                                 maxI = j;
                                 key = keyVal;
                             }
@@ -559,17 +560,17 @@
                         var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
 
                         focus.select("circle.y")
-                            .attr("transform", "translate(" + xScale(d.time) + "," + yScale(d.temperature) + ")");
+                            .attr("transform", "translate(" + xScale(d.time) + "," + yScale(d[param]) + ")");
 
                         focus.select("line.y")
-                            .attr("y2", height - yScale(d.temperature))
+                            .attr("y2", height - yScale(d[param]))
                             .attr("transform", "translate(" + xScale(d.time) + ","
-                                + yScale(d.temperature) + ")");
+                                + yScale(d[param]) + ")");
 
                         focus.select("line.x")
                             .attr("x2", xScale(d.time))
                             .attr("transform", "translate(0,"
-                                + (yScale(d.temperature)) + ")");
+                                + (yScale(d[param])) + ")");
                     }
 
 
@@ -587,7 +588,7 @@
                                 lat: d.lat,
                                 long: d.long,
                                 color: color(key),
-                                param: d.temperature
+                                param: d[param]
                             };
                             options[key] = aux;
                         }
@@ -604,8 +605,8 @@
     var initEnd = Math.floor(now.getTime()/1000);
     console.log(initStart);
     console.log(initEnd);
-    initD3();
-    generateD3(initStart, initEnd);
+    initD3("co2");
+    generateD3(initStart, initEnd, "co2");
 
 </script>
 </html>
