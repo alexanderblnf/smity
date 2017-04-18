@@ -116,7 +116,7 @@ h1 {
   color: #444;
   border-top: 1px solid #d2d6de;
   bottom: 0;
-  position: absolute !important;
+  position: fixed !important;
   width: 100vw;
 }
 /* Fixed layout */
@@ -4961,4 +4961,67 @@ table.text-center th {
   .table-responsive > .table tr td {
     white-space: normal !important;
   }
+}
+
+/*---------------
+        d3
+  ---------------*/
+
+.line {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.legend {
+  padding: 5px;
+  font: 12px sans-serif;
+  font-weight: 700;
+  background: yellow;
+  box-shadow: 2px 2px 1px #888;
+}
+
+.axis path {
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.tick line {
+  stroke: black;
+  stroke-width: 1px;
+}
+
+/*D3 STYLES*/
+
+.chart-init {
+  width: 80vw;
+  height: 100vh;
+  float: left;
+}
+
+.axis path {
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.tick line {
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.y .tick text {
+  font-size: 1.5em;
+}
+
+#chart-div {
+  width: 80vw;
+  height: 100vh;
+}
+
+#calendar-div {
+  display: flex;
+  align-items: center;
 }
