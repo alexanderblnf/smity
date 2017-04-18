@@ -30,7 +30,7 @@ angular.module('Smity')
 
 function ChartAndMap() {
 	return {
-		template: '<div id="maps-div" style="width: 90vw; height: 40vh; margin-left: 5vw; margin-right: 5vw"></div>' +
+		template: '<div id="maps-div" style="width: 80vw; height: 40vh; margin-right: 5vw; margin-left: 1vw;" ></div>' +
 		// '<div id="chart-container" style="width: 100vw; height: 60vh;">' +
 		'<div id="chart-div" class="chart-init"></div>' +
 		'<div id="calendar-div" style="width: 20%; height: 100%; float:right;">' +
@@ -45,12 +45,9 @@ function ChartAndMap() {
 	};
 
 	function link($scope, $el, $attrs) {
-		console.log($scope.$parent.vm.startDate);
-		console.log($scope.$parent.vm.endDate);
-
 		var viewportHeight = document.getElementById('chart-div').clientHeight;
 		var viewportWidth = document.getElementById('chart-div').clientWidth;
-		var margin = {top: 0.1 * viewportHeight, right: 0.01 * viewportWidth, bottom: 40, left: 0.15 * viewportWidth};
+		var margin = {top: 0.1 * viewportHeight, right: 0.01 * viewportWidth, bottom: 40, left: 0.05 * viewportWidth};
 		var height = (0.9 * viewportHeight) - margin.top - margin.bottom;
 		var width = viewportWidth - margin.left - margin.right;
 		var xScale = d3.scaleTime().range([0, width - 0.2 * viewportWidth]);
@@ -104,8 +101,6 @@ function ChartAndMap() {
 					}
 				})(marker, markerCount));
 			});
-
-//            map.panTo(myLatLng);
 		}
 
 		function initD3() {
@@ -559,14 +554,6 @@ function ChartAndMap() {
 				});
 		}
 
-		// var start = new Pikaday({
-		// 	field: document.getElementById('startDate')
-		// });
-		// var end = new Pikaday({
-		// 	field: document.getElementById('endDate')
-		// });
-		//
-		//
 		$scope.apply = function () {
 			var startDate = new Date($scope.vm.startDate);
 			var endDate = new Date($scope.vm.endDate);
@@ -580,8 +567,7 @@ function ChartAndMap() {
 		var now = new Date();
 		var initStart = Math.floor(now.getTime() / 1000 - 10000);
 		var initEnd = Math.floor(now.getTime() / 1000);
-		console.log(initStart);
-		console.log(initEnd);
+
 		initMap();
 		initD3();
 		generateD3(initStart, initEnd);

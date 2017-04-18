@@ -116,7 +116,7 @@ h1 {
   color: #444;
   border-top: 1px solid #d2d6de;
   bottom: 0;
-  position: absolute !important;
+  position: fixed !important;
   width: 100vw;
 }
 /* Fixed layout */
@@ -4995,7 +4995,7 @@ table.text-center th {
 /*D3 STYLES*/
 
 .chart-init {
-  width: 100vh;
+  width: 80vw;
   height: 100vh;
   float: left;
 }
