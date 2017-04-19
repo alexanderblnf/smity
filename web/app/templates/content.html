@@ -6,157 +6,109 @@
 			<!-- small box -->
 			<div data-overview data-parameter-value="{{vm.liveData.temperature}}"
 			     data-parameter-name="Temperature"
-			     data-remove-callback="vm.remove"></div>
+			     data-parameter-unit="°C"
+			     data-remove-callback="vm.remove"
+			     data-icon-class="ion ion-bag"
+			     data-link="app.temperature"></div>
 		</div>
 
-
-		<!-- ./col -->
-		<div class="col-lg-4 col-xs-6">
-
-			<!--<div data-overview data-parameter-value="{{vm.liveData.pressure}}"-->
-			     <!--data-parameter-name="Pressure"-->
-			     <!--data-remove-callback="vm.remove"></div>-->
-
-			<div class="small-box bg-orange">
-				<div class="box-header">
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-						</button>
-					</div>
-				</div>
-
-				<div class="box-body">
-					<div class="inner">
-						<p>Presiunea medie</p>
-						<h3>{{vm.liveData.pressure}}<sup style="font-size: 20px">mmHg</sup></h3>
-						<p></p>
-
-						<div class="icon">
-							<i class="ion ion-stats-bars"></i>
-						</div>
-					</div>
-				</div>
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-		<!-- ./col -->
 		<div class="col-lg-4 col-xs-6">
 			<!-- small box -->
-			<div class="small-box bg-orange">
-				<div class="box-header">
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-						</button>
-					</div>
-				</div>
-
-				<div class="box-body">
-					<div class="inner">
-						<p>Umiditate</p>
-						<h3>{{vm.liveData.humidity}} <sup style="font-size: 20px">%</sup></h3>
-						<p></p>
-
-						<div class="icon">
-							<i class="ion ion-person-add"></i>
-						</div>
-					</div>
-				</div>
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
+			<div data-overview data-parameter-value="{{vm.liveData.pressure}}"
+			     data-parameter-name="Presiune"
+			     data-parameter-unit="mmHg"
+			     data-remove-callback="vm.remove"
+			     data-link="app.pressure"></div>
 		</div>
-		<!-- ./col -->
+
 		<div class="col-lg-4 col-xs-6">
-			<div class="small-box bg-orange">
-				<div class="box-header">
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-						</button>
-					</div>
-				</div>
-
-				<div class="box-body">
-					<div class="inner">
-						<p>CO2</p>
-						<h3 ng-if="vm.liveData.co2 > 410">Periculos</h3>
-						<h3 ng-if="vm.liveData.co2 < 410">Limite normale</h3>
-						<p>{{vm.liveData.co2}} ppm</p>
-						<div class="icon">
-							<i class="ion ion-pie-graph"></i>
-						</div>
-					</div>
-				</div>
-
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
+			<!-- small box -->
+			<div data-overview data-parameter-value="{{vm.liveData.humidity}}"
+			     data-parameter-name="Umiditate"
+			     data-parameter-unit="%"
+			     data-remove-callback="vm.remove"
+			     data-link="app.humidity"></div>
 		</div>
-		<!-- ./col -->
+
+		<div class="col-lg-4 col-xs-6">
+			<!-- small box -->
+			<div data-overview data-parameter-value="{{vm.liveData.co2}}"
+			     data-parameter-name="Dioxid de carbon"
+			     data-parameter-unit="ppm"
+			     data-remove-callback="vm.remove"
+			     data-link="app.co2"></div>
+		</div>
+
+		<div class="col-lg-4 col-xs-6">
+			<!-- small box -->
+			<div data-overview data-parameter-value="{{vm.liveData.pm25}}"
+			     data-parameter-name="Particule de praf"
+			     data-parameter-unit="µg/m3"
+			     data-remove-callback="vm.remove"
+			     data-link="app.pm25"></div>
+		</div>
+
+		<div class="col-lg-4 col-xs-6">
+			<!-- small box -->
+			<div data-overview data-parameter-value="{{vm.liveData.ch2o}}"
+			     data-parameter-name="Formaldehida"
+			     data-parameter-unit="ppm"
+			     data-remove-callback="vm.remove"
+			     data-link="app.ch2o"></div>
+		</div>
+
 		<!--<div class="col-lg-4 col-xs-6">-->
 		<!--&lt;!&ndash; small box &ndash;&gt;-->
-		<!--<div class="small-box bg-navy">-->
-		<!--<div class="inner">-->
-		<!--<p>Compusi organici volatili</p>-->
-		<!--<h3>Incarcat cu praf</h3>-->
-		<!--<p>{{vm.liveData.voc}}</p>-->
+		<!--<div class="small-box bg-orange">-->
+		<!--<div class="box-header">-->
+		<!--<div class="box-tools pull-right">-->
+		<!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>-->
+		<!--</button>-->
 		<!--</div>-->
+		<!--</div>-->
+
+		<!--<div class="box-body">-->
+		<!--<div class="inner">-->
+		<!--<p>PM2.5</p>-->
+		<!--<h3 ng-if="vm.liveData.pm25 > 35">Periculos</h3>-->
+		<!--<h3 ng-if="vm.liveData.pm25 < 35">Normal</h3>-->
+		<!--<p>{{vm.liveData.pm25}} µg/m3</p>-->
+
 		<!--<div class="icon">-->
-		<!--<i class="ion ion-gear-b"></i>-->
+		<!--<i class="ion ion-calendar"></i>-->
+		<!--</div>-->
+		<!--</div>-->
 		<!--</div>-->
 		<!--<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>-->
 		<!--</div>-->
 		<!--</div>-->
-		<!--&lt;!&ndash; ./col &ndash;&gt;-->
-		<div class="col-lg-4 col-xs-6">
-			<!-- small box -->
-			<div class="small-box bg-orange">
-				<div class="box-header">
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-						</button>
-					</div>
-				</div>
 
-				<div class="box-body">
-					<div class="inner">
-						<p>PM2.5</p>
-						<h3 ng-if="vm.liveData.pm25 > 35">Periculos</h3>
-						<h3 ng-if="vm.liveData.pm25 < 35">Normal</h3>
-						<p>{{vm.liveData.pm25}} µg/m3</p>
+		<!--<div class="col-lg-4 col-xs-6">-->
+		<!--&lt;!&ndash; small box &ndash;&gt;-->
+		<!--<div class="small-box bg-orange">-->
+		<!--<div class="box-header">-->
+		<!--<div class="box-tools pull-right">-->
+		<!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>-->
+		<!--</button>-->
+		<!--</div>-->
+		<!--</div>-->
 
-						<div class="icon">
-							<i class="ion ion-calendar"></i>
-						</div>
-					</div>
-				</div>
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
+		<!--<div class="box-body">-->
+		<!--<div class="inner">-->
+		<!--<p>Formaldehyde</p>-->
+		<!--<h3 ng-if="vm.liveData.ch2o > 0.1">Periculos</h3>-->
+		<!--<h3 ng-if="vm.liveData.ch2o < 0.1">Normal</h3>-->
+		<!--<p>{{vm.liveData.ch2o}} ppm</p>-->
 
-		<div class="col-lg-4 col-xs-6">
-			<!-- small box -->
-			<div class="small-box bg-orange">
-				<div class="box-header">
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-						</button>
-					</div>
-				</div>
+		<!--<div class="icon">-->
+		<!--<i class="ion ion-calendar"></i>-->
+		<!--</div>-->
+		<!--</div>-->
+		<!--</div>-->
 
-				<div class="box-body">
-					<div class="inner">
-						<p>Formaldehyde</p>
-						<h3 ng-if="vm.liveData.ch2o > 0.1">Periculos</h3>
-						<h3 ng-if="vm.liveData.ch2o < 0.1">Normal</h3>
-						<p>{{vm.liveData.ch2o}} ppm</p>
-
-						<div class="icon">
-							<i class="ion ion-calendar"></i>
-						</div>
-					</div>
-				</div>
-
-				<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
+		<!--<a href="#" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>-->
+		<!--</div>-->
+		<!--</div>-->
 	</div>
 	<!-- /.row -->
 
