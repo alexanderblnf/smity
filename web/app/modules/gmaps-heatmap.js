@@ -217,7 +217,8 @@
 
     generatedData.data = latLngPoints;
 
-    this.heatmap.setData(generatedData);
+    if (this.heatmap)
+      this.heatmap.setData(generatedData);
 
   };
 

@@ -31,9 +31,10 @@ function initHeatmap(map, minopacity, maxopacity, bgred, bggreen, bgblue, bgalph
     return heatmap;
 }
 
-function heatmapPlotData(heatmap, fromtime, totime, size, relative, minval, maxval){
+function heatmapPlotData(heatmap, fromtime, totime, space, relative, minval, maxval, centerlat, centerlng){
     $.get({ url: "http://localhost:8080/elastic/heatmapdata/temperature/"+fromtime+"/"+totime,
             success: function( data ) {
+                //var cells = {};
                 if (relative === true) {
                     minval = Number.MAX_VALUE;
                     maxval = Number.MIN_VALUE;
@@ -42,6 +43,17 @@ function heatmapPlotData(heatmap, fromtime, totime, size, relative, minval, maxv
                             minval = item["temperature"];
                         if (item["temperature"] > maxval)
                             maxval = item["temperature"];
+
+                        /*
+                        var latindex = (item["lat"] - centerlat)/space;
+                        var lngindex = (item["long"] - centerlng)/space;
+                        if (!cells.hasOwnProperty(latindex)){
+                            cells[latindex] = {};
+                        }
+                        if (!cells[latindex].hasOwnProperty(lngindex)) {
+                            cells[latindex][lngindex] = [];
+                        }
+                        cells[latindex][lngindex].push = index;*/
                     });
                 }
                 var testData = {
@@ -66,6 +78,6 @@ setTimeout(function(){
     var fromtime = 1480687145;
     var totime = 1492551145;
 
-    heatmapPlotData(heatmap, fromtime, totime, 50, false, 15, 20);
+    heatmapPlotData(heatmap, fromtime, totime, 0.0008, true, null, null, CITY_LAT, CITY_LNG);
 
 }, 3000);
