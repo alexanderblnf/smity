@@ -32,7 +32,7 @@ function initHeatmap(map, minopacity, maxopacity, bgred, bggreen, bgblue, bgalph
 }
 
 function heatmapPlotData(heatmap, fromtime, totime, size, relative, minval, maxval){
-    $.get({ url: "http://localhost:8080/elastic/82000039/temperature/"+fromtime+"/"+totime,
+    $.get({ url: "http://localhost:8080/elastic/heatmapdata/temperature/"+fromtime+"/"+totime,
             success: function( data ) {
                 if (relative === true) {
                     minval = Number.MAX_VALUE;
@@ -61,7 +61,7 @@ setTimeout(function(){
     var CITY_LNG = 23.5634674;
 
     var map = initGoogleMaps(CITY_LAT, CITY_LNG, 15, 'map-container');
-    var heatmap = initHeatmap(map, 0.1, 0.8, 255, 0, 0, 0.1, 0.0008, 'temperature');
+    var heatmap = initHeatmap(map, 0.1, 0.8, 255, 0, 0, 0.0, 0.0008, 'temperature');
 
     var fromtime = 1480687145;
     var totime = 1492551145;

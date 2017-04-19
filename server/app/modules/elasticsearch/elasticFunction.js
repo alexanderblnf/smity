@@ -41,17 +41,39 @@ exports.getAllForInterval = function (options, res) {
     })
 };
 
-exports.getAllForIntervalOnStreet = function (options, res) {
+exports.getDataForHeatmap = function (options, res) {
     client.search({
         type: options.param,
         from: 0,
         size: 12 * 50,
         body: {
             query: {
-                range: {
-                    time: {
-                        from: options.start,
-                        to: options.end
+                bool: {
+                    must: {
+                        range: {
+                            time: {
+                                from: options.start,
+                                to: options.end
+                            }
+                        }
+                    },
+                    must_not: {
+                        bool: {
+                            must: {
+                                range: {
+                                    lat: {
+                                        from: 46.081621,
+                                        to: 46.083281
+                                    }
+                                },
+                                range: {
+                                    long: {
+                                        from: 23.574164,
+                                        to: 23.576459
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -62,14 +84,15 @@ exports.getAllForIntervalOnStreet = function (options, res) {
             }]
         }
     }).then(function (resp) {
-        var out = {};
+        var out = [];
         resp.hits.hits.forEach(function (d) {
-            if(out[d["_index"]] != null) {
-                out[d["_index"]].push(d["_source"]);
-            } else {
-                out[d["_index"]] = [];
-                out[d["_index"]].push(d["_source"]);
-            }
+            // if(out[d["_index"]] != null) {
+            //     out[d["_index"]].push(d["_source"]);
+            // } else {
+            //     out[d["_index"]] = [];
+            //     out[d["_index"]].push(d["_source"]);
+            // }
+            out.push(d["_source"]);
         });
         res.send(out);
     }, function (err) {

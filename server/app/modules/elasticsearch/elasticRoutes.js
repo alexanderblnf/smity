@@ -13,14 +13,14 @@ router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) 
     elasticFunction.getAllForInterval(options, res);
 });
 
-router.get('/all-onstreets/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
+router.get('/heatmapdata/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
     var options = {
         param: req.params.param,
         start: req.params.timeStart,
         end: req.params.timeEnd
     };
 
-    elasticFunction.getAllForIntervalOnStreet(options, res);
+    elasticFunction.getDataForHeatmap(options, res);
 });
 
 router.get('/:device/:param' + params + '/prediction/:time', function (req, res) {
