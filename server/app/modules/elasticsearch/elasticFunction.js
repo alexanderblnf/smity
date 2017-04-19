@@ -41,6 +41,42 @@ exports.getAllForInterval = function (options, res) {
     })
 };
 
+exports.getAllForIntervalOnStreet = function (options, res) {
+    client.search({
+        type: options.param,
+        from: 0,
+        size: 12 * 50,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: options.start,
+                        to: options.end
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = {};
+        resp.hits.hits.forEach(function (d) {
+            if(out[d["_index"]] != null) {
+                out[d["_index"]].push(d["_source"]);
+            } else {
+                out[d["_index"]] = [];
+                out[d["_index"]].push(d["_source"]);
+            }
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 exports.getForInterval = function (options, res) {
     client.search({
         index: options.device,
