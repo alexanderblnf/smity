@@ -1,50 +1,28 @@
 
 var heatmap;
+var map;
 
-function initGoogleMaps(){
+function googleMapsLoaded(){
 
 }
 
+function initGoogleMaps(lat, lng, zoomlvl, containerid){
+    var coord = new google.maps.LatLng(lat, lng);
+    var options = {
+        zoom: zoomlvl,
+        center: coord
+    };
+    map = new google.maps.Map(document.getElementById(containerid), options);
+    return map;
+}
+
 setTimeout(function(){
-    /*
-    console.log('success!');
 
-     heatmap = h337.create({
-        container: document.getElementById('map-container')
-    });
-
-    heatmap.setData({
-        max: 5,
-        data: [{ x: 10, y: 15, value: 5}]
-    });
-*/
     var CITY_LAT = 46.0684893;
     var CITY_LNG = 23.5634674;
 
-    map = new google.maps.Map(document.getElementById('map-container'), {
-        center: {lat: CITY_LAT, lng: CITY_LNG},
-        zoom: 8
-    });
+    initGoogleMaps(CITY_LAT, CITY_LNG, 15, "map-container");
 
-    /*
-    heatmap = h337.create({
-        container: document.getElementById('map-container')
-    });
-
-    heatmap.setData({
-        max: 5,
-        data: [{ x: 10, y: 15, value: 5}]
-    });*/
-
-    // don't forget to add gmaps-heatmap.js
-    var myLatlng = new google.maps.LatLng(CITY_LAT, CITY_LNG);
-    // map options,
-    var myOptions = {
-        zoom: 15,
-        center: myLatlng
-    };
-    // standard map
-    map = new google.maps.Map(document.getElementById("map-container"), myOptions);
     // heatmap layer
     heatmap = new HeatmapOverlay(map,
         {
