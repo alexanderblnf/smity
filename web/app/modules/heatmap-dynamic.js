@@ -106,7 +106,6 @@ setTimeout(function(){
     mapconfig.minval = null;
     mapconfig.maxval = null;
 
-
     var map = initGoogleMaps(mapconfig);
     var heatmap = initHeatmap(map, mapconfig);
 

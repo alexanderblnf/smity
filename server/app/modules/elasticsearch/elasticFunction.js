@@ -47,6 +47,17 @@ exports.getDataForHeatmap = function (options, res) {
         from: 0,
         size: 12 * 50,
         body: {
+//             aggs: {
+//                 by_email: {
+//                     terms: {
+//             field: "_index",
+//             size: 10
+//     },
+//     aggs: {
+//         by_top_hit: { top_hits: { size: 15 } }
+//     }
+// }
+// },
             query: {
                 bool: {
                     must: {
@@ -93,6 +104,7 @@ exports.getDataForHeatmap = function (options, res) {
             //     out[d["_index"]].push(d["_source"]);
             // }
             out.push(d["_source"]);
+            //out.push(d);
         });
         res.send(out);
     }, function (err) {
