@@ -32,14 +32,50 @@ function initHeatmap(map, mapconfig){
     return heatmap;
 }
 
+function computeDist(point1, point2){
+    return Math.sqrt(Math.pow(point1["lat"]-point2["lat"], 2) + Math.pow(point1["long"]-point2["long"], 2));
+}
+
 function heatmapPlotData(heatmap, mapconfig, fromtime, totime){
     $.get({ url: "http://localhost:8080/elastic/heatmapdata/temperature/"+fromtime+"/"+totime,
-            success: function( data ) {
+        success: function( data ) {
+                var avglat, avglong, avgval, count;
+                var data_normalized = [];
+
+
+                for (i=0; i<data.length; i++){
+                    if (data[i].hasOwnProperty('visited'))
+                        continue;
+
+                    avglat = data[i]["lat"];
+                    avglong = data[i]["long"];
+                    avgval = data[i]["temperature"];
+                    count = 1;
+
+                    for (j=i+1; j<data.length; j++){
+                        if (computeDist(data[i], data[j]) < mapconfig.radius){
+                            avglat += data[j]["lat"];
+                            avglong += data[j]["long"];
+                            avgval += data[j]["temperature"];
+                            count++;
+                            data[j]['visited']=true;
+                        }
+                    }
+
+                    var point = {};
+                    point["lat"] = avglat/count;
+                    point["long"] = avglong/count;
+                    point["temperature"] = avgval/count;
+
+                    data[i]['visited']=true;
+                    data_normalized.push(point);
+                }
+
                 //var cells = {};
                 if (mapconfig.extremarelative === true) {
                     minval = Number.MAX_VALUE;
                     maxval = Number.MIN_VALUE;
-                    $.each(data, function (index, item) {
+                    $.each(data_normalized, function (index, item) {
                         if (item["temperature"] < minval)
                             minval = item["temperature"];
                         if (item["temperature"] > maxval)
@@ -64,7 +100,7 @@ function heatmapPlotData(heatmap, mapconfig, fromtime, totime){
                 var testData = {
                     min: minval,
                     max: maxval,
-                    data: data
+                    data: data_normalized
                 };
                 heatmap.setData(testData);
             },
