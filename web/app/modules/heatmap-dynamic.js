@@ -71,7 +71,6 @@ function heatmapPlotData(heatmap, mapconfig, fromtime, totime){
                     data_normalized.push(point);
                 }
 
-                //var cells = {};
                 if (mapconfig.extremarelative === true) {
                     minval = Number.MAX_VALUE;
                     maxval = Number.MIN_VALUE;
@@ -80,17 +79,6 @@ function heatmapPlotData(heatmap, mapconfig, fromtime, totime){
                             minval = item["temperature"];
                         if (item["temperature"] > maxval)
                             maxval = item["temperature"];
-
-                        /*
-                        var latindex = (item["lat"] - centerlat)/space;
-                        var lngindex = (item["long"] - centerlng)/space;
-                        if (!cells.hasOwnProperty(latindex)){
-                            cells[latindex] = {};
-                        }
-                        if (!cells[latindex].hasOwnProperty(lngindex)) {
-                            cells[latindex][lngindex] = [];
-                        }
-                        cells[latindex][lngindex].push = index;*/
                     });
                 }
                 else{
