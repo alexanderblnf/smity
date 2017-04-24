@@ -35,8 +35,6 @@ module.exports = function(app, passport) {
             }
 
             req.login(user, function() {
-
-                console.log("Se logheaza");
                 var token = jwt.encode(user.email, 'secretinismitini');
                 res.json(token);
             });

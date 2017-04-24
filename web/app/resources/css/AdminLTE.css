@@ -4981,14 +4981,14 @@ table.text-center th {
 }
 
 .axis path {
-  stroke: black;
+  stroke: white;
   stroke-width: 1px;
   fill: none;
   shape-rendering: crispEdges;
 }
 
 .tick line {
-  stroke: black;
+  stroke: white;
   stroke-width: 1px;
 }
 
@@ -5001,27 +5001,36 @@ table.text-center th {
 }
 
 .axis path {
-  stroke: black;
+  stroke: white;
   stroke-width: 1px;
   fill: none;
   shape-rendering: crispEdges;
 }
 
 .tick line {
-  stroke: black;
+  stroke: white;
   stroke-width: 1px;
 }
 
 .y .tick text {
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 
 #chart-div {
   width: 80vw;
-  height: 100vh;
+  height: 70vh;
 }
 
 #calendar-div {
   display: flex;
   align-items: center;
+}
+
+.tick text {
+  fill: white;
+}
+
+text {
+  fill: white;
+  font-weight: 400;
 }
