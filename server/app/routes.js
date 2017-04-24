@@ -30,9 +30,10 @@ module.exports = function(app, passport) {
                 return res.json(err)
             }
 
-            if (!user) {
+            if (!user || user == false) {
                 res.sendStatus(401);
             }
+
 
             req.login(user, function() {
 
