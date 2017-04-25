@@ -2,7 +2,7 @@ exports.addPermission = function (options, callback) {
     if(options.id == null || options.name == null || options.userId == null) {
         callback(false, "You have not provided the necessary information");
     } else {
-        getPermission(options, function (done, data) {
+        findPermission(options, function (done, data) {
             if(done == false){
                 callback(false, data);
             } else {
@@ -32,7 +32,9 @@ exports.addPermission = function (options, callback) {
     }
 };
 
-function getPermission(options, callback) {
+exports.getPermission = findPermission;
+
+function findPermission(options, callback) {
     if(options.id == null) {
         callback(false, "You have not provided the necessary information");
     } else {

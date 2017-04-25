@@ -47,14 +47,7 @@ module.exports = function (app, passport, db, pgp) {
 
         })(req, res, next);
     });
-    // =====================================
-    // SIGNUP ==============================
-    // =====================================
-    // app.get('/signup', function(req, res) {
-    //     res.render('signup.ejs', { message: req.flash('signupMessage') });
-    // });
 
-    // process the signup form
     app.post('/signup', function (req, res, next) {
         passport.authenticate('local-signup', function (err, user, message) {
             var response = {};

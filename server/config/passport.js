@@ -31,8 +31,9 @@ module.exports = function (passport, db, pgp) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, email, password, done) {
-
-            if(email == null || password == null) {
+            var firstName = req.body.firstname;
+            var lastName = req.body.lastname;
+            if(email == null || password == null || firstName == null || lastName == null) {
                 return done(null, false, "You have not provided all necessary information");
             } else {
                 var ps = pgp.PreparedStatement;
@@ -43,7 +44,9 @@ module.exports = function (passport, db, pgp) {
                         ps: ps,
                         db: db,
                         email: email,
-                        password: password
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName
                     };
                     user.findByEmail(options, function (err, data) {
                         if (err) {

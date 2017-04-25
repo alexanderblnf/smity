@@ -17,6 +17,8 @@ CREATE TABLE users(
   id SERIAL PRIMARY KEY,
   email VARCHAR(30) UNIQUE NOT NULL,
   password VARCHAR(257) NOT NULL,
+  firstname VARCHAR(50) NOT NULL,
+  lastname VARCHAR(50) NOT NULL,
   permission INTEGER REFERENCES permission(id),
-  preferences INTEGER[]
+  preferences TEXT[]
 );
