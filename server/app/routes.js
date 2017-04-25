@@ -1,4 +1,4 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, db, pgp) {
     var express = require('express');
     var path = require('path');
     var jwt = require('jwt-simple');
@@ -49,11 +49,16 @@ module.exports = function(app, passport) {
     });
 
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true
-    }));
+    app.get('/encode/:password', function (req, res) {
+        var password = req.params.password;
+        var token = jwt.encode(password, 'secretinismitini');
+        res.json(token);
+    });
+    // app.post('/signup', passport.authenticate('local-signup', {
+    //     successRedirect: '/profile',
+    //     failureRedirect: '/signup',
+    //     failureFlash: true
+    // }));
 
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
@@ -72,6 +77,42 @@ module.exports = function(app, passport) {
        } else {
            res.json(false);
        }
+    });
+
+    /*
+    =========================
+    Permission endpoints - Smity Admins only
+    =========================
+     */
+    var permission = require('./sql_models/permission');
+    app.post('/permission/add', function (req, res) {
+        var id = req.body.id;
+        var name = req.body.name;
+        var description = req.body.description;
+        var userId = req.body.userId;
+        if(id == null || name == null || userId == null) {
+            res.send('{message: "Bad request"}');
+        } else {
+            var options = {
+                id: id,
+                name: name,
+                description: description,
+                userId: userId,
+                db: db,
+                pgp: pgp
+            };
+            permission.addPermission(options,  function (done, data) {
+                var message = {};
+                if(done == false) {
+                    message["response"] = "fail";
+                } else {
+                    message["response"] = "success";
+                }
+                message["message"] = data;
+                res.send(message);
+            });
+        }
+
     });
 
     /*

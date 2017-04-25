@@ -16,9 +16,6 @@ var configDB = require('./server/config/database.js');
 var db = pgp(configDB.url); // connect to our database
 require('./server/config/passport')(passport, db, pgp); // pass passport for configuration
 
-// set up our express application
-// app.use(cors({origin: '*',
-//             credentials: true}));
 app.use(express.static(path.join(__dirname, 'web/app')));
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)

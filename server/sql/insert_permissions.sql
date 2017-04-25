@@ -1,0 +1,1 @@
+INSERT INTO permission VALUES(1, 'SMITY_ADMIN', 'Smity Administrator. Root rights');
