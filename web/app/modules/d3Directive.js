@@ -28,12 +28,13 @@ angular.module('Smity')
 
 function ChartAndMap() {
     return {
-        template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
-        '<div id="maps-div" style="width: 80%; height: 100%; float: left;" ></div>' +
-        '<div id="calendar-div" style="width: 20%; height: 100%; float:right;">' +
-        '<div><input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
+        // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
+        template:
+        '<div id="maps-div"></div>' +
+        '<div id="calendar-div">' +
+        '<div id="center-div"><input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
         '<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
-        '<button id="apply-date" ng-click="apply()">Apply</button></div></div></div>' +
+        '<button id="apply-date" class="btn" ng-click="apply()">Apply</button></div></div>' +
         '<div id="chart-div" class="chart-init"></div>',
         scope: {
             param: '@',
@@ -198,6 +199,10 @@ function ChartAndMap() {
                     .style("stroke", function (d) {
                         return color(d.name);
                     });
+
+                d3.selectAll(".danger-line").remove();
+                d3.selectAll(".danger-text").remove();
+                drawLimits(param);
             } else {
                 first = 1;
             }
@@ -256,6 +261,7 @@ function ChartAndMap() {
                             .attr("x2", xScale(maxWidth))
                             .attr("transform", "translate(0," + yScale(values[i]) + ")");
                         limitLines.append("text")
+                            .attr("class", "danger-text")
                             .attr("x", 0)
                             .attr("transform", "translate(0," + yScale(values[i] + 5) + ")")
                             .style("fill", limits['colors'][i])
@@ -546,7 +552,9 @@ function ChartAndMap() {
                         keys.forEach(function (keyVal) {
                             var j = bisectDate(cache[keyVal], x0, 1);
                             if (cache[keyVal][j] != null) {
-                                measures[lookup[keyVal]]['value'] = cache[keyVal][j][param];
+                                var d0 = cache[keyVal][j], d1 = cache[keyVal][j - 1];
+                                var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+                                measures[lookup[keyVal]]['value'] = d[param];
                                 if (cache[keyVal][j][param] > maxVal) {
                                     maxVal = cache[keyVal][j][param];
                                     maxI = j;

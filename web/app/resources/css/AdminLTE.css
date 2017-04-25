@@ -5034,3 +5034,30 @@ text {
   fill: white;
   font-weight: 400;
 }
+
+#maps-div {
+  width: 70vw;
+  height: 30vh;
+  margin-left: 5vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+#calendar-div {
+  display: inline-flex;
+  align-items: center;
+  width: 80vw;
+  height: 8vh;
+}
+
+#center-div {
+  display: inline-flex;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+#apply-date {
+  background-color: #ff6600;
+  color: white;
+}
