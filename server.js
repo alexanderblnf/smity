@@ -28,7 +28,6 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch',
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
 require('./server/app/routes.js')(app, passport, db, pgp); // load our routes and pass in our app and fully configured passport

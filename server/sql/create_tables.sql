@@ -5,7 +5,7 @@ DROP TABLE preference;
 CREATE TABLE permission(
   id INTEGER PRIMARY KEY,
   name VARCHAR(20) NOT NULL,
-  description VARCHAR(50)
+  description VARCHAR(100)
 );
 
 CREATE TABLE preferences(

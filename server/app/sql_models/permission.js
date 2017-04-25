@@ -6,14 +6,13 @@ exports.addPermission = function (options, callback) {
             if(done == false){
                 callback(false, data);
             } else {
-                console.log(data);
                 if(data.permission == 1){
                     var add;
                     if(options.description != null) {
-                        add = new options.ps('add-permission', 'INSERT INTO permission VALUES($1, $2, $3)',
+                        add = new options.ps('add-permission', 'INSERT INTO permission VALUES($1, $2, $3) RETURNING name',
                             [options.id, options.name, options.description]);
                     } else {
-                        add = new options.ps('add-permission', 'INSERT INTO permission(id, name) VALUES($1, $2)',
+                        add = new options.ps('add-permission', 'INSERT INTO permission(id, name) VALUES($1, $2) RETURNING name',
                             [options.id, options.name]);
                     }
 

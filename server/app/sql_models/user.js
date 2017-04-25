@@ -4,7 +4,7 @@ exports.addUser = function (options, callback) {
     } else {
         findByEmail(options, function (err, data) {
             if(data == null) {
-                var add = new options.ps('add-user', 'INSERT INTO users(email, password) VALUES($1, $2) returning id',
+                var add = new options.ps('add-user', 'INSERT INTO users(email, password, permission) VALUES($1, $2, 3) returning id',
                     [options.email, options.password]);
 
                 options.db.one(add)
