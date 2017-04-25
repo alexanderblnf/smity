@@ -161,6 +161,7 @@ angular
     .run(['$rootScope', '$http', '$state', '$injector', function ($rootScope, $http, $state, $injector) {
         var SecurityService = $injector.get('SecurityService');
         SecurityService.loggedIn();
+	    $rootScope.$state = $state;
     }])
 
 	.constant('Constants', {

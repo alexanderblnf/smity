@@ -34,8 +34,8 @@ function SecurityController(SecurityService, $state) {
 			.then(function () {
 				goTo('login');
 			})
-			.catch(function () {
-				goTo('login');
+			.catch(function (response) {
+				console.log(response);
 			});
 	}
 

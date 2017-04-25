@@ -28,9 +28,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	_init();
 
 	function _init() {
-
-        // getAll();
-
+		getAll();
         SecurityService.loggedIn();
 	}
 
