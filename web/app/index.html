@@ -61,6 +61,47 @@
 				<span class="sr-only">Toggle navigation</span>
 			</a>
 
+			<div class="navbar-custom-menu">
+				<ul class="nav navbar-nav">
+					<li class="dropdown user user-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="pics/user2-160x160.jpg" class="user-image" alt="User Image">
+							<span class="hidden-xs">Alexander Pierce</span>
+						</a>
+						<ul class="dropdown-menu">
+							<!-- User image -->
+							<li class="user-header">
+								<img src="pics/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+								<p>
+									Alexander Pierce
+									<!--<small>Member since Nov. 2012</small>-->
+								</p>
+							</li>
+							<!-- Menu Body -->
+							<!--<li class="user-body">-->
+							<!--<div class="row">-->
+							<!--<div class="col-xs-4 text-center">-->
+							<!--<a href="#">Followers</a>-->
+							<!--</div>-->
+							<!--</div>-->
+							<!--</li>-->
+							<!-- Menu Footer-->
+							<li class="user-footer">
+								<!--<div class="pull-left">-->
+								<!--<a href="#" class="btn btn-default btn-flat">Profile</a>-->
+								<!--</div>-->
+								<div style="text-align: center">
+									<button type="button" class="btn btn-block btn-default" ng-click="vm.logout()">Log
+										out
+									</button>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
 			<!--<div ui-view="notification"></div>-->
 		</nav>
 	</header>
