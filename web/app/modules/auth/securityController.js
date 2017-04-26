@@ -4,12 +4,10 @@ angular
 	.module('auth')
 	.controller('SecurityController', [
 		'SecurityService',
-		'LocalStorage',
-		'Constants',
 		'$state',
 		SecurityController]);
 
-function SecurityController(SecurityService, LocalStorage, Constants, $state) {
+function SecurityController(SecurityService, $state) {
 	var vm = this;
 
 	vm.user = undefined;
@@ -24,9 +22,7 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 	function login() {
 		return SecurityService.login({email: vm.user, password: vm.pass})
 			.then(function (response) {
-				LocalStorage.put(Constants.AUTH.TOKEN, response);
-				SecurityService.setCredentials(vm.user, vm.pass);
-				$state.go('home');
+                $state.go('app.home');
 			})
 			.catch(function (response) {
 				console.log(response);
@@ -38,8 +34,8 @@ function SecurityController(SecurityService, LocalStorage, Constants, $state) {
 			.then(function () {
 				goTo('login');
 			})
-			.catch(function () {
-				goTo('login');
+			.catch(function (response) {
+				console.log(response);
 			});
 	}
 

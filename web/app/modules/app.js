@@ -10,14 +10,15 @@ angular
 		'ngMaterial',
 		'ngCookies',
 		'urad',
-		'moment-picker'
+        'moment-picker',
+        'auth'
 	])
 
-	.config(['$httpProvider',
-		function ($httpProvider) {
-			$httpProvider.defaults.headers.common.Accept = 'application/x-www-form-urlencoded';
-			$httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
-		}])
+    // .config(['$httpProvider',
+    // 	function ($httpProvider) {
+    // 		$httpProvider.defaults.headers.common.Accept = 'application/x-www-form-urlencoded';
+    // 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+    // 	}])
 	//
 	// .config(['$httpProvider', function ($httpProvider) {
 	// 	$httpProvider.interceptors.push('SecurityInterceptor');
@@ -156,6 +157,12 @@ angular
 				})
 			;
 		}])
+
+    .run(['$rootScope', '$http', '$state', '$injector', function ($rootScope, $http, $state, $injector) {
+        var SecurityService = $injector.get('SecurityService');
+        SecurityService.loggedIn();
+	    $rootScope.$state = $state;
+    }])
 
 	.constant('Constants', {
 		URL: {

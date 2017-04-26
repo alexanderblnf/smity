@@ -13,6 +13,9 @@
 html,
 body {
   height: 100%;
+  /*background-color: #222d32 !important;*/
+  background-image: url("../../pics/cover_final.jpg");
+  background-size: cover;
 }
 .layout-boxed html,
 .layout-boxed body {
@@ -101,7 +104,7 @@ h1 {
 }
 
 .main-footer {
-  background-color: #222d32 !important;
+  background-color: #222222 !important;
   border: 0 !important;
 }
 .content-wrapper,
@@ -118,6 +121,8 @@ h1 {
   bottom: 0;
   position: fixed !important;
   width: 100vw;
+  margin-left: 0;
+  text-align: right;
 }
 /* Fixed layout */
 .fixed .main-header,
@@ -310,11 +315,11 @@ a:focus {
   text-align: center;
   width: 230px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0 15px;
   font-weight: 300;
   overflow: hidden;
 }
-.main-header .logo .logo-lg {
+
+.main-header .logo {
   display: block;
 }
 .main-header .logo .logo-mini {
@@ -4309,9 +4314,6 @@ table.text-center th {
   padding: 1px 10px;
   color: #fff;
 }
-.logo {
-  background-color: #FF6600 !important;
-}
 
 .navbar {
   background-color: #222222 !important;
@@ -5024,6 +5026,24 @@ table.text-center th {
 #calendar-div {
   display: flex;
   align-items: center;
+}
+
+#logo {
+  background-color: #222222;
+}
+
+.transparent {
+  background-color: transparent !important;
+}
+
+md-content.md-default-theme, md-content {
+  background-color: transparent;
+}
+
+.login {
+  display: inline-flex;
+  align-items: center;
+  height: 85vh;
 }
 
 .tick text {
