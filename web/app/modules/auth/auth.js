@@ -16,7 +16,12 @@ angular
 						url: '/register',
 						templateUrl: '/templates/register.html',
                     controller: 'SecurityController as vm'
-					});
+				})
+				.state('member', {
+					url: '/member',
+					templateUrl: '/templates/register.html',
+					controller: 'SecurityController as vm'
+				});
 
         }]);
 // .run(['$rootScope', '$location', '$cookies',

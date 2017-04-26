@@ -23,6 +23,10 @@ function SecurityResource($resource, Constants) {
 		'loggedin': {
 			method: 'GET',
 			url: Constants.URL.LOCALHOST + '/isloggedin'
+		},
+		'addMember': {
+			method: 'POST',
+			url: Constants.URL.LOCALHOST + ' /admin/add-manager'
 		}
 	});
 }

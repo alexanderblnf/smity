@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>SMity for your Smart City</title>
-	<link rel="shortcut icon" href="pics/logo-mic.png" type="image/x-icon">
+	<link rel="shortcut icon" href="pics/logo%20mic%20si%20bun.png" type="image/x-icon">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -47,7 +47,8 @@
 	<div ui-view ng-class="{login: $state.includes('login') || $state.includes('register')}"></div>
 	<!-- /.content-wrapper -->
 
-	<footer class="main-footer" ng-class="{transparent: $state.includes('login') || $state.includes('register')}">
+	<footer class="main-footer"
+	        ng-class="{transparent: $state.includes('login') || $state.includes('register') || $state.includes('member')}">
 		<!--<div class="pull-right hidden-xs">-->
 		<!--<b>Version</b> 2.3.8-->
 		<!--</div>-->
