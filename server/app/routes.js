@@ -77,11 +77,6 @@ module.exports = function (app, passport, db, pgp) {
             res.send(hash);
         });
     });
-    // app.post('/signup', passport.authenticate('local-signup', {
-    //     successRedirect: '/profile',
-    //     failureRedirect: '/signup',
-    //     failureFlash: true
-    // }));
 
     app.get('/profile', isLoggedIn, function (req, res) {
         res.render('profile.ejs', {
@@ -138,6 +133,14 @@ module.exports = function (app, passport, db, pgp) {
         }
 
     });
+
+    /*
+    ==========================
+    Admin endpoints
+    ==========================
+     */
+    var admin = require('./modules/admin/adminRoutes')(db, pgp);
+    app.use('/admin', admin);
 
 
     /*
