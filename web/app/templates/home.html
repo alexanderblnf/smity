@@ -1,7 +1,61 @@
+<header class="main-header">
+	<a class="logo" id="logo" href="#">
+		<img class="logo-lg" src="../pics/logo-final.png" style="height: 100%">
+		<img class="logo-mini" src="../pics/1.jpg" style="height: 100%">
+	</a>
+	</a>
+
+	<!-- Header Navbar: style can be found in header.less -->
+	<nav class="navbar navbar-static-top">
+		<a href class="sidebar-toggle" data-toggle="offcanvas" role="button">
+			<span class="sr-only">Toggle navigation</span>
+		</a>
+
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+				<li class="dropdown user user-menu">
+					<a href class="dropdown-toggle" data-toggle="dropdown">
+						<img src="../pics/user2-160x160.jpg" class="user-image" alt="User Image">
+						<span class="hidden-xs">Alexander Pierce</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="user-header">
+							<img src="../pics/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+							<p>
+								Alexander Pierce
+								<!--<small>Member since Nov. 2012</small>-->
+							</p>
+						</li>
+						<!-- Menu Body -->
+						<!--<li class="user-body">-->
+						<!--<div class="row">-->
+						<!--<div class="col-xs-4 text-center">-->
+						<!--<a href="#">Followers</a>-->
+						<!--</div>-->
+						<!--</div>-->
+						<!--</li>-->
+						<!-- Menu Footer-->
+						<li class="user-footer">
+							<!--<div class="pull-left">-->
+							<!--<a href="#" class="btn btn-default btn-flat">Profile</a>-->
+							<!--</div>-->
+							<div style="text-align: center">
+								<button type="button" class="btn btn-block btn-default" ng-click="vm.logout()">Log
+									out
+								</button>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
-		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
 				<img src="../pics/user2-160x160.jpg" class="img-circle" alt="User Image">
@@ -23,7 +77,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li>
-						<a href ui-sref=".temperature">
+						<a href ui-sref="app.temperature">
 							<i class="fa fa-tachometer"></i> <span>Temperatura</span>
 						</a>
 					</li>
@@ -121,12 +175,9 @@
 			</li>
 		</ul>
 	</section>
-	<!-- /.sidebar -->
 </aside>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
 			Overview
@@ -138,9 +189,6 @@
 		<!--</ol>-->
 	</section>
 
-	<!-- Main content -->
-
 	<div ui-view="home"></div>
 
-	<!-- /.content -->
 </div>
