@@ -35,7 +35,7 @@ exports.addPermission = function (options, callback) {
 exports.getPermission = findPermission;
 
 function findPermission(options, callback) {
-    if(options.id == null) {
+    if(options.userId == null) {
         callback(false, "You have not provided the necessary information");
     } else {
         var find = new options.ps('find-permission', 'SELECT permission FROM users where id = $1', [options.userId]);

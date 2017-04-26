@@ -1,6 +1,6 @@
 DROP TABLE users;
 DROP TABLE permission;
-DROP TABLE preference;
+DROP TABLE preferences;
 
 CREATE TABLE permission(
   id INTEGER PRIMARY KEY,
