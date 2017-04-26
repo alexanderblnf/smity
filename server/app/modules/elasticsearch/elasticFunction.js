@@ -198,7 +198,10 @@ exports.getLiveMeans = function (res) {
 
         //compute corrected final mean
         params.forEach(function (param) {
-            correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+            if(correctedmeans[param] != 0){
+                correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+            }
+
         });
 
         res.send(correctedmeans);
