@@ -9,7 +9,7 @@ module.exports = function (db, pgp) {
         var password = req.body.password;
         var firstName = req.body.firstname;
         var lastName = req.body.lastname;
-        var userId = req.body['user-id'];
+        var userId = req.body.userid;
         var response =  {};
         if(email == null || password == null || firstName == null || lastName == null) {
             response["code"] = 400;
