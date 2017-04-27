@@ -267,29 +267,35 @@ exports.getGeneric = function (options, res) {
     if (options.step != 1)
         makeSteppedInterval(options, intervals);
 
-    var exclusion_json = JSON.parse(options.exclusion);
     var exclusion_list = [];
-    exclusion_json.forEach(function(item){
-        var tempexcl = {
-            bool: {
-                must: {
-                    range: {
-                        lat: {
-                            from: item.lat1,
-                            to: item.lat2
-                        }
-                    },
-                    range: {
-                        long: {
-                            from: item.lng1,
-                            to: item.lng2
+    if (options.exclusion !== "none") {
+        var exclusion_json = JSON.parse(options.exclusion);
+        exclusion_json.forEach(function (item) {
+            var tempexcl = {
+                bool: {
+                    must: {
+                        range: {
+                            lat: {
+                                from: item.lat1,
+                                to: item.lat2
+                            }
+                        },
+                        range: {
+                            long: {
+                                from: item.lng1,
+                                to: item.lng2
+                            }
                         }
                     }
                 }
-            }
-        };
-        exclusion_list.push(tempexcl);
-    });
+            };
+            exclusion_list.push(tempexcl);
+        });
+    }
+
+    if (options.extra !== "none"){
+
+    }
 
     var query = {
         size: options.size,
@@ -318,9 +324,11 @@ exports.getGeneric = function (options, res) {
 
     client.search(query).then(function (resp) {
         var out = [];
+
         resp.hits.hits.forEach(function (d) {
             out.push(d["_source"]);
         });
+
         res.send(out);
     }, function (err) {
         console.log(err.message);
