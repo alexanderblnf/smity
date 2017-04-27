@@ -75,7 +75,7 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     }
 });
 
-router.get('/generic/:device/:param' + params_witall + '/:exclusion/:extra/:timeStart/:timeEnd/:step/:size', function (req, res) {
+router.get('/generic/:device/:param' + params_witall + '/:exclusion/:timeranges/:extra/:timeStart/:timeEnd/:step/:size', function (req, res) {
     var options = {
         datamode: req.params.datamode,
         device: req.params.device,
@@ -85,7 +85,8 @@ router.get('/generic/:device/:param' + params_witall + '/:exclusion/:extra/:time
         step: req.params.step,
         exclusion: req.params.exclusion,
         size: req.params.size,
-        extra: req.params.extra
+        extra: req.params.extra,
+        timeranges: req.param.timeranges
     };
 
     elasticFunction.getGeneric(options, res);

@@ -293,6 +293,10 @@ exports.getGeneric = function (options, res) {
         });
     }
 
+    if (options.timeranges !== "none"){
+
+    }
+
     if (options.extra !== "none"){
 
     }
@@ -303,7 +307,14 @@ exports.getGeneric = function (options, res) {
             query: {
                 bool: {
                     should: intervals,
-                    must_not: exclusion_list
+                    must_not: exclusion_list,
+                    must: {
+                        script: {
+                            script: {
+
+                            }
+                        }
+                    }
                 }
             },
             sort: [{
