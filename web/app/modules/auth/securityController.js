@@ -16,6 +16,7 @@ function SecurityController(SecurityService, $state) {
 
 	vm.login = login;
 	vm.register = register;
+	vm.addMember = addMember;
 	vm.isState = isState;
 	vm.goTo = goTo;
 
@@ -45,5 +46,17 @@ function SecurityController(SecurityService, $state) {
 
 	function goTo(state) {
 		return $state.go(state);
+	}
+
+	function addMember() {
+		vm.registerUser['user-id'] = 2;
+
+		return SecurityService.addMember(vm.registerUser)
+			.then(function () {
+				goTo('home');
+			})
+			.catch(function (response) {
+				console.log(response);
+			});
 	}
 }

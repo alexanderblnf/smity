@@ -19,7 +19,8 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 		logout: logout,
 		loggedIn: loggedIn,
 		setCredentials: setCredentials,
-		clearCredentials: clearCredentials
+		clearCredentials: clearCredentials,
+		addMember: addMember
 	};
 
 
@@ -75,5 +76,9 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 		$rootScope.globals = {};
 		$cookies.remove('globals');
 		remove();
+	}
+
+	function addMember(credentials) {
+		return SecurityResource.addMember(credentials).$promise;
 	}
 }

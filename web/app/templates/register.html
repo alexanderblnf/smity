@@ -37,7 +37,12 @@
 							           ng-click="vm.goTo('login')">Back
 							</md-button>
 							<md-button class="md-raised md-primary" flex="50" flex-sm="100"
+							           ng-if="$state.includes('register')"
 							           ng-click="vm.register()">Submit
+							</md-button>
+							<md-button class="md-raised md-primary" flex="50" flex-sm="100"
+							           ng-if="$state.includes('member')"
+							           ng-click="vm.addMember()">Add member
 							</md-button>
 						</div>
 					</md-input-container>
