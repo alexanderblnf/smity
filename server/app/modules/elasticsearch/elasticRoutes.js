@@ -3,6 +3,7 @@ var router = express.Router();
 var elasticFunction = require('./elasticFunction');
 var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
 var params_witall = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm|all)';
+var datamodes = '(|array|indexmap)';
 
 router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
     var options = {
@@ -74,14 +75,16 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     }
 });
 
-router.get('/generic/:device/:param' + params_witall + '/:exclusion/:timeStart/:timeEnd/:step', function (req, res) {
+router.get('/generic/:datamode' + datamodes + '/:device/:param' + params_witall + '/:exclusion/:timeStart/:timeEnd/:step/:size', function (req, res) {
     var options = {
+        datamode: req.params.datamode,
         device: req.params.device,
         param: req.params.param,
         start: req.params.timeStart,
         end: req.params.timeEnd,
         step: req.params.step,
-        exclusion: req.params.exclusion
+        exclusion: req.params.exclusion,
+        size: req.params.size
     };
 
     elasticFunction.getGeneric(options, res);

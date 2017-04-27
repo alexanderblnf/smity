@@ -264,15 +264,40 @@ exports.getIntervalSteps = function (options, res) {
 
 exports.getGeneric = function (options, res) {
     var intervals = [];
-    makeSteppedInterval(options, intervals);
+    if (options.step != 1)
+        makeSteppedInterval(options, intervals);
+
+    var exclusion_json = JSON.parse(options.exclusion);
+    var exclusion_list = [];
+    exclusion_json.forEach(function(item){
+        var tempexcl = {
+            bool: {
+                must: {
+                    range: {
+                        lat: {
+                            from: item.lat1,
+                            to: item.lat2
+                        }
+                    },
+                    range: {
+                        long: {
+                            from: item.lng1,
+                            to: item.lng2
+                        }
+                    }
+                }
+            }
+        };
+        exclusion_list.push(tempexcl);
+    });
 
     var query = {
-        size: 50,
-
+        size: options.size,
         body: {
             query: {
                 bool: {
-                    should: intervals
+                    should: intervals,
+                    must_not: exclusion_list
                 }
             },
             sort: [{
@@ -290,11 +315,6 @@ exports.getGeneric = function (options, res) {
     //set parameter or get all
     if (options.param !== "all")
         query.type = options.param;
-
-    var exclusion_json = JSON.parse(options.exclusion);
-    exclusion_json.forEach(function(item){
-
-    });
 
     client.search(query).then(function (resp) {
         var out = [];
