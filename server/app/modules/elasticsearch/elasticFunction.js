@@ -263,6 +263,7 @@ exports.getIntervalSteps = function (options, res) {
 
 
 exports.getGeneric = function (options, res) {
+
     var intervals = [];
     if (options.step != 1)
         makeSteppedInterval(options, intervals);
@@ -293,28 +294,36 @@ exports.getGeneric = function (options, res) {
         });
     }
 
-    if (options.timeranges !== "none"){
-
-    }
-
     if (options.extra !== "none"){
 
     }
+
+    console.log(options.hourStart);
+
+    var hourscript = {
+        script: {
+            script: {
+                inline: "( (doc['time'].value/60)%1440 > (" + options.hourStart*60 + ") ) & ( (doc['time'].value/60)%1440 < (" + options.hourEnd*60 + ") )",
+                //inline: "doc['time'].date.hourOfDay > 12",
+                lang: "expression"
+            }
+        }
+    };
 
     var query = {
         size: options.size,
         body: {
             query: {
                 bool: {
-                    should: intervals,
                     must_not: exclusion_list,
-                    must: {
-                        script: {
-                            script: {
-
+                    must: [
+                        hourscript,
+                        {
+                            bool: {
+                                should: intervals
                             }
                         }
-                    }
+                    ]
                 }
             },
             sort: [{
