@@ -26,7 +26,7 @@ function SecurityResource($resource, Constants) {
 		},
 		'addMember': {
 			method: 'POST',
-			url: Constants.URL.LOCALHOST + ' /admin/add-manager'
+			url: Constants.URL.LOCALHOST + '/admin/add-manager'
 		}
 	});
 }

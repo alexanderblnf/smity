@@ -32,13 +32,16 @@ function ChartAndMap() {
         template:
         '<div id="maps-div"></div>' +
         '<div id="calendar-div">' +
+        '<button id="get-prediction" class="btn" ng-click="predict()">Get Prediction</button>' +
+        '<span style="color: white; margin-left: 5px;">{{result}}</span>' +
         '<div id="center-div"><input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
         '<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
         '<button id="apply-date" class="btn" ng-click="apply()">Apply</button></div></div>' +
         '<div id="chart-div" class="chart-init"></div>',
         scope: {
             param: '@',
-            yAxis: '@'
+            yAxis: '@',
+            predictCallback: '&'
         },
         restrict: 'E',
         link: link
@@ -65,7 +68,7 @@ function ChartAndMap() {
         var markerCount = 0;
         var markers = [];
         var slice = 0;
-        var map;
+        var map, result;
 
         function initMap() {
             var uluru = {lat: 46.075538, lng: 23.568816};
@@ -623,6 +626,16 @@ function ChartAndMap() {
         var now = new Date();
         var initStart = Math.floor(now.getTime() / 1000 - 10000);
         var initEnd = Math.floor(now.getTime() / 1000);
+
+        $scope.predict = function () {
+          var futureTime = initEnd + 24 * 3600;
+          $scope.predictCallback()($scope.param, futureTime, function (response) {
+              console.log(response);
+              $scope.result = Math.floor(response.result);
+          });
+        };
+
+
 
         initMap();
         initD3($scope.param);

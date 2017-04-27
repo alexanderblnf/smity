@@ -21,6 +21,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	vm.logout = logout;
 	vm.liveData = {};
 	vm.remove = remove;
+	// vm.predict = predict;
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -132,4 +133,6 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 		// articleRow.remove();
 		console.log("Remove");
 	}
+
+
 }

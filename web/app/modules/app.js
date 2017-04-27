@@ -114,7 +114,7 @@ angular
 					url: '/co2',
 					views: {
 						'home': {
-							template: '<chart-and-map param="co2" y-axis="Dioxid de carbon (ppm)"></chart-and-map>',
+							template: '<chart-and-map param="co2" y-axis="Dioxid de carbon (ppm)" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
