@@ -269,7 +269,7 @@ exports.getLiveMeans = function (res) {
 
         //compute corrected final mean
         params.forEach(function (param) {
-            if(correctedmeans[param] != 0){
+            if (correctedmeans[param] != 0) {
                 correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
             }
 
@@ -332,7 +332,7 @@ exports.getIntervalSteps = function (options, res) {
     })
 };
 
-exports.getIntervalStepsAll = function(options, res) {
+exports.getIntervalStepsAll = function (options, res) {
     var intervals = [];
     var entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
     makeSteppedInterval(options, intervals);
@@ -357,7 +357,7 @@ exports.getIntervalStepsAll = function(options, res) {
     }).then(function (resp) {
         var out = {};
         resp.hits.hits.forEach(function (d) {
-            if(out[d["_index"]] != null) {
+            if (out[d["_index"]] != null) {
                 out[d["_index"]].push(d["_source"]);
             } else {
                 out[d["_index"]] = [];

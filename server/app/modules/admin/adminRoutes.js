@@ -10,8 +10,8 @@ module.exports = function (db, pgp) {
         var firstName = req.body.firstname;
         var lastName = req.body.lastname;
         var userId = req.body.userid;
-        var response =  {};
-        if(email == null || password == null || firstName == null || lastName == null) {
+        var response = {};
+        if (email == null || password == null || firstName == null || lastName == null) {
             response["code"] = 400;
             response["message"] = "You have not provided all the information";
             res.send(response);
@@ -33,7 +33,7 @@ module.exports = function (db, pgp) {
                         ps: ps
                     };
                     adminFunctions.addManager(options, function (done, data) {
-                        if(done == false){
+                        if (done == false) {
                             response["code"] = 400;
                             response["message"] = data;
                             res.send(response);

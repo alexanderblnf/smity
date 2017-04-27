@@ -9,7 +9,7 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
-		'urad',
+        'urad',
         'moment-picker',
         'auth'
 	])
@@ -87,71 +87,71 @@ angular
 					url: '/temperature',
 					views: {
 						'home': {
-							template: '<chart-and-map param="temperature" y-axis="Temperatura (Celsius)"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.pressure', {
-					url: '/pressure',
-					views: {
-						'home': {
-							template: '<chart-and-map param="pressure" y-axis="Presiune (Pascal)" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.humidity', {
-					url: '/humidity',
-					views: {
-						'home': {
-							template: '<chart-and-map param="humidity" y-axis="Umiditate (%)" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.co2', {
-					url: '/co2',
-					views: {
-						'home': {
-							template: '<chart-and-map param="co2" y-axis="Dioxid de carbon (ppm)" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.pm25', {
-					url: '/pm25',
-					views: {
-						'home': {
-							template: '<chart-and-map param="pm25" y-axis="Particule de praf (µg/m³)" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.voc', {
-					url: '/voc',
-					views: {
-						'home': {
-							template: '<chart-and-map param="voc" y-axis="Compusi organici volatili" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.ch2o', {
-					url: '/ch2o',
-					views: {
-						'home': {
-							template: '<chart-and-map param="ch2o" y-axis="Formaldehida (ppm)" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
-						}
-					}
-				})
-				.state('app.cpm', {
-					url: '/cpm',
-					views: {
-						'home': {
-							template: '<chart-and-map param="cpm" y-axis="Radiatii (µSv/h)" predict-callback="vm.predict"></chart-and-map>',
-							controller: 'D3Controller as vm'
+                            template: '<chart-and-map param="temperature" y-axis="Temperatura (Celsius)"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.pressure', {
+                    url: '/pressure',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="pressure" y-axis="Presiune (Pascal)" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.humidity', {
+                    url: '/humidity',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="humidity" y-axis="Umiditate (%)" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.co2', {
+                    url: '/co2',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="co2" y-axis="Dioxid de carbon (ppm)" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.pm25', {
+                    url: '/pm25',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="pm25" y-axis="Particule de praf (µg/m³)" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.voc', {
+                    url: '/voc',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="voc" y-axis="Compusi organici volatili" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.ch2o', {
+                    url: '/ch2o',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="ch2o" y-axis="Formaldehida (ppm)" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
+                        }
+                    }
+                })
+                .state('app.cpm', {
+                    url: '/cpm',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map param="cpm" y-axis="Radiatii (µSv/h)" predict-callback="vm.predict"></chart-and-map>',
+                            controller: 'D3Controller as vm'
 						}
 					}
 				})
@@ -161,7 +161,7 @@ angular
     .run(['$rootScope', '$http', '$state', '$injector', function ($rootScope, $http, $state, $injector) {
         var SecurityService = $injector.get('SecurityService');
         SecurityService.loggedIn();
-	    $rootScope.$state = $state;
+        $rootScope.$state = $state;
     }])
 
 	.constant('Constants', {

@@ -5,4 +5,4 @@ import DayView from './dayView';
 import HourView from './hourView';
 import MinuteView from './minuteView';
 
-export { DecadeView, YearView, MonthView, DayView, HourView, MinuteView };
+export {DecadeView, YearView, MonthView, DayView, HourView, MinuteView};

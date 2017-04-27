@@ -21,7 +21,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	vm.logout = logout;
 	vm.liveData = {};
 	vm.remove = remove;
-	// vm.predict = predict;
+    // vm.predict = predict;
 
 	// invite friends
 	var pendingSearch, lastSearch;

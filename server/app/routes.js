@@ -32,7 +32,7 @@ module.exports = function (app, passport, db, pgp) {
                 response["message"] = err;
                 res.send(response);
             } else {
-                if(user == false) {
+                if (user == false) {
                     response["code"] = 400;
                     response["message"] = message;
                     res.send(response);
@@ -56,7 +56,7 @@ module.exports = function (app, passport, db, pgp) {
                 response["message"] = err;
                 res.send(response);
             } else {
-                if(user == false) {
+                if (user == false) {
                     response["code"] = 400;
                     response["message"] = message;
                     res.send(response);
@@ -135,9 +135,9 @@ module.exports = function (app, passport, db, pgp) {
     });
 
     /*
-    ==========================
-    Admin endpoints
-    ==========================
+     ==========================
+     Admin endpoints
+     ==========================
      */
     var admin = require('./modules/admin/adminRoutes')(db, pgp);
     app.use('/admin', admin);

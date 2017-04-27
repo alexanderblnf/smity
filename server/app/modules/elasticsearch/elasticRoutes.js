@@ -10,7 +10,7 @@ router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) 
         end: req.params.timeEnd
     };
     var diff = options.end - options.start;
-    if(diff <= 24000){
+    if (diff <= 24000) {
         elasticFunction.getAllForInterval(options, res);
     } else {
         options.step = Math.ceil(diff / 24000);
@@ -54,7 +54,7 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd', function (req, r
         res.send('{"error": "Start time must be before end time"}');
     } else {
         var diff = options.end - options.start;
-        if(diff <= 90000){
+        if (diff <= 90000) {
             elasticFunction.getForInterval(options, res);
         } else {
             options.step = Math.ceil(diff / 90000);
