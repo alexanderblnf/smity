@@ -31,52 +31,59 @@ module.exports = function (passport, db, pgp) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, email, password, done) {
-
-            var ps = pgp.PreparedStatement;
-            process.nextTick(function () {
-                // find a user whose email is the same as the forms email
-                // we are checking to see if the user trying to login already exists
-                var options = {
-                    ps: ps,
-                    db: db,
-                    email: email,
-                    password: password
-                };
-                user.findByEmail(options, function (err, data) {
-                    if (err) {
-                        if(err.code != 0) {
-                            return done(err);
-                        }
-                    }
-
-                    if (data) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                    } else {
-                        var bcrypt = require('bcrypt');
-                        var plainPassword = options.password;
-                        bcrypt.hash(plainPassword, 10, function (err, hash) {
-                            if (err) {
-                                return done(null, false, req.flash('signupMessage', 'There was a problem hashing'));
+            var firstName = req.body.firstname;
+            var lastName = req.body.lastname;
+            if(email == null || password == null || firstName == null || lastName == null) {
+                return done(null, false, "You have not provided all necessary information");
+            } else {
+                var ps = pgp.PreparedStatement;
+                process.nextTick(function () {
+                    // find a user whose email is the same as the forms email
+                    // we are checking to see if the user trying to login already exists
+                    var options = {
+                        ps: ps,
+                        db: db,
+                        email: email,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName
+                    };
+                    user.findByEmail(options, function (err, data) {
+                        if (err) {
+                            if(err.code != 0) {
+                                return done(err);
                             }
-                            options.password = hash;
-                            user.addUser(options, function (err1, result) {
-                                if(err1) {
+                        }
+
+                        if (data) {
+                            return done(null, false, "There is already an e-mail registered");
+                        } else {
+                            var bcrypt = require('bcrypt');
+                            var plainPassword = options.password;
+                            bcrypt.hash(plainPassword, 10, function (err, hash) {
+                                if (err) {
                                     return done(err);
                                 }
+                                options.password = hash;
+                                user.addUser(options, function (err1, result) {
+                                    if(err1) {
+                                        return done(err);
+                                    }
 
-                                var newUser = {
-                                    id: result.id,
-                                    email: email,
-                                    password: password
-                                };
+                                    var newUser = {
+                                        id: result.id,
+                                        email: email,
+                                        password: password
+                                    };
 
-                                return done(null, newUser)
+                                    return done(null, newUser)
+                                });
                             });
-                        });
-                    }
-                });
+                        }
+                    });
 
-            });
+                });
+            }
 
         }));
 
@@ -87,9 +94,11 @@ module.exports = function (passport, db, pgp) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, email, password, done) { // callback with email and password from our form
-
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
+            if(email == null || password == null) {
+                return done(null, false, 'You have not provided all the necessary information');
+            }
             var ps = pgp.PreparedStatement;
             var options = {
                 ps: ps,
@@ -99,7 +108,7 @@ module.exports = function (passport, db, pgp) {
             };
             user.findByEmail(options, function (err, data) {
                 if (!data) {
-                    return done(null, false, req.flash('loginMessage', 'No user found'));
+                    return done(null, false, "Bad username or password");
                 }
 
                 if(err && err.code != 0) {
@@ -108,7 +117,7 @@ module.exports = function (passport, db, pgp) {
 
                 user.verifyPassword(options, function (valid) {
                     if (valid == false) {
-                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                        return done(null, false, "Bad username or password");
                     }
                     var newUser = {
                         id: data.id,

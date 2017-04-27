@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SMity</title>
+	<title>SMity for your Smart City</title>
+	<link rel="shortcut icon" href="pics/logo%20mic%20si%20bun.png" type="image/x-icon">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -16,7 +17,7 @@
 	<link rel="stylesheet" href="resources/css/AdminLTE.css">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 		 folder instead of downloading all of them to reduce the load. -->
-	<link rel="stylesheet" href="resources/css/_all-skins.min.css">
+	<link rel="stylesheet" href="resources/css/_all-skins.css">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="resources/iCheck/flat/blue.css">
 	<!-- Morris chart -->
@@ -29,6 +30,7 @@
 	<link rel="stylesheet" href="resources/daterangepicker/daterangepicker.css">
 	<!-- bootstrap wysihtml5 - text editor -->
 	<link rel="stylesheet" href="resources/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,32 +39,16 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper" ng-app="Smity">
+<body class="hold-transition skin-blue sidebar-mini" >
+<div class="wrapper" ng-app="Smity" style="background-color: transparent !important; height:100vh !important;">
 
-	<header class="main-header">
-		<!-- Logo -->
-		<a href="#" class="logo">
-			<!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>SMity</b></span>
-			<!-- logo for regular state and mobile devices -->
-			<span class="logo-lg"><b>SMity</b> dashboard</span>
-		</a>
-		<!-- Header Navbar: style can be found in header.less -->
-		<nav class="navbar navbar-static-top">
-			<!-- Sidebar toggle button-->
-			<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-				<span class="sr-only">Toggle navigation</span>
-			</a>
 
-			<!--<div ui-view="notification"></div>-->
-		</nav>
-	</header>
 	<!-- Left side column. contains the logo and sidebar -->
-	<div ui-view></div>
+	<div ui-view ng-class="{login: $state.includes('login') || $state.includes('register')}"></div>
 	<!-- /.content-wrapper -->
 
-	<footer class="main-footer">
+	<footer class="main-footer"
+	        ng-class="{transparent: $state.includes('login') || $state.includes('register') || $state.includes('member')}">
 		<!--<div class="pull-right hidden-xs">-->
 		<!--<b>Version</b> 2.3.8-->
 		<!--</div>-->
@@ -117,16 +103,34 @@
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-material/angular-material.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/d3/d3.js"></script>
+
 
 <script src="modules/app.js"></script>
 <script src="modules/appController.js"></script>
 <script src="modules/overviewDirective.js"></script>
+<script src="modules/d3.js"></script>
+<script src="modules/d3Directive.js"></script>
+<script src="modules/D3Controller.js"></script>
 <script src="modules/urad/urad.js"></script>
 <script src="modules/urad/uradResource.js"></script>
 <script src="modules/urad/uradService.js"></script>
 <script src="modules/urad/uradController.js"></script>
-<!--<script src="modules/auth/auth.js"></script>-->
-<!--<script src="modules/auth/localStorageService.js"></script>-->
+<script src="modules/auth/auth.js"></script>
+<script src="modules/auth/securityController.js"></script>
+<!--<script src="modules/auth/securityInterceptor.js"></script>-->
+<script src="modules/auth/securityResource.js"></script>
+<script src="modules/auth/securityService.js"></script>
+<script src="modules/auth/localStorageService.js"></script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALxvh2WnBEFmzoR8naBaZULmitfDIiqyU&callback=initMap">
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+<script src="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
+<link href="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
 
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>

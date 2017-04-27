@@ -1,7 +1,21 @@
-<md-content id="content" style="padding: 4em 2em">
+<md-content id="content" style="padding: 4em 2em; width: 100vw">
 	<div layout="row" layout-align="center center" layout-fill>
-		<md-whiteframe class="md-whiteframe-z1" layout="column" flex="55" layout-padding>
+		<md-whiteframe layout="column" flex="55" layout-padding>
 			<md-content>
+				<div layout="row" layout-align="center center">
+					<md-input-container flex="50">
+						<label>First name</label>
+						<input ng-model="vm.registerUser.firstname">
+					</md-input-container>
+				</div>
+
+				<div layout="row" layout-align="center center">
+					<md-input-container flex="50">
+						<label>Last name</label>
+						<input ng-model="vm.registerUser.lastname">
+					</md-input-container>
+				</div>
+
 				<div layout="row" layout-align="center center">
 					<md-input-container flex="50">
 						<label>Email</label>
@@ -23,7 +37,12 @@
 							           ng-click="vm.goTo('login')">Back
 							</md-button>
 							<md-button class="md-raised md-primary" flex="50" flex-sm="100"
+							           ng-if="$state.includes('register')"
 							           ng-click="vm.register()">Submit
+							</md-button>
+							<md-button class="md-raised md-primary" flex="50" flex-sm="100"
+							           ng-if="$state.includes('member')"
+							           ng-click="vm.addMember()">Add member
 							</md-button>
 						</div>
 					</md-input-container>
@@ -32,4 +51,5 @@
 		</md-whiteframe>
 	</div>
 </md-content>
+
 

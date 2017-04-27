@@ -13,6 +13,9 @@
 html,
 body {
   height: 100%;
+  /*background-color: #222d32 !important;*/
+  background-image: url("../../pics/cover_final.jpg");
+  background-size: cover;
 }
 .layout-boxed html,
 .layout-boxed body {
@@ -101,7 +104,7 @@ h1 {
 }
 
 .main-footer {
-  background-color: #222d32 !important;
+  background-color: #222222 !important;
   border: 0 !important;
 }
 .content-wrapper,
@@ -118,6 +121,8 @@ h1 {
   bottom: 0;
   position: absolute !important;
   width: 100vw;
+  margin-left: 0;
+  text-align: right;
 }
 /* Fixed layout */
 .fixed .main-header,
@@ -310,11 +315,11 @@ a:focus {
   text-align: center;
   width: 230px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0 15px;
   font-weight: 300;
   overflow: hidden;
 }
-.main-header .logo .logo-lg {
+
+.main-header .logo {
   display: block;
 }
 .main-header .logo .logo-mini {
@@ -4309,9 +4314,6 @@ table.text-center th {
   padding: 1px 10px;
   color: #fff;
 }
-.logo {
-  background-color: #FF6600 !important;
-}
 
 .navbar {
   background-color: #222222 !important;
@@ -4961,4 +4963,138 @@ table.text-center th {
   .table-responsive > .table tr td {
     white-space: normal !important;
   }
+}
+
+/*---------------
+        d3
+  ---------------*/
+
+.line {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.legend {
+  padding: 5px;
+  font: 12px sans-serif;
+  font-weight: 700;
+  background: yellow;
+  box-shadow: 2px 2px 1px #888;
+}
+
+.axis path {
+  stroke: white;
+  stroke-width: 1px;
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.tick line {
+  stroke: white;
+  stroke-width: 1px;
+}
+
+/*D3 STYLES*/
+
+.chart-init {
+  width: 80vw;
+  height: 100vh;
+  float: left;
+}
+
+.axis path {
+  stroke: white;
+  stroke-width: 1px;
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.tick line {
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.y .tick text {
+  font-size: 1.4em;
+}
+
+#chart-div {
+  width: 80vw;
+  height: 70vh;
+}
+
+#calendar-div {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  background-color: #222222;
+}
+
+.transparent {
+  background-color: transparent !important;
+}
+
+md-content.md-default-theme, md-content {
+  background-color: transparent;
+}
+
+.login {
+  display: inline-flex;
+  align-items: center;
+  height: 85vh;
+}
+
+.tick text {
+  fill: white;
+}
+
+text {
+  fill: white;
+  font-weight: 400;
+}
+
+#maps-div {
+  width: 70vw;
+  height: 30vh;
+  margin-left: 5vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+#calendar-div {
+  display: inline-flex;
+  align-items: center;
+  width: 80vw;
+  height: 8vh;
+}
+
+#center-div {
+  display: inline-flex;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.apply-date {
+  background-color: #ff6600;
+  color: white;
+}
+
+#prediction-div {
+  display: inline-flex;
+  align-items: center;
+  width: 50%;
+}
+
+#moment-div {
+  display: inline-flex;
+  align-items: center;
+}
+
+#prediction-span {
+  color: white;
+  margin-left: 5%;
+  font-size: 2em;
 }

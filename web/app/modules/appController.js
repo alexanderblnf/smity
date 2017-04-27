@@ -7,11 +7,11 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'Constants',
 		'UradService',
-		EvShareController]);
+        'SecurityService',
+        SmityController]);
 
-function EvShareController($state, $mdSidenav, $q, $timeout, Constants, UradService) {
+function SmityController($state, $mdSidenav, $q, $timeout, UradService, SecurityService) {
 	var vm = this;
 
 	vm.go = go;
@@ -21,6 +21,7 @@ function EvShareController($state, $mdSidenav, $q, $timeout, Constants, UradServ
 	vm.logout = logout;
 	vm.liveData = {};
 	vm.remove = remove;
+	// vm.predict = predict;
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -28,12 +29,8 @@ function EvShareController($state, $mdSidenav, $q, $timeout, Constants, UradServ
 	_init();
 
 	function _init() {
-		// if (!SecurityService.isAuthenticated()) {
-		// 	LocalStorage.remove(Constants.AUTH.TOKEN);
-		// 	go('login');
-		// }
 		getAll();
-
+        SecurityService.loggedIn();
 	}
 
 	function go(state) {
@@ -136,4 +133,6 @@ function EvShareController($state, $mdSidenav, $q, $timeout, Constants, UradServ
 		// articleRow.remove();
 		console.log("Remove");
 	}
+
+
 }

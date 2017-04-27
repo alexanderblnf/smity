@@ -4,13 +4,12 @@ angular
 .module('auth')
 .service('SecurityService', [
 	'LocalStorage',
-	'Constants',
 	'SecurityResource',
 	'$rootScope',
-	'$cookies',
+    '$cookies', '$http', '$state', 'Constants',
 	SecurityService]);
 
-function SecurityService(LocalStorage, Constants, SecurityResource, $rootScope, $cookies) {
+function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $http, $state, Constants) {
 	return {
 		login: login,
 		register: register,
@@ -20,14 +19,19 @@ function SecurityService(LocalStorage, Constants, SecurityResource, $rootScope, 
 		logout: logout,
 		loggedIn: loggedIn,
 		setCredentials: setCredentials,
-		clearCredentials: clearCredentials
+		clearCredentials: clearCredentials,
+		addMember: addMember
 	};
 
-	function loggedIn() {
-		return SecurityResource.loggedin().$promise
-			.then(function (response) {
-				return response;
-			});
+
+    function loggedIn() {
+        $http.get(Constants.URL.LOCALHOST + '/isloggedin').then(function (response) {
+            console.log(response);
+
+            if (response.data === false) {
+                $state.go('login');
+            }
+        })
     }
 
 	function login(credentials) {
@@ -72,5 +76,9 @@ function SecurityService(LocalStorage, Constants, SecurityResource, $rootScope, 
 		$rootScope.globals = {};
 		$cookies.remove('globals');
 		remove();
+	}
+
+	function addMember(credentials) {
+		return SecurityResource.addMember(credentials).$promise;
 	}
 }

@@ -6,10 +6,11 @@ var array = require('node-array-module');
 var regression = require('regression');
 
 exports.getAllForInterval = function (options, res) {
+    var entries = Math.floor(((options.end - options.start) * 15) / 180);
     client.search({
         type: options.param,
         from: 0,
-        size: 12 * 50,
+        size: entries,
         body: {
             query: {
                 range: {
@@ -113,11 +114,12 @@ exports.getDataForHeatmap = function (options, res) {
 };
 
 exports.getForInterval = function (options, res) {
+    var entries = Math.floor((options.end - options.start) / 180);
     client.search({
         index: options.device,
         type: options.param,
         from: 0,
-        size: 50,
+        size: entries,
         body: {
             query: {
                 range: {
@@ -267,7 +269,10 @@ exports.getLiveMeans = function (res) {
 
         //compute corrected final mean
         params.forEach(function (param) {
-            correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+            if(correctedmeans[param] != 0){
+                correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+            }
+
         });
 
         res.send(correctedmeans);
@@ -295,26 +300,9 @@ exports.hourlyPrediction = function (options, res) {
 };
 
 exports.getIntervalSteps = function (options, res) {
-    var interval = 180;
     var intervals = [];
 
-    var start = Number(options.start);
-    var end = Number(options.end);
-    for (var i = start; i <= end; i += interval * options.step) {
-        if (i >= options.end) {
-            break;
-        }
-        var temp = {
-            range: {
-                time: {
-                    from: i,
-                    to: i + interval
-                }
-            }
-        };
-        intervals.push(temp);
-    }
-
+    makeSteppedInterval(options, intervals);
 
     client.search({
         index: options.device,
@@ -343,6 +331,64 @@ exports.getIntervalSteps = function (options, res) {
         console.log(err.message);
     })
 };
+
+exports.getIntervalStepsAll = function(options, res) {
+    var intervals = [];
+    var entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
+    makeSteppedInterval(options, intervals);
+
+    client.search({
+        type: options.param,
+        from: 0,
+        size: entries,
+
+        body: {
+            query: {
+                bool: {
+                    should: intervals
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = {};
+        resp.hits.hits.forEach(function (d) {
+            if(out[d["_index"]] != null) {
+                out[d["_index"]].push(d["_source"]);
+            } else {
+                out[d["_index"]] = [];
+                out[d["_index"]].push(d["_source"]);
+            }
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
+function makeSteppedInterval(options, intervals) {
+    var interval = 180;
+    var start = Number(options.start);
+    var end = Number(options.end);
+    for (var i = start; i <= end; i += interval * options.step) {
+        if (i >= options.end) {
+            break;
+        }
+        var temp = {
+            range: {
+                time: {
+                    from: i,
+                    to: i + interval
+                }
+            }
+        };
+        intervals.push(temp);
+    }
+}
 
 function getDocs(options, time, data, loop) {
     var interval = 15 * 60;

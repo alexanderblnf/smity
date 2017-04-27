@@ -1,7 +1,63 @@
+<header class="main-header">
+	<a class="logo" id="logo" href="#">
+		<img class="logo-lg" src="../pics/logo-final.png" style="height: 100%">
+		<img class="logo-mini" src="../pics/logo%20mic%20si%20bun.png" style="height: 100%">
+	</a>
+	</a>
+
+	<!-- Header Navbar: style can be found in header.less -->
+	<nav class="navbar navbar-static-top">
+		<a href class="sidebar-toggle" data-toggle="offcanvas" role="button">
+			<span class="sr-only">Toggle navigation</span>
+		</a>
+
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+				<li class="dropdown user user-menu">
+					<a href class="dropdown-toggle" data-toggle="dropdown">
+						<img src="../pics/user2-160x160.jpg" class="user-image" alt="User Image">
+						<span class="hidden-xs">Alexander Pierce</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="user-header">
+							<img src="../pics/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+							<p>
+								Alexander Pierce
+								<!--<small>Member since Nov. 2012</small>-->
+							</p>
+						</li>
+						<!-- Menu Body -->
+						<!--<li class="user-body">-->
+						<!--<div class="row">-->
+						<!--<div class="col-xs-4 text-center">-->
+						<!--<a href="#">Followers</a>-->
+						<!--</div>-->
+						<!--</div>-->
+						<!--</li>-->
+						<!-- Menu Footer-->
+						<li class="user-footer">
+							<div class="pull-left">
+								<button type="button" class="btn btn-block btn-default" ng-click="vm.go('member')">
+									Add new member
+								</button>
+							</div>
+							<div style="text-align: center">
+								<button type="button" class="btn btn-block btn-default" ng-click="vm.logout()">Log
+									out
+								</button>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
-		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
 				<img src="../pics/user2-160x160.jpg" class="img-circle" alt="User Image">
@@ -15,63 +71,69 @@
 		<ul class="sidebar-menu">
 			<li class="header">URADMonitor</li>
 			<li class="treeview">
-				<a href="#">
+				<a href>
 					<i class="fa fa-dashboard"></i><span>Informatii termice</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
                     </span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="">
-						<a href ui-sref=".temperature">
+					<li>
+						<a href ui-sref="app.temperature">
 							<i class="fa fa-tachometer"></i> <span>Temperatura</span>
 						</a>
 					</li>
 
-					<li class="">
-						<a href="#">
+					<li>
+						<a href ui-sref=".pressure">
 							<i class="fa fa-umbrella"></i> <span>Presiune</span>
 						</a>
 					</li>
 
-					<li class="">
-						<a href="#">
+					<li>
+						<a href ui-sref=".humidity">
 							<i class="fa fa-tint"></i> <span>Umiditate</span>
-						</a>
-					</li>
-
-					<li class="">
-						<a href="#">
-							<i class="fa fa-line-chart"></i> <span>Confort termic</span>
 						</a>
 					</li>
 				</ul>
 			</li>
 
 			<li class="treeview">
-				<a href="#">
-					<i class="fa fa-dashboard"></i><span>Poluare</span>
+				<a href>
+					<i class="fa fa-dashboard"></i><span>Calitatea aerului</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
                     </span>
 				</a>
 
 				<ul class="treeview-menu">
-					<li class="">
-						<a href="#">
+					<li>
+						<a href ui-sref=".pm25">
 							<i class="fa fa-bar-chart"></i> <span>Particule de praf</span>
 						</a>
 					</li>
 
-					<li class="">
-						<a href="#">
-							<i class="fa fa-flask"></i> <span>Compusi organici</span>
+					<li>
+						<a href ui-sref=".voc">
+							<i class="fa fa-flask"></i> <span>Compusi organici volatili</span>
 						</a>
 					</li>
 
-					<li class="">
-						<a href="#">
+					<li>
+						<a href ui-sref=".cpm">
 							<i class="fa fa-warning"></i> <span>Radiatie</span>
+						</a>
+					</li>
+
+					<li>
+						<a href ui-sref=".ch2o">
+							<i class="fa fa-warning"></i> <span>Formaldehida</span>
+						</a>
+					</li>
+
+					<li>
+						<a href ui-sref=".co2">
+							<i class="fa fa-warning"></i> <span>Dioxid de carbon</span>
 						</a>
 					</li>
 				</ul>
@@ -115,26 +177,20 @@
 			</li>
 		</ul>
 	</section>
-	<!-- /.sidebar -->
 </aside>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-	<!-- Content Header (Page header) -->
+<div class="content-wrapper" style="height: 120vh;">
 	<section class="content-header">
 		<h1>
 			Overview
 			<small>Control panel</small>
 		</h1>
 		<!--<ol class="breadcrumb">-->
-			<!--<li><a href="#"><i class="fa fa-home"></i> Home</a></li>-->
-			<!--<li class="active">Overview</li>-->
+		<!--<li><a href="#"><i class="fa fa-home"></i> Home</a></li>-->
+		<!--<li class="active">Overview</li>-->
 		<!--</ol>-->
 	</section>
 
-	<!-- Main content -->
-
 	<div ui-view="home"></div>
 
-	<!-- /.content -->
 </div>
