@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var elasticFunction = require('./elasticFunction');
 var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
+var params_witall = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm|all)';
 
 router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
     var options = {
@@ -73,6 +74,19 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     }
 });
 
+router.get('/generic/:device/:param' + params_witall + '/:exclusion/:timeStart/:timeEnd/:step', function (req, res) {
+    var options = {
+        device: req.params.device,
+        param: req.params.param,
+        start: req.params.timeStart,
+        end: req.params.timeEnd,
+        step: req.params.step,
+        exclusion: req.params.exclusion
+    };
+
+    elasticFunction.getGeneric(options, res);
+});
+
 router.get('/live', function (req, res) {
     elasticFunction.getLive(res);
 });
@@ -80,8 +94,6 @@ router.get('/live', function (req, res) {
 router.get('/livemeans', function(req, res){
    elasticFunction.getLiveMeans(res);
 });
-
-
 
 
 module.exports = router;

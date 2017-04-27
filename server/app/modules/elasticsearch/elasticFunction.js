@@ -261,6 +261,50 @@ exports.getIntervalSteps = function (options, res) {
     })
 };
 
+
+exports.getGeneric = function (options, res) {
+    var intervals = [];
+    makeSteppedInterval(options, intervals);
+
+    var query = {
+        size: 50,
+
+        body: {
+            query: {
+                bool: {
+                    should: intervals
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    };
+
+    //set device or get from all
+    if (options.device !== "all")
+        query.index = options.device;
+
+    //set parameter or get all
+    if (options.param !== "all")
+        query.type = options.param;
+
+    var exclusion_json = JSON.parse(options.exclusion);
+
+    client.search(query).then(function (resp) {
+        var out = [];
+        resp.hits.hits.forEach(function (d) {
+            out.push(d["_source"]);
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
+
 exports.getIntervalStepsAll = function(options, res) {
     var intervals = [];
     var entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
