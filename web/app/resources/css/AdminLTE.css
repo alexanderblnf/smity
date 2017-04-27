@@ -119,7 +119,7 @@ h1 {
   color: #444;
   border-top: 1px solid #d2d6de;
   bottom: 0;
-  position: fixed !important;
+  position: absolute !important;
   width: 100vw;
   margin-left: 0;
   text-align: right;
@@ -5073,11 +5073,28 @@ text {
 #center-div {
   display: inline-flex;
   align-items: center;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 }
 
-#apply-date {
+.apply-date {
   background-color: #ff6600;
   color: white;
+}
+
+#prediction-div {
+  display: inline-flex;
+  align-items: center;
+  width: 50%;
+}
+
+#moment-div {
+  display: inline-flex;
+  align-items: center;
+}
+
+#prediction-span {
+  color: white;
+  margin-left: 5%;
+  font-size: 2em;
 }

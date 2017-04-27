@@ -96,7 +96,7 @@ angular
 					url: '/pressure',
 					views: {
 						'home': {
-							template: '<chart-and-map param="pressure" y-axis="Presiune (Pascal)"></chart-and-map>',
+							template: '<chart-and-map param="pressure" y-axis="Presiune (Pascal)" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
@@ -105,7 +105,7 @@ angular
 					url: '/humidity',
 					views: {
 						'home': {
-							template: '<chart-and-map param="humidity" y-axis="Umiditate (%)"></chart-and-map>',
+							template: '<chart-and-map param="humidity" y-axis="Umiditate (%)" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
@@ -123,7 +123,7 @@ angular
 					url: '/pm25',
 					views: {
 						'home': {
-							template: '<chart-and-map param="pm25" y-axis="Particule de praf (µg/m³)"></chart-and-map>',
+							template: '<chart-and-map param="pm25" y-axis="Particule de praf (µg/m³)" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
@@ -132,7 +132,7 @@ angular
 					url: '/voc',
 					views: {
 						'home': {
-							template: '<chart-and-map param="voc" y-axis="Compusi organici volatili"></chart-and-map>',
+							template: '<chart-and-map param="voc" y-axis="Compusi organici volatili" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
@@ -141,7 +141,7 @@ angular
 					url: '/ch2o',
 					views: {
 						'home': {
-							template: '<chart-and-map param="ch2o" y-axis="Formaldehida (ppm)"></chart-and-map>',
+							template: '<chart-and-map param="ch2o" y-axis="Formaldehida (ppm)" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
@@ -150,7 +150,7 @@ angular
 					url: '/cpm',
 					views: {
 						'home': {
-							template: '<chart-and-map param="cpm" y-axis="Radiatii (µSv/h)"></chart-and-map>',
+							template: '<chart-and-map param="cpm" y-axis="Radiatii (µSv/h)" predict-callback="vm.predict"></chart-and-map>',
 							controller: 'D3Controller as vm'
 						}
 					}
