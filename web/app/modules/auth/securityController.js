@@ -49,11 +49,11 @@ function SecurityController(SecurityService, $state) {
 	}
 
 	function addMember() {
-		vm.registerUser['user-id'] = 2;
+		vm.registerUser['userid'] = 2;
 
 		return SecurityService.addMember(vm.registerUser)
 			.then(function () {
-				goTo('home');
+				goTo('app.home');
 			})
 			.catch(function (response) {
 				console.log(response);
