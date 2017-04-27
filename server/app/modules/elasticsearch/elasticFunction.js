@@ -294,10 +294,6 @@ exports.getGeneric = function (options, res) {
         });
     }
 
-    if (options.extra !== "none"){
-
-    }
-
     console.log(options.hourStart);
 
     var hourscript = {

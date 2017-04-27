@@ -75,7 +75,7 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     }
 });
 
-router.get('/generic/:device/:param' + params_witall + '/:exclusion/:extra/:hourStart/:hourEnd/:timeStart/:timeEnd/:step/:size', function (req, res) {
+router.get('/generic/:device/:param' + params_witall + '/:exclusion/:hourStart/:hourEnd/:timeStart/:timeEnd/:step/:size', function (req, res) {
     /* TODO change to POST */
 
     var options = {
@@ -87,7 +87,6 @@ router.get('/generic/:device/:param' + params_witall + '/:exclusion/:extra/:hour
         step: req.params.step,
         exclusion: req.params.exclusion,
         size: req.params.size,
-        extra: req.params.extra,
         hourStart: req.params.hourStart,
         hourEnd: req.params.hourEnd
     };
