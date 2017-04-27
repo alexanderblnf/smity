@@ -9,9 +9,10 @@ angular
 		'$timeout',
 		'UradService',
         'SecurityService',
+        'SharedVariables',
         SmityController]);
 
-function SmityController($state, $mdSidenav, $q, $timeout, UradService, SecurityService) {
+function SmityController($state, $mdSidenav, $q, $timeout, UradService, SecurityService, SharedVariables) {
 	var vm = this;
 
 	vm.go = go;
@@ -21,7 +22,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	vm.logout = logout;
 	vm.liveData = {};
 	vm.remove = remove;
-    // vm.predict = predict;
+    vm.mapType = SharedVariables.getMapType();
 
 	// invite friends
 	var pendingSearch, lastSearch;

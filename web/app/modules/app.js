@@ -87,7 +87,7 @@ angular
 					url: '/temperature',
 					views: {
 						'home': {
-                            template: '<chart-and-map param="temperature" y-axis="Temperatura (Celsius)"></chart-and-map>',
+                            template: '<chart-and-map param="temperature" y-axis="Temperatura (Celsius)" map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }

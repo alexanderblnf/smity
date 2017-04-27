@@ -29,21 +29,12 @@ angular.module('Smity')
 function ChartAndMap() {
     return {
         // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
-        template: '<div id="maps-div"></div>' +
-        '<div id="calendar-div">' +
-        '<div id="center-div">' +
-        '<div id="prediction-div">' +
-        '<button id="get-prediction" class="btn apply-date" ng-click="predict()">Get Prediction</button>' +
-        '<span id="prediction-span">{{result}}</span></div>' +
-        '<div id="moment-div">' +
-        '<input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
-        '<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
-        '<button class="apply-date btn" ng-click="apply()">Apply</button></div></div></div>' +
-        '<div id="chart-div" class="chart-init"></div>',
+        templateUrl: '/templates/d3Template.html',
         scope: {
             param: '@',
             yAxis: '@',
-            predictCallback: '&'
+            predictCallback: '&',
+            mapType: '@'
         },
         restrict: 'E',
         link: link

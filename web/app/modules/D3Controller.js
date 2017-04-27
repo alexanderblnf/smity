@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Smity')
-    .controller('D3Controller', ['UradService', D3Controller]);
+    .controller('D3Controller', ['UradService', 'SharedVariables', D3Controller]);
 
-function D3Controller(UradService) {
+function D3Controller(UradService, SharedVariables) {
 
     var vm = this;
 
@@ -11,6 +11,7 @@ function D3Controller(UradService) {
     vm.startDate = undefined;
     vm.endDate = undefined;
     vm.predict = predict;
+    vm.mapType = SharedVariables.getMapType();
 
     function predict(param, time, callback) {
         UradService.predict(param, time)

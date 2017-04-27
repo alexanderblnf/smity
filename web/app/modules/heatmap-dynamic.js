@@ -10,10 +10,13 @@ function initGoogleMaps(mapconfig){
         center: coord
     };
     map = new google.maps.Map(document.getElementById(mapconfig.containername), options);
+    console.log(map);
     return map;
 }
 
 function initHeatmap(map, mapconfig){
+
+    //console.log(map);
 
     var heatmap = new HeatmapOverlay(map,
         {
