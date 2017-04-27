@@ -292,6 +292,9 @@ exports.getGeneric = function (options, res) {
         query.type = options.param;
 
     var exclusion_json = JSON.parse(options.exclusion);
+    exclusion_json.forEach(function(item){
+
+    });
 
     client.search(query).then(function (resp) {
         var out = [];
