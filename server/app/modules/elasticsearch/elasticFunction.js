@@ -210,21 +210,53 @@ exports.getLiveMeans = function (res) {
     })
 };
 
+// exports.hourlyPrediction = function (options, res) {
+//     var data = [];
+//     var originalTime = options.time;
+//     asyncLoop({
+//         time: options.time,
+//         day: 3600 * 24,
+//         options: options,
+//         functionToLoop: function (loop, options, time) {
+//             //setTimeout(function () {
+//             getDocs(options, time, data, loop);
+//             //}, 500);
+//         },
+//         callback: function () {
+//             makeRegression(originalTime, data, res);
+//         }
+//     })
+// };
+
 exports.hourlyPrediction = function (options, res) {
     var data = [];
-    var originalTime = options.time;
-    asyncLoop({
-        time: options.time,
-        day: 3600 * 24,
-        options: options,
-        functionToLoop: function (loop, options, time) {
-            //setTimeout(function () {
-            getDocs(options, time, data, loop);
-            //}, 500);
-        },
-        callback: function () {
-            makeRegression(originalTime, data, res);
+    var intervals = [];
+    makePredictionSteps(options, intervals);
+
+    client.search({
+        index: options.device,
+        type: options.param,
+        size: 150,
+
+        body: {
+            query: {
+                bool: {
+                    should: intervals
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
         }
+    }).then(function (resp) {
+        resp.hits.hits.forEach(function (d) {
+            data.push(d["_source"]);
+        });
+        makeRegression(options.desired, data, res, options.param);
+    }, function (err) {
+        console.log(err.message);
     })
 };
 
@@ -299,6 +331,27 @@ exports.getIntervalStepsAll = function(options, res) {
     })
 };
 
+function makePredictionSteps(options, intervals) {
+    var start = Number(options.start);
+    var end = Number(options.end);
+    var day = 24 * 3600;
+    var interval = 5 * 180;
+    for (var i = start; i <= end; i += day) {
+        if (i >= options.end) {
+            break;
+        }
+        var temp = {
+            range: {
+                time: {
+                    from: i - interval,
+                    to: i + interval
+                }
+            }
+        };
+        intervals.push(temp);
+    }
+}
+
 function makeSteppedInterval(options, intervals) {
     var interval = 180;
     var start = Number(options.start);
@@ -319,61 +372,61 @@ function makeSteppedInterval(options, intervals) {
     }
 }
 
-function getDocs(options, time, data, loop) {
-    var interval = 15 * 60;
-    var start = time - interval;
-    var end = time + interval;
-    client.search({
-        index: options.device,
-        type: options.param,
-        from: 0,
-        size: 11,
-        body: {
-            query: {
-                range: {
-                    time: {
-                        from: start,
-                        to: end
-                    }
-                }
-            },
-            sort: [{
-                time: {
-                    order: 'asc'
-                }
-            }]
-        }
-    }).then(function (resp) {
-        if (resp.hits.hits.length == 0) {
-            loop(1);
-        } else {
-            var out = [];
-            resp.hits.hits.forEach(function (d) {
-                out.push(d["_source"][options.param]);
-            });
-            data.push(array.arrayAverage(out));
-            loop(0);
-        }
-    }, function (err) {
-        console.log(err.message);
-        loop(0);
-    });
+// function getDocs(options, time, data, loop) {
+//     var interval = 15 * 60;
+//     var start = time - interval;
+//     var end = time + interval;
+//     client.search({
+//         index: options.device,
+//         type: options.param,
+//         from: 0,
+//         size: 11,
+//         body: {
+//             query: {
+//                 range: {
+//                     time: {
+//                         from: start,
+//                         to: end
+//                     }
+//                 }
+//             },
+//             sort: [{
+//                 time: {
+//                     order: 'asc'
+//                 }
+//             }]
+//         }
+//     }).then(function (resp) {
+//         if (resp.hits.hits.length == 0) {
+//             loop(1);
+//         } else {
+//             var out = [];
+//             resp.hits.hits.forEach(function (d) {
+//                 out.push(d["_source"][options.param]);
+//             });
+//             data.push(array.arrayAverage(out));
+//             loop(0);
+//         }
+//     }, function (err) {
+//         console.log(err.message);
+//         loop(0);
+//     });
+//
+// }
+//
+// var asyncLoop = function (o) {
+//     var loop = function (stop) {
+//         o.time -= o.day;
+//         if (stop) {
+//             o.callback();
+//             return;
+//         }
+//         o.functionToLoop(loop, o.options, o.time);
+//     };
+//     loop();
+// };
 
-}
-
-var asyncLoop = function (o) {
-    var loop = function (stop) {
-        o.time -= o.day;
-        if (stop) {
-            o.callback();
-            return;
-        }
-        o.functionToLoop(loop, o.options, o.time);
-    };
-    loop();
-};
-
-function makeRegression(time, data, res) {
+function makeRegression(time, data, res, param) {
     var regressionData = [];
     var length = data.length - 1;
     if (length <= 2) {
@@ -381,8 +434,8 @@ function makeRegression(time, data, res) {
     } else {
         data.forEach(function (val, index) {
             var temp = [];
-            temp.push(length - index);
-            temp.push(val);
+            temp.push(index);
+            temp.push(val[param]);
             regressionData.push(temp);
         });
         var reg = regression('linear', regressionData);

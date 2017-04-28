@@ -192,26 +192,15 @@ module.exports = function (app, passport, db, pgp) {
     var intelilight = require('./modules/intelilight/intelilightRoutes');
     app.use('/intelilight', intelilight);
 
+
     /*
-     Websocket for accessing the platform from the internet
+     =============================
+     Zoniz beacons api
+     =============================
      */
-    /*const http = require('http');
-     const url = require('url');
-     const server = http.createServer(app);
-     var socket = require('ws');
-     const wss = new socket.Server({server});
 
-     wss.on('connection', function connection(ws) {
-     ws.on('message', function incoming(message) {
-     console.log(message);
-     });
-
-     ws.send('OK');
-     });
-
-     server.listen(50001, function listening() {
-     console.log('Listening socket on port ', server.address().port);
-     });*/
+    var beacons = require('./modules/beacons/beaconRoutes');
+    app.use('/beacons/', beacons);
 
 
 };
