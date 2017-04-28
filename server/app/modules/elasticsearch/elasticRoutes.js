@@ -20,11 +20,18 @@ router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) 
     }
 });
 
-router.get('/:device/:param' + params + '/prediction/:time', function (req, res) {
+router.get('/:device/:param' + params + '/prediction/:desired', function (req, res) {
+    var desired = new Date(req.params.desired * 1000);
+    var hours = Number(desired.getHours()), minutes = Number(desired.getMinutes());
+    var date = new Date();
+    var now = Math.floor(date.getTime() / 1000);
+    var start = (req.params.desired - 2592000) + (hours * 3600 + minutes * 60);
     var options = {
         device: req.params.device,
         param: req.params.param,
-        time: req.params.time
+        desired: req.params.desired,
+        start: start,
+        end: now
     };
 
     if(options.time < 1483273126) {
