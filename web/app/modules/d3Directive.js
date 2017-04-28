@@ -34,7 +34,7 @@ function ChartAndMap() {
             param: '@',
             yAxis: '@',
             predictCallback: '&',
-            mapType: '@'
+            mapType: '='
         },
         restrict: 'E',
         link: link

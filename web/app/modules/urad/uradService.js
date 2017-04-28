@@ -6,7 +6,8 @@ angular.module('urad')
 function UradService(UradResource) {
 	return {
         getAll: getAll,
-        predict: predict
+        predict: predict,
+        heatMap: heatMap
 	};
 
 	function getAll() {
@@ -15,5 +16,9 @@ function UradService(UradResource) {
 
     function predict(param, time) {
         return UradResource.predict({param: param, time: time}).$promise;
+    }
+
+    function heatMap(fromTime, toTime) {
+        return UradResource.heatmap({timeStart: fromTime, timeEnd: toTime}).$promise;
     }
 }

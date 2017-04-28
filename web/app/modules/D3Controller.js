@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Smity')
-    .controller('D3Controller', ['UradService', 'SharedVariables', D3Controller]);
+    .controller('D3Controller', ['UradService', 'SharedVariables', '$scope', 'MapService', D3Controller]);
 
-function D3Controller(UradService, SharedVariables) {
+function D3Controller(UradService, SharedVariables, $scope, MapService) {
 
     var vm = this;
 
@@ -12,6 +12,18 @@ function D3Controller(UradService, SharedVariables) {
     vm.endDate = undefined;
     vm.predict = predict;
     vm.mapType = SharedVariables.getMapType();
+
+    $scope.$on('map-changed', function (event, args) {
+        vm.mapType = SharedVariables.getMapType();
+        vm.initHeatMap = SharedVariables.getInitHeatMap();
+
+        if (vm.initHeatMap === 1) {
+            setTimeout(function () {
+                MapService.initMap();
+            }, 0.1);
+
+        }
+    });
 
     function predict(param, time, callback) {
         UradService.predict(param, time)
