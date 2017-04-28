@@ -7,18 +7,18 @@ angular.module('Smity')
 		scope: {
 			parameterName: '@',
 			parameterValue: '@',
-			parameterUnit: '@',
-			removeCallback: '&',
-			iconClass: '@',
-			link: '@'
+            parameterUnit: '@',
+            removeCallback: '&',
+            iconClass: '@',
+            link: '@'
 		},
 		restrict: 'A',
 		link: overviewLink
 	};
 
-	function overviewLink($scope, $el) {
+    function overviewLink($scope, $el) {
 		$scope.remove = function () {
-			$el.remove();
+            $el.remove();
 		};
 	}
 });

@@ -42,6 +42,77 @@ exports.getAllForInterval = function (options, res) {
     })
 };
 
+exports.getDataForHeatmap = function (options, res) {
+    client.search({
+        type: options.param,
+        from: 0,
+        size: 12 * 50,
+        body: {
+//             aggs: {
+//                 by_email: {
+//                     terms: {
+//             field: "_index",
+//             size: 10
+//     },
+//     aggs: {
+//         by_top_hit: { top_hits: { size: 15 } }
+//     }
+// }
+// },
+            query: {
+                bool: {
+                    must: {
+                        range: {
+                            time: {
+                                from: options.start,
+                                to: options.end
+                            }
+                        }
+                    },
+                    must_not: {
+                        bool: {
+                            must: {
+                                range: {
+                                    lat: {
+                                        from: 46.081621,
+                                        to: 46.083281
+                                    }
+                                },
+                                range: {
+                                    long: {
+                                        from: 23.574164,
+                                        to: 23.576459
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = [];
+        resp.hits.hits.forEach(function (d) {
+            // if(out[d["_index"]] != null) {
+            //     out[d["_index"]].push(d["_source"]);
+            // } else {
+            //     out[d["_index"]] = [];
+            //     out[d["_index"]].push(d["_source"]);
+            // }
+            out.push(d["_source"]);
+            //out.push(d);
+        });
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 exports.getForInterval = function (options, res) {
     var entries = Math.floor((options.end - options.start) / 180);
     client.search({
@@ -198,7 +269,7 @@ exports.getLiveMeans = function (res) {
 
         //compute corrected final mean
         params.forEach(function (param) {
-            if(correctedmeans[param] != 0){
+            if (correctedmeans[param] != 0) {
                 correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
             }
 
@@ -409,7 +480,7 @@ exports.getIntervalStepsAll = function(options, res) {
     }).then(function (resp) {
         var out = {};
         resp.hits.hits.forEach(function (d) {
-            if(out[d["_index"]] != null) {
+            if (out[d["_index"]] != null) {
                 out[d["_index"]].push(d["_source"]);
             } else {
                 out[d["_index"]] = [];

@@ -13,14 +13,11 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 	return {
 		login: login,
 		register: register,
-		remove: remove,
-		isAuthenticated: isAuthenticated,
-		getToken: getToken,
 		logout: logout,
 		loggedIn: loggedIn,
 		setCredentials: setCredentials,
-		clearCredentials: clearCredentials,
-		addMember: addMember
+        clearCredentials: clearCredentials,
+        addMember: addMember
 	};
 
 
@@ -40,18 +37,6 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 
 	function register(credentials) {
 		return SecurityResource.register(credentials).$promise;
-	}
-
-	function remove() {
-		return LocalStorage.remove(Constants.AUTH.TOKEN);
-	}
-
-	function isAuthenticated() {
-		return !!LocalStorage.get(Constants.AUTH.TOKEN);
-	}
-
-	function getToken() {
-		return LocalStorage.get(Constants.AUTH.TOKEN);
 	}
 
 	function logout() {
@@ -78,7 +63,7 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 		remove();
 	}
 
-	function addMember(credentials) {
-		return SecurityResource.addMember(credentials).$promise;
-	}
+    function addMember(credentials) {
+        return SecurityResource.addMember(credentials).$promise;
+    }
 }

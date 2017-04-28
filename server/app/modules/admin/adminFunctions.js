@@ -1,10 +1,10 @@
 var permission = require('../../sql_models/permission');
 exports.addManager = function (options, callback) {
     permission.getPermission(options, function (done, data) {
-        if(done == false){
+        if (done == false) {
             callback(false, data);
         } else {
-            if(data.permission == 1) {
+            if (data.permission == 1) {
                 var add = new options.ps('add-user', 'INSERT INTO users(email, password, firstname, lastname, permission) ' +
                     'VALUES($1, $2, $3, $4, 2) returning id',
                     [options.email, options.password, options.firstName, options.lastName]);

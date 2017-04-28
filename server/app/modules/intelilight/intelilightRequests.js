@@ -8,20 +8,20 @@ exports.getControllers = function (options, res) {
         });
 
         response.on('end', function () {
-           res.send(full);
+            res.send(full);
         });
     });
 };
 
 exports.getController = function (options, res) {
-  http.get(options, function (response) {
-      var full = "";
-      response.on('data', function (data) {
-          full += data;
-      });
+    http.get(options, function (response) {
+        var full = "";
+        response.on('data', function (data) {
+            full += data;
+        });
 
-      response.on('end', function () {
-          res.send(full);
-      });
-  });
+        response.on('end', function () {
+            res.send(full);
+        });
+    });
 };

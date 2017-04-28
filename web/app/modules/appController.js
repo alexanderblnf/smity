@@ -7,11 +7,14 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'UradService',
+		'ElasticService',
         'SecurityService',
+        'SharedVariables',
+        '$scope',
+        '$rootScope',
         SmityController]);
 
-function SmityController($state, $mdSidenav, $q, $timeout, UradService, SecurityService) {
+function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables, $scope, $rootScope) {
 	var vm = this;
 
 	vm.go = go;
@@ -19,9 +22,12 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	vm.openLeftMenu = openLeftMenu;
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
-	vm.liveData = {};
 	vm.remove = remove;
-	// vm.predict = predict;
+	vm.setType = setType;
+
+	vm.liveData = {};
+	vm.mapType = SharedVariables.getMapType();
+    vm.initHeatMap = SharedVariables.getInitHeatMap();
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -57,6 +63,14 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 				$state.go('login');
 			});
 	}
+
+    function setType() {
+        SharedVariables.setMapType();
+        SharedVariables.setInitHeatMap();
+        vm.mapType = SharedVariables.getMapType();
+
+        $rootScope.$broadcast('map-changed');
+    }
 
 	// function _querySearch(criteria) {
 	// 	return vm.allContacts.filter(_createFilterFor(criteria));
@@ -119,7 +133,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	// }
 
 	function getAll() {
-		UradService.getAll().then(function (response) {
+		ElasticService.getAll().then(function (response) {
 			vm.liveData = response;
 			vm.liveData.pressure *= 0.00750061683;
 			vm.liveData.pressure  = Math.round(vm.liveData.pressure);

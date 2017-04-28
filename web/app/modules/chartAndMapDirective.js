@@ -29,22 +29,12 @@ angular.module('Smity')
 function ChartAndMap() {
     return {
         // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
-        template:
-        '<div id="maps-div"></div>' +
-        '<div id="calendar-div">' +
-        '<div id="center-div">' +
-        '<div id="prediction-div">' +
-        '<button id="get-prediction" class="btn apply-date" ng-click="predict()">Get Prediction</button>' +
-        '<span id="prediction-span">{{result}}</span></div>' +
-        '<div id="moment-div">' +
-        '<input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">' +
-        '<input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">' +
-        '<button class="apply-date btn" ng-click="apply()">Apply</button></div></div></div>' +
-        '<div id="chart-div" class="chart-init"></div>',
+        templateUrl: '/templates/chartAndMapTemplate.html',
         scope: {
             param: '@',
             yAxis: '@',
-            predictCallback: '&'
+            predictCallback: '&',
+            mapType: '='
         },
         restrict: 'E',
         link: link
@@ -63,9 +53,9 @@ function ChartAndMap() {
         var max = 0;
         var maxWidth = 0;
         var limits = {
-            'colors' : ['green', 'yellow', 'orange', 'red'],
-            'co2' : [600, 1000, 2500, 5000],
-            'co2_messages' : ['acceptable', 'limit', 'drowsiness', 'adverse health effects']
+            'colors': ['green', 'yellow', 'orange', 'red'],
+            'co2': [600, 1000, 2500, 5000],
+            'co2_messages': ['acceptable', 'limit', 'drowsiness', 'adverse health effects']
         };
 
         var markerCount = 0;
@@ -78,7 +68,66 @@ function ChartAndMap() {
             map = new google.maps.Map(document.getElementById('maps-div'), {
                 zoom: 12,
                 center: uluru,
-                styles: [{"featureType":"water","stylers":[{"color":"#19a0d8"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#ff6600"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-40}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-20}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"road.highway","elementType":"labels.icon"},{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"lightness":20},{"color":"#efe9e4"}]},{"featureType":"landscape.man_made","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"hue":"#11ff00"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"hue":"#4cff00"},{"saturation":58}]},{"featureType":"poi","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#f0e4d3"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-10}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"simplified"}]}]
+                styles: [{"featureType": "water", "stylers": [{"color": "#19a0d8"}]}, {
+                    "featureType": "administrative",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#ff6600"}]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{"color": "#efe9e4"}, {"lightness": -40}]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{"color": "#efe9e4"}, {"lightness": -20}]
+                }, {
+                    "featureType": "road",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"lightness": 100}]
+                }, {
+                    "featureType": "road",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"lightness": -100}]
+                }, {"featureType": "road.highway", "elementType": "labels.icon"}, {
+                    "featureType": "landscape",
+                    "elementType": "labels",
+                    "stylers": [{"visibility": "off"}]
+                }, {
+                    "featureType": "landscape",
+                    "stylers": [{"lightness": 20}, {"color": "#efe9e4"}]
+                }, {"featureType": "landscape.man_made", "stylers": [{"visibility": "off"}]}, {
+                    "featureType": "water",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"lightness": 100}]
+                }, {
+                    "featureType": "water",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"lightness": -100}]
+                }, {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"hue": "#11ff00"}]
+                }, {
+                    "featureType": "poi",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"lightness": 100}]
+                }, {
+                    "featureType": "poi",
+                    "elementType": "labels.icon",
+                    "stylers": [{"hue": "#4cff00"}, {"saturation": 58}]
+                }, {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [{"visibility": "on"}, {"color": "#f0e4d3"}]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [{"color": "#efe9e4"}, {"lightness": -25}]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.fill",
+                    "stylers": [{"color": "#efe9e4"}, {"lightness": -10}]
+                }, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "simplified"}]}]
             });
             var marker = new google.maps.Marker({
                 position: uluru,
@@ -143,7 +192,8 @@ function ChartAndMap() {
         }
 
         function reScale(cache, keys, param) {
-            max = 0; maxWidth = 0;
+            max = 0;
+            maxWidth = 0;
             var params = keys.map(function (name) {
                 return {
                     name: name,
@@ -163,7 +213,7 @@ function ChartAndMap() {
                 }),
                 d3.max(params, function (c) {
                     return d3.max(c.values, function (v) {
-                        if(v.date > maxWidth) {
+                        if (v.date > maxWidth) {
                             maxWidth = v.date;
                         }
                         return v.date;
@@ -179,7 +229,7 @@ function ChartAndMap() {
                 }),
                 d3.max(params, function (c) {
                     return d3.max(c.values, function (v) {
-                        if(v.param > max){
+                        if (v.param > max) {
                             max = v.param;
                         }
                         return v.param;
@@ -252,12 +302,12 @@ function ChartAndMap() {
 
         function drawLimits(param) {
 
-            if(limits[param] != null) {
+            if (limits[param] != null) {
                 var values = limits[param];
                 var messages = limits[param + "_messages"];
                 limitLines = svg.append("g");
-                for(var i = 0; i < values.length; i++) {
-                    if(max >= values[i]) {
+                for (var i = 0; i < values.length; i++) {
+                    if (max >= values[i]) {
                         limitLines.append("line")
                             .attr("class", "danger-line")
                             .attr("stroke", limits['colors'][i])
@@ -631,13 +681,12 @@ function ChartAndMap() {
         var initEnd = Math.floor(now.getTime() / 1000);
 
         $scope.predict = function () {
-          var futureTime = initEnd + 24 * 3600;
-          $scope.predictCallback()($scope.param, futureTime, function (response) {
-              console.log(response);
-              $scope.result = Math.floor(response.result);
-          });
+            var futureTime = initEnd + 24 * 3600;
+            $scope.predictCallback()($scope.param, futureTime, function (response) {
+                console.log(response);
+                $scope.result = Math.floor(response.result);
+            });
         };
-
 
 
         initMap();

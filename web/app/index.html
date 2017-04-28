@@ -39,7 +39,7 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini" >
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper" ng-app="Smity" style="background-color: transparent !important; height:100vh !important;">
 
 
@@ -48,7 +48,7 @@
 	<!-- /.content-wrapper -->
 
 	<footer class="main-footer"
-	        ng-class="{transparent: $state.includes('login') || $state.includes('register') || $state.includes('member')}">
+			ng-class="{transparent: $state.includes('login') || $state.includes('register') || $state.includes('member')}">
 		<!--<div class="pull-right hidden-xs">-->
 		<!--<b>Version</b> 2.3.8-->
 		<!--</div>-->
@@ -109,13 +109,15 @@
 <script src="modules/app.js"></script>
 <script src="modules/appController.js"></script>
 <script src="modules/overviewDirective.js"></script>
-<script src="modules/d3.js"></script>
-<script src="modules/d3Directive.js"></script>
-<script src="modules/D3Controller.js"></script>
-<script src="modules/urad/urad.js"></script>
-<script src="modules/urad/uradResource.js"></script>
-<script src="modules/urad/uradService.js"></script>
-<script src="modules/urad/uradController.js"></script>
+<script src="modules/chartAndMapDirective.js"></script>
+<script src="modules/sharedVariables.js"></script>
+<script src="modules/mapService.js"></script>
+<script src="modules/elastic/elastic.js"></script>
+<script src="modules/elastic/elasticResource.js"></script>
+<script src="modules/elastic/elasticService.js"></script>
+<script src="modules/elastic/elasticController.js"></script>
+<script src="modules/d3/d3Module.js"></script>
+<script src="modules/d3/d3Controller.js"></script>
 <script src="modules/auth/auth.js"></script>
 <script src="modules/auth/securityController.js"></script>
 <!--<script src="modules/auth/securityInterceptor.js"></script>-->
@@ -123,18 +125,191 @@
 <script src="modules/auth/securityService.js"></script>
 <script src="modules/auth/localStorageService.js"></script>
 
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALxvh2WnBEFmzoR8naBaZULmitfDIiqyU&callback=initMap">
-</script>
+<!--<script async defer-->
+<!--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALxvh2WnBEFmzoR8naBaZULmitfDIiqyU&callback=initMap">-->
+<!--</script>-->
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
 <script src="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
-<link href="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
+<link href="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css"
+	  rel="stylesheet">
 
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
+
+<script src="resources/heat-map/heatmap.js"></script>
+<script src="resources/heat-map/heatmap.min.js"></script>
+<!--<script src="modules/heatmap-dynamic.js"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAMN1BRwPLrkm5cbIu4JPErMoQhMedEoo&callback=googleMapsLoaded"></script>
+<script src="resources/heat-map/gmaps-heatmap.js"></script>
+
+
+<!--<script>-->
+	<!--$(function(){-->
+
+		<!--/*-->
+		 <!--* LINE CHART-->
+		 <!--* &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+		 <!--*/-->
+		<!--//LINE randomly generated data-->
+
+		<!--var sin = [], cos = [];-->
+		<!--for (var i = 0; i < 14; i += 0.5) {-->
+			<!--sin.push([i, Math.sin(i)]);-->
+			<!--cos.push([i, Math.cos(i)]);-->
+		<!--}-->
+		<!--var line_data1 = {-->
+			<!--data: sin,-->
+			<!--color: "#3c8dbc"-->
+		<!--};-->
+		<!--var line_data2 = {-->
+			<!--data: cos,-->
+			<!--color: "#00c0ef"-->
+		<!--};-->
+
+
+		<!--function timeConverter(UNIX_timestamp){-->
+			<!--var a = new Date(UNIX_timestamp);-->
+			<!--var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];-->
+			<!--var year = a.getFullYear();-->
+			<!--var month = months[a.getMonth()];-->
+			<!--var date = a.getDate();-->
+			<!--var hour = a.getHours();-->
+			<!--var min = a.getMinutes();-->
+			<!--var sec = a.getSeconds();-->
+			<!--var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;-->
+			<!--return time;-->
+		<!--}-->
+
+		<!--function xAxisLabelGenerator(x){-->
+			<!--return timeConverter(x*1000);-->
+		<!--}-->
+
+		<!--var plot = $.plot("#line-chart", [line_data1, line_data2], {-->
+			<!--grid: {-->
+				<!--hoverable: true,-->
+				<!--borderColor: "#f3f3f3",-->
+				<!--borderWidth: 1,-->
+				<!--tickColor: "#f3f3f3"-->
+			<!--},-->
+			<!--series: {-->
+				<!--shadowSize: 0,-->
+				<!--lines: {-->
+					<!--show: true-->
+				<!--},-->
+				<!--points: {-->
+					<!--show: true-->
+				<!--}-->
+			<!--},-->
+			<!--lines: {-->
+				<!--fill: false,-->
+				<!--color: ["#3c8dbc", "#f56954"]-->
+			<!--},-->
+			<!--yaxis: {-->
+				<!--show: true-->
+			<!--},-->
+			<!--xaxis: {-->
+				<!--show: true,-->
+				<!--// transform: xAxisLabelGenerator,-->
+				<!--tickFormatter: xAxisLabelGenerator-->
+			<!--}-->
+		<!--});-->
+		<!--//Initialize tooltip on hover-->
+		<!--$('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({-->
+			<!--position: "absolute",-->
+			<!--display: "none",-->
+			<!--opacity: 0.8-->
+		<!--}).appendTo("body");-->
+		<!--$("#line-chart").bind("plothover", function (event, pos, item) {-->
+
+			<!--if (item) {-->
+				<!--var x = item.datapoint[0].toFixed(2),-->
+						<!--y = item.datapoint[1].toFixed(2);-->
+
+				<!--$("#line-chart-tooltip").html(item.series.label + " of " + x + " = " + y)-->
+						<!--.css({top: item.pageY + 5, left: item.pageX + 5})-->
+						<!--.fadeIn(200);-->
+			<!--} else {-->
+				<!--$("#line-chart-tooltip").hide();-->
+			<!--}-->
+
+		<!--});-->
+
+		<!--function populateData(from, to){-->
+			<!--var left = 2;-->
+			<!--var array1=[];-->
+			<!--var array2=[];-->
+
+			<!--var fromtime = 1490470657;-->
+			<!--var totime = 1490643468;-->
+
+			<!--if (from!=="" && to!==""){-->
+				<!--fromtime = (Date.parse(from)/1000).toFixed(0);-->
+				<!--totime = (Date.parse(to)/1000).toFixed(0);-->
+			<!--}-->
+
+			<!--$.get({  url: "http://localhost:8080/elastic/82000039/temperature/"+fromtime+"/"+totime,-->
+				<!--success: function( data ) {-->
+					<!--$.each(data, function(index, item){-->
+						<!--//alert(item.temperature);-->
+						<!--array1.push([item.time, item.temperature]);-->
+					<!--});-->
+					<!--line_data1.data = array1;-->
+					<!--left&#45;&#45;;-->
+					<!--if (left === 0) {-->
+						<!--plot.setData([line_data1, line_data2]);-->
+						<!--plot.setupGrid();-->
+						<!--plot.draw();-->
+					<!--}-->
+				<!--},-->
+				<!--dataType: "json" });-->
+
+			<!--$.get( "http://localhost:8080/elastic/82000038/temperature/"+fromtime+"/"+totime, function( data ) {-->
+				<!--$.each(data, function(index, item){-->
+					<!--//alert(item.temperature);-->
+					<!--array2.push([item.time, item.temperature]);-->
+				<!--});-->
+				<!--line_data2.data = array2;-->
+				<!--left&#45;&#45;;-->
+				<!--if (left === 0) {-->
+					<!--plot.setData([line_data1, line_data2]);-->
+					<!--plot.setupGrid();-->
+					<!--plot.draw();-->
+				<!--}-->
+			<!--}, "json" );-->
+		<!--}-->
+
+		<!--populateData("", "");-->
+		<!--/* END LINE CHART */-->
+
+		<!--$('#getdatabutton').click(function () {-->
+			<!--var from = $('#datepicker1').val();-->
+			<!--var to = $('#datepicker2').val();-->
+			<!--populateData(from, to);-->
+		<!--});-->
+
+		<!--//Date picker-->
+		<!--$('#datepicker1').datepicker({-->
+			<!--autoclose: true-->
+		<!--});-->
+
+		<!--$('#datepicker2').datepicker({-->
+			<!--autoclose: true-->
+		<!--});-->
+
+		<!--//Timepicker-->
+		<!--/* $(".timepicker").timepicker({-->
+		 <!--showInputs: false-->
+		 <!--});*/-->
+
+		<!--//Date range picker with time picker-->
+		<!--// $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY hh:mm A'});-->
+
+	<!--})-->
+
+<!--</script>-->
 
 </body>
 </html>

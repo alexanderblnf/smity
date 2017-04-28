@@ -955,9 +955,9 @@ body {
     background-image: url("../img/logo-final-mobile.png");
   }
 
-  .push-down {
-    margin-top: 10vh;
-  }
+    .push-down {
+        margin-top: 10vh;
+    }
 
   .logo-image {
     width: 60vw;

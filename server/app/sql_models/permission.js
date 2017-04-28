@@ -1,14 +1,14 @@
 exports.addPermission = function (options, callback) {
-    if(options.id == null || options.name == null || options.userId == null) {
+    if (options.id == null || options.name == null || options.userId == null) {
         callback(false, "You have not provided the necessary information");
     } else {
         findPermission(options, function (done, data) {
-            if(done == false){
+            if (done == false) {
                 callback(false, data);
             } else {
-                if(data.permission == 1){
+                if (data.permission == 1) {
                     var add;
-                    if(options.description != null) {
+                    if (options.description != null) {
                         add = new options.ps('add-permission', 'INSERT INTO permission VALUES($1, $2, $3) RETURNING name',
                             [options.id, options.name, options.description]);
                     } else {
@@ -35,7 +35,7 @@ exports.addPermission = function (options, callback) {
 exports.getPermission = findPermission;
 
 function findPermission(options, callback) {
-    if(options.userId == null) {
+    if (options.userId == null) {
         callback(false, "You have not provided the necessary information");
     } else {
         var find = new options.ps('find-permission', 'SELECT permission FROM users where id = $1', [options.userId]);

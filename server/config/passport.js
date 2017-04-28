@@ -33,7 +33,7 @@ module.exports = function (passport, db, pgp) {
         function (req, email, password, done) {
             var firstName = req.body.firstname;
             var lastName = req.body.lastname;
-            if(email == null || password == null || firstName == null || lastName == null) {
+            if (email == null || password == null || firstName == null || lastName == null) {
                 return done(null, false, "You have not provided all necessary information");
             } else {
                 var ps = pgp.PreparedStatement;
@@ -50,7 +50,7 @@ module.exports = function (passport, db, pgp) {
                     };
                     user.findByEmail(options, function (err, data) {
                         if (err) {
-                            if(err.code != 0) {
+                            if (err.code != 0) {
                                 return done(err);
                             }
                         }
@@ -66,7 +66,7 @@ module.exports = function (passport, db, pgp) {
                                 }
                                 options.password = hash;
                                 user.addUser(options, function (err1, result) {
-                                    if(err1) {
+                                    if (err1) {
                                         return done(err);
                                     }
 
@@ -96,7 +96,7 @@ module.exports = function (passport, db, pgp) {
         function (req, email, password, done) { // callback with email and password from our form
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            if(email == null || password == null) {
+            if (email == null || password == null) {
                 return done(null, false, 'You have not provided all the necessary information');
             }
             var ps = pgp.PreparedStatement;
