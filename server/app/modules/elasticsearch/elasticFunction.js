@@ -261,6 +261,97 @@ exports.getIntervalSteps = function (options, res) {
     })
 };
 
+
+exports.getGeneric = function (options, res) {
+
+    var intervals = [];
+    if (options.step != 1)
+        makeSteppedInterval(options, intervals);
+
+    var exclusion_list = [];
+    if (options.exclusion !== "none") {
+        var exclusion_json = JSON.parse(options.exclusion);
+        exclusion_json.forEach(function (item) {
+            var tempexcl = {
+                bool: {
+                    must: {
+                        range: {
+                            lat: {
+                                from: item.lat1,
+                                to: item.lat2
+                            }
+                        },
+                        range: {
+                            long: {
+                                from: item.lng1,
+                                to: item.lng2
+                            }
+                        }
+                    }
+                }
+            };
+            exclusion_list.push(tempexcl);
+        });
+    }
+
+    console.log(options.hourStart);
+
+    var hourscript = {
+        script: {
+            script: {
+                inline: "( (doc['time'].value/60)%1440 > (" + options.hourStart*60 + ") ) & ( (doc['time'].value/60)%1440 < (" + options.hourEnd*60 + ") )",
+                //inline: "doc['time'].date.hourOfDay > 12",
+                lang: "expression"
+            }
+        }
+    };
+
+    var query = {
+        size: options.size,
+        body: {
+            query: {
+                bool: {
+                    must_not: exclusion_list,
+                    must: [
+                        hourscript,
+                        {
+                            bool: {
+                                should: intervals
+                            }
+                        }
+                    ]
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    };
+
+    //set device or get from all
+    if (options.device !== "all")
+        query.index = options.device;
+
+    //set parameter or get all
+    if (options.param !== "all")
+        query.type = options.param;
+
+    client.search(query).then(function (resp) {
+        var out = [];
+
+        resp.hits.hits.forEach(function (d) {
+            out.push(d["_source"]);
+        });
+
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
+
 exports.getIntervalStepsAll = function(options, res) {
     var intervals = [];
     var entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));

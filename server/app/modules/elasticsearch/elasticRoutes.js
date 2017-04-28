@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var elasticFunction = require('./elasticFunction');
 var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
+var params_witall = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm|all)';
+var datamodes = '(|array|indexmap)';
 
 router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
     var options = {
@@ -73,6 +75,25 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     }
 });
 
+router.get('/generic/:device/:param' + params_witall + '/:exclusion/:hourStart/:hourEnd/:timeStart/:timeEnd/:step/:size', function (req, res) {
+    /* TODO change to POST */
+
+    var options = {
+        datamode: req.params.datamode,
+        device: req.params.device,
+        param: req.params.param,
+        start: req.params.timeStart,
+        end: req.params.timeEnd,
+        step: req.params.step,
+        exclusion: req.params.exclusion,
+        size: req.params.size,
+        hourStart: req.params.hourStart,
+        hourEnd: req.params.hourEnd
+    };
+
+    elasticFunction.getGeneric(options, res);
+});
+
 router.get('/live', function (req, res) {
     elasticFunction.getLive(res);
 });
@@ -80,8 +101,6 @@ router.get('/live', function (req, res) {
 router.get('/livemeans', function(req, res){
    elasticFunction.getLiveMeans(res);
 });
-
-
 
 
 module.exports = router;
