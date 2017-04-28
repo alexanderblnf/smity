@@ -29,7 +29,7 @@ angular.module('Smity')
 function ChartAndMap() {
     return {
         // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
-        templateUrl: '/templates/d3Template.html',
+        templateUrl: '/templates/chartAndMapTemplate.html',
         scope: {
             param: '@',
             yAxis: '@',

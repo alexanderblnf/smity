@@ -7,14 +7,14 @@ angular
 		'$mdSidenav',
 		'$q',
 		'$timeout',
-		'UradService',
+		'ElasticService',
         'SecurityService',
         'SharedVariables',
         '$scope',
         '$rootScope',
         SmityController]);
 
-function SmityController($state, $mdSidenav, $q, $timeout, UradService, SecurityService, SharedVariables, $scope, $rootScope) {
+function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables, $scope, $rootScope) {
 	var vm = this;
 
 	vm.go = go;
@@ -22,10 +22,11 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	vm.openLeftMenu = openLeftMenu;
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
-	vm.liveData = {};
 	vm.remove = remove;
-    vm.mapType = SharedVariables.getMapType();
-    vm.setType = setType;
+	vm.setType = setType;
+
+	vm.liveData = {};
+	vm.mapType = SharedVariables.getMapType();
     vm.initHeatMap = SharedVariables.getInitHeatMap();
 
 	// invite friends
@@ -132,7 +133,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, UradService, Security
 	// }
 
 	function getAll() {
-		UradService.getAll().then(function (response) {
+		ElasticService.getAll().then(function (response) {
 			vm.liveData = response;
 			vm.liveData.pressure *= 0.00750061683;
 			vm.liveData.pressure  = Math.round(vm.liveData.pressure);

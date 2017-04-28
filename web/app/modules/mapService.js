@@ -1,15 +1,14 @@
 'use strict';
 angular.module('Smity')
-    .service('MapService', ['UradService', MapService]);
+    .service('MapService', ['ElasticService', MapService]);
 
-
-function MapService(UradService) {
+function MapService(ElasticService) {
 
     return {
         initMap: initMap
     };
 
-    function initGoogleMaps(mapconfig) {
+    function _initGoogleMaps(mapconfig) {
         var coord = new google.maps.LatLng(mapconfig.centerlat, mapconfig.centerlng);
         var options = {
             zoom: mapconfig.centerzoom,
@@ -20,7 +19,7 @@ function MapService(UradService) {
         return map;
     }
 
-    function initHeatmap(map, mapconfig) {
+    function _initHeatmap(map, mapconfig) {
         var heatmap = new HeatmapOverlay(map,
             {
                 "minOpacity": mapconfig.minopacity,
@@ -38,12 +37,12 @@ function MapService(UradService) {
         return heatmap;
     }
 
-    function computeDist(point1, point2) {
+    function _computeDist(point1, point2) {
         return Math.sqrt(Math.pow(point1["lat"] - point2["lat"], 2) + Math.pow(point1["long"] - point2["long"], 2));
     }
 
-    function heatmapPlotData(heatmap, mapconfig, fromtime, totime) {
-        UradService.heatMap(fromtime, totime)
+    function _heatmapPlotData(heatmap, mapconfig, param, fromtime, totime) {
+        ElasticService.heatMap(param, fromtime, totime)
             .then(function (data) {
                 var avglat, avglong, avgval, count;
                 var data_normalized = [];
@@ -54,14 +53,14 @@ function MapService(UradService) {
 
                     avglat = data[i]["lat"];
                     avglong = data[i]["long"];
-                    avgval = data[i]["temperature"];
+                    avgval = data[i][param];
                     count = 1;
 
                     for (var j = i + 1; j < data.length; j++) {
-                        if (computeDist(data[i], data[j]) < mapconfig.radius) {
+                        if (_computeDist(data[i], data[j]) < mapconfig.radius) {
                             avglat += data[j]["lat"];
                             avglong += data[j]["long"];
-                            avgval += data[j]["temperature"];
+                            avgval += data[j][param];
                             count++;
                             data[j]['visited'] = true;
                         }
@@ -70,7 +69,7 @@ function MapService(UradService) {
                     var point = {};
                     point["lat"] = avglat / count;
                     point["long"] = avglong / count;
-                    point["temperature"] = avgval / count;
+                    point[param] = avgval / count;
 
                     data[i]['visited'] = true;
                     data_normalized.push(point);
@@ -80,10 +79,10 @@ function MapService(UradService) {
                     var minval = Number.MAX_VALUE;
                     var maxval = Number.MIN_VALUE;
                     data_normalized.forEach(function (item) {
-                        if (item["temperature"] < minval)
-                            minval = item["temperature"];
-                        if (item["temperature"] > maxval)
-                            maxval = item["temperature"];
+                        if (item[param] < minval)
+                            minval = item[param];
+                        if (item[param] > maxval)
+                            maxval = item[param];
                     });
                 }
                 else {
@@ -99,7 +98,7 @@ function MapService(UradService) {
             });
     }
 
-    function initMap() {
+    function initMap(param) {
 
         var CITY_LAT = 46.0684893;
         var CITY_LNG = 23.5634674;
@@ -123,7 +122,7 @@ function MapService(UradService) {
         //coord radius of heatmap point
         mapconfig.radius = 0.0008;
         //name of fields in data
-        mapconfig.valfield = 'temperature';
+        mapconfig.valfield = param;
         mapconfig.latfield = 'lat';
         mapconfig.lngfield = 'long';
         //use extremas from data as min/max for heatmap
@@ -133,16 +132,13 @@ function MapService(UradService) {
         mapconfig.minval = null;
         mapconfig.maxval = null;
 
-        var map = initGoogleMaps(mapconfig);
-        var heatmap = initHeatmap(map, mapconfig);
+        var map = _initGoogleMaps(mapconfig);
+        var heatmap = _initHeatmap(map, mapconfig);
 
         var fromtime = 1480687145;
         var totime = 1492551145;
 
-
-        heatmapPlotData(heatmap, mapconfig, fromtime, totime);
-
-
+        _heatmapPlotData(heatmap, mapconfig, param, fromtime, totime);
     }
 
 }

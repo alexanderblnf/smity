@@ -9,9 +9,10 @@ angular
 		'ui.router',
 		'ngMaterial',
 		'ngCookies',
-        'urad',
         'moment-picker',
-        'auth'
+		'auth',
+		'd3Module',
+		'elastic'
 	])
 
     // .config(['$httpProvider',
@@ -24,34 +25,6 @@ angular
 	// 	$httpProvider.interceptors.push('SecurityInterceptor');
 	// }])
 
-	// .config(['$urlRouterProvider', function navInterceptorConfig($urlRouterProvider) {
-	// 	$urlRouterProvider
-	// 		.when('/login', [
-	// 			'$state',
-	// 			'$injector',
-	// 			function ($state, $injector) {
-	// 				var SecurityService = $injector.get('SecurityService');
-	//
-	// 				// if already in login state and trying to reach again `/login`
-	// 				// don't do a redirection because it will enter in an infinite loop
-	// 				if ($state.$current.name === 'login') {
-	// 					return true;
-	// 				}
-	//
-	// 				// if already authenticated and trying to reach `/login`
-	// 				if (SecurityService.isAuthenticated()) {
-	// 					return "/";
-	// 				}
-	//
-	// 				return false;
-	// 			}
-	// 		])
-	// 		.otherwise(function () {
-	// 			return '/login';
-	// 		});
-	// }
-	// ])
-
 	.config([
 		'$stateProvider',
 		'$urlRouterProvider',
@@ -59,16 +32,6 @@ angular
 			$urlRouterProvider.otherwise('/home');
 
 			$stateProvider
-			// .state('login', {
-			// 	url: '/login',
-			// 	templateUrl: '/templates/login.html',
-			// 	controller: 'SecurityController as vm'
-			// })
-			// .state('register', {
-			// 	url: '/register',
-			// 	templateUrl: '/templates/register.html',
-			// 	controller: 'SecurityController as vm'
-			// })
 				.state('app', {
 					url: '',
 					abstract: true,
@@ -87,7 +50,10 @@ angular
 					url: '/temperature',
 					views: {
 						'home': {
-                            template: '<chart-and-map param="temperature" y-axis="Temperatura (Celsius)" map-type="vm.mapType"></chart-and-map>',
+							template: '<chart-and-map data-param="temperature"' +
+							'data-y-axis="Temperatura (Celsius)"' +
+							'data-map-type="vm.mapType"' +
+							'data-predict-callback="vm.predict"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -96,7 +62,10 @@ angular
                     url: '/pressure',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="pressure" y-axis="Presiune (Pascal)" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="pressure"' +
+	                        'data-y-axis="Presiune (Pascal)"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -105,7 +74,10 @@ angular
                     url: '/humidity',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="humidity" y-axis="Umiditate (%)" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="humidity"' +
+	                        'data-y-axis="Umiditate (%)"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -114,7 +86,10 @@ angular
                     url: '/co2',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="co2" y-axis="Dioxid de carbon (ppm)" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="co2"' +
+	                        'data-y-axis="Dioxid de carbon (ppm)"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -123,7 +98,10 @@ angular
                     url: '/pm25',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="pm25" y-axis="Particule de praf (µg/m³)" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="pm25"' +
+	                        'data-y-axis="Particule de praf (µg/m³)"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -132,7 +110,10 @@ angular
                     url: '/voc',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="voc" y-axis="Compusi organici volatili" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="voc"' +
+	                        'data-y-axis="Compusi organici volatili"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -141,7 +122,10 @@ angular
                     url: '/ch2o',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="ch2o" y-axis="Formaldehida (ppm)" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="ch2o"' +
+	                        'data-y-axis="Formaldehida (ppm)"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -150,7 +134,10 @@ angular
                     url: '/cpm',
                     views: {
                         'home': {
-                            template: '<chart-and-map param="cpm" y-axis="Radiatii (µSv/h)" predict-callback="vm.predict"></chart-and-map>',
+	                        template: '<chart-and-map data-param="cpm"' +
+	                        'data-y-axis="Radiatii (µSv/h)"' +
+	                        'data-predict-callback="vm.predict"' +
+	                        'data-map-type="vm.mapType"></chart-and-map>',
                             controller: 'D3Controller as vm'
 						}
 					}
@@ -162,15 +149,21 @@ angular
         var SecurityService = $injector.get('SecurityService');
         SecurityService.loggedIn();
         $rootScope.$state = $state;
+
+	    var SharedVariables = $injector.get('SharedVariables');
+	    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+		    SharedVariables.clearInitHeatMap();
+
+		    if (SharedVariables.getMapType() === true) {
+			    $rootScope.$broadcast('map-changed');
+		    }
+	    });
     }])
 
 	.constant('Constants', {
 		URL: {
 			ELASTIC: 'http://141.85.232.64:9200',
 			LOCALHOST: 'http://localhost:8080'
-		},
-		AUTH: {
-			TOKEN: 'Token'
 		}
 	});
 

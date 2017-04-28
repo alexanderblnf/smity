@@ -186,7 +186,7 @@
 			<small>Control panel</small>
 		</h1>
 
-		<label class="switch col-xs-6">
+		<label class="switch col-xs-6" ng-if="!$state.includes('app.home')">
 			<input type="checkbox" ng-click="vm.setType()">
 			<div class="slider round"></div>
 		</label>

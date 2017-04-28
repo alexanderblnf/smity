@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('urad')
-	.factory('UradResource', ['$resource', 'Constants', UradResource]);
+angular.module('elastic')
+	.factory('ElasticResource', ['$resource', 'Constants', ElasticResource]);
 
-function UradResource($resource, Constants) {
+function ElasticResource($resource, Constants) {
 	return $resource(Constants.URL.LOCALHOST + '/elastic/livemeans', {}, {
 		'live': {
 			method: 'GET'
@@ -14,7 +14,7 @@ function UradResource($resource, Constants) {
         },
         'heatmap': {
             method: 'GET',
-            url: Constants.URL.LOCALHOST + '/elastic/heatmapdata/temperature/:timeStart/:timeEnd',
+	        url: Constants.URL.LOCALHOST + '/elastic/heatmapdata/:param/:timeStart/:timeEnd',
             isArray: true
 		}
 	})

@@ -13,9 +13,6 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 	return {
 		login: login,
 		register: register,
-		remove: remove,
-		isAuthenticated: isAuthenticated,
-		getToken: getToken,
 		logout: logout,
 		loggedIn: loggedIn,
 		setCredentials: setCredentials,
@@ -40,18 +37,6 @@ function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $
 
 	function register(credentials) {
 		return SecurityResource.register(credentials).$promise;
-	}
-
-	function remove() {
-		return LocalStorage.remove(Constants.AUTH.TOKEN);
-	}
-
-	function isAuthenticated() {
-		return !!LocalStorage.get(Constants.AUTH.TOKEN);
-	}
-
-	function getToken() {
-		return LocalStorage.get(Constants.AUTH.TOKEN);
 	}
 
 	function logout() {
