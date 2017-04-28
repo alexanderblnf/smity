@@ -6,12 +6,15 @@ angular.module('Smity')
 function SharedVariables() {
     var mapType = true;
     var initHeatMap = 0;
+    var param = '';
 
     return {
         getMapType: getMapType,
         setMapType: setMapType,
         getInitHeatMap: getInitHeatMap,
-        setInitHeatMap: setInitHeatMap
+        setInitHeatMap: setInitHeatMap,
+        getParam: getParam,
+        setParam: setParam
     };
 
     function setMapType() {
@@ -28,5 +31,13 @@ function SharedVariables() {
 
     function setInitHeatMap() {
         initHeatMap++;
+    }
+
+    function getParam() {
+        return param;
+    }
+
+    function setParam(value) {
+        param = value;
     }
 }
