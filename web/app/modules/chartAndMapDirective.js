@@ -34,7 +34,8 @@ function ChartAndMap() {
             param: '@',
             yAxis: '@',
             predictCallback: '&',
-            mapType: '='
+	        mapType: '=',
+	        heatMapFunction: '&'
         },
         restrict: 'E',
         link: link
@@ -675,6 +676,15 @@ function ChartAndMap() {
             initD3($scope.param);
             generateD3(unixStart, unixEnd, $scope.param);
         };
+
+	    $scope.applyHeatMap = function () {
+		    var startDate = new Date($scope.vm.startDateHeatMap);
+		    var endDate = new Date($scope.vm.endDateHeatMap);
+		    var unixStart = Math.floor(startDate.getTime() / 1000);
+		    var unixEnd = Math.floor(endDate.getTime() / 1000);
+
+		    $scope.heatMapFunction()(unixStart, unixEnd);
+	    };
 
         var now = new Date();
         var initStart = Math.floor(now.getTime() / 1000 - 10000);

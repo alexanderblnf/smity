@@ -53,7 +53,8 @@ angular
 							template: '<chart-and-map data-param="temperature"' +
 							'data-y-axis="Temperatura (Celsius)"' +
 							'data-map-type="vm.mapType"' +
-							'data-predict-callback="vm.predict"></chart-and-map>',
+							'data-predict-callback="vm.predict"' +
+							'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }

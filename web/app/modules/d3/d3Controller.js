@@ -44,13 +44,9 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
             });
     }
 
-    function apply() {
-        var startDate = new Date(vm.startDateHeatMap);
-        var endDate = new Date(vm.endDateHeatMap);
-        var unixStart = Math.floor(startDate.getTime() / 1000);
-        var unixEnd = Math.floor(endDate.getTime() / 1000);
+	function apply(startTime, stopTime) {
         setTimeout(function () {
-            MapService.initMap($state.current.name.split('.')[1], unixStart, unixEnd);
+	        MapService.initMap($state.current.name.split('.')[1], startTime, stopTime);
         }, 0.1);
     }
 }
