@@ -5,7 +5,8 @@ angular.module('Smity')
 function MapService(ElasticService) {
 
     return {
-        initMap: initMap
+        initMap: initMap,
+        reloadMap: reloadMap
     };
 
     function _initGoogleMaps(mapconfig) {
@@ -15,7 +16,6 @@ function MapService(ElasticService) {
             center: coord
         };
         var map = new google.maps.Map(document.getElementById(mapconfig.containername), options);
-        console.log(map);
         return map;
     }
 
@@ -135,13 +135,19 @@ function MapService(ElasticService) {
         var map = _initGoogleMaps(mapconfig);
         var heatmap = _initHeatmap(map, mapconfig);
 
-        // var date = new Date();
-        // var now = Math.floor(date.getTime() / 1000);
-
-        // var fromtime = now - 3600 * 24;
-        // var totime = now;
 
         _heatmapPlotData(heatmap, mapconfig, param, fromTime, toTime);
+
+        var obj = {
+            heatmap: heatmap,
+            mapconfig: mapconfig
+        };
+
+        return obj;
+    }
+
+    function reloadMap(mapObject, param, fromTime, toTime) {
+        _heatmapPlotData(mapObject.heatmap, mapObject.mapconfig, param, fromTime, toTime);
     }
 
 }

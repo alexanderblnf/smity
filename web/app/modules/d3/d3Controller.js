@@ -18,6 +18,7 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
     vm.startDateHeatMap = undefined;
     vm.endDateHeatMap = undefined;
     vm.mapType = SharedVariables.getMapType();
+    vm.mapObject = undefined;
 
 	vm.predict = predict;
     vm.apply = apply;
@@ -32,7 +33,7 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
             var fromTime = now - 3600 * 24;
             var toTime = now;
             setTimeout(function () {
-                MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
+                vm.mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
             }, 0.1);
         }
     });
@@ -46,7 +47,7 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
 
 	function apply(startTime, stopTime) {
         setTimeout(function () {
-	        MapService.initMap($state.current.name.split('.')[1], startTime, stopTime);
+            MapService.reloadMap(vm.mapObject, $state.current.name.split('.')[1], startTime, stopTime)
         }, 0.1);
     }
 }

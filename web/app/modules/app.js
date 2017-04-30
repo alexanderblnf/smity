@@ -66,7 +66,8 @@ angular
 	                        template: '<chart-and-map data-param="pressure"' +
 	                        'data-y-axis="Presiune (Pascal)"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -78,7 +79,8 @@ angular
 	                        template: '<chart-and-map data-param="humidity"' +
 	                        'data-y-axis="Umiditate (%)"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -90,7 +92,8 @@ angular
 	                        template: '<chart-and-map data-param="co2"' +
 	                        'data-y-axis="Dioxid de carbon (ppm)"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -102,7 +105,8 @@ angular
 	                        template: '<chart-and-map data-param="pm25"' +
 	                        'data-y-axis="Particule de praf (µg/m³)"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -114,7 +118,8 @@ angular
 	                        template: '<chart-and-map data-param="voc"' +
 	                        'data-y-axis="Compusi organici volatili"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -126,7 +131,8 @@ angular
 	                        template: '<chart-and-map data-param="ch2o"' +
 	                        'data-y-axis="Formaldehida (ppm)"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -138,7 +144,8 @@ angular
 	                        template: '<chart-and-map data-param="cpm"' +
 	                        'data-y-axis="Radiatii (µSv/h)"' +
 	                        'data-predict-callback="vm.predict"' +
-	                        'data-map-type="vm.mapType"></chart-and-map>',
+                            'data-map-type="vm.mapType"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
 						}
 					}
