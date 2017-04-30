@@ -1,4 +1,11 @@
-<div class="box-body" id="map-container" style="height: 400px" ng-show="mapType"></div>
+<div id="calendar-heatmap" ng-show="mapType">
+    <input class="form-control rounded-form" ng-model="vm.startDate" placeholder="Start date"
+           moment-picker="vm.startDate">
+    <input class="form-control rounded-form" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">
+    <button class="apply-date btn" ng-click="apply()" style="margin-top: 3%">Apply</button>
+</div>
+<div class="box-body" id="map-container" style="height: 400px" ng-show="mapType">
+</div>
 <div id="maps-div" ng-show="!mapType"></div>
 <div id="calendar-div">
     <div id="center-div">
