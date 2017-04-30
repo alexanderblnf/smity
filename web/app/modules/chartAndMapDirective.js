@@ -683,7 +683,6 @@ function ChartAndMap() {
         $scope.predict = function () {
             var futureTime = initEnd + 24 * 3600;
             $scope.predictCallback()($scope.param, futureTime, function (response) {
-                console.log(response);
                 $scope.result = Math.floor(response.result);
             });
         };

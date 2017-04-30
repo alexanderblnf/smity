@@ -98,7 +98,7 @@ function MapService(ElasticService) {
             });
     }
 
-    function initMap(param) {
+    function initMap(param, fromTime, toTime) {
 
         var CITY_LAT = 46.0684893;
         var CITY_LNG = 23.5634674;
@@ -135,10 +135,13 @@ function MapService(ElasticService) {
         var map = _initGoogleMaps(mapconfig);
         var heatmap = _initHeatmap(map, mapconfig);
 
-        var fromtime = 1480687145;
-        var totime = 1492551145;
+        // var date = new Date();
+        // var now = Math.floor(date.getTime() / 1000);
 
-        _heatmapPlotData(heatmap, mapconfig, param, fromtime, totime);
+        // var fromtime = now - 3600 * 24;
+        // var totime = now;
+
+        _heatmapPlotData(heatmap, mapconfig, param, fromTime, toTime);
     }
 
 }
