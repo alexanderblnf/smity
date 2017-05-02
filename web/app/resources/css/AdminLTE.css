@@ -5177,6 +5177,24 @@ input:checked + .slider:before {
   box-shadow: 0 0 3px #222222;
 }
 
-#map-container {
+.input-heatmap::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: #ff6600 !important;
+}
 
+.input-heatmap:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #ff6600 !important;
+  opacity: 1;
+}
+
+.input-heatmap::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #ff6600 !important;
+  opacity: 1;
+}
+
+.input-heatmap:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #ff6600 !important;
+}
+
+#map-container {
+  width: 90%;
 }
