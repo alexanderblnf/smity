@@ -10,11 +10,12 @@ angular
 		'ElasticService',
         'SecurityService',
         'SharedVariables',
+        'IntelilightService',
         '$scope',
         '$rootScope',
         SmityController]);
 
-function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables, $scope, $rootScope) {
+function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables, IntelilightService, $scope, $rootScope) {
 	var vm = this;
 
 	vm.go = go;

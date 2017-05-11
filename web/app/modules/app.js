@@ -12,7 +12,8 @@ angular
         'moment-picker',
 		'auth',
 		'd3Module',
-		'elastic'
+        'elastic',
+        'intelilight'
 	])
 
     // .config(['$httpProvider',
@@ -150,6 +151,15 @@ angular
 						}
 					}
 				})
+                .state('app.intelilight', {
+                    url: '/intelilight',
+                    views: {
+                        'home': {
+                            templateUrl: '/templates/inteliMap.html',
+                            controller: 'IntelilightController as vm'
+                        }
+                    }
+                })
 			;
 		}])
 

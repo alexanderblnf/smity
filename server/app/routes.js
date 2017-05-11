@@ -189,7 +189,7 @@ module.exports = function (app, passport, db, pgp) {
      Intelilight API
      ============================
      */
-    var intelilight = require('./modules/intelilight/intelilightRoutes');
+    var intelilight = require('./modules/intelilight/elasticRoutes');
     app.use('/intelilight', intelilight);
 
 

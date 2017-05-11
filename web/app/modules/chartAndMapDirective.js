@@ -49,7 +49,9 @@ function ChartAndMap() {
         var width = viewportWidth - margin.left - margin.right;
         var xScale = d3.scaleTime().range([0, width - 0.2 * viewportWidth]);
         var yScale = d3.scaleLinear().range([height, 0]);
-        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        // var color = d3.scaleOrdinal(d3.schemeCategory10);
+        var color = d3.scaleOrdinal()
+            .range(['#2ba1f9', '#fc9765', '#64b5a9', '#ffed26', '#8bff8f', '#ca73ff', '#66ccff', '#f4e97d', '#ee5859', '#e55107', '#ecc781', '#8a96dd', '#e3d4ff', '#ff8c89', '#638463', '#e5000c', '#c2e351']);
         var svg, bisectDate, line, focus, first, limitLines;
         var max = 0;
         var maxWidth = 0;
@@ -278,7 +280,7 @@ function ChartAndMap() {
                 .append("text")
                 .attr("x", width - 25)
                 .attr("y", function (d, i) {
-                    return i * 1.5 * slice + 0.026 * viewportHeight;
+                    return i * 1.5 * slice + slice / 5 + 0.06 * viewportHeight;
                 })
                 .text(function (d) {
                     return d.value;
@@ -466,21 +468,20 @@ function ChartAndMap() {
                         .attr("width", 0.1 * viewportWidth)
                         .attr('transform', 'translate(-' + 0.13 * viewportWidth + ',0)');
 
-                    slice = (height - 0.25 * viewportHeight) / length;
+                    slice = (height - 0.3 * viewportHeight) / length;
 
-                    legend.selectAll('rect')
+                    legend.selectAll('circle')
                         .data(params)
                         .enter()
-                        .append("rect")
+                        .append("circle")
                         .attr("id", function (d, i) {
-                            return "rect_id" + d.name;
+                            return "circ_id" + d.name;
                         })
-                        .attr("x", width - 65)
-                        .attr("y", function (d, i) {
-                            return i * 1.5 * slice;
+                        .attr("cx", width - 65)
+                        .attr("cy", function (d, i) {
+                            return i * 1.5 * slice + 0.06 * viewportHeight;
                         })
-                        .attr("width", slice)
-                        .attr("height", slice)
+                        .attr("r", slice / 2)
                         .style("fill", function (d) {
                             return color(d.name);
                         })
@@ -508,7 +509,7 @@ function ChartAndMap() {
                             var key = d.name;
                             if (keys.indexOf(key) != -1) {
                                 d3.select("#id" + d.name).style("display", "none");
-                                d3.select("#rect_id" + d.name).style("fill", "white");
+                                d3.select("#circ_id" + d.name).style("fill", "white");
                                 for (j = 0; j < cache[key].length; j++) {
                                     delete cache[key][j];
                                 }
@@ -524,7 +525,7 @@ function ChartAndMap() {
                                 reScale(cache, keys, param);
                             } else {
                                 d3.select("#id" + d.name).style("display", "");
-                                d3.select("#rect_id" + d.name).style("fill", color(key));
+                                d3.select("#circ_id" + d.name).style("fill", color(key));
                                 cache[key] = [];
                                 keys.push(key);
                                 for (var j = 0; j < data[key].length; j++) {
@@ -540,9 +541,9 @@ function ChartAndMap() {
                         .append("text")
                         .attr("x", width - 30)
                         .attr("y", function (d, i) {
-                            return i * 1.5 * slice + 0.026 * viewportHeight;
+                            return i * 1.5 * slice + slice / 5 + 0.06 * viewportHeight;
                         })
-                        .attr("height", slice)
+                        .attr("height", 3 / 4 * slice)
                         .text(function (d) {
                             return d.name;
                         })
@@ -564,6 +565,12 @@ function ChartAndMap() {
                         });
 
 
+                    legend.append('text')
+                        .text("Sensors")
+                        .attr("x", width - 0.025 * viewportWidth)
+                        .attr("y", 0)
+                        .attr("height", 0.06 * viewportHeight)
+                        .style("font-size", "1.5em");
                     var results = svg.append("g")
                         .attr("class", "legend-results")
                         .attr("x", width - 0.25 * viewportWidth)
@@ -578,7 +585,7 @@ function ChartAndMap() {
                         .append("text")
                         .attr("x", width - 5)
                         .attr("y", function (d, i) {
-                            return i * 1.5 * slice + 0.026 * viewportHeight;
+                            return i * 1.5 * slice + slice / 5 + 0.06 * viewportHeight;
                         })
                         .text(function (d) {
                             return d.value;
