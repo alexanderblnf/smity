@@ -1,5 +1,18 @@
 var http = require('http');
 var func = require('./uradFunctions');
+var devices = ['82000034',
+    '82000036',
+    '82000037',
+    '82000038',
+    '82000039',
+    '82000057',
+    '82000058',
+    '8200003d',
+    '8200003b',
+    '8200003e',
+    '8200003c',
+    '8200003a',
+    '8200003f'];
 exports.getData = function (options, res) {
     http.get(options, function (response) {
 
@@ -27,6 +40,52 @@ exports.getData = function (options, res) {
             out.pipe(res);
         });
     });
+};
+
+function getParam(loop, options, all) {
+    http.get(options, function (response) {
+        var stream = require('stream');
+        var out = new stream.Readable();
+        var outJSON = [];
+        var full = "";
+        response.on('data', function (data) {
+            full += data;
+        });
+
+        response.on('end', function () {
+            var data = JSON.parse(full);
+            // if (data.success == null && data.error == null) {
+            //     func.filter(data, outJSON, options.param, options.limit);
+            //     out.push(JSON.stringify(outJSON));
+            //     out.push(null);
+            // } else if(data.error != null) {
+            //     out.push(JSON.stringify(data));
+            //     out.push(null);
+            // } else {
+            //     out.push('{"error":"Sensor is offline"}');
+            //     out.push(null);
+            // }
+            all.push(data);
+            loop();
+        });
+    });
+}
+
+exports.getAllForParam = function (options, res) {
+    var data = [];
+    asyncLoop2({
+        index: 0,
+        length: devices.length - 1,
+        options: options,
+        data: data,
+        functionToLoop: function (loop, options, index, data) {
+            options.path = '/api/v1/devices/' + devices[index] + '/' + options.param + '/' + options.interval;
+            getParam(loop, options, data);
+        },
+        callback: function () {
+            res.send(JSON.stringify(data));
+        }
+    })
 };
 
 exports.getDevices = function (options, res) {
@@ -106,6 +165,18 @@ var asyncLoop = function (o) {
         } else {
             o.functionToLoop(loop, o.options, o.params[o.index], o.data);
             o.index ++;
+        }
+    };
+    loop();
+};
+
+var asyncLoop2 = function (o) {
+    var loop = function () {
+        if (o.index == o.length) {
+            o.callback();
+        } else {
+            o.functionToLoop(loop, o.options, o.index, o.data);
+            o.index++;
         }
     };
     loop();

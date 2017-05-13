@@ -1,3 +1,3 @@
 module.exports = {
-    'url': 'postgres://postgres:Pulifrici1*@localhost:5432/postgres'
+    'url': 'postgres://postgres:postgres@localhost:5432/postgres'
 };

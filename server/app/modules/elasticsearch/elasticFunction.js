@@ -339,7 +339,7 @@ exports.getIntervalSteps = function (options, res) {
     client.search({
         index: options.device,
         type: options.param,
-        size: 50,
+        size: 200,
 
         body: {
             query: {
