@@ -111,10 +111,34 @@ function InteliMapService(IntelilightService) {
         br = document.createElement('br');
         current.appendChild(br);
 
+        var power = document.createElement('div');
+        br = document.createElement('br');
+        span = document.createElement('span');
+        span.innerHTML = "Reactive Power: " + controller["nvoPowerReact"];
+        power.appendChild(span);
+        power.appendChild(br);
+        span = document.createElement('span');
+        span.innerHTML = "Active Power: " + controller["nvoPowerAct"];
+        power.appendChild(span);
+        br = document.createElement('br');
+        power.appendChild(br);
+        span = document.createElement('span');
+        span.innerHTML = "Average Reactive Power: " + controller["nvoPowerReactAvg"];
+        power.appendChild(span);
+        br = document.createElement('br');
+        power.appendChild(br);
+        span = document.createElement('span');
+        span.innerHTML = "Average Active Power: " + controller["nvoPowerActAvg"];
+        power.appendChild(span);
+        br = document.createElement('br');
+        power.appendChild(br);
+
+
 
         infoBubble.addTab('Info', info);
         infoBubble.addTab('Voltage', voltage);
         infoBubble.addTab('Current', current);
+        infoBubble.addTab('Power', power);
         infoBubble.open(map, marker);
     }
 
