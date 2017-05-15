@@ -15,4 +15,23 @@ router.get('/position/', function (req, res) {
     elasticFunction.getPosition(res);
 });
 
+router.get('/historic/all/:startTime/:endTime', function (req, res) {
+    var options = {
+        controller: req.params.controller,
+        start: req.params.startTime,
+        end: req.params.endTime
+    };
+    elasticFunction.getHistoricDataForAll(options, res);
+});
+
+router.get('/historic/:controller/:startTime/:endTime', function (req, res) {
+    var options = {
+        controller: req.params.controller,
+        start: req.params.startTime,
+        end: req.params.endTime
+    };
+    elasticFunction.getHistoricData(options, res);
+});
+
+
 module.exports = router;

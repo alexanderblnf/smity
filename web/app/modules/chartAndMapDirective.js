@@ -56,9 +56,12 @@ function ChartAndMap() {
         var max = 0;
         var maxWidth = 0;
         var limits = {
-            'colors': ['green', 'yellow', 'orange', 'red'],
+            'co2_colors': ['green', 'yellow', 'orange', 'red'],
             'co2': [600, 1000, 2500, 5000],
-            'co2_messages': ['acceptable', 'limit', 'drowsiness', 'adverse health effects']
+            'co2_messages': ['acceptable', 'limit', 'drowsiness', 'adverse health effects'],
+            'pm25_colors': ['yellow'],
+            'pm25': [35],
+            'pm25_messages': ['limit']
         };
 
         var markerCount = 0;
@@ -313,7 +316,7 @@ function ChartAndMap() {
                     if (max >= values[i]) {
                         limitLines.append("line")
                             .attr("class", "danger-line")
-                            .attr("stroke", limits['colors'][i])
+                            .attr("stroke", limits[param + '_colors'][i])
                             .attr("stroke-dasharray", "2,3")
                             .attr("stroke-width", "2")
                             .style("opacity", 1)
@@ -324,7 +327,7 @@ function ChartAndMap() {
                             .attr("class", "danger-text")
                             .attr("x", 0)
                             .attr("transform", "translate(0," + yScale(values[i] + 5) + ")")
-                            .style("fill", limits['colors'][i])
+                            .style("fill", limits[param + '_colors'][i])
                             .style("text-shadow", "1px 1px #000000")
                             .text(messages[i]);
 
@@ -337,6 +340,7 @@ function ChartAndMap() {
         function generateD3(startDate, endDate, param) {
             d3.json("http://localhost:8080/elastic/all/" + param + "/" + startDate + "/" + endDate,
                 function (data) {
+                    document.getElementById('d3-loader').style.display = 'none';
                     var keys = Object.keys(data);
                     var length = keys.length;
                     var measures = [];
@@ -679,7 +683,7 @@ function ChartAndMap() {
             var endDate = new Date($scope.vm.endDate);
             var unixStart = Math.floor(startDate.getTime() / 1000);
             var unixEnd = Math.floor(endDate.getTime() / 1000);
-            document.getElementById('chart-div').innerHTML = "";
+            document.getElementById('chart-div').innerHTML = '<div class="loader" id="d3-loader">Loading...</div>';
             initD3($scope.param);
             generateD3(unixStart, unixEnd, $scope.param);
         };

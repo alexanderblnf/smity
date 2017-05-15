@@ -30,7 +30,7 @@ router.get('/heatmapdata/:param' + params + '/:timeStart/:timeEnd', function (re
 	elasticFunction.getDataForHeatmap(options, res);
 });
 
-router.get('/:device/:param' + params + '/prediction/:desired', function (req, res) {
+router.get('/:param' + params + '/prediction/:desired', function (req, res) {
     var desired = new Date(req.params.desired * 1000);
     var hours = Number(desired.getHours()), minutes = Number(desired.getMinutes());
     var date = new Date();

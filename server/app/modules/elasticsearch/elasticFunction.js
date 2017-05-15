@@ -281,33 +281,15 @@ exports.getLiveMeans = function (res) {
     })
 };
 
-// exports.hourlyPrediction = function (options, res) {
-//     var data = [];
-//     var originalTime = options.time;
-//     asyncLoop({
-//         time: options.time,
-//         day: 3600 * 24,
-//         options: options,
-//         functionToLoop: function (loop, options, time) {
-//             //setTimeout(function () {
-//             getDocs(options, time, data, loop);
-//             //}, 500);
-//         },
-//         callback: function () {
-//             makeRegression(originalTime, data, res);
-//         }
-//     })
-// };
 
 exports.hourlyPrediction = function (options, res) {
-    var data = [];
     var intervals = [];
     makePredictionSteps(options, intervals);
 
     client.search({
-        index: options.device,
+        index: ['82000039', '8200003c', '8200003a', '8200003b', '8200003e', '82000036'],
         type: options.param,
-        size: 150,
+        size: 150 * 6,
 
         body: {
             query: {
@@ -322,10 +304,27 @@ exports.hourlyPrediction = function (options, res) {
             }]
         }
     }).then(function (resp) {
+        var sensors = {};
         resp.hits.hits.forEach(function (d) {
-            data.push(d["_source"]);
+            if (sensors[d["_index"]] == null) {
+                sensors[d["_index"]] = [];
+            }
+            sensors[d["_index"]].push(d["_source"]);
         });
-        makeRegression(options.desired, data, res, options.param);
+        var keys = Object.keys(sensors);
+        var result = [];
+        keys.forEach(function (key) {
+            result.push(makeRegression(options.desired, sensors[key], options.param));
+        });
+        var val = normalize(result);
+
+        var prediction = {
+            time: result[0].time,
+            // result: sum / result.length
+            result: val
+        };
+        res.send(prediction);
+
     }, function (err) {
         console.log(err.message);
     })
@@ -534,61 +533,8 @@ function makeSteppedInterval(options, intervals) {
     }
 }
 
-// function getDocs(options, time, data, loop) {
-//     var interval = 15 * 60;
-//     var start = time - interval;
-//     var end = time + interval;
-//     client.search({
-//         index: options.device,
-//         type: options.param,
-//         from: 0,
-//         size: 11,
-//         body: {
-//             query: {
-//                 range: {
-//                     time: {
-//                         from: start,
-//                         to: end
-//                     }
-//                 }
-//             },
-//             sort: [{
-//                 time: {
-//                     order: 'asc'
-//                 }
-//             }]
-//         }
-//     }).then(function (resp) {
-//         if (resp.hits.hits.length == 0) {
-//             loop(1);
-//         } else {
-//             var out = [];
-//             resp.hits.hits.forEach(function (d) {
-//                 out.push(d["_source"][options.param]);
-//             });
-//             data.push(array.arrayAverage(out));
-//             loop(0);
-//         }
-//     }, function (err) {
-//         console.log(err.message);
-//         loop(0);
-//     });
-//
-// }
-//
-// var asyncLoop = function (o) {
-//     var loop = function (stop) {
-//         o.time -= o.day;
-//         if (stop) {
-//             o.callback();
-//             return;
-//         }
-//         o.functionToLoop(loop, o.options, o.time);
-//     };
-//     loop();
-// };
 
-function makeRegression(time, data, res, param) {
+function makeRegression(time, data, param) {
     var regressionData = [];
     var length = data.length - 1;
     if (length <= 2) {
@@ -605,6 +551,37 @@ function makeRegression(time, data, res, param) {
             time: time,
             result: reg.equation[1]
         };
-        res.send(JSON.stringify(result));
+        return result;
     }
+}
+
+function normalize(results) {
+    var sum = 0;
+    results.forEach(function (d) {
+        sum += d.result;
+    });
+
+    sum = sum / results.length;
+
+    var dispersion = 0;
+
+    results.forEach(function (d) {
+        dispersion += Math.pow((d.result - sum), 2);
+    });
+
+    dispersion = Math.sqrt(dispersion / results.length);
+
+    var correctedCount = 0;
+    var correctedMeans = 0;
+
+    results.forEach(function (d) {
+        if (Math.abs(d.result - sum) < dispersion) {
+            correctedMeans += d.result;
+            correctedCount++;
+        }
+    });
+
+    correctedMeans = Math.round(correctedMeans / correctedCount * 1000) / 1000;
+
+    return correctedMeans;
 }

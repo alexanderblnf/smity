@@ -10,7 +10,7 @@ function ElasticResource($resource, Constants) {
         },
         'predict': {
             method: 'GET',
-            url: Constants.URL.LOCALHOST + '/elastic/82000034/:param/prediction/:time'
+            url: Constants.URL.LOCALHOST + '/elastic/:param/prediction/:time'
         },
         'heatmap': {
             method: 'GET',

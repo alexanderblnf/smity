@@ -80,6 +80,101 @@ exports.getPosition = function (res) {
     });
 };
 
+exports.getHistoricData = function (options, res) {
+    client.search({
+        index: options.controller,
+        from: 0,
+        size: 200,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: options.start,
+                        to: options.end
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = [];
+        var aux = resp.hits.hits;
+        var length = aux.length;
+        var i = 0;
+        while (i < length - 1) {
+            var entry = {};
+            var first = aux[i]["_source"]["time"];
+            // entry["controller"] = first;
+            entry["time"] = aux[i]["_id"];
+            while (aux[i]["_source"]["time"] == first) {
+                var type = aux[i]["_type"];
+                entry[type] = aux[i]["_source"][type];
+                i++;
+
+                if (i == length) {
+                    break;
+                }
+            }
+            out.push(entry);
+        }
+        res.send(out);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
+exports.getHistoricDataForAll = function (options, res) {
+    var size = 1000;
+    client.search({
+        from: 0,
+        size: size,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: options.start,
+                        to: options.end
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var out = [];
+        var aux = resp.hits.hits;
+        var length = aux.length;
+        var i = 0;
+        while (i < length - 1) {
+            var entry = {};
+            var first = aux[i]["_source"]["time"];
+            entry["controller"] = aux[i]["_index"];
+            entry["time"] = aux[i]["_id"];
+            while (aux[i]["_source"]["time"] == first) {
+                var type = aux[i]["_type"];
+                entry[type] = aux[i]["_source"][type];
+                i++;
+
+                if (i == length) {
+                    break;
+                }
+            }
+            out.push(entry);
+        }
+        res.send(out);
+        // res.send(resp);
+    }, function (err) {
+        console.log(err.message);
+    })
+};
+
 function getControllers(callback) {
     client.cat.indices({
         h: ['index']
