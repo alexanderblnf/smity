@@ -111,6 +111,13 @@ router.get('/generic/:device/:param' + params_witall + '/:exclusion/:hourStart/:
     elasticFunction.getGeneric(options, res);
 });
 
+router.get('/weekly/:param', function (req, res) {
+    var options = {
+        param: req.params.param
+    };
+    elasticFunction.weeklyReport(options, res);
+});
+
 router.get('/live', function (req, res) {
     elasticFunction.getLive(res);
 });

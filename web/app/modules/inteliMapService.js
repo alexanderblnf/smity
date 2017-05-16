@@ -83,7 +83,8 @@ function InteliMapService(IntelilightService) {
         span.className = "bold-span";
         info.appendChild(span);
         span = document.createElement('span');
-        span.innerHTML = controller["time"];
+        var date = new Date(controller["time"] * 1000);
+        span.innerHTML = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
         info.appendChild(span);
         br = document.createElement('br');
         info.appendChild(br);

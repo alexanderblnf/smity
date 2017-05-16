@@ -1,6 +1,7 @@
 DROP TABLE users;
 DROP TABLE permission;
 DROP TABLE preferences;
+DROP TABLE dailyreport;
 
 CREATE TABLE permission (
   id          INTEGER PRIMARY KEY,
@@ -22,3 +23,14 @@ CREATE TABLE users (
   permission  INTEGER REFERENCES permission (id),
   preferences TEXT []
 );
+
+CREATE TABLE dailyreport (
+  id       SERIAL PRIMARY KEY,
+  device   TEXT [] NOT NULL,
+  time     INTEGER NOT NULL,
+  maxval   REAL,
+  deviceid TEXT [] NOT NULL,
+  lat      DOUBLE PRECISION,
+  long     DOUBLE PRECISION,
+  average  DOUBLE PRECISION
+)

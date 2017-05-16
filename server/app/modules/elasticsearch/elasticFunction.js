@@ -492,6 +492,95 @@ exports.getIntervalStepsAll = function(options, res) {
     })
 };
 
+var length = 0;
+
+function iterate(res) {
+
+}
+
+exports.weeklyReport = function (options, res) {
+    var date = new Date();
+    var lastMonday = setMonday(date);
+    var unix = (Date.parse(lastMonday) / 1000) - (7 * 24 * 3600);
+    var result = [];
+    var count = 0;
+
+    for (var i = 0; i < 7; i++) {
+        var time = unix + (i * 24 * 3600);
+        client.search({
+            type: options.param,
+            size: 7200,
+            body: {
+                query: {
+                    bool: {
+                        must: {
+                            range: {
+                                time: {
+                                    from: time,
+                                    to: time + (24 * 3600)
+                                }
+                            }
+                        },
+                        must_not: {
+                            bool: {
+                                must: {
+                                    range: {
+                                        lat: {
+                                            from: 46.081621,
+                                            to: 46.083281
+                                        }
+                                    },
+                                    range: {
+                                        long: {
+                                            from: 23.574164,
+                                            to: 23.576459
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                sort: [{
+                    time: {
+                        order: 'asc'
+                    }
+                }]
+            }
+        }).then(function (resp) {
+            var max = null;
+            var entries = [];
+            resp.hits.hits.forEach(function (d) {
+                var temp = {
+                    time: d["_source"]["time"],
+                    result: d["_source"][options.param]
+                };
+                entries.push(temp);
+                if (max == null) {
+                    max = d["_source"];
+                } else {
+                    if (d["_source"][options.param] > max[options.param]) {
+                        max = d["_source"];
+                    }
+                }
+            });
+
+            var temp = {
+                max: max,
+                means: normalize(entries)
+            };
+
+            result.push(temp);
+            count++;
+            if (count == 7) {
+                res.send(result);
+            }
+        }, function (err) {
+            console.log(err.message);
+        })
+    }
+};
+
 function makePredictionSteps(options, intervals) {
     var start = Number(options.start);
     var end = Number(options.end);
@@ -511,6 +600,15 @@ function makePredictionSteps(options, intervals) {
         };
         intervals.push(temp);
     }
+}
+
+function setMonday(date) {
+    var day = date.getDay() || 7;
+    if (day !== 1) {
+    }
+    date.setHours(-24 * (day - 1));
+    date.setMinutes(0);
+    return date;
 }
 
 function makeSteppedInterval(options, intervals) {

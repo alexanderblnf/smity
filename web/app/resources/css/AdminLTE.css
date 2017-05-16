@@ -383,6 +383,7 @@ a:focus {
 .content-header {
     position: relative;
     padding: 15px 15px 0 15px;
+    margin-bottom: 2vh;
 }
 
 .content-header > h1 {
@@ -6024,8 +6025,8 @@ text {
     width: 70vw;
     height: 35vh;
     margin-left: 5vw;
-    margin-top: 2vh;
     margin-bottom: 2vh;
+
 }
 
 #calendar-div {
@@ -6166,7 +6167,7 @@ input:checked + .slider:before {
 
 #inteli-map-container {
     width: 80vw;
-    height: 80vh;
+    height: 70vh;
     margin-top: 10vh;
 }
 
