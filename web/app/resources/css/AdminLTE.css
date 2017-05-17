@@ -6279,3 +6279,9 @@ input:checked + .slider:before {
     color: black !important;;
 }
 
+.image-icon {
+    height: 25px;
+    margin-right: 3px;
+    margin-left: -4px;
+}
+
