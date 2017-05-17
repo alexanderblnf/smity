@@ -22,6 +22,7 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
 
 	vm.predict = predict;
     vm.apply = apply;
+    vm.weekly = weekly;
 
 	$scope.$on('map-changed', function () {
         vm.mapType = SharedVariables.getMapType();
@@ -49,5 +50,12 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
         setTimeout(function () {
             MapService.reloadMap(vm.mapObject, $state.current.name.split('.')[1], startTime, stopTime)
         }, 0.1);
+    }
+
+    function weekly(param, callback) {
+        ElasticService.weekly(param)
+            .then(function (response) {
+                callback(response);
+            })
     }
 }

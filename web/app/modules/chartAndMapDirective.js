@@ -34,8 +34,9 @@ function ChartAndMap() {
             param: '@',
             yAxis: '@',
             predictCallback: '&',
-	        mapType: '=',
-	        heatMapFunction: '&'
+            weeklyCallback: '&',
+            mapType: '=',
+            heatMapFunction: '&'
         },
         restrict: 'E',
         link: link
@@ -288,6 +289,7 @@ function ChartAndMap() {
                 .text(function (d) {
                     return d.value;
                 })
+
                 .on("mouseover", function (d, i) {
                     var key = d.name;
                     keys.forEach(function (dt) {
@@ -678,6 +680,179 @@ function ChartAndMap() {
                 });
         }
 
+        function makeModal(param) {
+            var modal = new tingle.modal({
+                footer: true,
+                stickyFooter: false,
+                closeMethods: ['overlay', 'button', 'escape'],
+                closeLabel: "Close",
+                cssClass: ['--visible', 'tingle-modal--overflow'],
+                onOpen: function () {
+                    console.log('modal open');
+                },
+                onClose: function () {
+                    console.log('modal closed');
+                },
+                beforeClose: function () {
+                    // here's goes some logic
+                    // e.g. save content before closing the modal
+                    return true; // close the modal
+                    return false; // nothing happens
+                }
+            });
+
+            modal.setContent('<div id="weekly-container">' +
+                '<h1>Weekly report - ' + param + '</h1>' +
+                '<table id="weekly-table">' +
+                '</table>' +
+                '<div id="loading-container"><div class="loader" id="weekly-loader">Loading...</div></div>' +
+                '<h3>Maximum values</h3>' +
+                '<div id="weekly-map"></div>' +
+                '</div>');
+            //
+            // modal.addFooterBtn('Button label', 'tingle-btn tingle-btn--primary', function () {
+            //     // here goes some logic
+            //     modal.close();
+            // });
+            //
+            // modal.addFooterBtn('Dangerous action !', 'tingle-btn tingle-btn--danger', function () {
+            //     // here goes some logic
+            //     modal.close();
+            // });
+            //
+            modal.open();
+
+            // modal.close();
+        }
+
+        function fillTd(weekday, index, response, param) {
+            var td, div, h3, br, span;
+            td = document.createElement('td');
+            div = document.createElement('div');
+            h3 = document.createElement('h3');
+            h3.innerHTML = weekday;
+            div.appendChild(h3);
+            br = document.createElement('br');
+            div.appendChild(br);
+            span = document.createElement('span');
+            span.className = "bold-span";
+            span.innerHTML = "Maximum value: ";
+            div.appendChild(span);
+            span = document.createElement('span');
+            span.innerHTML = response[index]['max'][param];
+            div.appendChild(span);
+            br = document.createElement('br');
+            div.appendChild(br);
+            span = document.createElement('span');
+            span.className = "bold-span";
+            span.innerHTML = "Average value: ";
+            div.appendChild(span);
+            span = document.createElement('span');
+            span.innerHTML = response[index]['means'];
+            div.appendChild(span);
+            td.appendChild(div);
+
+            return td;
+        }
+
+        function _initGoogleMaps(mapconfig) {
+            var coord = new google.maps.LatLng(mapconfig.centerlat, mapconfig.centerlng);
+            var options = {
+                zoom: mapconfig.centerzoom,
+                center: coord
+            };
+            var map = new google.maps.Map(document.getElementById(mapconfig.containername), options);
+            return map;
+        }
+
+        function addMaxToMap(sensors, map, param) {
+            var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            sensors.forEach(function (sensor, index) {
+                var infoWindow = new google.maps.InfoWindow();
+                var myLatLng = new google.maps.LatLng(sensor["max"]["lat"], sensor["max"]["long"]);
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 8.5,
+                        fillColor: '#ff6600',
+                        fillOpacity: 1,
+                        strokeWeight: 1
+                    }
+                });
+                google.maps.event.addListener(marker, 'mouseover', (function (marker) {
+                    return function () {
+                        infoWindow.setContent(weekdays[index] + "<br>" + sensor["max"][param] + "");
+                        infoWindow.open(map, marker);
+                    }
+                })(marker));
+                google.maps.event.addListener(marker, 'mouseout', (function (marker) {
+                    return function () {
+                        infoWindow.close();
+                    }
+                })(marker));
+            });
+        }
+
+
+        function initMax(sensors, param) {
+
+            var CITY_LAT = 46.060625;
+            var CITY_LNG = 23.573919;
+
+            var mapconfig = {};
+            //coordinates of map center
+            mapconfig.centerlat = CITY_LAT;
+            mapconfig.centerlng = CITY_LNG;
+            //zoom level on google maps
+            mapconfig.centerzoom = 10;
+            //name of div where google maps is drawn
+            mapconfig.containername = 'weekly-map';
+            //opacity of heatmap extremas
+            mapconfig.minopacity = 0.1;
+            mapconfig.maxopacity = 0.8;
+            //heatmap background color
+            mapconfig.bgred = 255;
+            mapconfig.bggreen = 0;
+            mapconfig.bgblue = 0;
+            mapconfig.bgalpha = 0.0;
+            //coord radius of heatmap point
+            mapconfig.radius = 0.0008;
+            //name of fields in data
+
+            var map = _initGoogleMaps(mapconfig);
+            addMaxToMap(sensors, map, param);
+        }
+
+        function fillModal(param, response) {
+            var table = document.getElementById('weekly-table');
+            var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            var tr, td;
+            for (var i = 0; i < 7; i++) {
+                if (i == 6) {
+                    tr = document.createElement('tr');
+                    td = fillTd(weekdays[i], i, response, param);
+                    tr.appendChild(td);
+                    table.appendChild(tr);
+                } else {
+                    if (i % 2 == 0) {
+                        tr = document.createElement('tr');
+                        td = fillTd(weekdays[i], i, response, param);
+                        tr.appendChild(td);
+                    } else {
+                        td = fillTd(weekdays[i], i, response, param);
+                        tr.appendChild(td);
+                        table.appendChild(tr);
+                    }
+                }
+            }
+            document.getElementById('loading-container').innerHTML = "";
+            initMax(response, param);
+            var modal = document.getElementsByClassName('tingle-modal');
+            modal[0].className = 'tingle-modal --visible tingle-modal--visible tingle-modal--overflow';
+        }
+
         $scope.apply = function () {
             var startDate = new Date($scope.vm.startDate);
             var endDate = new Date($scope.vm.endDate);
@@ -688,14 +863,14 @@ function ChartAndMap() {
             generateD3(unixStart, unixEnd, $scope.param);
         };
 
-	    $scope.applyHeatMap = function () {
-		    var startDate = new Date($scope.vm.startDateHeatMap);
-		    var endDate = new Date($scope.vm.endDateHeatMap);
-		    var unixStart = Math.floor(startDate.getTime() / 1000);
-		    var unixEnd = Math.floor(endDate.getTime() / 1000);
+        $scope.applyHeatMap = function () {
+            var startDate = new Date($scope.vm.startDateHeatMap);
+            var endDate = new Date($scope.vm.endDateHeatMap);
+            var unixStart = Math.floor(startDate.getTime() / 1000);
+            var unixEnd = Math.floor(endDate.getTime() / 1000);
 
-		    $scope.heatMapFunction()(unixStart, unixEnd);
-	    };
+            $scope.heatMapFunction()(unixStart, unixEnd);
+        };
 
         var now = new Date();
         var initStart = Math.floor(now.getTime() / 1000 - 10000);
@@ -705,6 +880,13 @@ function ChartAndMap() {
             var futureTime = initEnd + 24 * 3600;
             $scope.predictCallback()($scope.param, futureTime, function (response) {
                 $scope.result = Math.floor(response.result);
+            });
+        };
+
+        $scope.weekly = function () {
+            makeModal($scope.param);
+            $scope.weeklyCallback()($scope.param, function (response) {
+                fillModal($scope.param, response);
             });
         };
 

@@ -16,6 +16,11 @@ function ElasticResource($resource, Constants) {
             method: 'GET',
 	        url: Constants.URL.LOCALHOST + '/elastic/heatmapdata/:param/:timeStart/:timeEnd',
             isArray: true
-		}
+        },
+        'weekly': {
+            method: 'GET',
+            url: Constants.URL.LOCALHOST + '/elastic/weekly/:param',
+            isArray: true
+        }
 	})
 }

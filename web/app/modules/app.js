@@ -1,61 +1,62 @@
 'use strict';
 
 angular
-	.module('Smity', [
-		'ngRoute',
-		'ngResource',
-		'myApp.version',
-		'ds.clock',
-		'ui.router',
-		'ngMaterial',
-		'ngCookies',
+    .module('Smity', [
+        'ngRoute',
+        'ngResource',
+        'myApp.version',
+        'ds.clock',
+        'ui.router',
+        'ngMaterial',
+        'ngCookies',
         'moment-picker',
-		'auth',
-		'd3Module',
+        'auth',
+        'd3Module',
         'elastic',
         'intelilight'
-	])
+    ])
 
     // .config(['$httpProvider',
     // 	function ($httpProvider) {
     // 		$httpProvider.defaults.headers.common.Accept = 'application/x-www-form-urlencoded';
     // 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     // 	}])
-	//
-	// .config(['$httpProvider', function ($httpProvider) {
-	// 	$httpProvider.interceptors.push('SecurityInterceptor');
-	// }])
+    //
+    // .config(['$httpProvider', function ($httpProvider) {
+    // 	$httpProvider.interceptors.push('SecurityInterceptor');
+    // }])
 
-	.config([
-		'$stateProvider',
-		'$urlRouterProvider',
-		function ($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise('/home');
+    .config([
+        '$stateProvider',
+        '$urlRouterProvider',
+        function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/home');
 
-			$stateProvider
-				.state('app', {
-					url: '',
-					abstract: true,
-					templateUrl: '/templates/home.html',
-					controller: 'SmityController as vm'
-				})
-				.state('app.home', {
-					url: '/home',
-					views: {
-						'home': {
-							templateUrl: '/templates/content.html'
-						}
-					}
-				})
-				.state('app.temperature', {
-					url: '/temperature',
-					views: {
-						'home': {
-							template: '<chart-and-map data-param="temperature"' +
-							'data-y-axis="Temperatura (Celsius)"' +
-							'data-map-type="vm.mapType"' +
-							'data-predict-callback="vm.predict"' +
-							'data-heat-map-function="vm.apply"></chart-and-map>',
+            $stateProvider
+                .state('app', {
+                    url: '',
+                    abstract: true,
+                    templateUrl: '/templates/home.html',
+                    controller: 'SmityController as vm'
+                })
+                .state('app.home', {
+                    url: '/home',
+                    views: {
+                        'home': {
+                            templateUrl: '/templates/content.html'
+                        }
+                    }
+                })
+                .state('app.temperature', {
+                    url: '/temperature',
+                    views: {
+                        'home': {
+                            template: '<chart-and-map data-param="temperature"' +
+                            'data-y-axis="Temperatura (Celsius)"' +
+                            'data-map-type="vm.mapType"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
+                            'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
                     }
@@ -64,9 +65,10 @@ angular
                     url: '/pressure',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="pressure"' +
-	                        'data-y-axis="Presiune (Pascal)"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="pressure"' +
+                            'data-y-axis="Presiune (Pascal)"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -77,9 +79,10 @@ angular
                     url: '/humidity',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="humidity"' +
-	                        'data-y-axis="Umiditate (%)"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="humidity"' +
+                            'data-y-axis="Umiditate (%)"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -90,9 +93,10 @@ angular
                     url: '/co2',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="co2"' +
-	                        'data-y-axis="Dioxid de carbon (ppm)"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="co2"' +
+                            'data-y-axis="Dioxid de carbon (ppm)"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -103,9 +107,10 @@ angular
                     url: '/pm25',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="pm25"' +
-	                        'data-y-axis="Particule de praf (µg/m³)"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="pm25"' +
+                            'data-y-axis="Particule de praf (µg/m³)"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -116,9 +121,10 @@ angular
                     url: '/voc',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="voc"' +
-	                        'data-y-axis="Compusi organici volatili"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="voc"' +
+                            'data-y-axis="Compusi organici volatili"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -129,9 +135,10 @@ angular
                     url: '/ch2o',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="ch2o"' +
-	                        'data-y-axis="Formaldehida (ppm)"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="ch2o"' +
+                            'data-y-axis="Formaldehida (ppm)"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -142,15 +149,16 @@ angular
                     url: '/cpm',
                     views: {
                         'home': {
-	                        template: '<chart-and-map data-param="cpm"' +
-	                        'data-y-axis="Radiatii (µSv/h)"' +
-	                        'data-predict-callback="vm.predict"' +
+                            template: '<chart-and-map data-param="cpm"' +
+                            'data-y-axis="Radiatii (µSv/h)"' +
+                            'data-predict-callback="vm.predict"' +
+                            'data-weekly-callback="vm.weekly"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
-						}
-					}
-				})
+                        }
+                    }
+                })
                 .state('app.intelilight', {
                     url: '/intelilight',
                     views: {
@@ -160,28 +168,28 @@ angular
                         }
                     }
                 })
-			;
-		}])
+            ;
+        }])
 
     .run(['$rootScope', '$http', '$state', '$injector', function ($rootScope, $http, $state, $injector) {
         var SecurityService = $injector.get('SecurityService');
         SecurityService.loggedIn();
         $rootScope.$state = $state;
 
-	    var SharedVariables = $injector.get('SharedVariables');
-	    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
-		    SharedVariables.clearInitHeatMap();
+        var SharedVariables = $injector.get('SharedVariables');
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+            SharedVariables.clearInitHeatMap();
 
-		    if (SharedVariables.getMapType() === true) {
-			    $rootScope.$broadcast('map-changed');
-		    }
-	    });
+            if (SharedVariables.getMapType() === true) {
+                $rootScope.$broadcast('map-changed');
+            }
+        });
     }])
 
-	.constant('Constants', {
-		URL: {
-			ELASTIC: 'http://141.85.232.64:9200',
-			LOCALHOST: 'http://localhost:8080'
-		}
-	});
+    .constant('Constants', {
+        URL: {
+            ELASTIC: 'http://141.85.232.64:9200',
+            LOCALHOST: 'http://localhost:8080'
+        }
+    });
 

@@ -7,7 +7,8 @@ function ElasticService(ElasticResource) {
 	return {
         getAll: getAll,
         predict: predict,
-        heatMap: heatMap
+        heatMap: heatMap,
+        weekly: weekly
 	};
 
 	function getAll() {
@@ -20,5 +21,9 @@ function ElasticService(ElasticResource) {
 
 	function heatMap(param, fromTime, toTime) {
 		return ElasticResource.heatmap({param: param, timeStart: fromTime, timeEnd: toTime}).$promise;
+    }
+
+    function weekly(param) {
+        return ElasticResource.weekly({param: param}).$promise;
     }
 }

@@ -13,6 +13,7 @@
         <div id="prediction-div">
             <button id="get-prediction" class="btn apply-date" ng-click="predict()">Get Prediction</button>
             <span id="prediction-span">{{result}}</span></div>
+        <button id="get-weekly" class="btn" ng-click="weekly()">Get Weekly Report</button>
         <div id="moment-div">
             <input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">
             <input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">
@@ -22,4 +23,4 @@
 </div>
 <div id="chart-div" class="chart-init">
     <div class="loader" id="d3-loader">Loading...</div>
-</div>,
+</div>
