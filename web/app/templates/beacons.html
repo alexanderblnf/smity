@@ -1,0 +1,28 @@
+<div id="beacons-container">
+    <p>
+        Select a campaign:
+    </p>
+
+    <select id="campaigns" ng-repeat="(index, campaign) in vm.campaigns">
+        <option ng-if="index === 0" value="index" disabled selected>{{campaign}}</option>
+        <option ng-if="index !== 0" value="index">{{campaign}}</option>
+    </select>
+
+    <button id="showcampaign">Show campaign</button>
+
+    <hr size="1"/>
+
+    <div id="campaigntimeline"></div>
+
+    <hr size="1"/>
+
+    <span id="genderpie"></span>
+    <span id="agepie"></span>
+    <span id="ospie"></span>
+    <div id="statistics">
+        Created: <span id="created"></span> <br/>
+        Distinct people: <span id="people">{{vm.people}}</span> <br/>
+        Total Hits: <span id="hits"></span> <br/>
+        Active until: <span id="enddate"></span> <br/>
+    </div>
+</div>

@@ -168,6 +168,15 @@ angular
                         }
                     }
                 })
+                .state('app.beacon', {
+                    url: '/beacon',
+                    views: {
+                        'home': {
+                            templateUrl: '/templates/beacon.html',
+                            controller: 'BeaconController as vm'
+                        }
+                    }
+                })
             ;
         }])
 
