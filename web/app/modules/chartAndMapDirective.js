@@ -715,10 +715,10 @@ function ChartAndMap() {
             //     modal.close();
             // });
             //
-            // modal.addFooterBtn('Dangerous action !', 'tingle-btn tingle-btn--danger', function () {
-            //     // here goes some logic
-            //     modal.close();
-            // });
+            modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
+                // here goes some logic
+                modal.close();
+            });
             //
             modal.open();
 
