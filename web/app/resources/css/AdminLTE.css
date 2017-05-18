@@ -6285,3 +6285,10 @@ input:checked + .slider:before {
     margin-left: -4px;
 }
 
+#pie-container {
+    display: inline-table;
+    text-align: center;
+    height: 50vh;
+    width: 80vw;
+}
+

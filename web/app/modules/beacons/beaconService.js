@@ -77,13 +77,13 @@ function BeaconService(BeaconResource) {
                 genderpie.updateProp("data.content", gendercontent);
 
                 var agecontent = [
-                    {label: "Under 18", value: u18},
-                    {label: "Aged 18-24", value: u25},
-                    {label: "Aged 25-34", value: u35},
-                    {label: "Aged 35-44", value: u45},
-                    {label: "Aged 45-54", value: u55},
-                    {label: "Aged 55-64", value: u65},
-                    {label: "Over 65", value: o65}
+                    {label: "< 18", value: u18},
+                    {label: "18-24", value: u25},
+                    {label: "25-34", value: u35},
+                    {label: "35-44", value: u45},
+                    {label: "45-54", value: u55},
+                    {label: "55-64", value: u65},
+                    {label: "> 65", value: o65}
                 ];
 
                 agepie.updateProp("data.content", agecontent);
@@ -127,6 +127,14 @@ function BeaconService(BeaconResource) {
 
     function generateChart() {
 
+        var viewportHeight = document.getElementById('pie-container').clientHeight;
+        var viewportWidth = document.getElementById('pie-container').clientWidth;
+
+        var style = {
+            color: '#ffffff',
+            fontSize: '1.5em'
+        };
+
         genderpie = new d3pie("genderpie", {
             header: {
                 title: {
@@ -135,7 +143,10 @@ function BeaconService(BeaconResource) {
                 location: "pie-center"
             },
             size: {
-                pieInnerRadius: "60%"
+                canvasHeight: viewportHeight,
+                canvasWidth: viewportWidth / 3.25,
+                pieInnerRadius: "45%",
+                pieOuterRadius: "60%"
             },
             data: {
                 sortOrder: "label-asc",
@@ -143,6 +154,9 @@ function BeaconService(BeaconResource) {
                     {label: "Male", value: 1},
                     {label: "Female", value: 1}
                 ]
+            },
+            labels: {
+                mainLabel: style
             }
         });
 
@@ -154,19 +168,25 @@ function BeaconService(BeaconResource) {
                 location: "pie-center"
             },
             size: {
-                pieInnerRadius: "60%"
+                canvasHeight: viewportHeight,
+                canvasWidth: viewportWidth / 3.25,
+                pieInnerRadius: "45%",
+                pieOuterRadius: "60%"
             },
             data: {
                 sortOrder: "label-asc",
                 content: [
-                    {label: "Under 18", value: 1},
-                    {label: "Aged 18-24", value: 1},
-                    {label: "Aged 25-34", value: 1},
-                    {label: "Aged 35-44", value: 1},
-                    {label: "Aged 45-54", value: 1},
-                    {label: "Aged 55-64", value: 1},
-                    {label: "Over 65", value: 1}
+                    {label: "< 18", value: 1},
+                    {label: "18-24", value: 1},
+                    {label: "25-34", value: 1},
+                    {label: "35-44", value: 1},
+                    {label: "45-54", value: 1},
+                    {label: "55-64", value: 1},
+                    {label: "> 65", value: 1}
                 ]
+            },
+            labels: {
+                mainLabel: style
             }
         });
 
@@ -178,7 +198,10 @@ function BeaconService(BeaconResource) {
                 location: "pie-center"
             },
             size: {
-                pieInnerRadius: "60%"
+                canvasHeight: viewportHeight,
+                canvasWidth: viewportWidth / 3.25,
+                pieInnerRadius: "45%",
+                pieOuterRadius: "60%"
             },
             data: {
                 sortOrder: "label-asc",
@@ -186,6 +209,9 @@ function BeaconService(BeaconResource) {
                     {label: "Android", value: 1},
                     {label: "iOS", value: 1}
                 ]
+            },
+            labels: {
+                mainLabel: style
             }
         });
 
