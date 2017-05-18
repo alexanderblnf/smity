@@ -11,12 +11,11 @@ function BeaconResource($resource, Constants) {
         },
         'profile': {
             method: 'GET',
-            url: Constants.URL.LOCALHOST + '/beacons/profile/:campaign',
-            isArray: true
+            url: Constants.URL.LOCALHOST + '/beacons/profile/static/voucher/:campaign'
         },
         'insights': {
             method: 'GET',
-            url: Constants.URL.LOCALHOST + '/beacons/insights/:campaign/:startTime/:endTime',
+            url: Constants.URL.LOCALHOST + '/beacons/insights/static/voucher/:campaign/:startTime/:endTime',
             isArray: true
         }
     })

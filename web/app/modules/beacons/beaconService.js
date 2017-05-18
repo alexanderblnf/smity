@@ -6,11 +6,15 @@ angular.module('beacon')
 function BeaconService(BeaconResource) {
 
     var genderpie, agepie, ospie;
+    var totalHits, people;
 
     return {
         campaigns: campaigns,
-        insights: insights,
-        profile: profile
+        showProfile: showProfile,
+        getTotalHits: getTotalHits,
+        getPeople: getPeople,
+        showInsights: showInsights,
+        generateChart: generateChart
     };
 
     function campaigns() {
@@ -18,22 +22,19 @@ function BeaconService(BeaconResource) {
     }
 
     function insights(campaign, startTime, endTime) {
-        return BeaconResource.insights({campaign: campaign, startTime: startTime, endTime: endTime}).$promise;
+        var newCampaign = campaign.split('/');
+        return BeaconResource.insights({campaign: newCampaign[2], startTime: startTime, endTime: endTime}).$promise;
     }
 
     function profile(campaign) {
-        return BeaconResource.profile({campaign: campaign}).$promise;
+        var newCampaign = campaign.split('/');
+        return BeaconResource.profile({campaign: newCampaign[2]}).$promise;
     }
 
-    function showCampaign() {
-
-        var camp = $("#campaigns option:selected").val();
-        if (camp == 0)
-            return;
+    function showProfile(campaignName, callback) {
 
         profile(campaignName)
-            .then(function (data) {
-                var profiles = JSON.parse(data);
+            .then(function (profiles) {
 
                 var u18, u25, u35, u45, u55, u65, o65, ana, fem, mal, sna;
 
@@ -86,25 +87,19 @@ function BeaconService(BeaconResource) {
                 ];
 
                 agepie.updateProp("data.content", agecontent);
-                $("#people").text(fem + mal + sna);
+                people = fem + mal + sna;
+                callback(people);
             });
+    }
 
-        $.get("http://localhost:8080/beacons/profile/" + campaigns[camp].name, function (data) {
+    function showInsights(campaignName, startDate, endDate, callback) {
 
-
-        });
-
-        var startdate = new Date(campaigns[camp].data.startDate).valueOf() / 1000;
-        var enddate = new Date(campaigns[camp].data.endDate).valueOf() / 1000;
-
-        //console.log("http://localhost:8080/beacons/insights/"+campaigns[camp].name+"/"+startdate+"/"+enddate);
-        $.get("http://localhost:8080/beacons/insights/" + campaigns[camp].name + "/" + startdate + "/" + enddate,
-            function (data) {
-                var insights = JSON.parse(data);
+        insights(campaignName, startDate, endDate)
+            .then(function (insights) {
                 var android = 0;
                 var ios = 0;
 
-                $.each(insights, function (index, value) {
+                insights.forEach(function (value) {
                     if (value.type == "androidview")
                         android += value.total;
                     else if (value.type == "iosview")
@@ -117,11 +112,17 @@ function BeaconService(BeaconResource) {
                 ];
                 ospie.updateProp("data.content", oscontent);
 
-                $("#hits").text(android + ios);
+                totalHits = android + ios;
+                callback(totalHits);
             });
+    }
 
-        $("#created").text(new Date(campaigns[camp].created).toISOString().slice(0, 10));
-        $("#enddate").text(new Date(campaigns[camp].data.endDate).toISOString().slice(0, 10));
+    function getTotalHits() {
+        return totalHits;
+    }
+
+    function getPeople() {
+        return people;
     }
 
     function generateChart() {

@@ -13,7 +13,8 @@ angular
         'auth',
         'd3Module',
         'elastic',
-        'intelilight'
+        'intelilight',
+        'beacon'
     ])
 
     // .config(['$httpProvider',
