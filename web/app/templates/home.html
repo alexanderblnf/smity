@@ -1,6 +1,6 @@
 <header class="main-header">
 	<a class="logo" id="logo" href="#">
-		<img class="logo-lg" src="../pics/logo-alb.png" style="height: 80%; margin-bottom: 2%;">
+		<img class="logo-lg" src="../pics/LOGO-alb.png" style="height: 80%; margin-bottom: 2%;">
 		<img class="logo-mini" src="../pics/logo%20mic%20si%20bun.png" style="height: 100%">
 	</a>
 	</a>
@@ -72,7 +72,7 @@
 			<li class="header">URADMonitor</li>
 			<li class="treeview">
 				<a href>
-					<i class="fa fa-dashboard"></i><span>Informatii termice</span>
+					<i class="fa fa-dashboard"></i> <span>Informatii termice</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -100,7 +100,7 @@
 
 			<li class="treeview">
 				<a href>
-					<i class="fa fa-dashboard"></i><span>Calitatea aerului</span>
+					<i class="fa fa-dashboard"></i> <span>Calitatea aerului</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -109,13 +109,13 @@
 				<ul class="treeview-menu">
 					<li>
 						<a href ui-sref=".pm25">
-							<img src="../pics/praf.png" class="image-icon" style="margin-left: -6px;"/><span>Particule de praf</span>
+							<img src="../pics/praf.png" class="image-icon" style="margin-left: -6px;"/> <span>Particule de praf</span>
 						</a>
 					</li>
 
 					<li>
 						<a href ui-sref=".voc">
-							<img src="../pics/volatile.png" class="image-icon" style="margin-left: -5px;"/><span>Compusi organici volatili</span>
+							<img src="../pics/volatile.png" class="image-icon" style="margin-left: -5px;"/> <span>Compusi organici volatili</span>
 						</a>
 					</li>
 
@@ -134,7 +134,7 @@
 					<li>
 						<a href ui-sref=".co2">
 							<!--<i class="fa fa-warning"></i> -->
-							<img src="../pics/co2.png" class="image-icon"><span>Dioxid de carbon</span>
+							<img src="../pics/co2.png" class="image-icon"> <span>Dioxid de carbon</span>
 						</a>
 					</li>
 				</ul>
@@ -143,7 +143,7 @@
 			<li class="header">e-AlbaIulia</li>
 			<li class="treeview">
                 <a href ui-sref="app.beacon">
-					<i class="fa fa-wifi"></i><span>Beacons</span>
+					<i class="fa fa-wifi"></i> <span>Beacons</span>
 				</a>
 			</li>
 
@@ -159,17 +159,13 @@
 
 <div class="content-wrapper tingle-content-wrapper" style="height: 120vh; position: relative;">
 	<section class="content-header col-xs-12">
-		<h1 class="col-xs-5">
-			Overview
-			<small>Control panel</small>
-		</h1>
 
 		<label class="switch col-xs-6" ng-if="!$state.includes('app.home')">
 			<input type="checkbox" ng-click="vm.setType()">
 			<div class="slider round"></div>
 		</label>
 
-		{{vm.mapType}}
+		<!--{{vm.mapType}}-->
 
 		<!--<ol class="breadcrumb">-->
 		<!--<li><a href="#"><i class="fa fa-home"></i> Home</a></li>-->

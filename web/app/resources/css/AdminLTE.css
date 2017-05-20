@@ -6285,3 +6285,37 @@ input:checked + .slider:before {
     margin-left: -4px;
 }
 
+/* ---------- 20 mai, modificari #alexandra ------- */
+
+.sidebar-form, .sidebar-menu > li.header {
+    background: #5a5349 !important;
+    color: white !important;
+    font-size: 1.1em !important;
+    margin-left: 15px;
+}
+
+.sidebar-form, .sidebar-menu {
+    font-size: 1.2em !important;
+}
+
+.small-box > .small-box-footer {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.fa-lightbulb-o {
+    margin-left: 5px;
+    width: 15px !important;
+}
+
+.small-box p{
+    font-size: 2em;
+}
+
+.box-body {
+    padding: 0px 10px 10px 20px;
+}
+
+.content-wrapper {
+    background: linear-gradient(to bottom right, #4f4f4f, #aa9776) !important;
+}
