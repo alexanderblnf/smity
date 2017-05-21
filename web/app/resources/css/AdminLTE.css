@@ -6327,7 +6327,7 @@ input:checked + .slider:before {
     background-size: 100% 100%;
 }
 
-.logoutbutton, .logoutbutton:hover, .logoutbutton:active{
+.graybutton, .graybutton:hover, .graybutton:active{
     margin: 10px !important;
     left: -10px;
     position: relative;
@@ -6341,6 +6341,11 @@ input:checked + .slider:before {
     /* TODO : MS Sans serif Regular */
     font-family: Helvetica;
     font-weight: bold;
+}
+
+.beaconbutton, .beaconbutton:hover, .beaconbutton:active {
+    left: 0px;
+    margin: 0px !important;
 }
 
 .bevelonpress-big:hover{
@@ -6428,3 +6433,30 @@ input:checked + .slider:before {
     margin-bottom: 2px;
 }
 
+.beaconstats{
+    margin-left: 50px;
+}
+
+.beacontext{
+    color: white;
+    font-size: 16px;
+    font-family: "Helvetica";
+}
+
+.whitetext{
+    color: white;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#beacons-container{
+    padding-left: 20px;
+}
+#beacons-container .row{
+    margin-bottom: 20px;
+}
+
+.usualfonts{
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.4em;
+    font-weight: normal;
+}

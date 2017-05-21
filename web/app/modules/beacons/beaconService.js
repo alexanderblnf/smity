@@ -148,8 +148,15 @@ function BeaconService(BeaconResource) {
                 colors: {
                     background: null, // transparent
                     segments: [
-                        "#f9ebd0", "#d6dcc2", "#b9c7a4", "#3b978a",
-                        "#1e5454", "#023536", "#f8f5e6"
+                        "#b9c7a4", //kaki
+
+                        "#3b978a", //turcoaz
+                        "#1e5454", //turcoaz inchis
+                        "#d6dcc2", //verde deschis
+                        "#f9ebd0",  //roz
+
+                        "#023536", //negru
+                        "#f8f5e6" //alb
                     ],
                     segmentStroke: "none"
                 },
@@ -247,8 +254,16 @@ function BeaconService(BeaconResource) {
                 colors: {
                     background: null, // transparent
                     segments: [
-                        "#f9ebd0", "#d6dcc2", "#b9c7a4", "#3b978a",
-                        "#1e5454", "#023536", "#f8f5e6"
+                        "#f8f5e6", //alb
+                        "#d6dcc2", //verde deschis
+                        "#f9ebd0",  //roz
+                        "#3b978a", //turcoaz
+                        "#1e5454", //turcoaz inchis
+
+                        "#b9c7a4", //kaki
+
+                        "#023536" //negru
+
                     ],
                     segmentStroke: "none"
                 },
