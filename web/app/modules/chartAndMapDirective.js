@@ -75,66 +75,131 @@ function ChartAndMap() {
             map = new google.maps.Map(document.getElementById('maps-div'), {
                 zoom: 12,
                 center: uluru,
-                styles: [{"featureType": "water", "stylers": [{"color": "#19a0d8"}]}, {
-                    "featureType": "administrative",
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"color": "#ff6600"}]
-                }, {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.stroke",
-                    "stylers": [{"color": "#efe9e4"}, {"lightness": -40}]
-                }, {
-                    "featureType": "road.arterial",
-                    "elementType": "geometry.stroke",
-                    "stylers": [{"color": "#efe9e4"}, {"lightness": -20}]
-                }, {
-                    "featureType": "road",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [{"lightness": 100}]
-                }, {
-                    "featureType": "road",
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"lightness": -100}]
-                }, {"featureType": "road.highway", "elementType": "labels.icon"}, {
-                    "featureType": "landscape",
-                    "elementType": "labels",
-                    "stylers": [{"visibility": "off"}]
-                }, {
-                    "featureType": "landscape",
-                    "stylers": [{"lightness": 20}, {"color": "#efe9e4"}]
-                }, {"featureType": "landscape.man_made", "stylers": [{"visibility": "off"}]}, {
-                    "featureType": "water",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [{"lightness": 100}]
-                }, {
-                    "featureType": "water",
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"lightness": -100}]
-                }, {
-                    "featureType": "poi",
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"hue": "#11ff00"}]
-                }, {
-                    "featureType": "poi",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [{"lightness": 100}]
-                }, {
-                    "featureType": "poi",
-                    "elementType": "labels.icon",
-                    "stylers": [{"hue": "#4cff00"}, {"saturation": 58}]
-                }, {
-                    "featureType": "poi",
-                    "elementType": "geometry",
-                    "stylers": [{"visibility": "on"}, {"color": "#f0e4d3"}]
-                }, {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.fill",
-                    "stylers": [{"color": "#efe9e4"}, {"lightness": -25}]
-                }, {
-                    "featureType": "road.arterial",
-                    "elementType": "geometry.fill",
-                    "stylers": [{"color": "#efe9e4"}, {"lightness": -10}]
-                }, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "simplified"}]}]
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "saturation": "-100"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "administrative.province",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "saturation": -100
+                            },
+                            {
+                                "lightness": 65
+                            },
+                            {
+                                "visibility": "on"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "saturation": -100
+                            },
+                            {
+                                "lightness": "50"
+                            },
+                            {
+                                "visibility": "simplified"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "saturation": "-100"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "simplified"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "lightness": "30"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "lightness": "40"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "saturation": -100
+                            },
+                            {
+                                "visibility": "simplified"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "hue": "#ffff00"
+                            },
+                            {
+                                "lightness": -25
+                            },
+                            {
+                                "saturation": -97
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "lightness": -25
+                            },
+                            {
+                                "saturation": -100
+                            }
+                        ]
+                    }
+                ]
             });
             var marker = new google.maps.Marker({
                 position: uluru,
