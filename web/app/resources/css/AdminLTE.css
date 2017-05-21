@@ -6390,8 +6390,8 @@ input:checked + .slider:before {
 }
 
 .small-box{
-    /*background-color: rgba(255, 102, 0, 0.75) !important;*/
-    background-color: rgba(249, 235, 208, 0.75) !important;
+    background-color: rgba(255, 102, 0, 0.75) !important;
+    /*background-color: rgba(249, 235, 208, 0.75) !important;*/
 }
 
 .box-body{
@@ -6467,3 +6467,4 @@ input:checked + .slider:before {
     font-size: 1.4em;
     font-weight: normal;
 }
+
