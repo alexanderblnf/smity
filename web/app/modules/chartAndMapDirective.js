@@ -767,11 +767,11 @@ function ChartAndMap() {
             });
 
             modal.setContent('<div id="weekly-container">' +
-                '<h1>Weekly report - ' + param + '</h1>' +
+                '<h1>Raport saptamanal - ' + param + '</h1>' +
                 '<table id="weekly-table">' +
                 '</table>' +
                 '<div id="loading-container"><div class="loader" id="weekly-loader">Loading...</div></div>' +
-                '<h3>Maximum values</h3>' +
+                '<h3>Valori maxime</h3>' +
                 '<div id="weekly-map"></div>' +
                 '</div>');
             //
@@ -801,7 +801,7 @@ function ChartAndMap() {
             div.appendChild(br);
             span = document.createElement('span');
             span.className = "bold-span";
-            span.innerHTML = "Maximum value: ";
+            span.innerHTML = "Valoare maxima: ";
             div.appendChild(span);
             span = document.createElement('span');
             span.innerHTML = response[index]['max'][param];
@@ -810,7 +810,7 @@ function ChartAndMap() {
             div.appendChild(br);
             span = document.createElement('span');
             span.className = "bold-span";
-            span.innerHTML = "Average value: ";
+            span.innerHTML = "Valoare medie: ";
             div.appendChild(span);
             span = document.createElement('span');
             span.innerHTML = response[index]['means'];
@@ -831,7 +831,7 @@ function ChartAndMap() {
         }
 
         function addMaxToMap(sensors, map, param) {
-            var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
             sensors.forEach(function (sensor, index) {
                 var infoWindow = new google.maps.InfoWindow();
                 var myLatLng = new google.maps.LatLng(sensor["max"]["lat"], sensor["max"]["long"]);
@@ -892,7 +892,7 @@ function ChartAndMap() {
 
         function fillModal(param, response) {
             var table = document.getElementById('weekly-table');
-            var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
             var tr, td;
             for (var i = 0; i < 7; i++) {
                 if (i == 6) {

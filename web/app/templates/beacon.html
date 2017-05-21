@@ -2,7 +2,7 @@
     <div class="grid">
     <div class="row">
         <div class="col-lg-2">
-            <label for="campaigns" class="whitetext usualfonts">Select a campaign:</label>
+            <label for="campaigns" class="whitetext usualfonts">Selecteaza o campanie:</label>
             <select class="form-control" id="campaigns" ng-model="vm.selected">
                 <option value="0" disabled selected>Select</option>
                 <option ng-repeat="(index, campaign) in vm.campaigns" value="{{index}}">{{campaign.displayName}}</option>
@@ -11,7 +11,9 @@
     </div>
     <div class="row">
         <div class="col-lg-3 ">
-            <button id="showcampaign" class="btn btn-default graybutton beaconbutton bevelonpress-small" ng-click="vm.displayCampaign()">Show campaign</button>
+            <button id="showcampaign" class="btn btn-default graybutton beaconbutton bevelonpress-small"
+                    ng-click="vm.displayCampaign()">Arata campanie
+            </button>
         </div>
     </div>
     </div>
@@ -25,9 +27,9 @@
         <span id="ospie"></span>
     </div>
     <div id="statistics" ng-if="vm.created !== undefined" class="beaconstats beacontext">
-        Created: <span id="created">{{vm.created}}</span> <br/>
-        Distinct people: <span id="people">{{vm.people}}</span> <br/>
-        Total Hits: <span id="hits">{{vm.totalHits}}</span> <br/>
-        Active until: <span id="enddate">{{vm.endDate}}</span> <br/>
+        Creata: <span id="created">{{vm.created}}</span> <br/>
+        Utilizatori unici: <span id="people">{{vm.people}}</span> <br/>
+        Numar intrari: <span id="hits">{{vm.totalHits}}</span> <br/>
+        Activa pana la: <span id="enddate">{{vm.endDate}}</span> <br/>
     </div>
 </div>
