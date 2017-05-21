@@ -145,7 +145,7 @@ function BeaconService(BeaconResource) {
             size: {
                 canvasHeight: viewportHeight,
                 canvasWidth: viewportWidth / 3.25,
-                pieInnerRadius: "45%",
+                pieInnerRadius: "50%",
                 pieOuterRadius: "60%"
             },
             data: {
@@ -202,7 +202,7 @@ function BeaconService(BeaconResource) {
             size: {
                 canvasHeight: viewportHeight,
                 canvasWidth: viewportWidth / 3.25,
-                pieInnerRadius: "45%",
+                pieInnerRadius: "50%",
                 pieOuterRadius: "60%"
             },
             data: {
@@ -257,7 +257,7 @@ function BeaconService(BeaconResource) {
             size: {
                 canvasHeight: viewportHeight,
                 canvasWidth: viewportWidth / 3.25,
-                pieInnerRadius: "45%",
+                pieInnerRadius: "50%",
                 pieOuterRadius: "60%"
             },
             data: {
