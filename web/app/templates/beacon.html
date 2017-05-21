@@ -1,5 +1,5 @@
 <div id="beacons-container">
-    <p>Select a campaign:</p>
+    <p class="beacontext">Select a campaign:</p>
 
     <select id="campaigns" ng-model="vm.selected">
         <option value="0" disabled selected>Select</option>
@@ -13,7 +13,7 @@
     <span id="genderpie"></span>
     <span id="agepie"></span>
     <span id="ospie"></span>
-    <div id="statistics">
+    <div id="statistics" class="beaconstats beacontext">
         Created: <span id="created">{{vm.created}}</span> <br/>
         Distinct people: <span id="people">{{vm.people}}</span> <br/>
         Total Hits: <span id="hits">{{vm.totalHits}}</span> <br/>
