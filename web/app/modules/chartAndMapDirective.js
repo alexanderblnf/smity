@@ -572,7 +572,7 @@ function ChartAndMap() {
 
 
                     legend.append('text')
-                        .text("Sensors")
+                        .text("Senzori")
                         .attr("x", width - 0.025 * viewportWidth)
                         .attr("y", 0)
                         .attr("height", 0.06 * viewportHeight)

@@ -1,9 +1,9 @@
 <div id="calendar-heatmap" ng-show="mapType">
-    <input class="form-control rounded-form input-heatmap" ng-model="vm.startDateHeatMap" placeholder="Start date"
+    <input class="form-control rounded-form input-heatmap" ng-model="vm.startDateHeatMap" placeholder="Data de inceput"
            moment-picker="vm.startDateHeatMap">
-    <input class="form-control rounded-form input-heatmap" ng-model="vm.endDateHeatMap" placeholder="End date"
+    <input class="form-control rounded-form input-heatmap" ng-model="vm.endDateHeatMap" placeholder="Data de final"
            moment-picker="vm.endDateHeatMap">
-    <button class="apply-date btn" ng-click="applyHeatMap()" style="margin-top: 3%">Apply</button>
+    <button class="apply-date btn" ng-click="applyHeatMap()" style="margin-top: 3%">Aplica</button>
 </div>
 <div class="box-body" id="map-container" style="height: 400px" ng-show="mapType">
 </div>
@@ -11,16 +11,16 @@
 <div id="calendar-div">
     <div id="center-div">
         <div id="prediction-div">
-            <button id="get-prediction" class="btn apply-date" ng-click="predict()">Get Prediction</button>
+            <button id="get-prediction" class="btn apply-date" ng-click="predict()">Predictie</button>
             <span id="prediction-span">{{result}}</span></div>
-        <button id="get-weekly" class="btn" ng-click="weekly()">Get Weekly Report</button>
+        <button id="get-weekly" class="btn" ng-click="weekly()">Raport saptamanal</button>
         <div id="moment-div">
-            <input class="form-control" ng-model="vm.startDate" placeholder="Start date" moment-picker="vm.startDate">
-            <input class="form-control" ng-model="vm.endDate" placeholder="End date" moment-picker="vm.endDate">
-            <button class="apply-date btn" ng-click="apply()">Apply</button>
+            <input class="form-control" ng-model="vm.startDate" placeholder="Data de inceput" moment-picker="vm.startDate">
+            <input class="form-control" ng-model="vm.endDate" placeholder="Data de final" moment-picker="vm.endDate">
+            <button class="apply-date btn" ng-click="apply()">Aplica</button>
         </div>
     </div>
 </div>
 <div id="chart-div" class="chart-init">
-    <div class="loader" id="d3-loader">Loading...</div>
+    <div class="loader" id="d3-loader">Se incarca...</div>
 </div>
