@@ -8,7 +8,7 @@ function BeaconController(BeaconService) {
 
     vm.campaigns = [];
     vm.people = undefined;
-    vm.selected = undefined;
+    vm.selected = 0;
     vm.endDate = undefined;
     vm.created = undefined;
     vm.totalHits = undefined;
