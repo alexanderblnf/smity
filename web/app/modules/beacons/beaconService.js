@@ -155,8 +155,40 @@ function BeaconService(BeaconResource) {
                     {label: "Female", value: 1}
                 ]
             },
+            misc: {
+                colors: {
+                    background: null, // transparent
+                    segments: [
+                        "#b9c7a4", //kaki
+
+                        "#3b978a", //turcoaz
+                        "#1e5454", //turcoaz inchis
+                        "#d6dcc2", //verde deschis
+                        "#f9ebd0",  //roz
+
+                        "#023536", //negru
+                        "#f8f5e6" //alb
+                    ],
+                    segmentStroke: "none"
+                },
+                gradient: {
+                    enabled: true,
+                    percentage: 90,
+                    color: "#000000"
+                }
+            },
             labels: {
-                mainLabel: style
+                mainLabel: {
+                    color: "#ffffff",
+                    font: "arial",
+                    fontSize: 16
+                },
+                percentage: {
+                    color: "#ffffff",
+                    font: "arial",
+                    fontSize: 16,
+                    decimalPlaces: 0
+                }
             }
         });
 
@@ -185,8 +217,33 @@ function BeaconService(BeaconResource) {
                     {label: "> 65", value: 1}
                 ]
             },
+            misc: {
+                colors: {
+                    background: null, // transparent
+                    segments: [
+                        "#f9ebd0", "#d6dcc2", "#b9c7a4", "#3b978a",
+                        "#1e5454", "#023536", "#f8f5e6"
+                    ],
+                    segmentStroke: "none"
+                },
+                gradient: {
+                    enabled: true,
+                    percentage: 90,
+                    color: "#000000"
+                }
+            },
             labels: {
-                mainLabel: style
+                mainLabel: {
+                    color: "#ffffff",
+                    font: "arial",
+                    fontSize: 16
+                },
+                percentage: {
+                    color: "#ffffff",
+                    font: "arial",
+                    fontSize: 16,
+                    decimalPlaces: 0
+                }
             }
         });
 
@@ -210,11 +267,42 @@ function BeaconService(BeaconResource) {
                     {label: "iOS", value: 1}
                 ]
             },
+            misc: {
+                colors: {
+                    background: null, // transparent
+                    segments: [
+                        "#f8f5e6", //alb
+                        "#d6dcc2", //verde deschis
+                        "#f9ebd0",  //roz
+                        "#3b978a", //turcoaz
+                        "#1e5454", //turcoaz inchis
+
+                        "#b9c7a4", //kaki
+
+                        "#023536" //negru
+
+                    ],
+                    segmentStroke: "none"
+                },
+                gradient: {
+                    enabled: true,
+                    percentage: 90,
+                    color: "#000000"
+                }
+            },
             labels: {
-                mainLabel: style
+                mainLabel: {
+                    color: "#ffffff",
+                    font: "arial",
+                    fontSize: 16
+                },
+                percentage: {
+                    color: "#ffffff",
+                    font: "arial",
+                    fontSize: 16,
+                    decimalPlaces: 0
+                }
             }
         });
-
-
     }
 }

@@ -1,5 +1,6 @@
 <div id="beacons-container">
-
+    <p>Select a campaign:</p>
+    <label for="campaigns" class="whitetext usualfonts">Select a campaign:</label>
     <select id="campaigns" ng-model="vm.selected">
         <option value="0" disabled selected>Select</option>
         <option ng-repeat="(index, campaign) in vm.campaigns" value="{{index}}">{{campaign.displayName}}</option>

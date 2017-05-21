@@ -52,7 +52,7 @@ function ChartAndMap() {
         var yScale = d3.scaleLinear().range([height, 0]);
         // var color = d3.scaleOrdinal(d3.schemeCategory10);
         var color = d3.scaleOrdinal()
-            .range(['#2ba1f9', '#fc9765', '#64b5a9', '#ffed26', '#8bff8f', '#ca73ff', '#66ccff', '#f4e97d', '#ee5859', '#e55107', '#ecc781', '#8a96dd', '#e3d4ff', '#ff8c89', '#638463', '#e5000c', '#c2e351']);
+            .range(['#2ba1f9', '#fc9765', '#64b5a9', '#ffed26', '#8bff8f', '#ca73ff', '#66ccff', '#f4e97d', '#ee5859', '#c2e351', '#ecc781', '#8a96dd', '#e3d4ff', '#ff8c89', '#638463', '#e5000c', '#e55107']);
         var svg, bisectDate, line, focus, first, limitLines;
         var max = 0;
         var maxWidth = 0;
@@ -572,7 +572,7 @@ function ChartAndMap() {
 
 
                     legend.append('text')
-                        .text("Sensors")
+                        .text("Senzori")
                         .attr("x", width - 0.025 * viewportWidth)
                         .attr("y", 0)
                         .attr("height", 0.06 * viewportHeight)

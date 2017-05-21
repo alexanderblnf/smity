@@ -6292,3 +6292,177 @@ input:checked + .slider:before {
     width: 80vw;
 }
 
+
+.sidebar-form, .sidebar-menu > li.header {
+    background: #998c76 !important;
+    color: white !important;
+    font-size: 1.1em !important;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.sidebar-form, .sidebar-menu {
+    font-size: 1.32em !important;
+}
+
+.sidebar-menu .treeview-menu > li > a {
+    font-size: 1em;
+}
+
+.small-box > .small-box-footer {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.fa-lightbulb-o {
+    margin-left: 5px;
+    width: 15px !important;
+}
+
+.small-box p{
+    font-size: 2em;
+}
+
+.box-body {
+    padding: 0px 10px 10px 20px;
+}
+
+.content-wrapper {
+    /*background: linear-gradient(to bottom right, #4f4f4f, #aa9776) !important;*/
+    background: url(../../pics/background.jpg);
+    background-size: 100% 100%;
+}
+
+.graybutton, .graybutton:hover, .graybutton:active{
+    margin: 10px !important;
+    left: -10px;
+    position: relative;
+    width: 140px;
+    border-radius: 6px;
+
+    color: white;
+    background-color: #998c76;
+    border: 0px;
+
+    /* TODO : MS Sans serif Regular */
+    font-family: Helvetica;
+    font-weight: bold;
+}
+
+.beaconbutton, .beaconbutton:hover, .beaconbutton:active {
+    left: 0px;
+    margin: 0px !important;
+}
+
+.bevelonpress-big:hover{
+    -moz-box-shadow: inset -4px 4px 4px rgba(255, 255, 255, .4), inset 4px -4px 4px rgba(0, 0, 0, .4), -11px 11px 5px -3px rgba(46,46,45,0.34);
+    -webkit-box-shadow: inset -4px 4px 4px rgba(255, 255, 255, .4), inset 4px -4px 4px rgba(0, 0, 0, .4), -11px 11px 5px -3px rgba(46,46,45,0.34);
+    box-shadow: inset -4px 4px 4px rgba(255, 255, 255, .4), inset 4px -4px 4px rgba(0, 0, 0, .4), -11px 11px 5px -3px rgba(46,46,45,0.34);
+}
+
+.bevelonpress-big{
+    -moz-box-shadow:  -11px 11px 5px -3px rgba(46,46,45,0.34);
+    -webkit-box-shadow:  -11px 11px 5px -3px rgba(46,46,45,0.34);
+    box-shadow:  -11px 11px 5px -3px rgba(46,46,45,0.34);
+}
+
+.bevelonpress-small:hover{
+    -moz-box-shadow: inset -2px 2px 2px rgba(255, 255, 255, .4), inset 2px -2px 2px rgba(0, 0, 0, .4);
+    -webkit-box-shadow: inset -2px 2px 2px rgba(255, 255, 255, .4), inset 2px -2px 2px rgba(0, 0, 0, .4);
+    box-shadow: inset -2px 2px 2px rgba(255, 255, 255, .4), inset 2px -2px 2px rgba(0, 0, 0, .4);
+}
+
+.main-sidebar{
+    background-color: #222222 !important;
+}
+
+.inplacefooter{
+    display: block;
+    width: 100%;
+    height:40px;
+}
+
+.whiteline{
+    background-color: white !important;
+    position:absolute;
+    height: 41px;
+    margin-left: 275px;
+}
+
+.small-box{
+    background-color: rgba(255, 102, 0, 0.75) !important;
+}
+
+.box-body{
+    margin-bottom: 30px;
+}
+
+.small-box:hover{
+    background-color: rgba(255, 102, 0, 1) !important;
+}
+
+.small-box > .small-box-footer, .small-box > .small-box-footer:hover{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.skin-blue .treeview-menu > li > a {
+    background-color: #252525;
+}
+
+.main-sidebar{
+    width: 275px;
+}
+
+.content-wrapper{
+    margin-left: 275px;
+}
+
+.main-footer{
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.main-footer a{
+    color: white;
+}
+
+.user-panel > .info > p{
+    font-size: 1.4em;
+}
+
+.user-panel small{
+    font-size: 1.2em;
+}
+
+.smallpic{
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.beaconstats{
+    margin-left: 50px;
+}
+
+.beacontext{
+    color: white;
+    font-size: 16px;
+    font-family: "Helvetica";
+}
+
+.whitetext{
+    color: white;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#beacons-container{
+    padding-left: 20px;
+}
+#beacons-container .row{
+    margin-bottom: 20px;
+}
+
+.usualfonts{
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.4em;
+    font-weight: normal;
+}
