@@ -1,8 +1,10 @@
 <div id="beacons-container">
     <div class="grid">
     <div class="row">
-        <div class="col-lg-2">
-            <label for="campaigns" class="whitetext usualfonts">Selecteaza o campanie:</label>
+        <div class="col-xs-12">
+            <label for="campaigns" class="whitetext usualfonts" class="col-xs-3">Selecteaza o campanie:</label>
+        </div>
+        <div class="col-xs-2">
             <select class="form-control" id="campaigns" ng-model="vm.selected">
                 <option value="0" disabled selected>Select</option>
                 <option ng-repeat="(index, campaign) in vm.campaigns" value="{{index}}">{{campaign.displayName}}</option>
