@@ -19,6 +19,7 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
     vm.endDateHeatMap = undefined;
     vm.mapType = SharedVariables.getMapType();
     vm.mapObject = undefined;
+    vm.units = SharedVariables.getMeasureUnits();
 
 	vm.predict = predict;
     vm.apply = apply;

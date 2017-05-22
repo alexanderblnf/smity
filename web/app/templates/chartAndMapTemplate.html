@@ -11,12 +11,16 @@
 <div id="calendar-div">
     <div id="center-div">
         <div id="prediction-div">
-            <button id="get-prediction" class="btn apply-date" ng-click="predict()">Predictie</button>
-            <span id="prediction-span">{{result}}</span></div>
-        <button id="get-weekly" class="btn" ng-click="weekly()">Raport saptamanal</button>
+            <button id="get-weekly" class="btn orange-btn rounded-btn" ng-click="weekly()">Raport saptamanal</button>
+            <button id="get-prediction" class="btn rounded-btn" ng-click="predict()">Predictie</button>
+            <span id="prediction-span">{{result}}</span>
+        </div>
+
         <div id="moment-div">
-            <input class="form-control" ng-model="vm.startDate" placeholder="Data de inceput" moment-picker="vm.startDate">
-            <input class="form-control" ng-model="vm.endDate" placeholder="Data de final" moment-picker="vm.endDate">
+            <input class="form-control rounded-btn" ng-model="vm.startDate" placeholder="Data de inceput"
+                   moment-picker="vm.startDate">
+            <input class="form-control rounded-btn" ng-model="vm.endDate" placeholder="Data de final"
+                   moment-picker="vm.endDate">
             <button class="apply-date btn" ng-click="apply()">Aplica</button>
         </div>
     </div>

@@ -36,7 +36,8 @@ function ChartAndMap() {
             predictCallback: '&',
             weeklyCallback: '&',
             mapType: '=',
-            heatMapFunction: '&'
+            heatMapFunction: '&',
+            units: '='
         },
         restrict: 'E',
         link: link
@@ -70,136 +71,138 @@ function ChartAndMap() {
         var slice = 0;
         var map, result;
 
+        var mapStyle = [
+            {
+                "featureType": "administrative",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": "-100"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.province",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": -100
+                    },
+                    {
+                        "lightness": 65
+                    },
+                    {
+                        "visibility": "on"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": -100
+                    },
+                    {
+                        "lightness": "50"
+                    },
+                    {
+                        "visibility": "simplified"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": "-100"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "simplified"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "lightness": "30"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "lightness": "40"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "saturation": -100
+                    },
+                    {
+                        "visibility": "simplified"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "hue": "#ffff00"
+                    },
+                    {
+                        "lightness": -25
+                    },
+                    {
+                        "saturation": -97
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "lightness": -25
+                    },
+                    {
+                        "saturation": -100
+                    }
+                ]
+            }
+        ];
+
         function initMap() {
             var uluru = {lat: 46.075538, lng: 23.568816};
             map = new google.maps.Map(document.getElementById('maps-div'), {
                 zoom: 12,
                 center: uluru,
-                styles: [
-                    {
-                        "featureType": "administrative",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "saturation": "-100"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "administrative.province",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "landscape",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "saturation": -100
-                            },
-                            {
-                                "lightness": 65
-                            },
-                            {
-                                "visibility": "on"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "saturation": -100
-                            },
-                            {
-                                "lightness": "50"
-                            },
-                            {
-                                "visibility": "simplified"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "saturation": "-100"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "visibility": "simplified"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "lightness": "30"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.local",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "lightness": "40"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "transit",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "saturation": -100
-                            },
-                            {
-                                "visibility": "simplified"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "hue": "#ffff00"
-                            },
-                            {
-                                "lightness": -25
-                            },
-                            {
-                                "saturation": -97
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "labels",
-                        "stylers": [
-                            {
-                                "lightness": -25
-                            },
-                            {
-                                "saturation": -100
-                            }
-                        ]
-                    }
-                ]
+                styles: mapStyle
             });
             var marker = new google.maps.Marker({
                 position: uluru,
@@ -453,7 +456,7 @@ function ChartAndMap() {
                         .attr("dy", ".71em")
                         .style("text-anchor", "middle")
                         .attr("fill", '#ffffff')
-                        .text($scope.yAxis);
+                        .text($scope.yAxis + "(" + $scope.units[$scope.param] + ")");
 
                     // add circle at intersection
                     focus.append("circle")
@@ -767,7 +770,7 @@ function ChartAndMap() {
             });
 
             modal.setContent('<div id="weekly-container">' +
-                '<h1>Raport saptamanal - ' + param + '</h1>' +
+                '<h1>Raport saptamanal - ' + $scope.yAxis + '</h1>' +
                 '<table id="weekly-table">' +
                 '</table>' +
                 '<div id="loading-container"><div class="loader" id="weekly-loader">Loading...</div></div>' +
@@ -804,7 +807,7 @@ function ChartAndMap() {
             span.innerHTML = "Valoare maxima: ";
             div.appendChild(span);
             span = document.createElement('span');
-            span.innerHTML = response[index]['max'][param];
+            span.innerHTML = response[index]['max'][param] + " " + $scope.units[$scope.param];
             div.appendChild(span);
             br = document.createElement('br');
             div.appendChild(br);
@@ -813,7 +816,7 @@ function ChartAndMap() {
             span.innerHTML = "Valoare medie: ";
             div.appendChild(span);
             span = document.createElement('span');
-            span.innerHTML = response[index]['means'];
+            span.innerHTML = response[index]['means'] + " " + $scope.units[$scope.param];
             div.appendChild(span);
             td.appendChild(div);
 
@@ -824,7 +827,8 @@ function ChartAndMap() {
             var coord = new google.maps.LatLng(mapconfig.centerlat, mapconfig.centerlng);
             var options = {
                 zoom: mapconfig.centerzoom,
-                center: coord
+                center: coord,
+                styles: mapStyle
             };
             var map = new google.maps.Map(document.getElementById(mapconfig.containername), options);
             return map;
@@ -944,7 +948,7 @@ function ChartAndMap() {
         $scope.predict = function () {
             var futureTime = initEnd + 24 * 3600;
             $scope.predictCallback()($scope.param, futureTime, function (response) {
-                $scope.result = Math.floor(response.result);
+                $scope.result = Math.floor(response.result) + " " + $scope.units[$scope.param];
             });
         };
 

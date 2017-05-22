@@ -138,7 +138,7 @@ function BeaconService(BeaconResource) {
         genderpie = new d3pie("genderpie", {
             header: {
                 title: {
-                    text: "Gender"
+                    text: "Sex"
                 },
                 location: "pie-center"
             },
@@ -151,8 +151,8 @@ function BeaconService(BeaconResource) {
             data: {
                 sortOrder: "label-asc",
                 content: [
-                    {label: "Male", value: 1},
-                    {label: "Female", value: 1}
+                    {label: "Masculin", value: 1},
+                    {label: "Feminin", value: 1}
                 ]
             },
             misc: {
@@ -195,7 +195,7 @@ function BeaconService(BeaconResource) {
         agepie = new d3pie("agepie", {
             header: {
                 title: {
-                    text: "Age"
+                    text: "Varsta"
                 },
                 location: "pie-center"
             },
@@ -250,7 +250,7 @@ function BeaconService(BeaconResource) {
         ospie = new d3pie("ospie", {
             header: {
                 title: {
-                    text: "Devices"
+                    text: "Dispozitive"
                 },
                 location: "pie-center"
             },

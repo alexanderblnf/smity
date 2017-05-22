@@ -53,10 +53,11 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="temperature"' +
-                            'data-y-axis="Temperatura (Celsius)"' +
+                            'data-y-axis="Temperatura"' +
                             'data-map-type="vm.mapType"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
@@ -67,9 +68,10 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="pressure"' +
-                            'data-y-axis="Presiune (Pascal)"' +
+                            'data-y-axis="Presiune"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -81,9 +83,10 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="humidity"' +
-                            'data-y-axis="Umiditate (%)"' +
+                            'data-y-axis="Umiditate"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -95,9 +98,10 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="co2"' +
-                            'data-y-axis="Dioxid de carbon (ppm)"' +
+                            'data-y-axis="Dioxid de carbon"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -109,9 +113,10 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="pm25"' +
-                            'data-y-axis="Particule de praf (µg/m³)"' +
+                            'data-y-axis="Particule de praf"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -126,6 +131,7 @@ angular
                             'data-y-axis="Compusi organici volatili"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -137,9 +143,10 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="ch2o"' +
-                            'data-y-axis="Formaldehida (ppm)"' +
+                            'data-y-axis="Formaldehida"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'
@@ -151,9 +158,10 @@ angular
                     views: {
                         'home': {
                             template: '<chart-and-map data-param="cpm"' +
-                            'data-y-axis="Radiatii (µSv/h)"' +
+                            'data-y-axis="Radiatii"' +
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
+                            'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
                             'data-heat-map-function="vm.apply"></chart-and-map>',
                             controller: 'D3Controller as vm'

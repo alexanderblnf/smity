@@ -6471,3 +6471,13 @@ input:checked + .slider:before {
     font-weight: normal;
 }
 
+.orange-btn {
+    background-color: #ff6600;
+    color: white;
+    margin: 2%;
+}
+
+.rounded-btn {
+    border-radius: 3px;
+}
+
