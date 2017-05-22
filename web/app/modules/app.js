@@ -197,6 +197,10 @@ angular
         var SharedVariables = $injector.get('SharedVariables');
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
             SharedVariables.clearInitHeatMap();
+            //
+            // if ($state.current.name === 'app.home') {
+            //     SharedVariables.setMapType(false);
+            // }
 
             if (SharedVariables.getMapType() === true) {
                 $rootScope.$broadcast('map-changed');
