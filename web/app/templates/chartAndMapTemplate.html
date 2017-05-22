@@ -10,13 +10,13 @@
 <div id="maps-div" ng-show="!mapType"></div>
 <div id="calendar-div">
     <div id="center-div">
-        <div id="prediction-div">
+        <div id="prediction-div" ng-show="!mapType">
             <button id="get-weekly" class="btn orange-btn rounded-btn" ng-click="weekly()">Raport saptamanal</button>
             <button id="get-prediction" class="btn rounded-btn" ng-click="predict()">Predictie</button>
             <span id="prediction-span">{{result}}</span>
         </div>
 
-        <div id="moment-div">
+        <div id="moment-div" ng-show="!mapType">
             <input class="form-control rounded-btn" ng-model="vm.startDate" placeholder="Data de inceput"
                    moment-picker="vm.startDate">
             <input class="form-control rounded-btn" ng-model="vm.endDate" placeholder="Data de final"
@@ -25,6 +25,6 @@
         </div>
     </div>
 </div>
-<div id="chart-div" class="chart-init">
+<div id="chart-div" class="chart-init" ng-show="!mapType">
     <div class="loader" id="d3-loader">Se incarca...</div>
 </div>

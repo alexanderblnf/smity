@@ -6165,6 +6165,7 @@ input:checked + .slider:before {
 #map-container {
     width: 90%;
     margin-left: 4vw;
+    height: 75vh !important;
 }
 
 #inteli-map-container {
@@ -6481,3 +6482,10 @@ input:checked + .slider:before {
     border-radius: 3px;
 }
 
+#get-prediction:hover {
+    color: #ff6600;
+}
+
+#campaigns {
+    border-radius: 5px;
+}

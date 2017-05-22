@@ -456,7 +456,7 @@ function ChartAndMap() {
                         .attr("dy", ".71em")
                         .style("text-anchor", "middle")
                         .attr("fill", '#ffffff')
-                        .text($scope.yAxis + "(" + $scope.units[$scope.param] + ")");
+                        .text($scope.yAxis + " (" + $scope.units[$scope.param] + ")");
 
                     // add circle at intersection
                     focus.append("circle")
