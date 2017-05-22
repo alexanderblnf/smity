@@ -234,7 +234,7 @@ function ChartAndMap() {
                 markers.push(marker);
                 google.maps.event.addListener(marker, 'click', (function (marker, markerCount) {
                     return function () {
-                        infowindow.setContent(key + '<br>' + options[key].param);
+                        infowindow.setContent(key + '<br>' + options[key].param + ' ' + $scope.units[$scope.param]);
                         infowindow.open(map, marker);
                     }
                 })(marker, markerCount));

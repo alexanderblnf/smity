@@ -53,10 +53,10 @@
 	<div ui-view ng-class="{login: $state.includes('login') || $state.includes('register')}"></div>
 	<!-- /.content-wrapper -->
 
-	<div class="inplacefooter"></div>
+	<!--<div class="inplacefooter"></div>-->
 
-	<div class="main-footer whiteline"></div>
-	<footer class="main-footer"
+	<!--<div class="main-footer whiteline"></div>-->
+	<footer class="main-footer" ng-if="!$state.includes('login')"
 			ng-class="{transparent: $state.includes('login') || $state.includes('register') || $state.includes('member')}">
 
 		<!--<div class="pull-right hidden-xs">-->
