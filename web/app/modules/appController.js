@@ -25,12 +25,17 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
     vm.logout = logout;
     vm.remove = remove;
     vm.setType = setType;
+    vm.showDropdown = showDropdown;
+    vm.addWidget = addWidget;
 
     vm.liveData = {};
     vm.mapType = SharedVariables.getMapType();
     vm.initHeatMap = SharedVariables.getInitHeatMap();
     vm.widgets = [];
     vm.measureUnits = SharedVariables.getMeasureUnits();
+    vm.hideDropdown = false;
+    vm.selected = undefined;
+    vm.preferences = undefined;
 
     // invite friends
     var pendingSearch, lastSearch;
@@ -40,6 +45,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
     function _init() {
         getAll();
         SecurityService.loggedIn();
+        vm.preferences = SharedVariables.getPreferences();
     }
 
     function go(state) {
@@ -71,6 +77,25 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
         vm.mapType = SharedVariables.getMapType();
 
         $rootScope.$broadcast('map-changed');
+    }
+
+    function showDropdown() {
+        vm.hideDropdown = !vm.hideDropdown;
+    }
+
+
+    function addWidget() {
+        if (vm.selected) {
+            vm.preferences = vm.preferences.concat(vm.widgets.filter(function (item) {
+                if (item.name === vm.selected) {
+                    return vm.preferences.indexOf(item) < 0;
+                }
+            }));
+
+            SharedVariables.setPreferences(vm.preferences);
+
+            showDropdown();
+        }
     }
 
     // function _querySearch(criteria) {

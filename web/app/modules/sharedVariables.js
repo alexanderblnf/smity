@@ -7,6 +7,7 @@ function SharedVariables() {
 	var mapType = false;
     var initHeatMap = 0;
     var param = '';
+    var preferences = [];
     var measureUnits = {
         temperature: '°C',
         pressure: 'Pa',
@@ -26,7 +27,9 @@ function SharedVariables() {
 	    clearInitHeatMap: clearInitHeatMap,
         getParam: getParam,
         setParam: setParam,
-        getMeasureUnits: getMeasureUnits
+        getMeasureUnits: getMeasureUnits,
+        getPreferences: getPreferences,
+        setPreferences: setPreferences
     };
 
     function setMapType() {
@@ -59,5 +62,13 @@ function SharedVariables() {
 
     function getMeasureUnits() {
         return measureUnits;
+    }
+
+    function getPreferences() {
+        return preferences;
+    }
+
+    function setPreferences(value) {
+        preferences = value;
     }
 }
