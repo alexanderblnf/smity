@@ -10,7 +10,7 @@ angular.module('Smity')
             parameterUnit: '@',
             removeCallback: '&',
             iconClass: '@',
-            link: '@'
+            linkFunction: '@'
 		},
 		restrict: 'A',
 		link: overviewLink

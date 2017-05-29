@@ -1,54 +1,12 @@
 <section class="content">
 	<div class="row">
-		<div class="col-lg-4 col-xs-6">
-			<div data-overview data-parameter-value="{{vm.liveData.temperature}}"
-                 data-parameter-name="Temperatura"
-                 data-parameter-unit="°C"
+        <div class="col-lg-4 col-xs-6" ng-repeat="widget in vm.widgets">
+            <div data-overview data-parameter-value="{{widget.value}}"
+                 data-parameter-name="{{widget.name}}"
+                 data-parameter-unit="{{widget.unit}}"
                  data-remove-callback="vm.remove"
                  data-icon-class="ion ion-bag"
-                 data-link="app.temperature"></div>
-		</div>
-
-		<div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.pressure}}"
-                 data-parameter-name="Presiune"
-                 data-parameter-unit="mmHg"
-                 data-remove-callback="vm.remove"
-                 data-link="app.pressure"></div>
-        </div>
-
-        <div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.humidity}}"
-                 data-parameter-name="Umiditate"
-                 data-parameter-unit="%"
-                 data-remove-callback="vm.remove"
-                 data-icon-class="ion-waterdrop"
-                 data-link="app.humidity"></div>
-        </div>
-
-        <div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.co2}}"
-                 data-parameter-name="Dioxid de carbon"
-                 data-parameter-unit="ppm"
-                 data-remove-callback="vm.remove"
-                 data-link="app.co2"></div>
-		</div>
-
-		<div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.pm25}}"
-                 data-parameter-name="Particule de praf"
-                 data-parameter-unit="µg/m3"
-                 data-remove-callback="vm.remove"
-                 data-link="app.pm25"></div>
-        </div>
-
-		<div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.ch2o}}"
-                 data-parameter-name="Formaldehida"
-                 data-parameter-unit="ppm"
-                 data-remove-callback="vm.remove"
-                 data-icon-class="ion-ios-flask"
-                 data-link="app.ch2o"></div>
+                 data-link-function="{{'app.' + widget.link}}"></div>
         </div>
 
 		<!--<div class="col-lg-4 col-xs-6">-->
