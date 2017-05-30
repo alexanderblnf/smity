@@ -20,7 +20,13 @@ module.exports = function (passport, db, pgp) {
             id: id
         };
         user.findById(options, function (err, user) {
-            done(null, user);
+            var out = {
+                id: user.id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                permission: user.permission
+            };
+            done(null, out);
         });
     });
 
@@ -122,7 +128,9 @@ module.exports = function (passport, db, pgp) {
                     var newUser = {
                         id: data.id,
                         email: email,
-                        password: password
+                        password: password,
+                        firstname: data.firstname,
+                        lastname: data.lastname
                     };
                     return done(null, newUser);
                 });
