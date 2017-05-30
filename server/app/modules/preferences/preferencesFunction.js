@@ -27,7 +27,7 @@ exports.updatePreferences = function (options, res) {
             };
             res.send(JSON.stringify(response));
         } else {
-            var response = {
+            response = {
                 code: 200,
                 message: "Update successful"
             };

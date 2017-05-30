@@ -1,8 +1,8 @@
-INSERT INTO preferences (parameter) VALUES ('temperature');
-INSERT INTO preferences (parameter) VALUES ('pressure');
-INSERT INTO preferences (parameter) VALUES ('humidity');
-INSERT INTO preferences (parameter) VALUES ('co2');
-INSERT INTO preferences (parameter) VALUES ('ch2o');
-INSERT INTO preferences (parameter) VALUES ('pm25');
-INSERT INTO preferences (parameter) VALUES ('voc');
-INSERT INTO preferences (parameter) VALUES ('cpm');
+INSERT INTO preferences (parameter) VALUES ('Temperature');
+INSERT INTO preferences (parameter) VALUES ('Pressure');
+INSERT INTO preferences (parameter) VALUES ('Humidity');
+INSERT INTO preferences (parameter) VALUES ('Co2');
+INSERT INTO preferences (parameter) VALUES ('Ch2o');
+INSERT INTO preferences (parameter) VALUES ('Pm25');
+INSERT INTO preferences (parameter) VALUES ('Voc');
+INSERT INTO preferences (parameter) VALUES ('Cpm');

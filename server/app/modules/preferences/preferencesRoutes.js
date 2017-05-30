@@ -35,11 +35,12 @@ module.exports = function (db, pgp) {
                 var options = {
                     prefs: prefs,
                     db: db,
-                    ps: ps
+	                ps: ps,
+	                userId: req.user.id
                 };
                 preferencesFunction.updatePreferences(options, res);
             } else {
-                var response = {
+	            response = {
                     code: 400,
                     message: 'Bad request'
                 };

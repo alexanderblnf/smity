@@ -6,7 +6,8 @@ angular.module('preference')
 function PreferenceResource($resource, Constants) {
 	return $resource(Constants.URL.LOCALHOST + '/preferences/get', {}, {
 		'getAll': {
-			method: 'GET'
+			method: 'GET',
+			cache: true
 		},
 		'update': {
 			url: Constants.URL.LOCALHOST + '/preferences/update',
