@@ -14,7 +14,7 @@ angular
         'd3Module',
         'elastic',
         'intelilight',
-        'beacon'
+	    'beacon', 'preference'
     ])
 
     // .config(['$httpProvider',

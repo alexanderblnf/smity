@@ -9,7 +9,7 @@ module.exports = function (db, pgp) {
         var password = req.body.password;
         var firstName = req.body.firstname;
         var lastName = req.body.lastname;
-        var userId = req.body.userid;
+        var userId = req.user.id;
         var response = {};
         if (email == null || password == null || firstName == null || lastName == null) {
             response["code"] = 400;
@@ -32,6 +32,7 @@ module.exports = function (db, pgp) {
                         db: db,
                         ps: ps
                     };
+                    console.log(options);
                     adminFunctions.addManager(options, function (done, data) {
                         if (done == false) {
                             response["code"] = 400;

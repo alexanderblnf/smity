@@ -12,10 +12,11 @@ angular
         'SharedVariables',
         'IntelilightService',
         '$scope',
-        '$rootScope',
+	    '$rootScope', 'PreferenceService',
         SmityController]);
 
-function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables, IntelilightService, $scope, $rootScope) {
+function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables,
+                         IntelilightService, $scope, $rootScope, PreferenceService) {
     var vm = this;
 
     vm.go = go;
@@ -36,6 +37,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
     vm.hideDropdown = false;
     vm.selected = undefined;
     vm.preferences = undefined;
+	vm.userPreferences = undefined;
 
     // invite friends
     var pendingSearch, lastSearch;
@@ -46,6 +48,11 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
         getAll();
         SecurityService.loggedIn();
         vm.preferences = SharedVariables.getPreferences();
+
+	    PreferenceService.getAll()
+		    .then(function (response) {
+			    vm.userPreferences = response.message;
+		    });
     }
 
     function go(state) {
