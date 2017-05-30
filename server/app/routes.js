@@ -17,11 +17,7 @@ module.exports = function (app, passport, db, pgp) {
     });
 
     app.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname, '../web/app/index.html'));
-    });
-
-    app.get('/logini', function (req, res) {
-        res.render('login.ejs', {message: req.flash('loginMessage')});
+        // res.sendFile(path.join(__dirname, '../web/app/index.html'));
     });
 
     app.post('/login', function (req, res, next) {
@@ -40,6 +36,8 @@ module.exports = function (app, passport, db, pgp) {
                     req.login(user, function () {
                         response["code"] = 200;
                         response["message"] = "OK";
+                        response["firstname"] = user.firstname;
+                        response["lastname"] = user.lastname;
                         res.send(response);
                     });
                 }
@@ -203,6 +201,16 @@ module.exports = function (app, passport, db, pgp) {
     app.use('/beacons/', beacons);
 
 
+    /*
+     ==============================
+     Preferences API
+     ==============================
+     */
+
+    var preferences = require('./modules/preferences/preferencesRoutes')(db, pgp);
+    app.use('/preferences', preferences);
+
+
 };
 
 // route middleware to make sure a user is logged in
@@ -216,5 +224,5 @@ function isLoggedIn(req, res, next) {
         console.log('Nu e logat');
     }
     // if they aren't redirect them to the home page
-    res.redirect('/login');
+    res.sendStatus(401);
 }

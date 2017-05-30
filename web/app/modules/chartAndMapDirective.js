@@ -408,7 +408,7 @@ function ChartAndMap() {
 
         // import data and create chart
         function generateD3(startDate, endDate, param) {
-            d3.json("http://localhost:8080/elastic/all/" + param + "/" + startDate + "/" + endDate,
+            d3.json("http://localhost/elastic/all/" + param + "/" + startDate + "/" + endDate,
                 function (data) {
                     document.getElementById('d3-loader').style.display = 'none';
                     var keys = Object.keys(data);

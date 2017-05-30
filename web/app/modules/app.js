@@ -31,7 +31,7 @@ angular
         '$stateProvider',
         '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('/home');
+            $urlRouterProvider.otherwise('/dashboard');
 
             $stateProvider
                 .state('app', {
@@ -41,7 +41,7 @@ angular
                     controller: 'SmityController as vm'
                 })
                 .state('app.home', {
-                    url: '/home',
+                    url: '/dashboard',
                     views: {
                         'home': {
                             templateUrl: '/templates/content.html'
@@ -211,7 +211,7 @@ angular
     .constant('Constants', {
         URL: {
             ELASTIC: 'http://141.85.232.64:9200',
-            LOCALHOST: 'http://localhost:8080'
+            LOCALHOST: 'http://localhost'
         }
     });
 

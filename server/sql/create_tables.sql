@@ -10,8 +10,8 @@ CREATE TABLE permission (
 );
 
 CREATE TABLE preferences (
-  id        INTEGER PRIMARY KEY,
-  parameter VARCHAR(10) NOT NULL
+  id        SERIAL PRIMARY KEY,
+  parameter VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE users (
@@ -21,7 +21,7 @@ CREATE TABLE users (
   firstname   VARCHAR(50)        NOT NULL,
   lastname    VARCHAR(50)        NOT NULL,
   permission  INTEGER REFERENCES permission (id),
-  preferences TEXT []
+  preferences INTEGER []
 );
 
 CREATE TABLE dailyreport (
