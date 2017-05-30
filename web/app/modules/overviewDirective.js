@@ -16,17 +16,9 @@ angular.module('Smity')
             link: overviewLink
         };
 
-        function overviewLink($scope, $el) {
-            var preferences = SharedVariables.getPreferences();
-
+        function overviewLink($scope) {
             $scope.remove = function () {
-                preferences.splice(function () {
-                    return preferences.filter(function (item, index) {
-                        if (item.name === $scope.parameterName) return index;
-                    })
-                }, 1);
-
-                SharedVariables.setPreferences(preferences);
+                $scope.removeCallback()($scope.parameterName);
             };
         }
     }]);

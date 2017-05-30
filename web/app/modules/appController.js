@@ -28,11 +28,11 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
     vm.showDropdown = showDropdown;
     vm.addWidget = addWidget;
 
-    vm.liveData = {};
     vm.mapType = SharedVariables.getMapType();
     vm.initHeatMap = SharedVariables.getInitHeatMap();
-    vm.widgets = [];
     vm.measureUnits = SharedVariables.getMeasureUnits();
+    vm.liveData = {};
+    vm.widgets = [];
     vm.hideDropdown = false;
     vm.selected = undefined;
     vm.preferences = undefined;
@@ -176,10 +176,17 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 
     setInterval(getAll, 61000);
 
-    function remove() {
-        // var articleRow = angular.element($document.querySelector('#overview'));
-        // articleRow.remove();
-        console.log("Remove");
+    function remove(parameterName) {
+        var indexToRemove;
+
+        vm.preferences.filter(function (item, index) {
+            if (item.name === parameterName) {
+                indexToRemove = index;
+                return index;
+            }
+        });
+
+        vm.preferences.splice(indexToRemove, 1);
     }
 
     function _capitalize(string) {
