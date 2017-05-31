@@ -29,12 +29,14 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 	vm.addWidget = addWidget;
 
 	vm.measureUnits = SharedVariables.getMeasureUnits();
+	vm.names = SharedVariables.getNames();
 	vm.liveData = {};
 	vm.widgets = undefined;
 	vm.hideDropdown = false;
 	vm.selected = undefined;
 	vm.preferences = [];
 	vm.userPreferences = undefined;
+	vm.name = "Overview";
 
 	// invite friends
 	var pendingSearch, lastSearch;
@@ -161,7 +163,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 			for (var i = 0; i < keys.length; i++) {
 				vm.widgets.push({
 					value: response[keys[i]],
-					name: _capitalize(keys[i]),
+					name: vm.names[keys[i]],
 					unit: vm.measureUnits[keys[i]],
 					link: keys[i]
 				})
@@ -180,7 +182,7 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 				vm.userPreferences = response.message;
 				vm.userPreferences.forEach(function (selected) {
 					vm.preferences = vm.preferences.concat(vm.widgets.filter(function (item) {
-						return item.name === selected;
+						return item.link === selected;
 					}));
 				});
 			});

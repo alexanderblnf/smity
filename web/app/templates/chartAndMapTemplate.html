@@ -1,5 +1,11 @@
 <section class="content-header col-xs-12">
-	<label class="switch col-xs-6">
+	<div class="col-xs-5">
+		<h2 style="color: white; margin: auto auto 2vh;">{{name}}
+			<small style="margin: auto; color: #afafaf; font-size: 60%">{{mapType ? 'HeatMap' : 'Statistici'}}</small>
+		</h2>
+	</div>
+
+	<label class="switch col-xs-6" style="margin-left: 2vw; margin-top: 2vh;">
 		<input type="checkbox" ng-model="mapType" ng-click="setType()">
 		<div class="slider round"></div>
 	</label>

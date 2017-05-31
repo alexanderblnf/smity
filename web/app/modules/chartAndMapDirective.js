@@ -24,9 +24,9 @@ angular.module('Smity')
             minutesStep: 1
         });
     }])
-    .directive('chartAndMap', [ChartAndMap]);
+	.directive('chartAndMap', ['SharedVariables', '$state', ChartAndMap]);
 
-function ChartAndMap() {
+function ChartAndMap(SharedVariables, $state) {
     return {
         // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
         templateUrl: '/templates/chartAndMapTemplate.html',
@@ -197,6 +197,8 @@ function ChartAndMap() {
                 ]
             }
         ];
+
+	    $scope.name = SharedVariables.getNames()[$state.current.name.split('.')[1]];
 
         function initMap() {
             var uluru = {lat: 46.075538, lng: 23.568816};

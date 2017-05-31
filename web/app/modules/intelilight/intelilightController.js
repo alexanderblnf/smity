@@ -8,6 +8,8 @@ function IntelilightController(InteliMapService) {
 
     vm.closeWindow = closeWindow;
 
+	vm.name = "Iluminat inteligent";
+
     _init();
     function _init() {
         InteliMapService.initMap();

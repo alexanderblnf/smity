@@ -1,33 +1,39 @@
+<section class="content-header col-xs-12">
+    <h2 style="color: white; margin: auto auto 2vh;">{{vm.name}}</h2>
+</section>
+
 <div id="beacons-container">
     <div class="grid">
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="campaigns" class="whitetext usualfonts" class="col-xs-3">Selecteaza o campanie:</label>
+        <div class="row">
+            <div class="col-xs-12">
+                <label for="campaigns" class="whitetext usualfonts" class="col-xs-3">Selecteaza o campanie:</label>
+            </div>
+            <div class="col-xs-2">
+                <select class="form-control" id="campaigns" ng-model="vm.selected">
+                    <option value="0" disabled selected>Select</option>
+                    <option ng-repeat="(index, campaign) in vm.campaigns" value="{{index}}">{{campaign.displayName}}
+                    </option>
+                </select>
+            </div>
         </div>
-        <div class="col-xs-2">
-            <select class="form-control" id="campaigns" ng-model="vm.selected">
-                <option value="0" disabled selected>Select</option>
-                <option ng-repeat="(index, campaign) in vm.campaigns" value="{{index}}">{{campaign.displayName}}</option>
-            </select>
+
+        <div class="row">
+            <div class="col-lg-3 ">
+                <button id="showcampaign" class="btn btn-default graybutton beaconbutton bevelonpress-small"
+                        ng-click="vm.displayCampaign()">Arata campanie
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 ">
-            <button id="showcampaign" class="btn btn-default graybutton beaconbutton bevelonpress-small"
-                    ng-click="vm.displayCampaign()">Arata campanie
-            </button>
-        </div>
-    </div>
     </div>
 
     <div id="campaigntimeline"></div>
-
 
     <div id="pie-container">
         <span id="genderpie"></span>
         <span id="agepie"></span>
         <span id="ospie"></span>
     </div>
+
     <div id="statistics" ng-if="vm.created !== undefined" class="beaconstats beacontext">
         Creata: <span id="created">{{vm.created}}</span> <br/>
         Utilizatori unici: <span id="people">{{vm.people}}</span> <br/>
