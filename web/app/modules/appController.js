@@ -25,12 +25,9 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 	vm.isInViewState = isInViewState;
 	vm.logout = logout;
 	vm.remove = remove;
-	vm.setType = setType;
 	vm.showDropdown = showDropdown;
 	vm.addWidget = addWidget;
 
-	vm.mapType = SharedVariables.getMapType();
-	vm.initHeatMap = SharedVariables.getInitHeatMap();
 	vm.measureUnits = SharedVariables.getMeasureUnits();
 	vm.liveData = {};
 	vm.widgets = undefined;
@@ -70,14 +67,6 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 			.then(function () {
 				$state.go('login');
 			});
-	}
-
-	function setType() {
-		SharedVariables.setMapType();
-		SharedVariables.setInitHeatMap();
-		vm.mapType = SharedVariables.getMapType();
-
-		$rootScope.$broadcast('map-changed');
 	}
 
 	function showDropdown() {

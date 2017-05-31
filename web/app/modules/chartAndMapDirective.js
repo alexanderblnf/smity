@@ -37,7 +37,8 @@ function ChartAndMap() {
             weeklyCallback: '&',
             mapType: '=',
             heatMapFunction: '&',
-            units: '='
+	        units: '=',
+	        setTypeFunction: '&'
         },
         restrict: 'E',
         link: link
@@ -940,6 +941,10 @@ function ChartAndMap() {
 
             $scope.heatMapFunction()(unixStart, unixEnd);
         };
+
+	    $scope.setType = function () {
+		    $scope.setTypeFunction()();
+	    };
 
         var now = new Date();
         var initStart = Math.floor(now.getTime() / 1000 - 10000);

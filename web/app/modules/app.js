@@ -58,10 +58,12 @@ angular
                             'data-predict-callback="vm.predict"' +
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.pressure', {
                     url: '/pressure',
@@ -73,10 +75,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.humidity', {
                     url: '/humidity',
@@ -88,10 +92,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.co2', {
                     url: '/co2',
@@ -103,10 +109,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.pm25', {
                     url: '/pm25',
@@ -118,10 +126,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.voc', {
                     url: '/voc',
@@ -133,10 +143,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.ch2o', {
                     url: '/ch2o',
@@ -148,10 +160,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.cpm', {
                     url: '/cpm',
@@ -163,10 +177,12 @@ angular
                             'data-weekly-callback="vm.weekly"' +
                             'data-units="vm.units"' +
                             'data-map-type="vm.mapType"' +
-                            'data-heat-map-function="vm.apply"></chart-and-map>',
+                            'data-heat-map-function="vm.apply"' +
+                            'data-set-type-function="vm.setType"></chart-and-map>',
                             controller: 'D3Controller as vm'
                         }
-                    }
+                    },
+	                resolve: initHeatMap
                 })
                 .state('app.intelilight', {
                     url: '/intelilight',
@@ -192,20 +208,6 @@ angular
     .run(['$rootScope', '$http', '$state', '$injector', function ($rootScope, $http, $state, $injector) {
         var SecurityService = $injector.get('SecurityService');
         SecurityService.loggedIn();
-        $rootScope.$state = $state;
-
-        var SharedVariables = $injector.get('SharedVariables');
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
-            SharedVariables.clearInitHeatMap();
-            //
-            // if ($state.current.name === 'app.home') {
-            //     SharedVariables.setMapType(false);
-            // }
-
-            if (SharedVariables.getMapType() === true) {
-                $rootScope.$broadcast('map-changed');
-            }
-        });
     }])
 
     .constant('Constants', {
@@ -214,4 +216,25 @@ angular
             LOCALHOST: 'http://localhost'
         }
     });
+
+var initHeatMap = {
+	InitHeatMap: ['SharedVariables', 'MapService', '$state', function (SharedVariables, MapService, $state) {
+		var mapType = SharedVariables.getMapType();
+		var initHeatMap = SharedVariables.getInitHeatMap();
+		var mapObject;
+
+		if (initHeatMap === 1 || mapType === true) {
+			var date = new Date();
+			var now = Math.floor(date.getTime() / 1000);
+			var fromTime = now - 3600 * 24;
+			var toTime = now;
+			setTimeout(function () {
+				mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
+			}, 0.1);
+
+			return mapObject;
+		}
+	}]
+};
+
 
