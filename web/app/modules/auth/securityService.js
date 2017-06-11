@@ -3,13 +3,12 @@
 angular
 .module('auth')
 .service('SecurityService', [
-	'LocalStorage',
 	'SecurityResource',
 	'$rootScope',
     '$cookies', '$http', '$state', 'Constants',
 	SecurityService]);
 
-function SecurityService(LocalStorage, SecurityResource, $rootScope, $cookies, $http, $state, Constants) {
+function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, Constants) {
 	return {
 		login: login,
 		register: register,
