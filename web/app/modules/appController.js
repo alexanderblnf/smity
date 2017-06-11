@@ -5,18 +5,13 @@ angular
 	.controller('SmityController', [
 		'$state',
 		'$mdSidenav',
-		'$q',
-		'$timeout',
 		'ElasticService',
 		'SecurityService',
 		'SharedVariables',
-		'IntelilightService',
-		'$scope',
-		'$rootScope', 'PreferenceService',
+		'PreferenceService',
 		SmityController]);
 
-function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, SecurityService, SharedVariables,
-                         IntelilightService, $scope, $rootScope, PreferenceService) {
+function SmityController($state, $mdSidenav, ElasticService, SecurityService, SharedVariables, PreferenceService) {
 	var vm = this;
 
 	vm.go = go;
@@ -37,9 +32,6 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 	vm.preferences = [];
 	vm.userPreferences = undefined;
 	vm.name = "Overview";
-
-	// invite friends
-	var pendingSearch, lastSearch;
 
 	_init();
 
@@ -95,59 +87,6 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 			showDropdown();
 		}
 	}
-
-	// function _querySearch(criteria) {
-	// 	return vm.allContacts.filter(_createFilterFor(criteria));
-	// }
-	// function searchUser(criteria) {
-	// 	if (!pendingSearch || !debounceSearch()) {
-	// 		return pendingSearch = $q(function (resolve) {
-	// 			$timeout(function () {
-	// 				resolve(_querySearch(criteria));
-	// 				refreshDebounce();
-	// 			}, Math.random() * 500, true)
-	// 		});
-	// 	}
-	//
-	// 	return pendingSearch;
-	// }
-	// function refreshDebounce() {
-	// 	lastSearch = 0;
-	// 	pendingSearch = null;
-	// }
-	//Debounce if querying faster than 300ms
-	// function debounceSearch() {
-	// 	var now = new Date().getMilliseconds();
-	// 	lastSearch = lastSearch || now;
-	//
-	// 	return ((now - lastSearch) < 300);
-	// }
-	// function _createFilterFor(query) {
-	// 	var lowercaseQuery = angular.lowercase(query);
-	//
-	// 	return function filterFn(contact) {
-	// 		return (contact._lowername.indexOf(lowercaseQuery) != -1);
-	// 	};
-	// }
-	// function _loadContacts() {
-	// 	return vm.users.map(function (c) {
-	// 		c.name = c.firstName + ' ' + c.lastName;
-	// 		c._lowername = c.firstName.toLowerCase() + ' ' + c.lastName.toLowerCase();
-	// 		return c;
-	// 	});
-	// }
-	// function _loadEmails() {
-	// 	return vm.selectedUsers.map(function (contact) {
-	// 		return contact['email'];
-	// 	});
-	// }
-	// function _loadEventsId() {
-	// 	return vm.events.filter(function (event) {
-	// 		if (event.selected) {
-	// 			return event['id'];
-	// 		}
-	// 	})
-	// }
 
 	function getAll() {
 		ElasticService.getAll().then(function (response) {
@@ -207,9 +146,4 @@ function SmityController($state, $mdSidenav, $q, $timeout, ElasticService, Secur
 				console.log('Succes');
 			});
 	}
-
-	function _capitalize(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-
 }

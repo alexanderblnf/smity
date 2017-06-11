@@ -3,12 +3,11 @@
 angular.module('d3Module')
 	.controller('D3Controller', ['ElasticService',
 		'SharedVariables',
-		'$scope',
 		'MapService',
 		'$state',
 		D3Controller]);
 
-function D3Controller(ElasticService, SharedVariables, $scope, MapService, $state) {
+function D3Controller(ElasticService, SharedVariables, MapService, $state) {
 
     var vm = this;
 

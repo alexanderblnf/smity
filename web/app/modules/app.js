@@ -4,7 +4,6 @@ angular
 	.module('Smity', [
 		'ngRoute',
 		'ngResource',
-		'myApp.version',
 		'ds.clock',
 		'ui.router',
 		'ngMaterial',

@@ -44,7 +44,7 @@ function ChartAndMap(SharedVariables, $state) {
         link: link
     };
 
-    function link($scope, $el, $attrs) {
+    function link($scope) {
         var viewportHeight = document.getElementById('chart-div').clientHeight;
         var viewportWidth = document.getElementById('chart-div').clientWidth;
         var margin = {top: 0.1 * viewportHeight, right: 0.01 * viewportWidth, bottom: 40, left: 0.05 * viewportWidth};

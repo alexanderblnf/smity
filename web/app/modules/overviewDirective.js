@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('Smity')
-    .directive('overview', ['SharedVariables', function (SharedVariables) {
+	.directive('overview', [function () {
         return {
             templateUrl: '/templates/overviewTemplate.html',
             scope: {
