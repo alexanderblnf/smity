@@ -2,10 +2,7 @@
 
 angular
 .module('auth')
-.factory('SecurityResource', [
-	'$resource',
-	'Constants',
-	SecurityResource]);
+	.factory('SecurityResource', ['$resource', 'Constants', SecurityResource]);
 
 function SecurityResource($resource, Constants) {
 	return $resource(Constants.URL.LOCALHOST + '/login', {}, {

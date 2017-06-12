@@ -20,16 +20,6 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 	};
 
 
-    function loggedIn() {
-        $http.get(Constants.URL.LOCALHOST + '/isloggedin').then(function (response) {
-            console.log(response);
-
-            if (response.data === false) {
-                $state.go('login');
-            }
-        })
-    }
-
 	function login(credentials) {
 		return SecurityResource.login(credentials).$promise;
 	}
@@ -40,6 +30,16 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 
 	function logout() {
 		return SecurityResource.logout().$promise;
+	}
+
+	function loggedIn() {
+		$http.get(Constants.URL.LOCALHOST + '/isloggedin').then(function (response) {
+			console.log(response);
+
+			if (response.data === false) {
+				$state.go('login');
+			}
+		})
 	}
 
 	function setCredentials(username, password) {

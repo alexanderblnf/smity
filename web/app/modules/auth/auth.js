@@ -9,17 +9,17 @@ angular
 			$stateProvider
 				.state('login', {
 					url: '/login',
-					templateUrl: '/templates/login.html',
+					templateUrl: '/templates/auth/login.html',
                     controller: 'SecurityController as vm'
 				})
                 // .state('register', {
                 // 	url: '/register',
-                // 	templateUrl: '/templates/register.html',
+				// 	templateUrl: '/templates/auth/register.html',
                 //     controller: 'SecurityController as vm'
                 // })
                 .state('member', {
                     url: '/member',
-                    templateUrl: '/templates/register.html',
+	                templateUrl: '/templates/auth/register.html',
                     controller: 'SecurityController as vm'
                 });
 
