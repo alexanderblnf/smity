@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Smity')
+angular.module('d3Module')
     .config(['momentPickerProvider', function (momentPickerProvider) {
         momentPickerProvider.options({
             /* Picker properties */
@@ -29,7 +29,7 @@ angular.module('Smity')
 function ChartAndMap(SharedVariables, $state) {
     return {
         // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
-        templateUrl: '/templates/chartAndMapTemplate.html',
+        templateUrl: '/templates/d3/chartAndMapTemplate.html',
         scope: {
             param: '@',
             yAxis: '@',

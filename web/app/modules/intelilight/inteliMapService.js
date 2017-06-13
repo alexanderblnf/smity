@@ -1,5 +1,5 @@
 'use strict';
-angular.module('Smity')
+angular.module('intelilight')
     .service('InteliMapService', ['IntelilightService', InteliMapService]);
 
 function InteliMapService(IntelilightService) {

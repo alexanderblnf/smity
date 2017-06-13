@@ -187,7 +187,7 @@ angular
 					url: '/intelilight',
 					views: {
 						'home': {
-							templateUrl: '/templates/inteliMap.html',
+							templateUrl: '/templates/intelilight/inteliMap.html',
 							controller: 'IntelilightController as vm'
 						}
 					}
@@ -196,7 +196,7 @@ angular
 					url: '/beacon',
 					views: {
 						'home': {
-							templateUrl: '/templates/beacon.html',
+							templateUrl: '/templates/beacons/beacon.html',
 							controller: 'BeaconController as vm'
 						}
 					}

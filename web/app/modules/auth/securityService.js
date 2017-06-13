@@ -1,12 +1,12 @@
 'use strict';
 
 angular
-.module('auth')
-.service('SecurityService', [
-	'SecurityResource',
-	'$rootScope',
-    '$cookies', '$http', '$state', 'Constants',
-	SecurityService]);
+	.module('auth')
+	.service('SecurityService', [
+		'SecurityResource',
+		'$rootScope',
+		'$cookies', '$http', '$state', 'Constants',
+		SecurityService]);
 
 function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, Constants) {
 	return {
@@ -15,8 +15,8 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 		logout: logout,
 		loggedIn: loggedIn,
 		setCredentials: setCredentials,
-        clearCredentials: clearCredentials,
-        addMember: addMember
+		clearCredentials: clearCredentials,
+		addMember: addMember
 	};
 
 
@@ -33,13 +33,12 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 	}
 
 	function loggedIn() {
-		$http.get(Constants.URL.LOCALHOST + '/isloggedin').then(function (response) {
-			console.log(response);
-
-			if (response.data === false) {
-				$state.go('login');
-			}
-		})
+		$http.get(Constants.URL.LOCALHOST + '/isloggedin')
+			.then(function (response) {
+				if (response.data === false) {
+					$state.go('login');
+				}
+			});
 	}
 
 	function setCredentials(username, password) {
@@ -53,7 +52,7 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 		// store user details in globals cookie that keeps user logged in for 1 week (or until they logout)
 		var cookieExp = new Date();
 		cookieExp.setDate(cookieExp.getDate() + 7);
-		$cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
+		$cookies.putObject('globals', $rootScope.globals, {expires: cookieExp});
 	}
 
 	function clearCredentials() {
@@ -62,7 +61,7 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 		remove();
 	}
 
-    function addMember(credentials) {
-        return SecurityResource.addMember(credentials).$promise;
-    }
+	function addMember(credentials) {
+		return SecurityResource.addMember(credentials).$promise;
+	}
 }
