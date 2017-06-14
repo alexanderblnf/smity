@@ -4,18 +4,18 @@ angular.module('beacon')
     .factory('BeaconResource', ['$resource', 'Constants', BeaconResource]);
 
 function BeaconResource($resource, Constants) {
-    return $resource(Constants.URL.LOCALHOST + '/beacons/campaigns', {}, {
+	return $resource(Constants.URL.SERVER + '/beacons/campaigns', {}, {
         'campaigns': {
             method: 'GET',
             isArray: true
         },
         'profile': {
             method: 'GET',
-            url: Constants.URL.LOCALHOST + '/beacons/profile/static/voucher/:campaign'
+	        url: Constants.URL.SERVER + '/beacons/profile/static/voucher/:campaign'
         },
         'insights': {
             method: 'GET',
-            url: Constants.URL.LOCALHOST + '/beacons/insights/static/voucher/:campaign/:startTime/:endTime',
+	        url: Constants.URL.SERVER + '/beacons/insights/static/voucher/:campaign/:startTime/:endTime',
             isArray: true
         }
     })

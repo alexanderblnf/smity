@@ -202,8 +202,7 @@ angular
 
 	.constant('Constants', {
 		URL: {
-			ELASTIC: 'http://141.85.232.64:9200',
-			LOCALHOST: 'http://localhost'
+			SERVER: 'http://localhost'
 		}
 	});
 
