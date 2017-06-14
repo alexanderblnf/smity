@@ -4,10 +4,10 @@ angular.module('d3Module')
 	.controller('D3Controller', ['ElasticService',
 		'SharedVariables',
 		'MapService',
-		'$state',
+		'$state', 'Constants',
 		D3Controller]);
 
-function D3Controller(ElasticService, SharedVariables, MapService, $state) {
+function D3Controller(ElasticService, SharedVariables, MapService, $state, Constants) {
 
     var vm = this;
 
@@ -18,7 +18,7 @@ function D3Controller(ElasticService, SharedVariables, MapService, $state) {
     vm.endDateHeatMap = undefined;
     vm.mapType = SharedVariables.getMapType();
     vm.mapObject = undefined;
-    vm.units = SharedVariables.getMeasureUnits();
+	vm.units = Constants.UNITS;
 
 	vm.predict = predict;
     vm.apply = apply;

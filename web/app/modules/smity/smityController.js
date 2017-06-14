@@ -7,11 +7,10 @@ angular
 		'$mdSidenav',
 		'ElasticService',
 		'SecurityService',
-		'SharedVariables',
-		'PreferenceService',
+		'PreferenceService', 'Constants',
 		SmityController]);
 
-function SmityController($state, $mdSidenav, ElasticService, SecurityService, SharedVariables, PreferenceService) {
+function SmityController($state, $mdSidenav, ElasticService, SecurityService, PreferenceService, Constants) {
 	var vm = this;
 
 	vm.go = go;
@@ -23,8 +22,8 @@ function SmityController($state, $mdSidenav, ElasticService, SecurityService, Sh
 	vm.showDropdown = showDropdown;
 	vm.addWidget = addWidget;
 
-	vm.measureUnits = SharedVariables.getMeasureUnits();
-	vm.names = SharedVariables.getNames();
+	vm.measureUnits = Constants.UNITS;
+	vm.names = Constants.NAMES;
 	vm.liveData = {};
 	vm.widgets = undefined;
 	vm.hideDropdown = false;
