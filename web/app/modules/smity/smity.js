@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('Smity', [
+    .module('smity', [
 		'ngRoute',
 		'ngResource',
 		'ds.clock',
@@ -13,18 +13,9 @@ angular
 		'd3Module',
 		'elastic',
 		'intelilight',
-		'beacon', 'preference'
+        'beacon',
+        'preference'
 	])
-
-	// .config(['$httpProvider',
-	// 	function ($httpProvider) {
-	// 		$httpProvider.defaults.headers.common.Accept = 'application/x-www-form-urlencoded';
-	// 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
-	// 	}])
-	//
-	// .config(['$httpProvider', function ($httpProvider) {
-	// 	$httpProvider.interceptors.push('SecurityInterceptor');
-	// }])
 
 	.config([
 		'$stateProvider',
@@ -36,14 +27,14 @@ angular
 				.state('app', {
 					url: '',
 					abstract: true,
-					templateUrl: '/templates/home.html',
+                    templateUrl: '/templates/smity/home.html',
 					controller: 'SmityController as vm'
 				})
 				.state('app.home', {
 					url: '/dashboard',
 					views: {
 						'home': {
-							templateUrl: '/templates/content.html'
+                            templateUrl: '/templates/smity/content.html'
 						}
 					}
 				})
@@ -219,10 +210,9 @@ angular
 var initHeatMap = {
 	InitHeatMap: ['SharedVariables', 'MapService', '$state', function (SharedVariables, MapService, $state) {
 		var mapType = SharedVariables.getMapType();
-		var initHeatMap = SharedVariables.getInitHeatMap();
-		var mapObject;
+        var mapObject = undefined;
 
-		if (initHeatMap === 1 || mapType === true) {
+        if (mapType === true) {
 			var date = new Date();
 			var now = Math.floor(date.getTime() / 1000);
 			var fromTime = now - 3600 * 24;
@@ -230,8 +220,6 @@ var initHeatMap = {
 			setTimeout(function () {
 				mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
 			}, 0.1);
-
-			return mapObject;
 		}
 	}]
 };

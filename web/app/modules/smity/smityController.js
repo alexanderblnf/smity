@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('Smity')
+    .module('smity')
 	.controller('SmityController', [
 		'$state',
 		'$mdSidenav',

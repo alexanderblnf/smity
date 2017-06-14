@@ -1,5 +1,5 @@
 'use strict';
-angular.module('Smity')
+angular.module('smity')
     .service('MapService', ['ElasticService', MapService]);
 
 function MapService(ElasticService) {

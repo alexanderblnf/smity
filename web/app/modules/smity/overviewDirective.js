@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('Smity')
+angular.module('smity')
 	.directive('overview', [function () {
         return {
-            templateUrl: '/templates/overviewTemplate.html',
+            templateUrl: '/templates/smity/overviewTemplate.html',
             scope: {
                 parameterName: '@',
                 parameterValue: '@',

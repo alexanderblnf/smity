@@ -52,7 +52,7 @@
 - Update Readme
 - Merge pull request #1041 from OskarStark/patch-2
 - Update AdminLTE.css
-- Update app.js
+- Update smity.js
 - Update Select2 plugin to version 4.0.3
 - added missing changelog to README. refs #1040
 - Update jQuery version to 2.2.3
@@ -198,7 +198,7 @@
 - New skins and modified previous skins
 - Change in color scheme to a more complementing scheme
 - Added footer support
-- Removed pace.js from the main app.js
+- Removed pace.js from the main smity.js
 - Added support for collapsed sidebar as an initial state (add .sidebar-collapse to the body tag)
 - Added boxed layout (.layout-boxed)
 - Enhanced consistency in padding and margining

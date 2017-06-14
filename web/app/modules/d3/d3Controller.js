@@ -27,12 +27,9 @@ function D3Controller(ElasticService, SharedVariables, MapService, $state) {
 
 	function setType() {
 		SharedVariables.setMapType();
-		SharedVariables.setInitHeatMap();
 		vm.mapType = SharedVariables.getMapType();
 
-		vm.initHeatMap = SharedVariables.getInitHeatMap();
-
-		if (vm.initHeatMap === 1 || vm.mapType === true) {
+        if (vm.mapType === true) {
 			var date = new Date();
 			var now = Math.floor(date.getTime() / 1000);
 			var fromTime = now - 3600 * 24;

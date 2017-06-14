@@ -1,11 +1,10 @@
 'use strict';
 
-angular.module('Smity')
+angular.module('smity')
     .service('SharedVariables', [SharedVariables]);
 
 function SharedVariables() {
 	var mapType = false;
-    var initHeatMap = 0;
     var param = '';
     var preferences = [];
     var measureUnits = {
@@ -33,9 +32,6 @@ function SharedVariables() {
     return {
         getMapType: getMapType,
         setMapType: setMapType,
-        getInitHeatMap: getInitHeatMap,
-        setInitHeatMap: setInitHeatMap,
-	    clearInitHeatMap: clearInitHeatMap,
         getParam: getParam,
         setParam: setParam,
         getMeasureUnits: getMeasureUnits,
@@ -51,18 +47,6 @@ function SharedVariables() {
 
     function getMapType() {
         return mapType;
-    }
-
-    function getInitHeatMap() {
-        return initHeatMap;
-    }
-
-    function setInitHeatMap() {
-        initHeatMap++;
-    }
-
-	function clearInitHeatMap() {
-		initHeatMap = 0;
     }
 
     function getParam() {

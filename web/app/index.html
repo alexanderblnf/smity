@@ -46,7 +46,7 @@
 	<![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper" ng-app="Smity" style="background-color: transparent !important; height:100vh !important;">
+<div class="wrapper" ng-app="smity" style="background-color: transparent !important; height:100vh !important;">
 
 
 	<!-- Left side column. contains the logo and sidebar -->
@@ -117,13 +117,11 @@
 <script src="resources/d3pie/d3pie.min.js"></script>
 
 
-<script src="modules/app.js"></script>
-<script src="modules/appController.js"></script>
-<script src="modules/overviewDirective.js"></script>
-<script src="modules/d3/chartAndMapDirective.js"></script>
-<script src="modules/sharedVariables.js"></script>
-<script src="modules/mapService.js"></script>
-<script src="modules/intelilight/inteliMapService.js"></script>
+<script src="modules/smity/smity.js"></script>
+<script src="modules/smity/smityController.js"></script>
+<script src="modules/smity/overviewDirective.js"></script>
+<script src="modules/smity/sharedVariables.js"></script>
+<script src="modules/smity/mapService.js"></script>
 <script src="modules/elastic/elastic.js"></script>
 <script src="modules/elastic/elasticResource.js"></script>
 <script src="modules/elastic/elasticService.js"></script>
@@ -134,6 +132,7 @@
 <script src="modules/beacons/beaconResource.js"></script>
 <script src="modules/d3/d3Module.js"></script>
 <script src="modules/d3/d3Controller.js"></script>
+<script src="modules/d3/d3ChartAndMapDirective.js"></script>
 <script src="modules/auth/auth.js"></script>
 <script src="modules/auth/securityController.js"></script>
 <script src="modules/auth/securityResource.js"></script>
@@ -141,11 +140,11 @@
 <script src="modules/intelilight/intelilight.js"></script>
 <script src="modules/intelilight/intelilightResource.js"></script>
 <script src="modules/intelilight/intelilightService.js"></script>
+<script src="modules/intelilight/inteliMapService.js"></script>
 <script src="modules/intelilight/intelilightController.js"></script>
 <script src="modules/preferences/preference.js"></script>
 <script src="modules/preferences/preferenceResource.js"></script>
 <script src="modules/preferences/preferenceService.js"></script>
-<script src="modules/infobubble.js"></script>
 
 <!--<script async defer-->
 <!--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALxvh2WnBEFmzoR8naBaZULmitfDIiqyU&callback=initMap">-->
@@ -167,6 +166,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAMN1BRwPLrkm5cbIu4JPErMoQhMedEoo&callback=googleMapsLoaded"></script>
 <script src="resources/heat-map/gmaps-heatmap.js"></script>
 <script src="resources/tingle-master/tingle-master/dist/tingle.js"></script>
+<script src="resources/infobubble.js"></script>
 
 </body>
 </html>
