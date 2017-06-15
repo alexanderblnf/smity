@@ -46,6 +46,7 @@ exports.getMeansForTime = function (options, res) {
         res.send(result);
     }, function (err) {
         console.log(err);
+        res.status(500).send("Server error");
     });
 };
 
@@ -83,15 +84,27 @@ exports.getAllForInterval = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
 exports.getDataForHeatmap = function (options, res) {
     var entries;
+    var intervals = [];
     if (options.step == null) {
         entries = Math.floor(((options.end - options.start) * 15) / 180);
+        var temp = {
+            range: {
+                time: {
+                    from: options.start,
+                    to: options.end
+                }
+            }
+        };
+        intervals.push(temp);
     } else {
         entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
+        makeSteppedInterval(options, intervals);
     }
     client.search({
         type: options.param,
@@ -100,14 +113,7 @@ exports.getDataForHeatmap = function (options, res) {
         body: {
             query: {
                 bool: {
-                    must: {
-                        range: {
-                            time: {
-                                from: options.start,
-                                to: options.end
-                            }
-                        }
-                    },
+                    should: intervals,
                     must_not: {
                         bool: {
                             must: {
@@ -137,18 +143,12 @@ exports.getDataForHeatmap = function (options, res) {
     }).then(function (resp) {
         var out = [];
         resp.hits.hits.forEach(function (d) {
-            // if(out[d["_index"]] != null) {
-            //     out[d["_index"]].push(d["_source"]);
-            // } else {
-            //     out[d["_index"]] = [];
-            //     out[d["_index"]].push(d["_source"]);
-            // }
             out.push(d["_source"]);
-            //out.push(d);
         });
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -182,6 +182,7 @@ exports.getForInterval = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -207,6 +208,7 @@ exports.getLive = function (res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -318,6 +320,7 @@ exports.getLiveMeans = function (res) {
         res.send(correctedmeans);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -368,6 +371,7 @@ exports.hourlyPrediction = function (options, res) {
 
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -401,6 +405,7 @@ exports.getIntervalSteps = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -491,6 +496,7 @@ exports.getGeneric = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -530,6 +536,7 @@ exports.getIntervalStepsAll = function(options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -618,6 +625,7 @@ exports.weeklyReport = function (options, res) {
             }
         }, function (err) {
             console.log(err.message);
+            res.status(500).send("Server error");
         })
     }
 };
