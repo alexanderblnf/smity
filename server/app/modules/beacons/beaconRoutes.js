@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var beaconRequests = require('./beaconRequests');
 var beaconHeaders = {
-    'X-Zoniz-Token': '15bb4b7f16a.ca412926c000ab05',
+    'X-Zoniz-Token': '15c8cb76b1b.48fb2fd2ae72d69',
     'X-Zoniz-User-Email': 'publicapi@zoniz.com'
 };
 

@@ -5,6 +5,50 @@ var client = new elasticsearch.Client({
 var array = require('node-array-module');
 var regression = require('regression');
 
+exports.getMeansForTime = function (options, res) {
+    var goodSensors = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
+    client.search({
+        index: goodSensors,
+        type: options.param,
+        from: 0,
+        size: goodSensors.length * 10,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: options.time - 900,
+                        to: options.time + 900
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+
+        }
+    }).then(function (resp) {
+
+        var out = [];
+        resp.hits.hits.forEach(function (val) {
+            var temp = {
+                result: val["_source"][options.param]
+            };
+            out.push(temp);
+        });
+
+        var means = normalize(out);
+        var result = {
+            time: options.time,
+            result: means
+        };
+        res.send(result);
+    }, function (err) {
+        console.log(err);
+    });
+};
+
 exports.getAllForInterval = function (options, res) {
     var entries = Math.floor(((options.end - options.start) * 15) / 180);
     client.search({
@@ -43,22 +87,17 @@ exports.getAllForInterval = function (options, res) {
 };
 
 exports.getDataForHeatmap = function (options, res) {
+    var entries;
+    if (options.step == null) {
+        entries = Math.floor(((options.end - options.start) * 15) / 180);
+    } else {
+        entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
+    }
     client.search({
         type: options.param,
         from: 0,
-        size: 12 * 50,
+        size: entries,
         body: {
-//             aggs: {
-//                 by_email: {
-//                     terms: {
-//             field: "_index",
-//             size: 10
-//     },
-//     aggs: {
-//         by_top_hit: { top_hits: { size: 15 } }
-//     }
-// }
-// },
             query: {
                 bool: {
                     must: {
@@ -201,12 +240,12 @@ exports.getLiveMeans = function (res) {
                 all[id][key] = val;
         });
         var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
-        var indexes = ['82000039', '82000034', '82000056', '82000035', '8200003f', '82000038', '8200003d', '8200003c', '8200003a', '82000036', '82000057', '8200003e', '8200003b', '82000037', '82000058'];
         var means = {};
         var count = {};
         var dispersion = {};
         var correctedmeans = {};
         var correctedcount = {};
+        var indexes = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
 
         //initialization
         params.forEach(function (param) {
@@ -216,6 +255,7 @@ exports.getLiveMeans = function (res) {
             correctedcount[param] = 0;
             correctedmeans[param] = 0;
         });
+
 
         //compute sum and count
         indexes.forEach(function (index) {
@@ -232,7 +272,7 @@ exports.getLiveMeans = function (res) {
 
         //compute mean
         params.forEach(function (param) {
-            means[param] = 1.0 * means[param] / count[param];
+            means[param] /= count[param];
         });
 
         //compute dispersion sum
@@ -249,7 +289,7 @@ exports.getLiveMeans = function (res) {
 
         //compute dispersion
         params.forEach(function (param) {
-            dispersion[param] = Math.sqrt(1.0 * dispersion[param] / count[param]);
+            dispersion[param] = Math.sqrt(dispersion[param] / count[param]);
         });
 
         //compute corrected sums and count
@@ -270,7 +310,7 @@ exports.getLiveMeans = function (res) {
         //compute corrected final mean
         params.forEach(function (param) {
             if (correctedmeans[param] != 0) {
-                correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+                correctedmeans[param] = Math.round(correctedmeans[param] / correctedcount[param] * 1000) / 1000;
             }
 
         });
@@ -285,11 +325,11 @@ exports.getLiveMeans = function (res) {
 exports.hourlyPrediction = function (options, res) {
     var intervals = [];
     makePredictionSteps(options, intervals);
-
+    var goodSensors = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
     client.search({
-        index: ['82000039', '8200003c', '8200003a', '8200003b', '8200003e', '82000036'],
+        index: goodSensors,
         type: options.param,
-        size: 150 * 6,
+        size: 300 * 9,
 
         body: {
             query: {
@@ -316,6 +356,7 @@ exports.hourlyPrediction = function (options, res) {
         keys.forEach(function (key) {
             result.push(makeRegression(options.desired, sensors[key], options.param));
         });
+
         var val = normalize(result);
 
         var prediction = {
@@ -644,10 +685,12 @@ function makeRegression(time, data, param) {
             temp.push(val[param]);
             regressionData.push(temp);
         });
+        var temp = [data.length, null];
+        regressionData.push(temp);
         var reg = regression('linear', regressionData);
         var result = {
             time: time,
-            result: reg.equation[1]
+            result: reg.points[reg.points.length - 1][1]
         };
         return result;
     }

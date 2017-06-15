@@ -48,5 +48,30 @@ module.exports = function (db, pgp) {
         }
     });
 
+    router.post('/delete-manager', function (req, res) {
+        var email = req.body.email;
+        if (email == null || email == '') {
+            response["code"] = 400;
+            response["message"] = "You have not provided all the information";
+            res.send(response);
+        } else {
+            var options = {
+                email: email,
+                userId: req.user.id
+            };
+            adminFunctions.removeManager(options, function (done, data) {
+                if (done == false) {
+                    response["code"] = 400;
+                    response["message"] = data;
+                    res.send(response);
+                } else {
+                    response["code"] = 200;
+                    response["message"] = "OK";
+                    res.send(response);
+                }
+            });
+        }
+    });
+
     return router;
 };
