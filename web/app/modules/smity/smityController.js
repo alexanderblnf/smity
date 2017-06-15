@@ -1,58 +1,76 @@
 'use strict';
 
 angular
-    .module('smity')
+	.module('smity')
 	.controller('SmityController', [
 		'$state',
-		'$mdSidenav',
 		'ElasticService',
 		'SecurityService',
-		'PreferenceService', 'Constants',
+		'PreferenceService',
+		'Constants',
 		SmityController]);
 
-function SmityController($state, $mdSidenav, ElasticService, SecurityService, PreferenceService, Constants) {
+function SmityController($state, ElasticService, SecurityService, PreferenceService, Constants) {
 	var vm = this;
 
 	vm.go = go;
-	vm.isState = isState;
-	vm.openLeftMenu = openLeftMenu;
-	vm.isInViewState = isInViewState;
 	vm.logout = logout;
-	vm.remove = remove;
 	vm.showDropdown = showDropdown;
 	vm.addWidget = addWidget;
+	vm.removeWidget = removeWidget;
 
-	vm.measureUnits = Constants.UNITS;
-	vm.names = Constants.NAMES;
-	vm.liveData = {};
+	var measureUnits = Constants.UNITS;
+	var names = Constants.NAMES;
+	var userPreferences = undefined;
+
 	vm.widgets = undefined;
 	vm.hideDropdown = false;
 	vm.selected = undefined;
 	vm.preferences = [];
-	vm.userPreferences = undefined;
 	vm.name = "Overview";
 
-	_init();
 
-	function _init() {
-		getAll();
-		SecurityService.loggedIn();
+	_getAll();
+
+	function _getAll() {
+		ElasticService.liveMeans()
+			.then(function (response) {
+				delete response.$promise;
+				delete response.$resolved;
+
+				var keys = Object.keys(response);
+
+				vm.widgets = [];
+				for (var i = 0; i < keys.length; i++) {
+					vm.widgets.push({
+						value: response[keys[i]],
+						name: names[keys[i]],
+						unit: measureUnits[keys[i]],
+						link: keys[i]
+					})
+				}
+				_getPreferences();
+			});
 	}
+
+	function _getPreferences() {
+		PreferenceService.getAll()
+			.then(function (response) {
+				vm.preferences = [];
+
+				userPreferences = response.message;
+				userPreferences.forEach(function (selected) {
+					vm.preferences = vm.preferences.concat(vm.widgets.filter(function (item) {
+						return item.link === selected;
+					}));
+				});
+			});
+	}
+
+	setInterval(_getAll, 61000);
 
 	function go(state) {
 		$state.go(state);
-	}
-
-	function isState(state) {
-		return $state.includes(state);
-	}
-
-	function isInViewState() {
-		return $state.params.id === undefined;
-	}
-
-	function openLeftMenu() {
-		$mdSidenav('left').toggle();
 	}
 
 	function logout() {
@@ -66,11 +84,10 @@ function SmityController($state, $mdSidenav, ElasticService, SecurityService, Pr
 		vm.hideDropdown = !vm.hideDropdown;
 	}
 
-
 	function addWidget() {
 		if (vm.selected) {
-			vm.userPreferences.push(vm.selected);
-			PreferenceService.update(vm.userPreferences)
+			userPreferences.push(vm.selected);
+			PreferenceService.update(userPreferences)
 				.then(function (response) {
 					if (response.code === 200) {
 						console.log('Succes');
@@ -78,7 +95,7 @@ function SmityController($state, $mdSidenav, ElasticService, SecurityService, Pr
 				});
 
 			vm.preferences = vm.preferences.concat(vm.widgets.filter(function (item) {
-				if (item.name === vm.selected) {
+				if (item.link === vm.selected) {
 					return vm.preferences.indexOf(item) < 0;
 				}
 			}));
@@ -87,48 +104,7 @@ function SmityController($state, $mdSidenav, ElasticService, SecurityService, Pr
 		}
 	}
 
-	function getAll() {
-		ElasticService.getAll().then(function (response) {
-			delete response.$promise;
-			delete response.$resolved;
-			vm.liveData = response;
-			vm.liveData.pressure *= 0.00750061683;
-			vm.liveData.pressure = Math.round(vm.liveData.pressure);
-
-			var keys = Object.keys(response);
-
-			vm.widgets = [];
-			for (var i = 0; i < keys.length; i++) {
-				vm.widgets.push({
-					value: response[keys[i]],
-					name: vm.names[keys[i]],
-					unit: vm.measureUnits[keys[i]],
-					link: keys[i]
-				})
-			}
-
-			vm.preferences = [];
-
-			getPreferences();
-
-		});
-	}
-
-	function getPreferences() {
-		PreferenceService.getAll()
-			.then(function (response) {
-				vm.userPreferences = response.message;
-				vm.userPreferences.forEach(function (selected) {
-					vm.preferences = vm.preferences.concat(vm.widgets.filter(function (item) {
-						return item.link === selected;
-					}));
-				});
-			});
-	}
-
-	setInterval(getAll, 61000);
-
-	function remove(parameterName) {
+	function removeWidget(parameterName) {
 		var indexToRemove;
 
 		vm.preferences.filter(function (item, index) {
@@ -139,8 +115,8 @@ function SmityController($state, $mdSidenav, ElasticService, SecurityService, Pr
 		});
 
 		vm.preferences.splice(indexToRemove, 1);
-		vm.userPreferences.splice(vm.userPreferences.indexOf(parameterName), 1);
-		PreferenceService.update(vm.userPreferences)
+		userPreferences.splice(userPreferences.indexOf(parameterName), 1);
+		PreferenceService.update(userPreferences)
 			.then(function (response) {
 				console.log('Succes');
 			});

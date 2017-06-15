@@ -140,12 +140,12 @@ function MapService(ElasticService) {
                 }
             ]
         };
-        var map = new google.maps.Map(document.getElementById(mapconfig.containername), options);
-        return map;
+
+	    return new google.maps.Map(document.getElementById(mapconfig.containername), options);
     }
 
     function _initHeatmap(map, mapconfig) {
-        var heatmap = new HeatmapOverlay(map,
+	    return new HeatmapOverlay(map,
             {
                 "minOpacity": mapconfig.minopacity,
                 "maxOpacity": mapconfig.maxopacity,
@@ -158,8 +158,6 @@ function MapService(ElasticService) {
                 valueField: mapconfig.valfield
             }
         );
-
-        return heatmap;
     }
 
     function _computeDist(point1, point2) {

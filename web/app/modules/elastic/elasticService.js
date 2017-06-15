@@ -5,14 +5,14 @@ angular.module('elastic')
 
 function ElasticService(ElasticResource) {
 	return {
-        getAll: getAll,
+		liveMeans: liveMeans,
         predict: predict,
         heatMap: heatMap,
         weekly: weekly
 	};
 
-	function getAll() {
-		return ElasticResource.live().$promise;
+	function liveMeans() {
+		return ElasticResource.liveMeans().$promise;
 	}
 
     function predict(param, time) {

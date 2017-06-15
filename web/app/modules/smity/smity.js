@@ -206,7 +206,7 @@ angular
 		},
 		UNITS: {
 			temperature: '°C',
-			pressure: 'Pa',
+			pressure: 'mmHg',
 			humidity: '%',
 			co2: 'ppm',
 			pm25: 'µg/m3',

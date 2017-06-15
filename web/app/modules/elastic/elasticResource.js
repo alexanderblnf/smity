@@ -5,7 +5,7 @@ angular.module('elastic')
 
 function ElasticResource($resource, Constants) {
 	return $resource(Constants.URL.SERVER + '/elastic/livemeans', {}, {
-		'live': {
+		'liveMeans': {
 			method: 'GET'
         },
         'predict': {
