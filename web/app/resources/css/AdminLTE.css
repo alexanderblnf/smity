@@ -382,7 +382,7 @@ a:focus {
 
 .content-header {
     position: relative;
-    padding: 15px 15px 0 15px;
+    /*padding: 15px 15px 0 15px;*/
     margin-bottom: 2vh;
 }
 
@@ -6104,7 +6104,7 @@ text {
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #FF6600;
 }
 
 input:focus + .slider {

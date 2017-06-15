@@ -5,9 +5,9 @@ exports.addManager = function (options, callback) {
             callback(false, data);
         } else {
             if (data.permission == 1) {
-                var add = new options.ps('add-user', 'INSERT INTO users(email, password, firstname, lastname, permission) ' +
-                    'VALUES($1, $2, $3, $4, 2) returning id',
-                    [options.email, options.password, options.firstName, options.lastName]);
+                var add = new options.ps('add-user', 'INSERT INTO users(email, password, firstname, lastname, permission, preferences) ' +
+                    'VALUES($1, $2, $3, $4, 2, $5) returning id',
+                    [options.email, options.password, options.firstName, options.lastName, [1, 3]]);
 
                 options.db.one(add)
                     .then(function (data) {

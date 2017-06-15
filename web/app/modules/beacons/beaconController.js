@@ -12,6 +12,8 @@ function BeaconController(BeaconService) {
     vm.endDate = undefined;
     vm.created = undefined;
     vm.totalHits = undefined;
+	vm.name = "Beacons";
+
     vm.displayCampaign = displayCampaign;
 
     _init();

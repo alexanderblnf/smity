@@ -24,9 +24,9 @@ angular.module('Smity')
             minutesStep: 1
         });
     }])
-    .directive('chartAndMap', [ChartAndMap]);
+	.directive('chartAndMap', ['SharedVariables', '$state', ChartAndMap]);
 
-function ChartAndMap() {
+function ChartAndMap(SharedVariables, $state) {
     return {
         // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
         templateUrl: '/templates/chartAndMapTemplate.html',
@@ -37,13 +37,14 @@ function ChartAndMap() {
             weeklyCallback: '&',
             mapType: '=',
             heatMapFunction: '&',
-            units: '='
+	        units: '=',
+	        setTypeFunction: '&'
         },
         restrict: 'E',
         link: link
     };
 
-    function link($scope, $el, $attrs) {
+    function link($scope) {
         var viewportHeight = document.getElementById('chart-div').clientHeight;
         var viewportWidth = document.getElementById('chart-div').clientWidth;
         var margin = {top: 0.1 * viewportHeight, right: 0.01 * viewportWidth, bottom: 40, left: 0.05 * viewportWidth};
@@ -196,6 +197,8 @@ function ChartAndMap() {
                 ]
             }
         ];
+
+	    $scope.name = SharedVariables.getNames()[$state.current.name.split('.')[1]];
 
         function initMap() {
             var uluru = {lat: 46.075538, lng: 23.568816};
@@ -940,6 +943,10 @@ function ChartAndMap() {
 
             $scope.heatMapFunction()(unixStart, unixEnd);
         };
+
+	    $scope.setType = function () {
+		    $scope.setTypeFunction()();
+	    };
 
         var now = new Date();
         var initStart = Math.floor(now.getTime() / 1000 - 10000);

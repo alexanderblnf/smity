@@ -1,3 +1,16 @@
+<section class="content-header col-xs-12">
+	<div class="col-xs-5">
+		<h2 style="color: white; margin: auto auto 2vh;">{{name}}
+			<small style="margin: auto; color: #afafaf; font-size: 60%">{{mapType ? 'HeatMap' : 'Statistici'}}</small>
+		</h2>
+	</div>
+
+	<label class="switch col-xs-6" style="margin-left: 2vw; margin-top: 2vh;">
+		<input type="checkbox" ng-model="mapType" ng-click="setType()">
+		<div class="slider round"></div>
+	</label>
+</section>
+
 <div id="calendar-heatmap" ng-show="mapType">
     <input class="form-control rounded-form input-heatmap" ng-model="vm.startDateHeatMap" placeholder="Data de inceput"
            moment-picker="vm.startDateHeatMap">
@@ -5,8 +18,7 @@
            moment-picker="vm.endDateHeatMap">
     <button class="apply-date btn" ng-click="applyHeatMap()" style="margin-top: 3%">Aplica</button>
 </div>
-<div class="box-body" id="map-container" style="height: 400px" ng-show="mapType">
-</div>
+<div class="box-body" id="map-container" style="height: 400px" ng-show="mapType"></div>
 <div id="maps-div" ng-show="!mapType"></div>
 <div id="calendar-div">
     <div id="center-div">

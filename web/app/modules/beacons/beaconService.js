@@ -5,14 +5,12 @@ angular.module('beacon')
 
 function BeaconService(BeaconResource) {
 
-    var genderpie, agepie, ospie;
+    var genderPie, agePie, osPie;
     var totalHits, people;
 
     return {
         campaigns: campaigns,
         showProfile: showProfile,
-        getTotalHits: getTotalHits,
-        getPeople: getPeople,
         showInsights: showInsights,
         generateChart: generateChart
     };
@@ -74,7 +72,7 @@ function BeaconService(BeaconResource) {
                     {label: "Male", value: fem},
                     {label: "Female", value: mal}
                 ];
-                genderpie.updateProp("data.content", gendercontent);
+                genderPie.updateProp("data.content", gendercontent);
 
                 var agecontent = [
                     {label: "< 18", value: u18},
@@ -86,7 +84,7 @@ function BeaconService(BeaconResource) {
                     {label: "> 65", value: o65}
                 ];
 
-                agepie.updateProp("data.content", agecontent);
+                agePie.updateProp("data.content", agecontent);
                 people = fem + mal + sna;
                 callback(people);
             });
@@ -110,19 +108,11 @@ function BeaconService(BeaconResource) {
                     {label: "Android", value: android},
                     {label: "iOS", value: ios}
                 ];
-                ospie.updateProp("data.content", oscontent);
+                osPie.updateProp("data.content", oscontent);
 
                 totalHits = android + ios;
                 callback(totalHits);
             });
-    }
-
-    function getTotalHits() {
-        return totalHits;
-    }
-
-    function getPeople() {
-        return people;
     }
 
     function generateChart() {
@@ -135,7 +125,7 @@ function BeaconService(BeaconResource) {
             fontSize: '1.5em'
         };
 
-        genderpie = new d3pie("genderpie", {
+        genderPie = new d3pie("genderpie", {
             header: {
                 title: {
                     text: "Sex"
@@ -192,7 +182,7 @@ function BeaconService(BeaconResource) {
             }
         });
 
-        agepie = new d3pie("agepie", {
+        agePie = new d3pie("agepie", {
             header: {
                 title: {
                     text: "Varsta"
@@ -247,7 +237,7 @@ function BeaconService(BeaconResource) {
             }
         });
 
-        ospie = new d3pie("ospie", {
+        osPie = new d3pie("ospie", {
             header: {
                 title: {
                     text: "Dispozitive"

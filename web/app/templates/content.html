@@ -1,57 +1,39 @@
+<section class="content-header col-xs-12">
+    <h2 style="color: white; margin: auto auto 2vh;">{{vm.name}}</h2>
+</section>
+
 <section class="content">
 	<div class="row">
-		<div class="col-lg-4 col-xs-6">
-			<div data-overview data-parameter-value="{{vm.liveData.temperature}}"
-                 data-parameter-name="Temperatura"
-                 data-parameter-unit="°C"
+        <div class="col-lg-4 col-xs-6" ng-repeat="widget in vm.preferences track by widget.name">
+            <div data-overview data-parameter-value="{{widget.value}}"
+                 data-parameter-name="{{widget.name}}"
+                 data-parameter-unit="{{widget.unit}}"
                  data-remove-callback="vm.remove"
                  data-icon-class="ion ion-bag"
-                 data-link="app.temperature"></div>
-		</div>
-
-		<div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.pressure}}"
-                 data-parameter-name="Presiune"
-                 data-parameter-unit="mmHg"
-                 data-remove-callback="vm.remove"
-                 data-link="app.pressure"></div>
+                 data-link-function="{{'app.' + widget.link}}"></div>
         </div>
 
-        <div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.humidity}}"
-                 data-parameter-name="Umiditate"
-                 data-parameter-unit="%"
-                 data-remove-callback="vm.remove"
-                 data-icon-class="ion-waterdrop"
-                 data-link="app.humidity"></div>
+        <!--box-body fara margin -->
+        <div class="col-lg-4 col-xs-6" ng-if="!vm.hideDropdown">
+            <div class="small-box bg-orange bevelonpress-big shadow-big" style="text-align: center">
+                <a href ng-click="vm.showDropdown()">
+                    <img src="../pics/content_qs-icons-add.png" style="width: 12.2vw">
+                </a>
+            </div>
         </div>
 
-        <div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.co2}}"
-                 data-parameter-name="Dioxid de carbon"
-                 data-parameter-unit="ppm"
-                 data-remove-callback="vm.remove"
-                 data-link="app.co2"></div>
-		</div>
+        <div class="col-lg-4 col-xs-6" ng-if="vm.hideDropdown">
+            <div class="small-box bg-orange bevelonpress-big shadow-big" style="height: 25.25vh;text-align: center;">
+                <select ng-model="vm.selected" style="margin-top: 6vh;color: black;">
+                    <option ng-repeat="widget in vm.widgets">{{widget.name}}</option>
+                </select>
 
-		<div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.pm25}}"
-                 data-parameter-name="Particule de praf"
-                 data-parameter-unit="µg/m3"
-                 data-remove-callback="vm.remove"
-                 data-link="app.pm25"></div>
+                <input type="button" value="Submit" ng-click="vm.addWidget()">
+            </div>
         </div>
 
-		<div class="col-lg-4 col-xs-6">
-            <div data-overview data-parameter-value="{{vm.liveData.ch2o}}"
-                 data-parameter-name="Formaldehida"
-                 data-parameter-unit="ppm"
-                 data-remove-callback="vm.remove"
-                 data-icon-class="ion-ios-flask"
-                 data-link="app.ch2o"></div>
-        </div>
 
-		<!--<div class="col-lg-4 col-xs-6">-->
+        <!--<div class="col-lg-4 col-xs-6">-->
 		<!--&lt;!&ndash; small box &ndash;&gt;-->
         <!--<div class="small-box bg-orange">-->
         <!--<div class="box-header">-->

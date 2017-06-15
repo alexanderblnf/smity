@@ -112,7 +112,7 @@ function getUserPreferences(options, callback) {
 }
 
 function updateUserPreference(options, callback) {
-    var update = new options.ps('update-user-preferences', 'UPDATE users SET preferences = $1', [options.preferences]);
+    var update = new options.ps('update-user-preferences', 'UPDATE users SET preferences = $1 where id = $2', [options.preferences, options.userId]);
     options.db.none(update)
         .then(function (data) {
             callback(true);

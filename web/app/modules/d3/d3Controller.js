@@ -3,12 +3,11 @@
 angular.module('d3Module')
 	.controller('D3Controller', ['ElasticService',
 		'SharedVariables',
-		'$scope',
 		'MapService',
 		'$state',
 		D3Controller]);
 
-function D3Controller(ElasticService, SharedVariables, $scope, MapService, $state) {
+function D3Controller(ElasticService, SharedVariables, MapService, $state) {
 
     var vm = this;
 
@@ -24,21 +23,25 @@ function D3Controller(ElasticService, SharedVariables, $scope, MapService, $stat
 	vm.predict = predict;
     vm.apply = apply;
     vm.weekly = weekly;
+	vm.setType = setType;
 
-	$scope.$on('map-changed', function () {
-        vm.mapType = SharedVariables.getMapType();
-        vm.initHeatMap = SharedVariables.getInitHeatMap();
+	function setType() {
+		SharedVariables.setMapType();
+		SharedVariables.setInitHeatMap();
+		vm.mapType = SharedVariables.getMapType();
+
+		vm.initHeatMap = SharedVariables.getInitHeatMap();
 
 		if (vm.initHeatMap === 1 || vm.mapType === true) {
-            var date = new Date();
-            var now = Math.floor(date.getTime() / 1000);
-            var fromTime = now - 3600 * 24;
-            var toTime = now;
-            setTimeout(function () {
-                vm.mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
-            }, 0.1);
-        }
-    });
+			var date = new Date();
+			var now = Math.floor(date.getTime() / 1000);
+			var fromTime = now - 3600 * 24;
+			var toTime = now;
+			setTimeout(function () {
+				vm.mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
+			}, 0.1);
+		}
+	}
 
     function predict(param, time, callback) {
 	    ElasticService.predict(param, time)
