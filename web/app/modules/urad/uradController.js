@@ -59,6 +59,6 @@ function UradController(ElasticService, SharedVariables, UradHeatmapService, $st
         ElasticService.weekly(param)
             .then(function (response) {
                 callback(response);
-            })
+            });
     }
 }

@@ -1,34 +1,11 @@
 'use strict';
 
 angular.module('urad')
-    .config(['momentPickerProvider', function (momentPickerProvider) {
-        momentPickerProvider.options({
-            /* Picker properties */
-            locale: 'ro',
-            format: 'L LT',
-            minView: 'decade',
-            maxView: 'minute',
-            startView: 'year',
-            autoclose: true,
-            today: false,
-            keyboard: false,
-
-            /* Extra: Views properties */
-            leftArrow: '&larr;',
-            rightArrow: '&rarr;',
-            yearsFormat: 'YYYY',
-            monthsFormat: 'MMM',
-            daysFormat: 'D',
-            hoursFormat: 'HH',
-            minutesFormat: 'mm',
-            minutesStep: 1
-        });
-    }])
     .directive('uradChartAndMap', ['Constants', '$state', UradChartAndMap]);
 
 function UradChartAndMap(Constants, $state) {
     return {
-        templateUrl: '/templates/d3/chartAndMapTemplate.html',
+	    templateUrl: '/templates/urad/chartAndMapTemplate.html',
         scope: {
             param: '@',
             yAxis: '@',
@@ -51,8 +28,8 @@ function UradChartAndMap(Constants, $state) {
         var width = viewportWidth - margin.left - margin.right;
         var xScale = d3.scaleTime().range([0, width - 0.2 * viewportWidth]);
         var yScale = d3.scaleLinear().range([height, 0]);
-        // var color = d3.scaleOrdinal(d3.schemeCategory10);
-        var color = d3.scaleOrdinal()
+	    var color = d3
+		    .scaleOrdinal()
             .range(['#2ba1f9', '#fc9765', '#64b5a9', '#ffed26', '#8bff8f', '#ca73ff', '#66ccff', '#f4e97d', '#ee5859', '#c2e351', '#ecc781', '#8a96dd', '#e3d4ff', '#ff8c89', '#638463', '#e5000c', '#e55107']);
         var svg, bisectDate, line, focus, first, limitLines;
         var max = 0;
@@ -69,7 +46,7 @@ function UradChartAndMap(Constants, $state) {
         var markerCount = 0;
         var markers = [];
         var slice = 0;
-        var map, result;
+	    var map;
 
         var mapStyle = [
             {
@@ -213,7 +190,32 @@ function UradChartAndMap(Constants, $state) {
             markers.push(marker);
         }
 
-        function addMarkerToMap(options) {
+	    function initD3() {
+		    svg = d3.select(document.getElementById('chart-div')).append("svg")
+			    .attr("width", width + margin.left + margin.right)
+			    .attr("height", height + margin.top + margin.bottom)
+			    .append("g")
+			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		    bisectDate = d3.bisector(function (d) {
+			    return d.time;
+		    }).left;
+
+		    // set the line attributes
+		    line = d3.line()
+			    .curve(d3.curveCatmullRom)
+			    .x(function (d) {
+				    return xScale(d.date);
+			    })
+			    .y(function (d) {
+				    return yScale(d.param);
+			    });
+
+		    focus = svg.append("g").style("display", "none");
+		    first = 0;
+	    }
+
+	    function _addMarkerToMap(options) {
             var keys = Object.keys(options);
             markers.forEach(function (marker) {
                 marker.setMap(null);
@@ -243,34 +245,10 @@ function UradChartAndMap(Constants, $state) {
             });
         }
 
-        function initD3() {
-            svg = d3.select(document.getElementById('chart-div')).append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            bisectDate = d3.bisector(function (d) {
-                return d.time;
-            }).left;
-
-            // set the line attributes
-            line = d3.line()
-                .curve(d3.curveCatmullRom)
-                .x(function (d) {
-                    return xScale(d.date);
-                })
-                .y(function (d) {
-                    return yScale(d.param);
-                });
-
-            focus = svg.append("g").style("display", "none");
-            first = 0;
-        }
-
-        function reScale(cache, keys, param) {
+	    function _reScale(cache, keys, param) {
             max = 0;
             maxWidth = 0;
+
             var params = keys.map(function (name) {
                 return {
                     name: name,
@@ -279,7 +257,6 @@ function UradChartAndMap(Constants, $state) {
                     })
                 };
             });
-
 
             // add domain ranges to the x and y scales
             xScale.domain([
@@ -336,7 +313,7 @@ function UradChartAndMap(Constants, $state) {
 
                 d3.selectAll(".danger-line").remove();
                 d3.selectAll(".danger-text").remove();
-                drawLimits(param);
+	            _drawLimits(param);
             } else {
                 first = 1;
             }
@@ -344,7 +321,7 @@ function UradChartAndMap(Constants, $state) {
             return params;
         }
 
-        function measure(measures, keys) {
+	    function _measure(measures, keys) {
             var result = d3.selectAll(".legend-results")
                 .data(measures);
             result.selectAll('text').remove();
@@ -378,8 +355,7 @@ function UradChartAndMap(Constants, $state) {
                 });
         }
 
-        function drawLimits(param) {
-
+	    function _drawLimits(param) {
             if (limits[param] != null) {
                 var values = limits[param];
                 var messages = limits[param + "_messages"];
@@ -417,28 +393,31 @@ function UradChartAndMap(Constants, $state) {
                     var length = keys.length;
                     var measures = [];
 
-                    for (i = 0; i < keys.length; i++) {
-                        var aux = {
-                            key: keys[i],
-                            value: 0,
-                            time: 0
-                        };
-                        measures.push(aux);
-                        for (var j = 0; j < data[keys[i]].length; j++) {
-                            data[keys[i]][j].time = data[keys[i]][j].time * 1000;
-                        }
-                    }
+	                keys.forEach(function (key) {
+		                measures.push({
+			                key: key,
+			                value: 0,
+			                time: 0
+		                });
+
+		                data[key].forEach(function (val) {
+			                val.time *= 1000;
+		                });
+	                });
 
                     var lookup = {};
-                    for (var i = 0; i < measures.length; i++) {
-                        lookup[measures[i]['key']] = i;
-                    }
+	                measures.forEach(function (measure, index) {
+		                lookup[measure['key']] = index;
+	                });
+
+	                // for (var i = 0; i < measures.length; i++) {
+	                //     lookup[measures[i]['key']] = i;
+	                // }
 
                     var cache = JSON.parse(JSON.stringify(data));
                     color.domain(keys);
                     // color domain
-                    // create stocks array with object for each company containing all data
-                    var params = reScale(cache, keys, param);
+	                var params = _reScale(cache, keys, param);
                     // add the x axis
                     svg.append("g")
                         .attr("class", "x axis")
@@ -486,7 +465,6 @@ function UradChartAndMap(Constants, $state) {
                         .attr("y1", 0)
                         .attr("y2", height);
 
-
                     // append rectangle for capturing if mouse moves within area
                     svg.append("rect")
                         .attr("width", 0.8 * width)
@@ -508,7 +486,7 @@ function UradChartAndMap(Constants, $state) {
                         .enter().append("g")
                         .attr("class", "stockXYZ");
 
-                    // add the stock price paths
+	                // add the stock paths
                     stock.append("path")
                         .attr("class", "line")
                         .attr("id", function (d, i) {
@@ -520,7 +498,6 @@ function UradChartAndMap(Constants, $state) {
                         .style("stroke", function (d) {
                             return color(d.name);
                         });
-
 
                     stock.append("text")
                         .datum(function (d) {
@@ -586,6 +563,7 @@ function UradChartAndMap(Constants, $state) {
                             if (keys.indexOf(key) != -1) {
                                 d3.select("#id" + d.name).style("display", "none");
                                 d3.select("#circ_id" + d.name).style("fill", "white");
+
                                 for (j = 0; j < cache[key].length; j++) {
                                     delete cache[key][j];
                                 }
@@ -598,7 +576,7 @@ function UradChartAndMap(Constants, $state) {
                                 }
                                 var index = keys.indexOf(key);
                                 keys.splice(index, 1);
-                                reScale(cache, keys, param);
+	                            _reScale(cache, keys, param);
                             } else {
                                 d3.select("#id" + d.name).style("display", "");
                                 d3.select("#circ_id" + d.name).style("fill", color(key));
@@ -607,7 +585,7 @@ function UradChartAndMap(Constants, $state) {
                                 for (var j = 0; j < data[key].length; j++) {
                                     cache[key].push(data[key][j]);
                                 }
-                                reScale(cache, keys, param);
+	                            _reScale(cache, keys, param);
                             }
                         });
 
@@ -640,13 +618,13 @@ function UradChartAndMap(Constants, $state) {
                             });
                         });
 
-
                     legend.append('text')
                         .text("Senzori")
                         .attr("x", width - 0.025 * viewportWidth)
                         .attr("y", 0)
                         .attr("height", 0.06 * viewportHeight)
                         .style("font-size", "1.5em");
+
                     var results = svg.append("g")
                         .attr("class", "legend-results")
                         .attr("x", width - 0.25 * viewportWidth)
@@ -683,7 +661,7 @@ function UradChartAndMap(Constants, $state) {
                             });
                         });
 
-                    drawLimits(param);
+	                _drawLimits(param);
                     // mousemove function
                     function mousemove() {
                         var x0 = xScale.invert(d3.mouse(this)[0]);
@@ -705,7 +683,7 @@ function UradChartAndMap(Constants, $state) {
                         });
 
                         if (key != null) {
-                            measure(measures, keys);
+	                        _measure(measures, keys);
                             var d0 = cache[key][maxI], d1 = cache[key][maxI - 1];
                             var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
 
@@ -722,8 +700,6 @@ function UradChartAndMap(Constants, $state) {
                                 .attr("transform", "translate(0,"
                                     + (yScale(d[param])) + ")");
                         }
-
-
                     }
 
                     function showmap() {
@@ -734,23 +710,22 @@ function UradChartAndMap(Constants, $state) {
                             var d0 = cache[key][j], d1 = cache[key][j - 1];
                             if (d0 && d1) {
                                 var d = x0 - d0.time > d1.time - x0 ? d1 : d0;
-                                aux = {
+	                            options[key] = {
                                     lat: d.lat,
                                     long: d.long,
                                     color: color(key),
                                     param: d[param]
                                 };
-                                options[key] = aux;
                             }
                         });
 
-                        addMarkerToMap(options);
+	                    _addMarkerToMap(options);
                     }
 
                 });
         }
 
-        function makeModal(param) {
+	    function _makeModal() {
             var modal = new tingle.modal({
                 footer: true,
                 stickyFooter: false,
@@ -762,12 +737,6 @@ function UradChartAndMap(Constants, $state) {
                 },
                 onClose: function () {
                     console.log('modal closed');
-                },
-                beforeClose: function () {
-                    // here's goes some logic
-                    // e.g. save content before closing the modal
-                    return true; // close the modal
-                    return false; // nothing happens
                 }
             });
 
@@ -779,23 +748,15 @@ function UradChartAndMap(Constants, $state) {
                 '<h3>Valori maxime</h3>' +
                 '<div id="weekly-map"></div>' +
                 '</div>');
-            //
-            // modal.addFooterBtn('Button label', 'tingle-btn tingle-btn--primary', function () {
-            //     // here goes some logic
-            //     modal.close();
-            // });
-            //
+
             modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
-                // here goes some logic
                 modal.close();
             });
-            //
-            modal.open();
 
-            // modal.close();
+            modal.open();
         }
 
-        function fillTd(weekday, index, response, param) {
+	    function _fillTd(weekday, index, response, param) {
             var td, div, h3, br, span;
             td = document.createElement('td');
             div = document.createElement('div');
@@ -836,7 +797,7 @@ function UradChartAndMap(Constants, $state) {
             return map;
         }
 
-        function addMaxToMap(sensors, map, param) {
+	    function _addMaxToMap(sensors, map, param) {
             var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
             sensors.forEach(function (sensor, index) {
                 var infoWindow = new google.maps.InfoWindow();
@@ -867,7 +828,7 @@ function UradChartAndMap(Constants, $state) {
         }
 
 
-        function initMax(sensors, param) {
+	    function _initMax(sensors, param) {
 
             var CITY_LAT = 46.060625;
             var CITY_LNG = 23.573919;
@@ -893,33 +854,33 @@ function UradChartAndMap(Constants, $state) {
             //name of fields in data
 
             var map = _initGoogleMaps(mapconfig);
-            addMaxToMap(sensors, map, param);
+		    _addMaxToMap(sensors, map, param);
         }
 
-        function fillModal(param, response) {
+	    function _fillModal(param, response) {
             var table = document.getElementById('weekly-table');
             var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
             var tr, td;
             for (var i = 0; i < 7; i++) {
                 if (i == 6) {
                     tr = document.createElement('tr');
-                    td = fillTd(weekdays[i], i, response, param);
+	                td = _fillTd(weekdays[i], i, response, param);
                     tr.appendChild(td);
                     table.appendChild(tr);
                 } else {
                     if (i % 2 == 0) {
                         tr = document.createElement('tr');
-                        td = fillTd(weekdays[i], i, response, param);
+	                    td = _fillTd(weekdays[i], i, response, param);
                         tr.appendChild(td);
                     } else {
-                        td = fillTd(weekdays[i], i, response, param);
+	                    td = _fillTd(weekdays[i], i, response, param);
                         tr.appendChild(td);
                         table.appendChild(tr);
                     }
                 }
             }
             document.getElementById('loading-container').innerHTML = "";
-            initMax(response, param);
+		    _initMax(response, param);
             var modal = document.getElementsByClassName('tingle-modal');
             modal[0].className = 'tingle-modal --visible tingle-modal--visible tingle-modal--overflow';
         }
@@ -959,12 +920,11 @@ function UradChartAndMap(Constants, $state) {
         };
 
         $scope.weekly = function () {
-            makeModal($scope.param);
+	        _makeModal($scope.param);
             $scope.weeklyCallback()($scope.param, function (response) {
-                fillModal($scope.param, response);
+	            _fillModal($scope.param, response);
             });
         };
-
 
         initMap();
         initD3($scope.param);

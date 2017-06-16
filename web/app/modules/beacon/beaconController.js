@@ -18,10 +18,8 @@ function BeaconController(BeaconService) {
 
     _init();
     function _init() {
-
         BeaconService.campaigns()
             .then(function (response) {
-
                 vm.campaigns = response;
                 vm.campaigns.map(function (campaign) {
                     // static/voucher/Piata-T-iw5255zf.ftl
@@ -34,12 +32,11 @@ function BeaconController(BeaconService) {
 
                     return campaign;
                 });
-
             });
     }
 
     function displayCampaign() {
-        BeaconService.generateChart();
+	    BeaconService.configureChart();
         var startDate;
         var endDate;
 
@@ -51,7 +48,8 @@ function BeaconController(BeaconService) {
         BeaconService.showProfile(vm.campaigns[vm.selected].name, function (people) {
             vm.people = people;
         });
-        BeaconService.showInsights(vm.campaigns[vm.selected].name, startDate, endDate, function (totalHits) {
+
+	    BeaconService.showInsights(vm.campaigns[vm.selected].name, startDate, endDate, function (totalHits) {
             vm.totalHits = totalHits;
             vm.endDate = new Date(vm.campaigns[vm.selected].data.endDate).toISOString().slice(0, 10);
             vm.created = new Date(vm.campaigns[vm.selected].created).toISOString().slice(0, 10);

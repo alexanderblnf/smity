@@ -1,23 +1,16 @@
 <header class="main-header">
 	<a class="logo" id="logo" href ui-sref="app.home">
-		<img class="logo-lg" src="../../pics/LOGO-alb.png" style="height: 80%; margin-bottom: 2%;">
+		<img class="logo-lg" src="../../pics/LOGO-alb.png" style="height: 80%; margin-bottom: 2%; margin-left: 2vw">
 		<img class="logo-mini" src="../../pics/logo%20mic%20si%20bun.png" style="height: 100%">
 	</a>
 
-	<!-- Header Navbar: style can be found in header.less -->
 	<nav class="navbar navbar-static-top">
-		<!--<a href class="sidebar-toggle" data-toggle="offcanvas" role="button">-->
-			<!--<span class="sr-only">Toggle navigation</span>-->
-		<!--</a>-->
-
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<li class="dropdown user user-menu">
-					<!--<a href class="dropdown-toggle" data-toggle="dropdown">-->
-						<!--<img src="../pics/user2-160x160.jpg" class="user-image" alt="User Image">-->
-						<!--<span class="hidden-xs">Alexander Pierce</span>-->
-					<!--</a>-->
-					<button type="button" class="btn btn-block btn-default graybutton bevelonpress-small" ng-click="vm.logout()">Logout</button>
+					<button type="button" class="btn btn-block btn-default graybutton bevelonpress-small"
+					        ng-click="vm.logout()">Deconectare
+					</button>
 					<!--<ul class="dropdown-menu">-->
 						<!--<li class="user-header">-->
 							<!--<img src="../pics/user2-160x160.jpg" class="img-circle" alt="User Image">-->
@@ -58,16 +51,12 @@
 <aside class="main-sidebar tingle-content-wrapper">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
-		<div class="user-panel">
-			<div class="pull-left image smallpic">
-				<img src="../../pics/user2-160x160.jpg" class="img-circle" alt="User Image">
-			</div>
-			<div class="pull-left info">
-				<p>Alexander Pierce</p>
-				<small>Primar</small>
+		<div class="user-panel" style="height: 8vh">
+			<div class="pull-left info" style="margin-top: 1vh">
+				<p>Andra Ionescu</p>
 			</div>
 		</div>
-		<!-- sidebar menu: : style can be found in sidebar.less -->
+
 		<ul class="sidebar-menu">
 			<li class="header">URADMonitor</li>
 			<li class="treeview">
@@ -133,7 +122,6 @@
 
 					<li>
 						<a href ui-sref=".co2">
-							<!--<i class="fa fa-warning"></i> -->
 							<img src="../../pics/co2.png" class="image-icon"> <span>Dioxid de carbon</span>
 						</a>
 					</li>
@@ -158,21 +146,8 @@
 </aside>
 
 <div class="content-wrapper tingle-content-wrapper" style="height: 120vh; position: relative;">
-	<section class="content-header col-xs-12">
-
-		<!--<label class="switch col-xs-6"-->
-		<!--ng-if="!$state.includes('app.home') && !$state.includes('app.intelilight') && !$state.includes('app.beacon')">-->
-		<!--<input type="checkbox" ng-click="vm.setType()">-->
-		<!--<div class="slider round"></div>-->
-		<!--</label>-->
-
-		<!--<ol class="breadcrumb">-->
-		<!--<li><a href="#"><i class="fa fa-home"></i> Home</a></li>-->
-		<!--<li class="active">Overview</li>-->
-		<!--</ol>-->
-	</section>
+	<section class="content-header col-xs-12"></section>
 
 	<div ui-view="home"></div>
-
 </div>
 

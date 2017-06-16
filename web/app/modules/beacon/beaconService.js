@@ -12,29 +12,30 @@ function BeaconService(BeaconResource) {
         campaigns: campaigns,
         showProfile: showProfile,
         showInsights: showInsights,
-        generateChart: generateChart
+	    configureChart: configureChart
     };
 
     function campaigns() {
         return BeaconResource.campaigns().$promise;
     }
 
-    function insights(campaign, startTime, endTime) {
+	function _insights(campaign, startTime, endTime) {
         var newCampaign = campaign.split('/');
+
         return BeaconResource.insights({campaign: newCampaign[2], startTime: startTime, endTime: endTime}).$promise;
     }
 
-    function profile(campaign) {
+	function _profile(campaign) {
         var newCampaign = campaign.split('/');
+
         return BeaconResource.profile({campaign: newCampaign[2]}).$promise;
     }
 
     function showProfile(campaignName, callback) {
-
-        profile(campaignName)
+	    _profile(campaignName)
             .then(function (profiles) {
-
-                var u18, u25, u35, u45, u55, u65, o65, ana, fem, mal, sna;
+	            var u18 = 0, u25 = 0, u35 = 0, u45 = 0, u55 = 0, u65 = 0, o65 = 0, ana = 0, fem = 0, mal = 0, sna = 0;
+	            ;
 
                 if (profiles != null && profiles.hasOwnProperty("age")) {
                     u18 = profiles.age.hasOwnProperty('U18') ? profiles.age.U18 : 0;
@@ -46,33 +47,19 @@ function BeaconService(BeaconResource) {
                     o65 = profiles.age.hasOwnProperty('O65') ? profiles.age.O65 : 0;
                     ana = profiles.age.hasOwnProperty('NA') ? profiles.age.NA : 0;
                 }
-                else {
-                    u18 = 0;
-                    u25 = 0;
-                    u35 = 0;
-                    u45 = 0;
-                    u55 = 0;
-                    u65 = 0;
-                    o65 = 0;
-                    ana = 0;
-                }
 
                 if (profiles != null && profiles.hasOwnProperty("sex")) {
                     fem = profiles.sex.hasOwnProperty('F') ? profiles.sex.F : 0;
                     mal = profiles.sex.hasOwnProperty('M') ? profiles.sex.M : 0;
                     sna = profiles.sex.hasOwnProperty('NA') ? profiles.sex.NA : 0;
                 }
-                else {
-                    fem = 0;
-                    mal = 0;
-                    sna = 0;
-                }
 
                 var gendercontent = [
                     {label: "Male", value: fem},
                     {label: "Female", value: mal}
                 ];
-                genderPie.updateProp("data.content", gendercontent);
+
+	            genderPie.updateProp("data.content", gendercontent);
 
                 var agecontent = [
                     {label: "< 18", value: u18},
@@ -91,8 +78,7 @@ function BeaconService(BeaconResource) {
     }
 
     function showInsights(campaignName, startDate, endDate, callback) {
-
-        insights(campaignName, startDate, endDate)
+	    _insights(campaignName, startDate, endDate)
             .then(function (insights) {
                 var android = 0;
                 var ios = 0;
@@ -115,15 +101,9 @@ function BeaconService(BeaconResource) {
             });
     }
 
-    function generateChart() {
-
+	function configureChart() {
         var viewportHeight = document.getElementById('pie-container').clientHeight;
         var viewportWidth = document.getElementById('pie-container').clientWidth;
-
-        var style = {
-            color: '#ffffff',
-            fontSize: '1.5em'
-        };
 
         genderPie = new d3pie("genderpie", {
             header: {
