@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('d3Module')
+angular.module('urad')
     .config(['momentPickerProvider', function (momentPickerProvider) {
         momentPickerProvider.options({
             /* Picker properties */
@@ -24,11 +24,10 @@ angular.module('d3Module')
             minutesStep: 1
         });
     }])
-    .directive('chartAndMap', ['Constants', '$state', ChartAndMap]);
+    .directive('uradChartAndMap', ['Constants', '$state', UradChartAndMap]);
 
-function ChartAndMap(Constants, $state) {
+function UradChartAndMap(Constants, $state) {
     return {
-        // template: '<div id="chart-container" style="width: 80vw; height: 40vh;">' +
         templateUrl: '/templates/d3/chartAndMapTemplate.html',
         scope: {
             param: '@',

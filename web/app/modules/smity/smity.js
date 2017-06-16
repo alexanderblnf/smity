@@ -42,15 +42,15 @@ angular
 					url: '/temperature',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="temperature"' +
+							template: '<urad-chart-and-map data-param="temperature"' +
 							'data-y-axis="Temperatura"' +
 							'data-map-type="vm.mapType"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -59,15 +59,15 @@ angular
 					url: '/pressure',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="pressure"' +
+							template: '<urad-chart-and-map data-param="pressure"' +
 							'data-y-axis="Presiune"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -76,15 +76,15 @@ angular
 					url: '/humidity',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="humidity"' +
+							template: '<urad-chart-and-map data-param="humidity"' +
 							'data-y-axis="Umiditate"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -93,15 +93,15 @@ angular
 					url: '/co2',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="co2"' +
+							template: '<urad-chart-and-map data-param="co2"' +
 							'data-y-axis="Dioxid de carbon"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -110,15 +110,15 @@ angular
 					url: '/pm25',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="pm25"' +
+							template: '<urad-chart-and-map data-param="pm25"' +
 							'data-y-axis="Particule de praf"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -127,15 +127,15 @@ angular
 					url: '/voc',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="voc"' +
+							template: '<urad-chart-and-map data-param="voc"' +
 							'data-y-axis="Compusi organici volatili"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -144,15 +144,15 @@ angular
 					url: '/ch2o',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="ch2o"' +
+							template: '<urad-chart-and-map data-param="ch2o"' +
 							'data-y-axis="Formaldehida"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -161,15 +161,15 @@ angular
 					url: '/cpm',
 					views: {
 						'home': {
-							template: '<chart-and-map data-param="cpm"' +
+							template: '<urad-chart-and-map data-param="cpm"' +
 							'data-y-axis="Radiatii"' +
 							'data-predict-callback="vm.predict"' +
 							'data-weekly-callback="vm.weekly"' +
 							'data-units="vm.units"' +
 							'data-map-type="vm.mapType"' +
 							'data-heat-map-function="vm.apply"' +
-							'data-set-type-function="vm.setType"></chart-and-map>',
-							controller: 'D3Controller as vm'
+							'data-set-type-function="vm.setType"></urad-chart-and-map>',
+							controller: 'UradController as vm'
 						}
 					},
 					resolve: initHeatMap
@@ -227,7 +227,7 @@ angular
 	});
 
 var initHeatMap = {
-	InitHeatMap: ['SharedVariables', 'MapService', '$state', function (SharedVariables, MapService, $state) {
+	InitHeatMap: ['SharedVariables', 'UradHeatmapService', '$state', function (SharedVariables, UradHeatmapService, $state) {
 		var mapType = SharedVariables.getMapType();
         var mapObject = undefined;
 
@@ -237,7 +237,7 @@ var initHeatMap = {
 			var fromTime = now - 3600 * 24;
 			var toTime = now;
 			setTimeout(function () {
-				mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
+				mapObject = UradHeatmapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
 			}, 0.1);
 		}
 	}]

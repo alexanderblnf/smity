@@ -19,12 +19,10 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 	vm.addWidget = addWidget;
 	vm.removeWidget = removeWidget;
 
-	var measureUnits = Constants.UNITS;
-	var names = Constants.NAMES;
 	var userPreferences = undefined;
 
 	vm.widgets = undefined;
-	vm.hideDropdown = false;
+	vm.dropdown = false;
 	vm.selected = undefined;
 	vm.preferences = [];
 	vm.name = "Overview";
@@ -44,8 +42,8 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 				for (var i = 0; i < keys.length; i++) {
 					vm.widgets.push({
 						value: response[keys[i]],
-						name: names[keys[i]],
-						unit: measureUnits[keys[i]],
+						name: Constants.NAMES[keys[i]],
+						unit: Constants.UNITS[keys[i]],
 						link: keys[i]
 					})
 				}
@@ -67,21 +65,10 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 			});
 	}
 
-	setInterval(_getAll, 61000);
-
-	function go(state) {
-		$state.go(state);
-	}
-
-	function logout() {
-		return SecurityService.logout()
-			.then(function () {
-				$state.go('login');
-			});
-	}
+	setInterval(_getAll, 18001);
 
 	function showDropdown() {
-		vm.hideDropdown = !vm.hideDropdown;
+		vm.dropdown = !vm.dropdown;
 	}
 
 	function addWidget() {
@@ -119,6 +106,17 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 		PreferenceService.update(userPreferences)
 			.then(function (response) {
 				console.log('Succes');
+			});
+	}
+
+	function go(state) {
+		$state.go(state);
+	}
+
+	function logout() {
+		return SecurityService.logout()
+			.then(function () {
+				$state.go('login');
 			});
 	}
 }

@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('d3Module')
-	.controller('D3Controller', ['ElasticService',
+angular
+	.module('urad')
+	.controller('UradController', [
+		'ElasticService',
 		'SharedVariables',
-		'MapService',
-		'$state', 'Constants',
-		D3Controller]);
+		'UradHeatmapService',
+		'$state',
+		'Constants',
+		UradController]);
 
-function D3Controller(ElasticService, SharedVariables, MapService, $state, Constants) {
-
+function UradController(ElasticService, SharedVariables, UradHeatmapService, $state, Constants) {
     var vm = this;
 
     vm.message = 'Hello world!';
@@ -35,7 +37,7 @@ function D3Controller(ElasticService, SharedVariables, MapService, $state, Const
 			var fromTime = now - 3600 * 24;
 			var toTime = now;
 			setTimeout(function () {
-				vm.mapObject = MapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
+				vm.mapObject = UradHeatmapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
 			}, 0.1);
 		}
 	}
@@ -49,7 +51,7 @@ function D3Controller(ElasticService, SharedVariables, MapService, $state, Const
 
 	function apply(startTime, stopTime) {
         setTimeout(function () {
-            MapService.reloadMap(vm.mapObject, $state.current.name.split('.')[1], startTime, stopTime)
+	        UradHeatmapService.reloadMap(vm.mapObject, $state.current.name.split('.')[1], startTime, stopTime)
         }, 0.1);
     }
 

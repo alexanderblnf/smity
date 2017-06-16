@@ -13,7 +13,7 @@
                  data-link-function="{{'app.' + widget.link}}"></div>
         </div>
 
-        <div class="col-lg-4 col-xs-6" ng-if="!vm.hideDropdown">
+		<div class="col-lg-4 col-xs-6" ng-if="!vm.dropdown">
             <div class="small-box bg-orange bevelonpress-big shadow-big" style="text-align: center">
                 <a href ng-click="vm.showDropdown()">
                     <img src="../../pics/content_qs-icons-add.png" style="width: 12.2vw">
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-xs-6" ng-if="vm.hideDropdown">
+		<div class="col-lg-4 col-xs-6" ng-if="vm.dropdown">
             <div class="small-box bg-orange bevelonpress-big shadow-big" style="height: 25.25vh;text-align: center;">
                 <select ng-model="vm.selected" style="margin-top: 6vh;color: black;">
                     <option ng-repeat="widget in vm.widgets" value="{{widget.link}}">{{widget.name}}</option>
