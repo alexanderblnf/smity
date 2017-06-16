@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('intelilight')
-    .controller('IntelilightController', ['InteliMapService', IntelilightController]);
+    .controller('IntelilightController', ['IntelilightService', IntelilightController]);
 
-function IntelilightController(InteliMapService) {
+function IntelilightController(IntelilightService) {
     var vm = this;
 
     vm.closeWindow = closeWindow;
@@ -12,7 +12,7 @@ function IntelilightController(InteliMapService) {
 
     _init();
     function _init() {
-        InteliMapService.initMap();
+        IntelilightService.initMap();
     }
 
     function closeWindow() {
