@@ -29,6 +29,8 @@ function IntelilightService(IntelilightResource) {
 
 		var info = '<div></div><br><span class="bold-span">Controller: </span><span>' + controller["controller"] + '</span><br>' +
 			'<span class="bold-span">Time: </span><span>' + dateString + '</span><br>' +
+			'<span class="bold-span">Config number: </span><span>' + controller["nvoCfgNo"] + '</span><br>' +
+			'<span class="bold-span">Status: </span><span>' + controller["nvoLampStatus"]["lampStatus"] + '</span><br>' +
 			'<span class="bold-span">Level: </span><span>' + controller["nvoLampStatus"]["lampLevel"] + '</span><br>' +
 			'<span class="bold-span">Position: </span><span>' + controller["gps"]["lat"] + ", " + controller["gps"]["lon"] + '</span><br>' +
 			'<span class="bold-span">Hours on: </span><span>' + controller["nvoOnHours"] + '</span><br>' +
@@ -83,7 +85,6 @@ function IntelilightService(IntelilightResource) {
 	}
 
 	function initMap() {
-
 		var CITY_LAT = 46.060625;
 		var CITY_LNG = 23.573919;
 
