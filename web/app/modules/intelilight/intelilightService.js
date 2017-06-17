@@ -8,7 +8,29 @@ function IntelilightService(IntelilightResource) {
 		initMap: initMap
 	};
 
-	function _initGoogleMaps(mapconfig) {
+	function _initGoogleMaps() {
+		var CITY_LAT = 46.060625;
+		var CITY_LNG = 23.573919;
+
+		var mapconfig = {};
+		//coordinates of map center
+		mapconfig.centerlat = CITY_LAT;
+		mapconfig.centerlng = CITY_LNG;
+		//zoom level on google maps
+		mapconfig.centerzoom = 15;
+		//name of div where google maps is drawn
+		mapconfig.containername = 'inteli-map-container';
+		//opacity of heatmap extremas
+		mapconfig.minopacity = 0.1;
+		mapconfig.maxopacity = 0.8;
+		//heatmap background color
+		mapconfig.bgred = 255;
+		mapconfig.bggreen = 0;
+		mapconfig.bgblue = 0;
+		mapconfig.bgalpha = 0.0;
+		//coord radius of heatmap point
+		mapconfig.radius = 0.0008;
+
 		var coord = new google.maps.LatLng(mapconfig.centerlat, mapconfig.centerlng);
 		var options = {
 			zoom: mapconfig.centerzoom,
@@ -85,30 +107,7 @@ function IntelilightService(IntelilightResource) {
 	}
 
 	function initMap() {
-		var CITY_LAT = 46.060625;
-		var CITY_LNG = 23.573919;
-
-		var mapconfig = {};
-		//coordinates of map center
-		mapconfig.centerlat = CITY_LAT;
-		mapconfig.centerlng = CITY_LNG;
-		//zoom level on google maps
-		mapconfig.centerzoom = 15;
-		//name of div where google maps is drawn
-		mapconfig.containername = 'inteli-map-container';
-		//opacity of heatmap extremas
-		mapconfig.minopacity = 0.1;
-		mapconfig.maxopacity = 0.8;
-		//heatmap background color
-		mapconfig.bgred = 255;
-		mapconfig.bggreen = 0;
-		mapconfig.bgblue = 0;
-		mapconfig.bgalpha = 0.0;
-		//coord radius of heatmap point
-		mapconfig.radius = 0.0008;
-		//name of fields in data
-
-		var map = _initGoogleMaps(mapconfig);
+		var map = _initGoogleMaps();
 
 		IntelilightResource.latest().$promise
 			.then(function (controllers) {
