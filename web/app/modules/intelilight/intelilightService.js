@@ -96,11 +96,7 @@ function IntelilightService(IntelilightResource) {
 			});
 			google.maps.event.addListener(marker, 'click', (function (marker, markerCount) {
 				return function () {
-					// infowindow.setContent('Controller: ' + controller["controller"]);
-					// makeInfoWindow(controller, infowindow);
-					// infowindow.open(map, marker);
 					_makeInfoBubble(controller, map, marker, myLatLng);
-					// showInfo(controller);
 				}
 			})(marker, markerCount));
 		});

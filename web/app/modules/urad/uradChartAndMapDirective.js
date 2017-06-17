@@ -40,7 +40,10 @@ function UradChartAndMap(Constants, $state) {
             'co2_messages': ['acceptable', 'limit', 'drowsiness', 'adverse health effects'],
             'pm25_colors': ['yellow'],
             'pm25': [35],
-            'pm25_messages': ['limit']
+	        'pm25_messages': ['limit'],
+	        'ch2o': [0.2, 0.4],
+	        'ch2o_messages': ['acceptable', 'limit'],
+	        'ch2o_colors': ['green', 'yellow']
         };
 
         var markerCount = 0;
@@ -374,7 +377,7 @@ function UradChartAndMap(Constants, $state) {
                         limitLines.append("text")
                             .attr("class", "danger-text")
                             .attr("x", 0)
-                            .attr("transform", "translate(0," + yScale(values[i] + 5) + ")")
+	                        .attr("transform", "translate(5," + (-0.03 * yScale(values[i]) + yScale(values[i])) + ")")
                             .style("fill", limits[param + '_colors'][i])
                             .style("text-shadow", "1px 1px #000000")
                             .text(messages[i]);
@@ -410,10 +413,7 @@ function UradChartAndMap(Constants, $state) {
 		                lookup[measure['key']] = index;
 	                });
 
-	                // for (var i = 0; i < measures.length; i++) {
-	                //     lookup[measures[i]['key']] = i;
-	                // }
-
+	                // cache-ing the sensors
                     var cache = JSON.parse(JSON.stringify(data));
                     color.domain(keys);
                     // color domain
@@ -486,7 +486,7 @@ function UradChartAndMap(Constants, $state) {
                         .enter().append("g")
                         .attr("class", "stockXYZ");
 
-	                // add the stock paths
+	                // add lines
                     stock.append("path")
                         .attr("class", "line")
                         .attr("id", function (d, i) {
@@ -726,166 +726,165 @@ function UradChartAndMap(Constants, $state) {
         }
 
 	    function _makeModal() {
-            var modal = new tingle.modal({
-                footer: true,
-                stickyFooter: false,
-                closeMethods: ['overlay', 'button', 'escape'],
-                closeLabel: "Close",
-                cssClass: ['--visible', 'tingle-modal--overflow'],
-                onOpen: function () {
-                    console.log('modal open');
-                },
-                onClose: function () {
-                    console.log('modal closed');
-                }
-            });
+		    var modal = new tingle.modal({
+			    footer: true,
+			    stickyFooter: false,
+			    closeMethods: ['overlay', 'button', 'escape'],
+			    closeLabel: "Close",
+			    cssClass: ['--visible', 'tingle-modal--overflow'],
+			    onOpen: function () {
+				    console.log('modal open');
+			    },
+			    onClose: function () {
+				    console.log('modal closed');
+			    }
+		    });
 
-            modal.setContent('<div id="weekly-container">' +
-                '<h1>Raport saptamanal - ' + $scope.yAxis + '</h1>' +
-                '<table id="weekly-table">' +
-                '</table>' +
-                '<div id="loading-container"><div class="loader" id="weekly-loader">Loading...</div></div>' +
-                '<h3>Valori maxime</h3>' +
-                '<div id="weekly-map"></div>' +
-                '</div>');
+		    modal.setContent('<div id="weekly-container">' +
+			    '<h1>Raport saptamanal - ' + $scope.yAxis + '</h1>' +
+			    '<table id="weekly-table">' +
+			    '</table>' +
+			    '<div id="loading-container"><div class="loader" id="weekly-loader">Loading...</div></div>' +
+			    '<h3>Valori maxime</h3>' +
+			    '<div id="weekly-map"></div>' +
+			    '</div>');
 
-            modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
-                modal.close();
-            });
+		    modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
+			    modal.close();
+		    });
 
-            modal.open();
-        }
+		    modal.open();
+	    }
 
 	    function _fillTd(weekday, index, response, param) {
-            var td, div, h3, br, span;
-            td = document.createElement('td');
-            div = document.createElement('div');
-            h3 = document.createElement('h3');
-            h3.innerHTML = weekday;
-            div.appendChild(h3);
-            br = document.createElement('br');
-            div.appendChild(br);
-            span = document.createElement('span');
-            span.className = "bold-span";
-            span.innerHTML = "Valoare maxima: ";
-            div.appendChild(span);
-            span = document.createElement('span');
-            span.innerHTML = response[index]['max'][param] + " " + $scope.units[$scope.param];
-            div.appendChild(span);
-            br = document.createElement('br');
-            div.appendChild(br);
-            span = document.createElement('span');
-            span.className = "bold-span";
-            span.innerHTML = "Valoare medie: ";
-            div.appendChild(span);
-            span = document.createElement('span');
-            span.innerHTML = response[index]['means'] + " " + $scope.units[$scope.param];
-            div.appendChild(span);
-            td.appendChild(div);
+		    var td, div, h3, br, span;
+		    td = document.createElement('td');
+		    div = document.createElement('div');
+		    h3 = document.createElement('h3');
+		    h3.innerHTML = weekday;
+		    div.appendChild(h3);
+		    br = document.createElement('br');
+		    div.appendChild(br);
+		    span = document.createElement('span');
+		    span.className = "bold-span";
+		    span.innerHTML = "Valoare maxima: ";
+		    div.appendChild(span);
+		    span = document.createElement('span');
+		    span.innerHTML = response[index]['max'][param] + " " + $scope.units[$scope.param];
+		    div.appendChild(span);
+		    br = document.createElement('br');
+		    div.appendChild(br);
+		    span = document.createElement('span');
+		    span.className = "bold-span";
+		    span.innerHTML = "Valoare medie: ";
+		    div.appendChild(span);
+		    span = document.createElement('span');
+		    span.innerHTML = response[index]['means'] + " " + $scope.units[$scope.param];
+		    div.appendChild(span);
+		    td.appendChild(div);
 
-            return td;
-        }
+		    return td;
+	    }
 
-        function _initGoogleMaps(mapconfig) {
-            var coord = new google.maps.LatLng(mapconfig.centerlat, mapconfig.centerlng);
-            var options = {
-                zoom: mapconfig.centerzoom,
-                center: coord,
-                styles: mapStyle
-            };
-            var map = new google.maps.Map(document.getElementById(mapconfig.containername), options);
-            return map;
-        }
-
-	    function _addMaxToMap(sensors, map, param) {
-            var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
-            sensors.forEach(function (sensor, index) {
-                var infoWindow = new google.maps.InfoWindow();
-                var myLatLng = new google.maps.LatLng(sensor["max"]["lat"], sensor["max"]["long"]);
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        scale: 8.5,
-                        fillColor: '#ff6600',
-                        fillOpacity: 1,
-                        strokeWeight: 1
-                    }
-                });
-                google.maps.event.addListener(marker, 'mouseover', (function (marker) {
-                    return function () {
-                        infoWindow.setContent(weekdays[index] + "<br>" + sensor["max"][param] + "");
-                        infoWindow.open(map, marker);
-                    }
-                })(marker));
-                google.maps.event.addListener(marker, 'mouseout', (function (marker) {
-                    return function () {
-                        infoWindow.close();
-                    }
-                })(marker));
-            });
-        }
-
-
-	    function _initMax(sensors, param) {
-
-            var CITY_LAT = 46.060625;
-            var CITY_LNG = 23.573919;
-
-            var mapconfig = {};
-            //coordinates of map center
-            mapconfig.centerlat = CITY_LAT;
-            mapconfig.centerlng = CITY_LNG;
-            //zoom level on google maps
-            mapconfig.centerzoom = 10;
-            //name of div where google maps is drawn
-            mapconfig.containername = 'weekly-map';
-            //opacity of heatmap extremas
-            mapconfig.minopacity = 0.1;
-            mapconfig.maxopacity = 0.8;
-            //heatmap background color
-            mapconfig.bgred = 255;
-            mapconfig.bggreen = 0;
-            mapconfig.bgblue = 0;
-            mapconfig.bgalpha = 0.0;
-            //coord radius of heatmap point
-            mapconfig.radius = 0.0008;
-            //name of fields in data
-
-            var map = _initGoogleMaps(mapconfig);
-		    _addMaxToMap(sensors, map, param);
-        }
 
 	    function _fillModal(param, response) {
-            var table = document.getElementById('weekly-table');
-            var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
-            var tr, td;
-            for (var i = 0; i < 7; i++) {
-                if (i == 6) {
-                    tr = document.createElement('tr');
-	                td = _fillTd(weekdays[i], i, response, param);
-                    tr.appendChild(td);
-                    table.appendChild(tr);
-                } else {
-                    if (i % 2 == 0) {
-                        tr = document.createElement('tr');
-	                    td = _fillTd(weekdays[i], i, response, param);
-                        tr.appendChild(td);
-                    } else {
-	                    td = _fillTd(weekdays[i], i, response, param);
-                        tr.appendChild(td);
-                        table.appendChild(tr);
-                    }
-                }
-            }
-            document.getElementById('loading-container').innerHTML = "";
+		    var table = document.getElementById('weekly-table');
+		    var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
+		    var tr, td;
+		    for (var i = 0; i < 7; i++) {
+			    if (i == 6) {
+				    tr = document.createElement('tr');
+				    td = _fillTd(weekdays[i], i, response, param);
+				    tr.appendChild(td);
+				    table.appendChild(tr);
+			    } else {
+				    if (i % 2 == 0) {
+					    tr = document.createElement('tr');
+					    td = _fillTd(weekdays[i], i, response, param);
+					    tr.appendChild(td);
+				    } else {
+					    td = _fillTd(weekdays[i], i, response, param);
+					    tr.appendChild(td);
+					    table.appendChild(tr);
+				    }
+			    }
+		    }
+		    document.getElementById('loading-container').innerHTML = "";
 		    _initMax(response, param);
-            var modal = document.getElementsByClassName('tingle-modal');
-            modal[0].className = 'tingle-modal --visible tingle-modal--visible tingle-modal--overflow';
-        }
+		    var modal = document.getElementsByClassName('tingle-modal');
+		    modal[0].className = 'tingle-modal --visible tingle-modal--visible tingle-modal--overflow';
+	    }
 
-        $scope.apply = function () {
+	    function _initMax(sensors, param) {
+		    var CITY_LAT = 46.060625;
+		    var CITY_LNG = 23.573919;
+
+		    var mapconfig = {};
+		    //coordinates of map center
+		    mapconfig.centerlat = CITY_LAT;
+		    mapconfig.centerlng = CITY_LNG;
+		    //zoom level on google maps
+		    mapconfig.centerzoom = 10;
+		    //name of div where google maps is drawn
+		    mapconfig.containername = 'weekly-map';
+		    //opacity of heatmap extremas
+		    mapconfig.minopacity = 0.1;
+		    mapconfig.maxopacity = 0.8;
+		    //heatmap background color
+		    mapconfig.bgred = 255;
+		    mapconfig.bggreen = 0;
+		    mapconfig.bgblue = 0;
+		    mapconfig.bgalpha = 0.0;
+		    //coord radius of heatmap point
+		    mapconfig.radius = 0.0008;
+		    //name of fields in data
+
+		    var map = _initGoogleMaps(mapconfig);
+		    _addMaxToMap(sensors, map, param);
+	    }
+
+	    function _initGoogleMaps(mapconfig) {
+		    var coord = new google.maps.LatLng(mapconfig.centerlat, mapconfig.centerlng);
+		    var options = {
+			    zoom: mapconfig.centerzoom,
+			    center: coord,
+			    styles: mapStyle
+		    };
+
+		    return new google.maps.Map(document.getElementById(mapconfig.containername), options);
+	    }
+
+	    function _addMaxToMap(sensors, map, param) {
+		    var weekdays = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Sambata', 'Duminica'];
+		    sensors.forEach(function (sensor, index) {
+			    var infoWindow = new google.maps.InfoWindow();
+			    var myLatLng = new google.maps.LatLng(sensor["max"]["lat"], sensor["max"]["long"]);
+			    var marker = new google.maps.Marker({
+				    position: myLatLng,
+				    map: map,
+				    icon: {
+					    path: google.maps.SymbolPath.CIRCLE,
+					    scale: 8.5,
+					    fillColor: '#ff6600',
+					    fillOpacity: 1,
+					    strokeWeight: 1
+				    }
+			    });
+			    google.maps.event.addListener(marker, 'mouseover', (function (marker) {
+				    return function () {
+					    infoWindow.setContent(weekdays[index] + "<br>" + sensor["max"][param] + "");
+					    infoWindow.open(map, marker);
+				    }
+			    })(marker));
+			    google.maps.event.addListener(marker, 'mouseout', (function (marker) {
+				    return function () {
+					    infoWindow.close();
+				    }
+			    })(marker));
+		    });
+	    }
+
+	    $scope.apply = function () {
             var startDate = new Date($scope.vm.startDate);
             var endDate = new Date($scope.vm.endDate);
             var unixStart = Math.floor(startDate.getTime() / 1000);

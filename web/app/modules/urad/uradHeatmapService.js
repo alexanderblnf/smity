@@ -166,7 +166,7 @@ function UradHeatmapService(ElasticService) {
 		return Math.sqrt(Math.pow(point1["lat"] - point2["lat"], 2) + Math.pow(point1["long"] - point2["long"], 2));
 	}
 
-	function _heatmapPlotData(heatmap, mapconfig, param, fromtime, totime) {
+	function _plotData(heatmap, mapconfig, param, fromtime, totime) {
 		ElasticService.heatMap(param, fromtime, totime)
 			.then(function (data) {
 				var avglat, avglong, avgval, count;
@@ -224,7 +224,6 @@ function UradHeatmapService(ElasticService) {
 	}
 
 	function initMap(param, fromTime, toTime) {
-
 		var CITY_LAT = 46.0684893;
 		var CITY_LNG = 23.5634674;
 
@@ -261,7 +260,7 @@ function UradHeatmapService(ElasticService) {
 		var map = _initGoogleMaps(mapconfig);
 		var heatmap = _initHeatmap(map, mapconfig);
 
-		_heatmapPlotData(heatmap, mapconfig, param, fromTime, toTime);
+		_plotData(heatmap, mapconfig, param, fromTime, toTime);
 
 		return {
 			heatmap: heatmap,
@@ -270,7 +269,7 @@ function UradHeatmapService(ElasticService) {
 	}
 
 	function reloadMap(mapObject, param, fromTime, toTime) {
-		_heatmapPlotData(mapObject.heatmap, mapObject.mapconfig, param, fromTime, toTime);
+		_plotData(mapObject.heatmap, mapObject.mapconfig, param, fromTime, toTime);
 	}
 
 }
