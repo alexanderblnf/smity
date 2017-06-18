@@ -10,18 +10,14 @@ module.exports = function (db, pgp) {
         var firstName = req.body.firstname;
         var lastName = req.body.lastname;
         var userId = req.user.id;
-        var response = {};
         if (email == null || password == null || firstName == null || lastName == null) {
-            response["code"] = 400;
-            response["message"] = "You have not provided all the information";
-            res.send(response);
+            res.status(400).send('You have not provided all the information');
         } else {
             var bcrypt = require('bcrypt');
             bcrypt.hash(password, 10, function (err, hash) {
                 if (err) {
-                    response["code"] = 500;
-                    response["message"] = err;
-                    res.send(response);
+                    console.log(err);
+                    res.status(500).send("Server error");
                 } else {
                     var options = {
                         email: email,
@@ -35,13 +31,9 @@ module.exports = function (db, pgp) {
                     console.log(options);
                     adminFunctions.addManager(options, function (done, data) {
                         if (done == false) {
-                            response["code"] = 400;
-                            response["message"] = data;
-                            res.send(response);
+                            res.status(400).send(data);
                         } else {
-                            response["code"] = 200;
-                            response["message"] = "OK";
-                            res.send(response);
+                            res.status(200).send('OK');
                         }
                     });
                 }
@@ -52,9 +44,7 @@ module.exports = function (db, pgp) {
     router.post('/delete-manager', function (req, res) {
         var email = req.body.email;
         if (email == null || email == '') {
-            response["code"] = 400;
-            response["message"] = "You have not provided all the information";
-            res.send(response);
+            res.status(400).send('You have not provided all the information')
         } else {
             var options = {
                 email: email,
@@ -62,13 +52,9 @@ module.exports = function (db, pgp) {
             };
             adminFunctions.removeManager(options, function (done, data) {
                 if (done == false) {
-                    response["code"] = 400;
-                    response["message"] = data;
-                    res.send(response);
+                    res.status(400).send(data);
                 } else {
-                    response["code"] = 200;
-                    response["message"] = "OK";
-                    res.send(response);
+                    res.status(200).send('OK');
                 }
             });
         }
