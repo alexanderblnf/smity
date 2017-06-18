@@ -550,16 +550,10 @@ exports.getIntervalStepsAll = function(options, res) {
     })
 };
 
-var length = 0;
-
-function iterate(res) {
-
-}
-
+// weekly report function
 exports.weeklyReport = function (options, res) {
     var date = new Date();
-    var lastMonday = setMonday(date);
-    var unix = (Date.parse(lastMonday) / 1000) - (7 * 24 * 3600);
+    var unix = setMonday(date);
     var result = [];
     var count = 0;
 
@@ -662,12 +656,16 @@ function makePredictionSteps(options, intervals) {
 }
 
 function setMonday(date) {
-    var day = date.getDay() || 7;
-    if (day !== 1) {
-    }
-    date.setHours(-24 * (day - 1));
+    date.setHours(0);
     date.setMinutes(0);
-    return date;
+    var lastMonday = (Date.parse(date) / 1000);
+    if (diff = -1) {
+        lastMonday -= 6 * 24 * 3600;
+    } else if (diff > 0) {
+        lastMonday -= diff * 24 * 3600;
+    }
+    lastMonday -= 7 * 24 * 3600;
+    return lastMonday;
 }
 
 function makeSteppedInterval(options, intervals) {
