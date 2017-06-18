@@ -658,8 +658,9 @@ function makePredictionSteps(options, intervals) {
 function setMonday(date) {
     date.setHours(0);
     date.setMinutes(0);
+    var diff = date.getDay() - 1;
     var lastMonday = (Date.parse(date) / 1000);
-    if (diff = -1) {
+    if (diff === -1) {
         lastMonday -= 6 * 24 * 3600;
     } else if (diff > 0) {
         lastMonday -= diff * 24 * 3600;
