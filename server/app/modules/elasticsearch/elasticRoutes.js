@@ -5,14 +5,16 @@ var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
 var params_witall = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm|all)';
 var datamodes = '(|array|indexmap)';
 
-router.get('/means/:param/:time', function (req, res) {
-    var options = {
-        param: req.params.param,
-        time: req.params.time
-    };
-    elasticFunction.getMeansForTime(options, res);
-});
+// auxiliary function to get means for a certain time
+// router.get('/means/:param/:time', function (req, res) {
+//     var options = {
+//         param: req.params.param,
+//         time: req.params.time
+//     };
+//     elasticFunction.getMeansForTime(options, res);
+// });
 
+// Get measurements for all uRAD Sensors for a given parameter and time interval
 router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
     var options = {
         param: req.params.param,

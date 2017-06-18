@@ -1,8 +1,11 @@
 var elasticsearch = require('elasticsearch');
+
+// instance of elasticJS
 var client = new elasticsearch.Client({
     host: 'http://141.85.232.64:9200'
 });
-var array = require('node-array-module');
+
+// regression module
 var regression = require('regression');
 
 exports.getMeansForTime = function (options, res) {
@@ -50,6 +53,7 @@ exports.getMeansForTime = function (options, res) {
     });
 };
 
+// get all urad measurements for given interval
 exports.getAllForInterval = function (options, res) {
     var entries = Math.floor(((options.end - options.start) * 15) / 180);
     client.search({
@@ -88,6 +92,7 @@ exports.getAllForInterval = function (options, res) {
     })
 };
 
+// heatmap function
 exports.getDataForHeatmap = function (options, res) {
     var entries;
     var intervals = [];
@@ -247,6 +252,8 @@ exports.getLiveMeans = function (res) {
         var dispersion = {};
         var correctedmeans = {};
         var correctedcount = {};
+
+        // urad sensors that are reliable
         var indexes = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
 
         //initialization
@@ -300,6 +307,7 @@ exports.getLiveMeans = function (res) {
                 var sensor = all[index];
                 params.forEach(function (param) {
                     if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                        // throw sensors that are too far from the average
                         if (Math.abs(sensor[param] - means[param]) < dispersion[param]) {
                             correctedmeans[param] += sensor[param];
                             correctedcount[param]++;
@@ -324,10 +332,12 @@ exports.getLiveMeans = function (res) {
     })
 };
 
-
+// Prediction function
 exports.hourlyPrediction = function (options, res) {
     var intervals = [];
+    // generates the 30 day interval
     makePredictionSteps(options, intervals);
+
     var goodSensors = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
     client.search({
         index: goodSensors,
@@ -704,9 +714,13 @@ function makeRegression(time, data, param) {
     }
 }
 
+// auxiliary function to compute normalized mean
 function normalize(results) {
     var sum = 0;
     results.forEach(function (d) {
+        if (!d.hasOwnProperty('result')) {
+            return -1;
+        }
         sum += d.result;
     });
 
