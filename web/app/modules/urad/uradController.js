@@ -19,8 +19,9 @@ function UradController(ElasticService, SharedVariables, UradHeatmapService, $st
     vm.startDateHeatMap = undefined;
     vm.endDateHeatMap = undefined;
     vm.mapType = SharedVariables.getMapType();
-    vm.mapObject = undefined;
 	vm.units = Constants.UNITS;
+
+	var mapObject = undefined;
 
 	vm.predict = predict;
     vm.apply = apply;
@@ -37,7 +38,7 @@ function UradController(ElasticService, SharedVariables, UradHeatmapService, $st
 			var fromTime = now - 3600 * 24;
 			var toTime = now;
 			setTimeout(function () {
-				vm.mapObject = UradHeatmapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
+				mapObject = UradHeatmapService.initMap($state.current.name.split('.')[1], fromTime, toTime);
 			}, 0.1);
 		}
 	}
@@ -51,7 +52,7 @@ function UradController(ElasticService, SharedVariables, UradHeatmapService, $st
 
 	function apply(startTime, stopTime) {
         setTimeout(function () {
-	        UradHeatmapService.reloadMap(vm.mapObject, $state.current.name.split('.')[1], startTime, stopTime)
+	        UradHeatmapService.reloadMap(mapObject, $state.current.name.split('.')[1], startTime, stopTime)
         }, 0.1);
     }
 
