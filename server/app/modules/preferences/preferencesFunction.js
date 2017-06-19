@@ -3,17 +3,9 @@ var preferences = require('../../sql_models/preference');
 exports.getPreferences = function (options, res) {
     preferences.getPreferences(options, function (done, data) {
         if (done == false) {
-            var response = {
-                code: 400,
-                message: data
-            };
-            res.send(JSON.stringify(response));
+            res.status(400).send(data);
         } else {
-            var response = {
-                code: 200,
-                message: data
-            };
-            res.send(JSON.stringify(response));
+            res.status(200).send(data);
         }
     })
 };
@@ -21,17 +13,9 @@ exports.getPreferences = function (options, res) {
 exports.updatePreferences = function (options, res) {
     preferences.updatePreferences(options, function (done, err) {
         if (done == false) {
-            var response = {
-                code: 400,
-                message: err
-            };
-            res.send(JSON.stringify(response));
+            res.status(400).send(err);
         } else {
-            response = {
-                code: 200,
-                message: "Update successful"
-            };
-            res.send(JSON.stringify(response));
+            res.status(200).send('Update successful');
         }
     })
 };

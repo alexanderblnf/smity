@@ -24,21 +24,15 @@ module.exports = function (app, passport, db, pgp) {
         passport.authenticate('local-login', function (err, user, message) {
             var response = {};
             if (err) {
-                response["code"] = 500;
-                response["message"] = err;
-                res.send(response);
+                res.status(500).send(err);
             } else {
                 if (user == false) {
-                    response["code"] = 400;
-                    response["message"] = message;
-                    res.send(response);
+                    res.status(400).send(message);
                 } else {
                     req.login(user, function () {
-                        response["code"] = 200;
-                        response["message"] = "OK";
                         response["firstname"] = user.firstname;
                         response["lastname"] = user.lastname;
-                        res.send(response);
+                        res.status(200).send(response);
                     });
                 }
             }
@@ -48,20 +42,13 @@ module.exports = function (app, passport, db, pgp) {
 
     app.post('/signup', function (req, res, next) {
         passport.authenticate('local-signup', function (err, user, message) {
-            var response = {};
             if (err) {
-                response["code"] = 500;
-                response["message"] = err;
-                res.send(response);
+                res.status(500).send(err);
             } else {
                 if (user == false) {
-                    response["code"] = 400;
-                    response["message"] = message;
-                    res.send(response);
+                    res.status(400).send(message);
                 } else {
-                    response["code"] = 200;
-                    response["message"] = "OK";
-                    res.send(response);
+                    res.status(200).send('OK');
                 }
             }
 

@@ -5,7 +5,6 @@ exports.getCampaigns = function (options, res) {
 
         var stream = require('stream');
         var out = new stream.Readable();
-        var outJSON = [];
         var full = "";
         response.on('data', function (data) {
             full += data;
@@ -26,7 +25,6 @@ exports.getCampaignUsers = function (options, res) {
 
         var stream = require('stream');
         var out = new stream.Readable();
-        var outJSON = [];
         var full = "";
         response.on('data', function (data) {
             full += data;

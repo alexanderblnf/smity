@@ -1,10 +1,59 @@
 var elasticsearch = require('elasticsearch');
+
+// instance of elasticJS
 var client = new elasticsearch.Client({
     host: 'http://141.85.232.64:9200'
 });
-var array = require('node-array-module');
+
+// regression module
 var regression = require('regression');
 
+exports.getMeansForTime = function (options, res) {
+    var goodSensors = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
+    client.search({
+        index: goodSensors,
+        type: options.param,
+        from: 0,
+        size: goodSensors.length * 10,
+        body: {
+            query: {
+                range: {
+                    time: {
+                        from: options.time - 900,
+                        to: options.time + 900
+                    }
+                }
+            },
+            sort: [{
+                time: {
+                    order: 'asc'
+                }
+            }]
+
+        }
+    }).then(function (resp) {
+
+        var out = [];
+        resp.hits.hits.forEach(function (val) {
+            var temp = {
+                result: val["_source"][options.param]
+            };
+            out.push(temp);
+        });
+
+        var means = normalize(out);
+        var result = {
+            time: options.time,
+            result: means
+        };
+        res.send(result);
+    }, function (err) {
+        console.log(err);
+        res.status(500).send("Server error");
+    });
+};
+
+// get all urad measurements for given interval
 exports.getAllForInterval = function (options, res) {
     var entries = Math.floor(((options.end - options.start) * 15) / 180);
     client.search({
@@ -39,36 +88,37 @@ exports.getAllForInterval = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
+// heatmap function
 exports.getDataForHeatmap = function (options, res) {
+    var entries;
+    var intervals = [];
+    if (options.step == null) {
+        entries = Math.floor(((options.end - options.start) * 15) / 180);
+        var temp = {
+            range: {
+                time: {
+                    from: options.start,
+                    to: options.end
+                }
+            }
+        };
+        intervals.push(temp);
+    } else {
+        entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
+        makeSteppedInterval(options, intervals);
+    }
     client.search({
         type: options.param,
         from: 0,
-        size: 12 * 50,
+        size: entries,
         body: {
-//             aggs: {
-//                 by_email: {
-//                     terms: {
-//             field: "_index",
-//             size: 10
-//     },
-//     aggs: {
-//         by_top_hit: { top_hits: { size: 15 } }
-//     }
-// }
-// },
             query: {
                 bool: {
-                    must: {
-                        range: {
-                            time: {
-                                from: options.start,
-                                to: options.end
-                            }
-                        }
-                    },
+                    should: intervals,
                     must_not: {
                         bool: {
                             must: {
@@ -98,18 +148,12 @@ exports.getDataForHeatmap = function (options, res) {
     }).then(function (resp) {
         var out = [];
         resp.hits.hits.forEach(function (d) {
-            // if(out[d["_index"]] != null) {
-            //     out[d["_index"]].push(d["_source"]);
-            // } else {
-            //     out[d["_index"]] = [];
-            //     out[d["_index"]].push(d["_source"]);
-            // }
             out.push(d["_source"]);
-            //out.push(d);
         });
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -143,6 +187,7 @@ exports.getForInterval = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -168,6 +213,7 @@ exports.getLive = function (res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -201,12 +247,14 @@ exports.getLiveMeans = function (res) {
                 all[id][key] = val;
         });
         var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
-        var indexes = ['82000039', '82000034', '82000056', '82000035', '8200003f', '82000038', '8200003d', '8200003c', '8200003a', '82000036', '82000057', '8200003e', '8200003b', '82000037', '82000058'];
         var means = {};
         var count = {};
         var dispersion = {};
         var correctedmeans = {};
         var correctedcount = {};
+
+        // urad sensors that are reliable
+        var indexes = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
 
         //initialization
         params.forEach(function (param) {
@@ -216,6 +264,7 @@ exports.getLiveMeans = function (res) {
             correctedcount[param] = 0;
             correctedmeans[param] = 0;
         });
+
 
         //compute sum and count
         indexes.forEach(function (index) {
@@ -232,7 +281,7 @@ exports.getLiveMeans = function (res) {
 
         //compute mean
         params.forEach(function (param) {
-            means[param] = 1.0 * means[param] / count[param];
+            means[param] /= count[param];
         });
 
         //compute dispersion sum
@@ -249,7 +298,7 @@ exports.getLiveMeans = function (res) {
 
         //compute dispersion
         params.forEach(function (param) {
-            dispersion[param] = Math.sqrt(1.0 * dispersion[param] / count[param]);
+            dispersion[param] = Math.sqrt(dispersion[param] / count[param]);
         });
 
         //compute corrected sums and count
@@ -258,6 +307,7 @@ exports.getLiveMeans = function (res) {
                 var sensor = all[index];
                 params.forEach(function (param) {
                     if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                        // throw sensors that are too far from the average
                         if (Math.abs(sensor[param] - means[param]) < dispersion[param]) {
                             correctedmeans[param] += sensor[param];
                             correctedcount[param]++;
@@ -270,7 +320,7 @@ exports.getLiveMeans = function (res) {
         //compute corrected final mean
         params.forEach(function (param) {
             if (correctedmeans[param] != 0) {
-                correctedmeans[param] = Math.round(1.0 * correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+                correctedmeans[param] = Math.round(correctedmeans[param] / correctedcount[param] * 1000) / 1000;
             }
 
         });
@@ -278,18 +328,21 @@ exports.getLiveMeans = function (res) {
         res.send(correctedmeans);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
-
+// Prediction function
 exports.hourlyPrediction = function (options, res) {
     var intervals = [];
+    // generates the 30 day interval
     makePredictionSteps(options, intervals);
 
+    var goodSensors = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
     client.search({
-        index: ['82000039', '8200003c', '8200003a', '8200003b', '8200003e', '82000036'],
+        index: goodSensors,
         type: options.param,
-        size: 150 * 6,
+        size: 300 * 9,
 
         body: {
             query: {
@@ -316,6 +369,7 @@ exports.hourlyPrediction = function (options, res) {
         keys.forEach(function (key) {
             result.push(makeRegression(options.desired, sensors[key], options.param));
         });
+
         var val = normalize(result);
 
         var prediction = {
@@ -327,6 +381,7 @@ exports.hourlyPrediction = function (options, res) {
 
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -360,6 +415,7 @@ exports.getIntervalSteps = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -450,6 +506,7 @@ exports.getGeneric = function (options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
@@ -489,19 +546,14 @@ exports.getIntervalStepsAll = function(options, res) {
         res.send(out);
     }, function (err) {
         console.log(err.message);
+        res.status(500).send("Server error");
     })
 };
 
-var length = 0;
-
-function iterate(res) {
-
-}
-
+// weekly report function
 exports.weeklyReport = function (options, res) {
     var date = new Date();
-    var lastMonday = setMonday(date);
-    var unix = (Date.parse(lastMonday) / 1000) - (7 * 24 * 3600);
+    var unix = setMonday(date);
     var result = [];
     var count = 0;
 
@@ -577,6 +629,7 @@ exports.weeklyReport = function (options, res) {
             }
         }, function (err) {
             console.log(err.message);
+            res.status(500).send("Server error");
         })
     }
 };
@@ -603,12 +656,17 @@ function makePredictionSteps(options, intervals) {
 }
 
 function setMonday(date) {
-    var day = date.getDay() || 7;
-    if (day !== 1) {
-    }
-    date.setHours(-24 * (day - 1));
+    date.setHours(0);
     date.setMinutes(0);
-    return date;
+    var diff = date.getDay() - 1;
+    var lastMonday = (Date.parse(date) / 1000);
+    if (diff === -1) {
+        lastMonday -= 6 * 24 * 3600;
+    } else if (diff > 0) {
+        lastMonday -= diff * 24 * 3600;
+    }
+    lastMonday -= 7 * 24 * 3600;
+    return lastMonday;
 }
 
 function makeSteppedInterval(options, intervals) {
@@ -644,18 +702,24 @@ function makeRegression(time, data, param) {
             temp.push(val[param]);
             regressionData.push(temp);
         });
+        var temp = [data.length, null];
+        regressionData.push(temp);
         var reg = regression('linear', regressionData);
         var result = {
             time: time,
-            result: reg.equation[1]
+            result: reg.points[reg.points.length - 1][1]
         };
         return result;
     }
 }
 
+// auxiliary function to compute normalized mean
 function normalize(results) {
     var sum = 0;
     results.forEach(function (d) {
+        if (!d.hasOwnProperty('result')) {
+            return -1;
+        }
         sum += d.result;
     });
 

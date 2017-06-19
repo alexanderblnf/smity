@@ -5,6 +5,16 @@ var params = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm)';
 var params_witall = '(|temperature|humidity|pressure|voc|co2|ch2o|pm25|cpm|all)';
 var datamodes = '(|array|indexmap)';
 
+// auxiliary function to get means for a certain time
+// router.get('/means/:param/:time', function (req, res) {
+//     var options = {
+//         param: req.params.param,
+//         time: req.params.time
+//     };
+//     elasticFunction.getMeansForTime(options, res);
+// });
+
+// Get measurements for all uRAD Sensors for a given parameter and time interval
 router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
     var options = {
         param: req.params.param,
@@ -12,12 +22,19 @@ router.get('/all/:param' + params + '/:timeStart/:timeEnd', function (req, res) 
         end: req.params.timeEnd
     };
     var diff = options.end - options.start;
-    if (diff <= 24000) {
-        elasticFunction.getAllForInterval(options, res);
+    var maxMeasurementTime = 24000;
+
+    if (diff <= 0) {
+        res.status(400).send('End time is before start time');
     } else {
-        options.step = Math.ceil(diff / 24000);
-        elasticFunction.getIntervalStepsAll(options, res);
+        if (diff <= maxMeasurementTime) {
+            elasticFunction.getAllForInterval(options, res);
+        } else {
+            options.step = Math.ceil(diff / maxMeasurementTime);
+            elasticFunction.getIntervalStepsAll(options, res);
+        }
     }
+
 });
 
 router.get('/heatmapdata/:param' + params + '/:timeStart/:timeEnd', function (req, res) {
@@ -27,25 +44,31 @@ router.get('/heatmapdata/:param' + params + '/:timeStart/:timeEnd', function (re
 		end: req.params.timeEnd
 	};
 
-	elasticFunction.getDataForHeatmap(options, res);
+    var diff = options.end - options.start;
+    var maxMeasurementTime = 24000;
+
+    if (diff <= 0) {
+        res.status(400).send('End time is before start time');
+    } else {
+        if (diff >= maxMeasurementTime) {
+            options.step = Math.ceil(diff / maxMeasurementTime);
+        }
+        elasticFunction.getDataForHeatmap(options, res);
+    }
 });
 
 router.get('/:param' + params + '/prediction/:desired', function (req, res) {
-    var desired = new Date(req.params.desired * 1000);
-    var hours = Number(desired.getHours()), minutes = Number(desired.getMinutes());
-    var date = new Date();
-    var now = Math.floor(date.getTime() / 1000);
-    var start = (req.params.desired - 2592000) + (hours * 3600 + minutes * 60);
+    var start = (req.params.desired - 2592000); // - 30 days
     var options = {
         device: req.params.device,
         param: req.params.param,
         desired: req.params.desired,
         start: start,
-        end: now
+        end: req.params.desired
     };
 
     if(options.time < 1483273126) {
-        res.send('{"error": "No data available for this time"}');
+        res.status(400).send('No data available for this time');
     } else {
         elasticFunction.hourlyPrediction(options, res);
     }
@@ -60,13 +83,13 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd', function (req, r
     };
 
     if(options.start > options.end) {
-        res.send('{"error": "Start time must be before end time"}');
+        res.status(400).send('End time is before start time');
     } else {
         var diff = options.end - options.start;
-        if (diff <= 90000) {
+        if (diff <= 432000) {
             elasticFunction.getForInterval(options, res);
         } else {
-            options.step = Math.ceil(diff / 90000);
+            options.step = Math.ceil(diff / 432000);
             elasticFunction.getIntervalSteps(options, res);
         }
 
@@ -83,7 +106,7 @@ router.get('/:device/:param' + params + '/:timeStart/:timeEnd/:step', function (
     };
 
     if(options.start > options.end) {
-        res.send('{"error": "Start time must be before end time"}');
+        res.status(400).send('Start time must be before end time');
     } else {
         if (options.step < 0) {
             res.send('{"error" : "Step must be positive"}');
