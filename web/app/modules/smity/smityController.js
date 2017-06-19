@@ -56,7 +56,7 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 			.then(function (response) {
 				vm.preferences = [];
 
-				userPreferences = response.message;
+				userPreferences = response;
 				userPreferences.forEach(function (selected) {
 					vm.preferences = vm.preferences.concat(vm.widgets.filter(function (item) {
 						return item.link === selected;

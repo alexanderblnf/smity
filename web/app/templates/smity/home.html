@@ -8,8 +8,13 @@
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<li class="dropdown user user-menu">
-					<button type="button" class="btn btn-block btn-default graybutton bevelonpress-small"
+					<button type="button" class="btn btn-block btn-default graybutton bevelonpress-small col-xs-8"
 					        ng-click="vm.logout()">Deconectare
+					</button>
+
+					<button type="button" class="btn btn-block btn-default graybutton"
+					        ng-if="vm.havePermission()"
+					        ng-click="vm.go('member')"> Adaugare membru
 					</button>
 					<!--<ul class="dropdown-menu">-->
 						<!--<li class="user-header">-->

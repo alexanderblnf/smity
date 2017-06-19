@@ -17,10 +17,14 @@ function SecurityController(SecurityService, $state) {
 	vm.login = login;
 	vm.register = register;
     vm.addMember = addMember;
+	vm.goTo = goTo;
+	vm.isState = isState;
+	vm.havePermission = havePermission;
 
 	function login() {
 		return SecurityService.login({email: vm.user, password: vm.pass})
 			.then(function (response) {
+				SecurityService.setCredentials();
                 $state.go('app.home');
 			})
 			.catch(function (response) {
@@ -49,4 +53,16 @@ function SecurityController(SecurityService, $state) {
                 console.log(response);
             });
     }
+
+	function goTo(state) {
+		$state.go(state);
+	}
+
+	function isState(state) {
+		return $state.includes(state);
+	}
+
+	function havePermission() {
+
+	}
 }
