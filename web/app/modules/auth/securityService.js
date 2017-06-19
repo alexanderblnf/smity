@@ -34,7 +34,7 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 	}
 
 	function loggedIn() {
-		$http.get(Constants.URL.SERVER + '/isloggedin')
+		SecurityResource.loggedin().$promise
 			.then(function (response) {
 				if (response.data === false) {
 					$state.go('login');

@@ -44,8 +44,6 @@ function SecurityController(SecurityService, $state, Constants, $rootScope) {
 	}
 
     function addMember() {
-        vm.registerUser['userid'] = 2;
-
         return SecurityService.addMember(vm.registerUser)
             .then(function () {
 	            $state.go('app.home');

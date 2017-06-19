@@ -41,16 +41,28 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 				delete response.$promise;
 				delete response.$resolved;
 
+				response.pressure *= 0.00750061683;
+				response.pressure = Math.round(response.pressure);
+
 				var keys = Object.keys(response);
 
 				vm.widgets = [];
 				for (var i = 0; i < keys.length; i++) {
-					vm.widgets.push({
-						value: response[keys[i]],
-						name: Constants.NAMES[keys[i]],
-						unit: Constants.UNITS[keys[i]],
-						link: keys[i]
-					})
+					if (keys[i] === 'pressure') {
+						vm.widgets.push({
+							value: response[keys[i]],
+							name: Constants.NAMES[keys[i]],
+							unit: 'mmHg',
+							link: keys[i]
+						})
+					} else {
+						vm.widgets.push({
+							value: response[keys[i]],
+							name: Constants.NAMES[keys[i]],
+							unit: Constants.UNITS[keys[i]],
+							link: keys[i]
+						})
+					}
 				}
 				_getPreferences();
 			});
