@@ -22,6 +22,11 @@ module.exports = function (app, passport, db, pgp) {
 
     app.post('/login', function (req, res, next) {
         passport.authenticate('local-login', function (err, user, message) {
+            var permissionLookup = {
+                1: 'ADMIN',
+                2: 'MANAGER',
+                3: 'CITIZEN'
+            };
             var response = {};
             if (err) {
                 res.status(500).send(err);
@@ -32,6 +37,7 @@ module.exports = function (app, passport, db, pgp) {
                     req.login(user, function () {
                         response["firstname"] = user.firstname;
                         response["lastname"] = user.lastname;
+                        response["permission"] = permissionLookup[user.permission];
                         res.status(200).send(response);
                     });
                 }

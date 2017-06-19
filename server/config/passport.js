@@ -130,7 +130,8 @@ module.exports = function (passport, db, pgp) {
                         email: email,
                         password: password,
                         firstname: data.firstname,
-                        lastname: data.lastname
+                        lastname: data.lastname,
+                        permission: data.permission
                     };
                     return done(null, newUser);
                 });
