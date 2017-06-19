@@ -8,9 +8,10 @@ angular
 		'SecurityService',
 		'PreferenceService',
 		'Constants',
+		'$rootScope',
 		SmityController]);
 
-function SmityController($state, ElasticService, SecurityService, PreferenceService, Constants) {
+function SmityController($state, ElasticService, SecurityService, PreferenceService, Constants, $rootScope) {
 	var vm = this;
 
 	vm.go = go;
@@ -18,15 +19,19 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 	vm.showDropdown = showDropdown;
 	vm.addWidget = addWidget;
 	vm.removeWidget = removeWidget;
+	vm.haveAdminPermission = haveAdminPermission;
+	vm.havePermission = havePermission;
 
 	var userPreferences = undefined;
+	var user = SecurityService.getCredentials();
+	var permissions = user.permissions;
 
 	vm.widgets = undefined;
 	vm.dropdown = false;
 	vm.selected = undefined;
 	vm.preferences = [];
 	vm.name = "Overview";
-
+	vm.username = user.username;
 
 	_getAll();
 
@@ -118,5 +123,13 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 			.then(function () {
 				$state.go('login');
 			});
+	}
+
+	function haveAdminPermission() {
+		return Constants.ADD_MEMBER.indexOf(permissions) > -1;
+	}
+
+	function havePermission() {
+		return Constants.PERMISSIONS.indexOf(permissions) > -1;
 	}
 }

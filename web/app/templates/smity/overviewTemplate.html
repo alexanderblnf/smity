@@ -19,5 +19,7 @@
 		</div>
 	</div>
 
-	<a href ui-sref="{{linkFunction}}" class="small-box-footer">Afla mai multe <i class="fa fa-arrow-circle-right"></i></a>
+	<a href ui-sref="{{linkFunction}}" ng-if="havePermission()" class="small-box-footer">Afla mai multe <i
+			class="fa fa-arrow-circle-right"></i></a>
+	<a ng-if="!havePermission()" class="small-box-footer" style="height: 4vh;"></a>
 </div>

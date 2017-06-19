@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('smity')
-	.directive('overview', [function () {
+	.directive('overview', ['SecurityService', 'Constants', function (SecurityService, Constants) {
         return {
             templateUrl: '/templates/smity/overviewTemplate.html',
             scope: {
@@ -20,5 +20,9 @@ angular.module('smity')
             $scope.remove = function () {
                 $scope.removeCallback()($scope.parameterName);
             };
+
+	        $scope.havePermission = function () {
+		        return Constants.PERMISSIONS.indexOf(SecurityService.getCredentials().permissions) > -1;
+	        }
         }
     }]);

@@ -222,7 +222,9 @@ angular
 			ch2o: 'Formaldehida',
 			cpm: 'Radiatii',
 			voc: 'Compusi organici volatili'
-		}
+		},
+		PERMISSIONS: ['ADMIN', 'MANAGER'],
+		ADD_MEMBER: ['ADMIN']
 	});
 
 var initHeatMap = {

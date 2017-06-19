@@ -5,9 +5,11 @@ angular
 	.controller('SecurityController', [
 		'SecurityService',
 		'$state',
+		'Constants',
+		'$rootScope',
 		SecurityController]);
 
-function SecurityController(SecurityService, $state) {
+function SecurityController(SecurityService, $state, Constants, $rootScope) {
 	var vm = this;
 
 	vm.user = undefined;
@@ -19,12 +21,11 @@ function SecurityController(SecurityService, $state) {
     vm.addMember = addMember;
 	vm.goTo = goTo;
 	vm.isState = isState;
-	vm.havePermission = havePermission;
 
 	function login() {
 		return SecurityService.login({email: vm.user, password: vm.pass})
 			.then(function (response) {
-				SecurityService.setCredentials();
+				SecurityService.setCredentials(response.firstname, response.lastname, response.permission);
                 $state.go('app.home');
 			})
 			.catch(function (response) {
@@ -62,7 +63,5 @@ function SecurityController(SecurityService, $state) {
 		return $state.includes(state);
 	}
 
-	function havePermission() {
 
-	}
 }

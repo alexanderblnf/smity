@@ -15,6 +15,7 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 		logout: logout,
 		loggedIn: loggedIn,
 		setCredentials: setCredentials,
+		getCredentials: getCredentials,
 		clearCredentials: clearCredentials,
 		addMember: addMember
 	};
@@ -41,12 +42,9 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 			});
 	}
 
-	function setCredentials(username, password, perms) {
+	function setCredentials(firstName, lastName, perms) {
 		$rootScope.globals = {
-			currentUser: {
-				username: username,
-				authdata: password
-			},
+			username: firstName + ' ' + lastName,
 			permissions: perms
 		};
 
@@ -54,6 +52,10 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 		var cookieExp = new Date();
 		cookieExp.setDate(cookieExp.getDate() + 7);
 		$cookies.putObject('globals', $rootScope.globals, {expires: cookieExp});
+	}
+
+	function getCredentials() {
+		return $cookies.getObject('globals');
 	}
 
 	function clearCredentials() {
