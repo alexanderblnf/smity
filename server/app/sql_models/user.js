@@ -4,9 +4,9 @@ exports.addUser = function (options, callback) {
     } else {
         findByEmail(options, function (err, data) {
             if(data == null) {
-                var add = new options.ps('add-user', 'INSERT INTO users(email, password, firstname, lastname, permission) ' +
-                    'VALUES($1, $2, $3, $4, 3) returning id',
-                    [options.email, options.password, options.firstName, options.lastName]);
+                var add = new options.ps('add-user', 'INSERT INTO users(email, password, firstname, lastname, permission, preferences) ' +
+                    'VALUES($1, $2, $3, $4, 3, $5) returning id',
+                    [options.email, options.password, options.firstName, options.lastName, [1, 3]]);
 
                 options.db.one(add)
                     .then(function (data) {
@@ -53,11 +53,6 @@ exports.verifyPassword = function (options, callback) {
                         callback(res);
                     }
                 });
-                /*if(data.password == options.password) {
-                    callback(true);
-                } else {
-                    callback(false);
-                }*/
             }
 
         });
