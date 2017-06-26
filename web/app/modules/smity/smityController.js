@@ -23,15 +23,14 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 	vm.havePermission = havePermission;
 
 	var userPreferences = undefined;
-	var user = SecurityService.getCredentials();
-	var permissions = user.permissions;
+	var user;
+	var permissions;
 
 	vm.widgets = undefined;
 	vm.dropdown = false;
 	vm.selected = undefined;
 	vm.preferences = [];
 	vm.name = "Overview";
-	vm.username = user.username;
 
 	_getAll();
 
@@ -69,6 +68,12 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 	}
 
 	function _getPreferences() {
+		user = SecurityService.getCredentials();
+		if (user) {
+			permissions = user.permissions;
+			vm.username = user.username;
+		}
+
 		PreferenceService.getAll()
 			.then(function (response) {
 				vm.preferences = [];
@@ -89,7 +94,7 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 	}
 
 	function addWidget() {
-		if (vm.selected) {
+		if (vm.selected && userPreferences.indexOf(vm.selected) < 0) {
 			userPreferences.push(vm.selected);
 			PreferenceService.update(userPreferences)
 				.then(function (response) {
@@ -104,8 +109,8 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 				}
 			}));
 
-			showDropdown();
 		}
+		showDropdown();
 	}
 
 	function removeWidget(parameterName) {
@@ -131,6 +136,8 @@ function SmityController($state, ElasticService, SecurityService, PreferenceServ
 	}
 
 	function logout() {
+		SecurityService.clearCredentials();
+
 		return SecurityService.logout()
 			.then(function () {
 				$state.go('login');

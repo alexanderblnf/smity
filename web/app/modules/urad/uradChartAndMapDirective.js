@@ -927,6 +927,9 @@ function UradChartAndMap(Constants, $state) {
 
         initMap();
         initD3($scope.param);
+
+	    var start = performance.now();
         generateD3(initStart, initEnd, $scope.param);
+	    console.log(performance.now() - start);
     }
 }

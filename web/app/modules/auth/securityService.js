@@ -34,7 +34,7 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 	}
 
 	function loggedIn() {
-		SecurityResource.loggedin().$promise
+		$http.get(Constants.URL.SERVER + '/isloggedin')
 			.then(function (response) {
 				if (response.data === false) {
 					$state.go('login');
@@ -61,7 +61,6 @@ function SecurityService(SecurityResource, $rootScope, $cookies, $http, $state, 
 	function clearCredentials() {
 		$rootScope.globals = {};
 		$cookies.remove('globals');
-		remove();
 	}
 
 	function addMember(credentials) {
