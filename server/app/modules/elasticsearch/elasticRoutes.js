@@ -149,5 +149,15 @@ router.get('/livemeans', function(req, res){
    elasticFunction.getLiveMeans(res);
 });
 
+function isLoggedIn(req, res, next) {
+
+    if (req.isAuthenticated())
+        return next();
+    else {
+        console.log('Nu e logat');
+    }
+    // if they aren't redirect them to the home page
+    res.sendStatus(401);
+}
 
 module.exports = router;

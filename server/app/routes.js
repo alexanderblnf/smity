@@ -16,10 +16,6 @@ module.exports = function (app, passport, db, pgp) {
         }
     });
 
-    app.get('/', function (req, res) {
-        // res.sendFile(path.join(__dirname, '../web/app/index.html'));
-    });
-
     app.post('/login', function (req, res, next) {
         passport.authenticate('local-login', function (err, user, message) {
             var permissionLookup = {
@@ -131,7 +127,7 @@ module.exports = function (app, passport, db, pgp) {
      ==========================
      */
     var admin = require('./modules/admin/adminRoutes')(db, pgp);
-    app.use('/admin', admin);
+    app.use('/admin', isLoggedIn, admin);
 
 
     /*
@@ -154,16 +150,16 @@ module.exports = function (app, passport, db, pgp) {
      Endpoints for urad API
      =========================
      */
-    var urad = require('./modules/urad/uradRoutes.js');
-    app.use('/urad', urad);
+    // var urad = require('./modules/urad/uradRoutes.js');
+    // app.use('/urad', urad);
 
     /*
      =============================
      Endpoints for liveObjects API
      =============================
      */
-    var liveObjects = require('./modules/liveobjects/liveObjectsRoutes');
-    app.use('/live', liveObjects);
+    // var liveObjects = require('./modules/liveobjects/liveObjectsRoutes');
+    // app.use('/live', liveObjects);
 
 
     /*
@@ -181,7 +177,7 @@ module.exports = function (app, passport, db, pgp) {
      ============================
      */
     var intelilight = require('./modules/intelilight/elasticRoutes');
-    app.use('/intelilight', intelilight);
+    app.use('/intelilight', isLoggedIn, intelilight);
 
 
     /*
@@ -201,7 +197,7 @@ module.exports = function (app, passport, db, pgp) {
      */
 
     var preferences = require('./modules/preferences/preferencesRoutes')(db, pgp);
-    app.use('/preferences', preferences);
+    app.use('/preferences', isLoggedIn, preferences);
 
 
 };
@@ -209,8 +205,6 @@ module.exports = function (app, passport, db, pgp) {
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on
-    console.log(req._passport);
     if (req.isAuthenticated())
         return next();
     else {

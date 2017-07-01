@@ -78,7 +78,7 @@ exports.getAllForInterval = function (options, res) {
     }).then(function (resp) {
         var out = {};
         resp.hits.hits.forEach(function (d) {
-            if(out[d["_index"]] != null) {
+            if (out[d["_index"]] != null) {
                 out[d["_index"]].push(d["_source"]);
             } else {
                 out[d["_index"]] = [];
@@ -236,96 +236,100 @@ exports.getLiveMeans = function (res) {
         }
     }).then(function (resp) {
         var all = {};
-        resp.hits.hits.forEach(function (d) {
-            var keys = Object.keys(d["_source"]);
-            var key = keys[3];
-            var id = d["_index"];
-            var val = d["_source"][key];
-            if (!all.hasOwnProperty(id))
-                all[id] = {};
-            if (!all[id].hasOwnProperty(key))
-                all[id][key] = val;
-        });
-        var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
-        var means = {};
-        var count = {};
-        var dispersion = {};
-        var correctedmeans = {};
-        var correctedcount = {};
+        if (resp.hits.hits.length == 0) {
+            lastMeasurements(res);
+        } else {
+            resp.hits.hits.forEach(function (d) {
+                var keys = Object.keys(d["_source"]);
+                var key = keys[3];
+                var id = d["_index"];
+                var val = d["_source"][key];
+                if (!all.hasOwnProperty(id))
+                    all[id] = {};
+                if (!all[id].hasOwnProperty(key))
+                    all[id][key] = val;
+            });
+            var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
+            var means = {};
+            var count = {};
+            var dispersion = {};
+            var correctedmeans = {};
+            var correctedcount = {};
 
-        // urad sensors that are reliable
-        var indexes = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
+            // urad sensors that are reliable
+            var indexes = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
 
-        //initialization
-        params.forEach(function (param) {
-            means[param] = 0;
-            count[param] = 0;
-            dispersion[param] = 0;
-            correctedcount[param] = 0;
-            correctedmeans[param] = 0;
-        });
+            //initialization
+            params.forEach(function (param) {
+                means[param] = 0;
+                count[param] = 0;
+                dispersion[param] = 0;
+                correctedcount[param] = 0;
+                correctedmeans[param] = 0;
+            });
 
 
-        //compute sum and count
-        indexes.forEach(function (index) {
-            if (all.hasOwnProperty(index)) {
-                var sensor = all[index];
-                params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
-                        means[param] += sensor[param];
-                        count[param]++;
-                    }
-                });
-            }
-        });
-
-        //compute mean
-        params.forEach(function (param) {
-            means[param] /= count[param];
-        });
-
-        //compute dispersion sum
-        indexes.forEach(function (index) {
-            if (all.hasOwnProperty(index)) {
-                var sensor = all[index];
-                params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
-                        dispersion[param] += Math.pow((sensor[param] - means[param]), 2);
-                    }
-                });
-            }
-        });
-
-        //compute dispersion
-        params.forEach(function (param) {
-            dispersion[param] = Math.sqrt(dispersion[param] / count[param]);
-        });
-
-        //compute corrected sums and count
-        indexes.forEach(function (index) {
-            if (all.hasOwnProperty(index)) {
-                var sensor = all[index];
-                params.forEach(function (param) {
-                    if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
-                        // throw sensors that are too far from the average
-                        if (Math.abs(sensor[param] - means[param]) < dispersion[param]) {
-                            correctedmeans[param] += sensor[param];
-                            correctedcount[param]++;
+            //compute sum and count
+            indexes.forEach(function (index) {
+                if (all.hasOwnProperty(index)) {
+                    var sensor = all[index];
+                    params.forEach(function (param) {
+                        if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                            means[param] += sensor[param];
+                            count[param]++;
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
 
-        //compute corrected final mean
-        params.forEach(function (param) {
-            if (correctedmeans[param] != 0) {
-                correctedmeans[param] = Math.round(correctedmeans[param] / correctedcount[param] * 1000) / 1000;
-            }
+            //compute mean
+            params.forEach(function (param) {
+                means[param] /= count[param];
+            });
 
-        });
+            //compute dispersion sum
+            indexes.forEach(function (index) {
+                if (all.hasOwnProperty(index)) {
+                    var sensor = all[index];
+                    params.forEach(function (param) {
+                        if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                            dispersion[param] += Math.pow((sensor[param] - means[param]), 2);
+                        }
+                    });
+                }
+            });
 
-        res.send(correctedmeans);
+            //compute dispersion
+            params.forEach(function (param) {
+                dispersion[param] = Math.sqrt(dispersion[param] / count[param]);
+            });
+
+            //compute corrected sums and count
+            indexes.forEach(function (index) {
+                if (all.hasOwnProperty(index)) {
+                    var sensor = all[index];
+                    params.forEach(function (param) {
+                        if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                            // throw sensors that are too far from the average
+                            if (Math.abs(sensor[param] - means[param]) < dispersion[param]) {
+                                correctedmeans[param] += sensor[param];
+                                correctedcount[param]++;
+                            }
+                        }
+                    });
+                }
+            });
+
+            //compute corrected final mean
+            params.forEach(function (param) {
+                if (correctedmeans[param] != 0) {
+                    correctedmeans[param] = Math.round(correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+                }
+
+            });
+
+            res.send(correctedmeans);
+        }
     }, function (err) {
         console.log(err.message);
         res.status(500).send("Server error");
@@ -457,7 +461,7 @@ exports.getGeneric = function (options, res) {
     var hourscript = {
         script: {
             script: {
-                inline: "( (doc['time'].value/60)%1440 > (" + options.hourStart*60 + ") ) & ( (doc['time'].value/60)%1440 < (" + options.hourEnd*60 + ") )",
+                inline: "( (doc['time'].value/60)%1440 > (" + options.hourStart * 60 + ") ) & ( (doc['time'].value/60)%1440 < (" + options.hourEnd * 60 + ") )",
                 //inline: "doc['time'].date.hourOfDay > 12",
                 lang: "expression"
             }
@@ -511,7 +515,7 @@ exports.getGeneric = function (options, res) {
 };
 
 
-exports.getIntervalStepsAll = function(options, res) {
+exports.getIntervalStepsAll = function (options, res) {
     var intervals = [];
     var entries = Math.floor(((options.end - options.start) * 15) / (options.step * 180));
     makeSteppedInterval(options, intervals);
@@ -746,4 +750,135 @@ function normalize(results) {
     correctedMeans = Math.round(correctedMeans / correctedCount * 1000) / 1000;
 
     return correctedMeans;
+}
+
+exports.last = function (res) {
+    lastMeasurements(res);
+};
+
+function lastMeasurements(res) {
+    client.search({
+        size: 1,
+        body: {
+            sort: [{
+                time: {
+                    order: 'desc'
+                }
+            }]
+        }
+    }).then(function (resp) {
+        var time = resp.hits.hits[0]["_id"];
+        client.search({
+            size: 200,
+            body: {
+                query: {
+                    range: {
+                        time: {
+                            from: time - 60 * 4
+                        }
+                    }
+                },
+                sort: [{
+                    time: {
+                        order: 'desc'
+                    }
+                }]
+            }
+        }).then(function (resp) {
+            var all = {};
+            resp.hits.hits.forEach(function (d) {
+                var keys = Object.keys(d["_source"]);
+                var key = keys[3];
+                var id = d["_index"];
+                var val = d["_source"][key];
+                if (!all.hasOwnProperty(id))
+                    all[id] = {};
+                if (!all[id].hasOwnProperty(key))
+                    all[id][key] = val;
+            });
+            var params = ['temperature', 'humidity', 'pressure', 'voc', 'co2', 'ch2o', 'pm25', 'cpm'];
+            var means = {};
+            var count = {};
+            var dispersion = {};
+            var correctedmeans = {};
+            var correctedcount = {};
+
+            // urad sensors that are reliable
+            var indexes = ['82000035', '82000036', '82000037', '82000038', '82000039', '8200003a', '8200003b', '8200003c', '8200003d'];
+
+            //initialization
+            params.forEach(function (param) {
+                means[param] = 0;
+                count[param] = 0;
+                dispersion[param] = 0;
+                correctedcount[param] = 0;
+                correctedmeans[param] = 0;
+            });
+
+
+            //compute sum and count
+            indexes.forEach(function (index) {
+                if (all.hasOwnProperty(index)) {
+                    var sensor = all[index];
+                    params.forEach(function (param) {
+                        if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                            means[param] += sensor[param];
+                            count[param]++;
+                        }
+                    });
+                }
+            });
+
+            //compute mean
+            params.forEach(function (param) {
+                means[param] /= count[param];
+            });
+
+            //compute dispersion sum
+            indexes.forEach(function (index) {
+                if (all.hasOwnProperty(index)) {
+                    var sensor = all[index];
+                    params.forEach(function (param) {
+                        if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                            dispersion[param] += Math.pow((sensor[param] - means[param]), 2);
+                        }
+                    });
+                }
+            });
+
+            //compute dispersion
+            params.forEach(function (param) {
+                dispersion[param] = Math.sqrt(dispersion[param] / count[param]);
+            });
+
+            //compute corrected sums and count
+            indexes.forEach(function (index) {
+                if (all.hasOwnProperty(index)) {
+                    var sensor = all[index];
+                    params.forEach(function (param) {
+                        if (sensor.hasOwnProperty(param) && sensor[param] != 0) {
+                            // throw sensors that are too far from the average
+                            if (Math.abs(sensor[param] - means[param]) < dispersion[param]) {
+                                correctedmeans[param] += sensor[param];
+                                correctedcount[param]++;
+                            }
+                        }
+                    });
+                }
+            });
+
+            //compute corrected final mean
+            params.forEach(function (param) {
+                if (correctedmeans[param] != 0) {
+                    correctedmeans[param] = Math.round(correctedmeans[param] / correctedcount[param] * 1000) / 1000;
+                }
+
+            });
+
+            res.send(correctedmeans);
+        }, function (err) {
+            console.log(err.message);
+            res.status(500).send("Server error");
+        });
+    });
 }
