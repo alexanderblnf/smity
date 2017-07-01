@@ -7,7 +7,6 @@ function PreferenceResource($resource, Constants) {
 	return $resource(Constants.URL.SERVER + '/preferences/get', {}, {
 		'getAll': {
 			method: 'GET',
-			cache: true,
 			isArray: true
 		},
 		'update': {
